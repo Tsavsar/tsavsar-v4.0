@@ -1,0 +1,50 @@
+.footer { display: flex; flex-direction: column; gap: 20px; }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  width: fit-content;
+}
+.lines { display: flex; flex-direction: column; gap: 2px; }
+.text {
+  font-size: var(--font-12);
+  line-height: var(--lh);
+  letter-spacing: var(--ls-12);
+  font-weight: 400;
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+.text strong { font-weight: 500; color: var(--text-strong); }
+
+/* Vinyl */
+.vinyl {
+  width: 40px; height: 40px; border-radius: 50%;
+  flex-shrink: 0; position: relative;
+  background: repeating-radial-gradient(circle at center,
+    #1a1a1a 0px, #1a1a1a 1.5px, #0a0a0a 1.5px, #0a0a0a 3px);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  animation: spin 4s linear infinite;
+  animation-play-state: paused;
+}
+.spinning { animation-play-state: running; }
+.vinylArt {
+  position: absolute; left: 50%; top: 50%;
+  width: 46%; height: 46%;
+  transform: translate(-50%,-50%);
+  border-radius: 50%; object-fit: cover;
+  background: #333;
+  border: 0.5px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.35);
+  z-index: 1;
+}
+.vinylHole {
+  position: absolute; left: 50%; top: 50%;
+  width: 3px; height: 3px; border-radius: 50%;
+  background: #fff; transform: translate(-50%,-50%); z-index: 2;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.bar { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.bar p { font-size: var(--font-12); line-height: var(--lh); letter-spacing: var(--ls-12); font-weight: 400; color: var(--text-sub); white-space: nowrap; }

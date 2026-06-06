@@ -1,0 +1,36 @@
+.heroImg {
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(201.06deg, rgb(251,77,0) 3.08%, rgb(244,3,131) 95.93%);
+  overflow: hidden;
+  position: relative;
+  transition: height 0.35s cubic-bezier(0.4,0,0.2,1),
+              width 0.35s cubic-bezier(0.4,0,0.2,1),
+              border-radius 0.35s ease;
+  will-change: height;
+}
+
+/* Tag with link */
+.tagLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: var(--font-12);
+  letter-spacing: var(--ls-12);
+  color: var(--text-strong);
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.tagLink:hover { background: #efefef; }
+
+/* Inline image block */
+.imgBlock {
+  width: 100%;
+  height: 300px;
+  background: #f7f7f7;
+  position: relative;
+  overflow: hidden;
+}

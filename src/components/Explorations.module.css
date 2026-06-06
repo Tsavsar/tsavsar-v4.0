@@ -1,0 +1,31 @@
+.section { display: flex; flex-direction: column; gap: 0; }
+.label { font-size: var(--font-14); color: var(--text-sub); letter-spacing: var(--ls-14); margin-bottom: 18px; }
+.showcase {
+  width: 100%;
+  background: #f7f7f7;
+  border-radius: 0;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  min-height: 300px;
+  justify-content: center;
+}
+.hint {
+  font-size: 11px;
+  color: var(--text-soft);
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 6px;
+  padding: 4px 10px;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+}
+.cardWrap { width: 300px; }
+.caption { font-size: var(--font-12); color: var(--text-soft); letter-spacing: var(--ls-12); position: absolute; top: 16px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.footer { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+.footerLabel { font-size: var(--font-14); font-weight: 500; color: var(--text-strong); letter-spacing: var(--ls-14); flex: 1; }
+.footerDesc { font-size: var(--font-14); color: var(--text-sub); letter-spacing: var(--ls-14); margin-top: 4px; }

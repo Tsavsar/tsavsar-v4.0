@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vicariously living through the main character</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title"       content="Vicariously living through the main character" />
+    <meta property="og:description" content="Why we emotionally attach ourselves to movie characters and the lives they live." />
+    <meta property="og:image"       content="/og-image.png" />
+    <meta property="og:type"        content="article" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="Vicariously living through the main character" />
+    <meta name="twitter:description" content="Why we emotionally attach ourselves to movie characters and the lives they live." />
+    <meta name="twitter:image"       content="/og-image.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html { font-size: clamp(14px, calc(100vw / 90), 17.5px); }
+
+    :root {
+      --text-strong: #171717;
+      --text-sub: #5c5c5c;
+      --text-soft: #a3a3a3;
+      --text-disabled: #d1d1d1;
+      --bg-surface: #f7f7f7;
+      --font-12: 0.75rem;
+      --font-14: 0.875rem;
+      --font-16: 1rem;
+      --lh: 1.3;
+      --ls-12: 0.02em;
+      --ls-14: 0.02em;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: var(--text-strong);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 120px 0 80px;
+    }
+
+    .page {
+      width: 620px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      height: 24px;
+      width: 100%;
+    }
+    .back-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--bg-surface);
+      border-radius: 8px;
+      padding: 4px 7px 4px 4px;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .back-pill:hover { background: #efefef; }
+    .back-pill svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .back-pill span {
+      font-size: var(--font-12);
+      line-height: var(--lh);
+      letter-spacing: var(--ls-12);
+      color: var(--text-sub);
+    }
+    .crumb-trail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+    .crumb-trail .muted {
+      font-size: var(--font-12);
+      line-height: var(--lh);
+      letter-spacing: var(--ls-12);
+      color: var(--text-sub);
+      flex-shrink: 0;
+    }
+    .crumb-trail .current {
+      font-size: var(--font-12);
+      line-height: var(--lh);
+      letter-spacing: var(--ls-12);
+      color: var(--text-strong);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .crumb-trail .arrow { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── ARTICLE HEAD ── */
+    .article-head {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .article-hero {
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+    }
+    .article-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .article-titleblock {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .article-h1 {
+      font-size: var(--font-16);
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+      color: var(--text-strong);
+    }
+    .article-tags {
+      display: flex;
+      gap: 4px;
+    }
+    .article-tag {
+      background: var(--bg-surface);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: var(--font-12);
+      line-height: var(--lh);
+      letter-spacing: var(--ls-12);
+      color: var(--text-strong);
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .article-body p {
+      font-size: var(--font-14);
+      line-height: 1.45;
+      letter-spacing: var(--ls-14);
+      color: var(--text-strong);
+    }
+    .article-body .spacer { height: 6px; }
+
+    /* ── MORE ARTICLES ── */
+    .more-section { display: flex; flex-direction: column; gap: 18px; }
+    .section-label {
+      font-size: var(--font-14);
+      line-height: var(--lh);
+      letter-spacing: var(--ls-14);
+      color: var(--text-sub);
+    }
+    .articles-list { display: flex; flex-direction: column; gap: 12px; }
+    .article-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+    }
+    .article-thumb {
+      width: 100px;
+      height: 60px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #e9e9e9;
+    }
+    .article-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .article-info { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .article-info-top { display: flex; align-items: center; gap: 10px; }
+    .article-info-title {
+      flex: 1;
+      font-size: var(--font-14);
+      font-weight: 500;
+      line-height: var(--lh);
+      letter-spacing: var(--ls-14);
+      color: var(--text-strong);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .article-info-top .arrow { width: 14px; height: 14px; flex-shrink: 0; }
+    .article-excerpt {
+      font-size: var(--font-12);
+      line-height: var(--lh);
+      letter-spacing: var(--ls-12);
+      color: var(--text-sub);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .article-meta { display: flex; align-items: center; gap: 4px; }
+    .article-meta span {
+      font-size: var(--font-12);
+      line-height: var(--lh);
+      letter-spacing: var(--ls-12);
+      color: var(--text-soft);
+    }
+    .meta-dot { width: 2px; height: 2px; border-radius: 50%; background: var(--text-disabled); }
+
+    /* ── FOOTER ── */
+    .footer-section { display: flex; flex-direction: column; gap: 20px; }
+    .spotify-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      cursor: pointer;
+      width: fit-content;
+    }
+    .spotify-lines { display: flex; flex-direction: column; gap: 2px; }
+    .spotify-text {
+      font-size: var(--font-12);
+      line-height: var(--lh);
+      letter-spacing: var(--ls-12);
+      font-weight: 400;
+      color: var(--text-sub);
+      white-space: nowrap;
+    }
+    .spotify-text .bold { font-weight: 500; color: var(--text-strong); }
+
+    /* ── SPINNING VINYL ── */
+    .vinyl {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+      background: repeating-radial-gradient(circle at center,
+          #1a1a1a 0px, #1a1a1a 1.5px, #0a0a0a 1.5px, #0a0a0a 3px);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      animation: vinyl-spin 4s linear infinite;
+      animation-play-state: paused;
+    }
+    .vinyl.spinning { animation-play-state: running; }
+    .vinyl-art {
+      position: absolute; left: 50%; top: 50%;
+      width: 46%; height: 46%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%; object-fit: cover; overflow: hidden;
+      background: #333;
+      border: 0.5px solid rgba(255,255,255,0.2);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.35);
+      z-index: 1;
+    }
+    .vinyl-hole {
+      position: absolute; left: 50%; top: 50%;
+      width: 3px; height: 3px; border-radius: 50%;
+      background: #fff; transform: translate(-50%, -50%); z-index: 2;
+    }
+    @keyframes vinyl-spin { to { transform: rotate(360deg); } }
+
+    /* ── VINYL OVERLAY ── */
+    .vinyl-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 40px;
+      background: rgba(245, 245, 245, 0.85);
+      backdrop-filter: blur(24px) saturate(1.1);
+      -webkit-backdrop-filter: blur(24px) saturate(1.1);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .vinyl-overlay.open { opacity: 1; pointer-events: auto; }
+    .vinyl-overlay-close {
+      position: absolute; top: 28px; right: 32px;
+      width: 32px; height: 32px; border: none; background: none;
+      cursor: pointer; color: #5c5c5c;
+      display: flex; align-items: center; justify-content: center;
+      transition: color 0.15s;
+    }
+    .vinyl-overlay-close:hover { color: #171717; }
+    .vinyl-big-wrap {
+      transform: scale(0.85);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .vinyl-overlay.open .vinyl-big-wrap { transform: scale(1); }
+    .vinyl-big {
+      width: 300px; height: 300px; border-radius: 50%; position: relative;
+      background: repeating-radial-gradient(circle at center,
+          #1c1c1c 0px, #1c1c1c 2px, #080808 2px, #080808 5px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 0 40px rgba(0,0,0,0.5);
+      animation: vinyl-spin 6s linear infinite;
+    }
+    .vinyl-big::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%;
+      background: linear-gradient(125deg, rgba(255,255,255,0.12) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.06) 100%);
+      pointer-events: none;
+    }
+    .vinyl-big-art {
+      position: absolute; left: 50%; top: 50%;
+      width: 38%; height: 38%; transform: translate(-50%, -50%);
+      border-radius: 50%; object-fit: cover; background: #333;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1;
+    }
+    .vinyl-big-hole {
+      position: absolute; left: 50%; top: 50%;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #f5f5f5; transform: translate(-50%, -50%);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2); z-index: 2;
+    }
+    .vinyl-details {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 6px; text-align: center; max-width: 80vw;
+    }
+    .vinyl-details-status {
+      font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #a3a3a3; font-weight: 500;
+    }
+    .vinyl-details-title { font-size: 22px; font-weight: 500; color: #171717; line-height: 1.3; }
+    .vinyl-details-artist { font-size: 15px; color: #5c5c5c; font-weight: 400; }
+    .vinyl-spotify-link {
+      margin-top: 14px; display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 16px; border-radius: 999px;
+      background: hsla(0, 0%, 97%, 1); border: 1px solid rgba(0,0,0,0.08);
+      color: #171717; font-size: 13px; font-weight: 500; text-decoration: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .vinyl-spotify-link:hover { background: hsla(0, 0%, 93%, 1); transform: translateY(-1px); }
+    .footer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .footer-bar p {
+      font-size: var(--font-12);
+      line-height: var(--lh);
+      letter-spacing: var(--ls-12);
+      color: var(--text-sub);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <!-- ── BREADCRUMB ── -->
+    <nav class="breadcrumb">
+      <a class="back-pill" href="index.html">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 4L6 8L10 12" stroke="#5c5c5c" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Back</span>
+      </a>
+      <div class="crumb-trail">
+        <span class="muted">Home</span>
+        <span class="muted">/</span>
+        <span class="current">Vicariously living through the main character</span>
+        <svg class="arrow" viewBox="0 0 11.05 8.25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.425 3.425H2.725C1.5651 3.425 0.625 4.3651 0.625 5.525V7.625" stroke="#5C5C5C" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7.625 6.225L10.425 3.425L7.625 0.625" stroke="#5C5C5C" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </nav>
+
+    <!-- ── ARTICLE HEAD ── -->
+    <div class="article-head">
+      <div class="article-hero">
+        <img src="assets/art-hero.png" alt="Vicariously living through the main character" />
+      </div>
+      <div class="article-titleblock">
+        <h1 class="article-h1">Vicariously living through the main character</h1>
+        <div class="article-tags">
+          <span class="article-tag">5 minute read</span>
+          <span class="article-tag">2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ARTICLE BODY ── -->
+    <article class="article-body">
+      <p>I was watching 500 Days of Summer when I decided to write this. You should probably watch it, alongside some of the other movies mentioned here.</p>
+      <p>I've always been curious why certain movies become people's favourites. Not from a critical standpoint, but from a personal one. Sometimes a movie connects with you because a character feels real enough to exist outside the screen.</p>
+      <p>With a movies like (500) days of Summer, Nick and Norah's infinite playlist, Scott Pilgrim vs. the World and so on, there's a character that feels real enough to connect with beyond just the cinematic world they live in. That's where the title comes from, Vicariously living through the main character.</p>
+      <p>This might sound stupid cause yeah you are the main character in your story but are you really living the plot you want to? I loved Project Hail Mary, but I'm not going to space, it's too far, literally space is too far, but also the idea is too far removed from my life that I can't put myself in Grace's shoes. On the other hand of the spectrum we have Scott Pilgrim vs. the World, the story feels like it would play out the same if I substituted myself with Scott, more or less I guess, but it's a character that I see myself being, in a plot I see myself playing out.</p>
+      <p>And this is where the attachment to certain movies comes in, it becomes a form of escapism, might not be the healthiest but I believe it gives something that would be harder to find in other places which is Perspective, I get to see a possible outcome in a situation I could find myself in, it's like an analogy, Grace in Project Hail Mary and Nick in Nick and Norah's Infinite playlist had to make the same choice they're both initially cynical and deeply insecure men who choose to step out of their comfort zones, embrace unexpected partnerships, and ultimately prioritise saving a friend over their own personal safety.</p>
+      <p>Crazy as it might sound, not crazy at all if you've been following the dialogue, I'm far more attached to the choice Nick made than Grace's choice.</p>
+      <p>We can subconsciously end up building ourselves out based on the characters we've been exposed to. I wasn't into playing the bass guitar when I was younger, I played acoustic, and my farthest memory of the bass is from Scott Pilgrim, same for The Smiths, prior to seeing (500) days of Summer, The Cure before I saw Sing Street and so on. We as human beings are so impressionable we don't even realise it, almost everything we do or have done was influenced by some form of connection or lack of connection in the past.</p>
+      <p>When I first watched It's Kind Of A Funny Story, I was through the roof, I read the book first but in every scene I could see myself in Craig, the decisions he made, both good or bad all felt very "Me" y'know? It doesn't even have to be a happy go lucky movie right, another movie, HER, Theodore although being an extreme was another instance of "I can see myself making these decisions" and in this case you get to learn consequences through another person's actions.</p>
+      <p>Safe to say when I'm asked "What's your favourite movie?" It's hard to pick between what was just a fun watch vs what actually spoke to me more on a deep level, there's room for both, people usually feel you have to pick one of the two. I think you can love a movie for being a fun-no-lessons-learnt experience as well as loving another for being a deep black and white think piece about the political and economic state of the world right now.</p>
+      <p>It doesn't take anything away from us to acknowledge it, you don't instantly lose cool points or become less interesting, we are meant to be impressionable that's the whole point of the human experience.</p>
+      <p>I guess all I'm trying to say here is movies like these make us feel better when they're closer to home, we get to live out plots, learn from experiences, and express ourselves without having to actually live those moments ourselves.</p>
+      <p>Ending off with this, there will always be a huge factor to consider when comparing yourself to any image of yourself, you exist outside of fiction, and maybe that's what matters most and maybe that's why these movies stay with us.</p>
+      <div class="spacer"></div>
+      <p>Not because we wanted to literally become those characters, but because for two hours they helped us understand parts of ourselves we didn't fully know how to explain yet.</p>
+    </article>
+
+    <!-- ── MORE ARTICLES ── -->
+    <section class="more-section">
+      <p class="section-label">my articles</p>
+      <div class="articles-list">
+
+        <a class="article-item" href="article.html">
+          <div class="article-thumb">
+            <img src="assets/art-thumb.png" alt="" />
+          </div>
+          <div class="article-info">
+            <div class="article-info-top">
+              <span class="article-info-title">Vicariously living through the main character</span>
+              <svg class="arrow" viewBox="0 0 11.05 8.25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.425 3.425H2.725C1.5651 3.425 0.625 4.3651 0.625 5.525V7.625" stroke="#5C5C5C" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7.625 6.225L10.425 3.425L7.625 0.625" stroke="#5C5C5C" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <p class="article-excerpt">Why we emotionally attach ourselves to movie characters and the lives they live.</p>
+            <div class="article-meta">
+              <span>5 min</span>
+              <div class="meta-dot"></div>
+              <span>2026</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer-section">
+      <div class="spotify-tag" id="spotifyTag" role="button" tabindex="0">
+        <span class="vinyl" id="vinyl">
+          <img class="vinyl-art" id="vinylArt" src="" alt="" />
+          <span class="vinyl-hole"></span>
+        </span>
+        <span class="spotify-lines">
+          <span class="spotify-text" id="spotifyStatus">Last played</span>
+          <span class="spotify-text"><span class="bold" id="spotifyTitle">Feminine Feelings</span> by <span class="bold" id="spotifyArtist">Chrissy</span></span>
+        </span>
+      </div>
+      <div class="footer-bar">
+        <p>© 2026 Shater M. Tsavsar</p>
+        <p>design closer to the user.</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Vinyl overlay -->
+  <div class="vinyl-overlay" id="vinylOverlay">
+    <button class="vinyl-overlay-close" id="vinylClose" aria-label="Close">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="vinyl-big-wrap">
+      <div class="vinyl-big" id="vinylBig">
+        <img class="vinyl-big-art" id="vinylBigArt" src="" alt="" />
+        <span class="vinyl-big-hole"></span>
+      </div>
+    </div>
+    <div class="vinyl-details">
+      <span class="vinyl-details-status" id="ovStatus">Last played</span>
+      <span class="vinyl-details-title" id="ovTitle">—</span>
+      <span class="vinyl-details-artist" id="ovArtist">—</span>
+      <a class="vinyl-spotify-link" id="ovLink" href="#" target="_blank" rel="noopener">
+        Open in Spotify
+        <svg width="12" height="12" viewBox="0 0 11.05 8.25" fill="none">
+          <path d="M10.425 3.425H2.725C1.5651 3.425 0.625 4.3651 0.625 5.525V7.625" stroke="#171717" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7.625 6.225L10.425 3.425L7.625 0.625" stroke="#171717" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const statusEl = document.getElementById('spotifyStatus');
+      const titleEl  = document.getElementById('spotifyTitle');
+      const artistEl = document.getElementById('spotifyArtist');
+      const vinyl    = document.getElementById('vinyl');
+      const vinylArt = document.getElementById('vinylArt');
+      if (!statusEl) return;
+
+      const overlay  = document.getElementById('vinylOverlay');
+      const closeBtn = document.getElementById('vinylClose');
+      const bigArt   = document.getElementById('vinylBigArt');
+      const ovStatus = document.getElementById('ovStatus');
+      const ovTitle  = document.getElementById('ovTitle');
+      const ovArtist = document.getElementById('ovArtist');
+      const ovLink   = document.getElementById('ovLink');
+
+      let latest = { title: '', artist: '', albumArt: '', isPlaying: false, songUrl: '' };
+
+      function spotifyLinkFor(d) {
+        if (d.songUrl) return d.songUrl;
+        const q = encodeURIComponent(`${d.title || ''} ${d.artist || ''}`.trim());
+        return `https://open.spotify.com/search/${q}`;
+      }
+      function syncOverlay() {
+        ovStatus.textContent = latest.isPlaying ? 'Now playing' : 'Last played';
+        ovTitle.textContent  = latest.title  || '—';
+        ovArtist.textContent = latest.artist || '—';
+        if (latest.albumArt) bigArt.src = latest.albumArt;
+        ovLink.href = spotifyLinkFor(latest);
+      }
+      async function fetchNowPlaying() {
+        try {
+          const res  = await fetch('https://spotify-api-lilac.vercel.app/api/now-playing');
+          const data = await res.json();
+          if (data.title)  { titleEl.textContent  = data.title;  latest.title  = data.title; }
+          if (data.artist) { artistEl.textContent = data.artist; latest.artist = data.artist; }
+          if (data.albumArt) {
+            if (vinylArt.src !== data.albumArt) vinylArt.src = data.albumArt;
+            latest.albumArt = data.albumArt;
+          }
+          latest.isPlaying = !!data.isPlaying;
+          latest.songUrl   = data.songUrl || '';
+          statusEl.textContent = data.isPlaying ? 'Now playing' : 'Last played';
+          vinyl.classList.toggle('spinning', !!data.isPlaying);
+          if (overlay.classList.contains('open')) syncOverlay();
+        } catch (err) {}
+      }
+
+      function openOverlay(e) { e.preventDefault(); syncOverlay(); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+      function closeOverlay() { overlay.classList.remove('open'); document.body.style.overflow = ''; }
+
+      const spotifyTag = document.getElementById('spotifyTag');
+      spotifyTag.addEventListener('click', openOverlay);
+      spotifyTag.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openOverlay(e); });
+      closeBtn.addEventListener('click', closeOverlay);
+      overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
+
+      fetchNowPlaying();
+      setInterval(fetchNowPlaying, 5000);
+    })();
+  </script>
+</body>
+</html>

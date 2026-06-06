@@ -1,0 +1,90 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.intro p {
+  font-size: var(--font-14);
+  line-height: var(--lh);
+  letter-spacing: var(--ls-14);
+  font-weight: 400;
+  color: var(--text-strong);
+}
+.intro p strong { font-weight: 500; }
+.workText {
+  font-size: var(--font-14);
+  line-height: var(--lh);
+  letter-spacing: var(--ls-14);
+  color: var(--text-strong);
+}
+.badgeTrigger { position: relative; display: inline-block; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  padding: 4px 8px 4px 6px;
+  vertical-align: middle;
+  text-decoration: none;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+.badge:hover { background: #e2e2e2; }
+.badgeLogo { width: 16px; height: 16px; position: relative; flex-shrink: 0; }
+.badgeLogo img { position: absolute; inset: 6.25% 10.94%; width: calc(100% - 21.88%); height: calc(100% - 12.5%); }
+.badgeText {
+  font-size: var(--font-14);
+  font-weight: 400;
+  color: #171717;
+  letter-spacing: var(--ls-14);
+  line-height: 1;
+  white-space: nowrap;
+  transition: font-weight 0.1s;
+}
+.badge:hover .badgeText { font-weight: 500; }
+
+/* Tooltip */
+.tooltip {
+  position: fixed;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1.5px solid rgba(0,0,0,0.10);
+  border-radius: 12px;
+  box-shadow: 0 10px 20px 3px rgba(0,0,0,0.04);
+  width: fit-content;
+  max-width: 290px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 1000;
+}
+.tooltipVisible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.tooltipIcon { width: 18px; height: 18px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding-top: 1px; }
+.tooltipContent { display: flex; flex-direction: column; gap: 4px; }
+.tooltipRow { display: flex; align-items: center; gap: 4px; }
+.tooltipName {
+  font-size: 12px;
+  font-weight: 500;
+  color: #090a0b;
+  letter-spacing: 0.24px;
+  text-decoration: none;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.tooltipDesc {
+  font-size: 12px;
+  font-weight: 400;
+  color: #4d5561;
+  letter-spacing: 0.24px;
+  line-height: 1.3;
+  width: 230px;
+}

@@ -1,0 +1,31 @@
+.page {
+  width: 620px;
+  margin: 0 auto;
+  padding: 80px 0 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+}
+
+@media (max-width: 680px) {
+  .page {
+    width: 100%;
+    padding: 48px 24px 80px;
+    gap: 40px;
+  }
+}
+/* Nav + Gallery are grouped — no internal gap */
+.navGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.section {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,0 +1,204 @@
+.card {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* Header */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.radioCheck {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.headerRight { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.iconBtn {
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 11px;
+  color: #5c5c5c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s;
+}
+.iconBtn:hover { background: #f5f5f5; }
+
+/* Priority chip */
+.priorityChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-strong);
+}
+.priorityDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Body */
+.body { display: flex; flex-direction: column; gap: 4px; }
+.title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-strong);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+.desc {
+  font-size: 11px;
+  color: var(--text-sub);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+/* Meta */
+.meta { display: flex; flex-direction: column; gap: 6px; }
+.metaRow {
+  display: grid;
+  grid-template-columns: 56px 1fr 40px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+.metaLabel {
+  font-size: 10px;
+  color: var(--text-sub);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.statusChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-strong);
+}
+.statusDot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* Dropdowns */
+.dropdown { position: relative; }
+.dropTrigger {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.chipBtn {
+  background: #f5f5f5;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 7px;
+  font-size: 11px;
+  color: var(--text-strong);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: left;
+  transition: background 0.1s;
+}
+.chipBtn:hover { background: #ebebeb; }
+.dropMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.09);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  z-index: 500;
+  min-width: 140px;
+  padding: 4px;
+  overflow: hidden;
+}
+.dropItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  font-size: 11px;
+  color: var(--text-strong);
+  background: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+}
+.dropItem:hover { background: #f5f5f5; }
+.dropItemActive { background: #f0f0f0; }
+.check { color: #171717; font-size: 10px; }
+.dropDivider { height: 1px; background: rgba(0,0,0,0.06); margin: 3px 0; }
+.addNew { color: var(--text-sub); }
+
+/* Calendar */
+.calDropMenu { min-width: 220px; }
+.calendar { padding: 4px; }
+.calHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.calTitle { font-size: 11px; font-weight: 500; color: var(--text-strong); }
+.calNav {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-sub);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.1s;
+}
+.calNav:hover { background: #f5f5f5; }
+.calGrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.calDayLabel {
+  font-size: 9px;
+  color: var(--text-soft);
+  text-align: center;
+  padding: 2px 0;
+}
+.calDay {
+  background: none;
+  border: none;
+  border-radius: 4px;
+  font-size: 10px;
+  color: var(--text-strong);
+  cursor: pointer;
+  padding: 3px 0;
+  text-align: center;
+  transition: background 0.1s;
+}
+.calDay:hover { background: #f5f5f5; }
+.calDay:disabled { color: #d1d1d1; cursor: default; }
+.calDay:disabled:hover { background: none; }
+.calSelected { background: #FA7319 !important; color: #fff !important; }
+.calEmpty { pointer-events: none; }

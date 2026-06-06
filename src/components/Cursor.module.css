@@ -1,0 +1,48 @@
+/* Both elements are fixed, pointer-events off, translate-centred */
+.dot, .ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* Small filled dot — snaps instantly */
+.dot {
+  width: 5px;
+  height: 5px;
+  background: #171717;
+  margin-left: -2.5px;
+  margin-top: -2.5px;
+  transition: transform 0.05s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+}
+
+/* Larger trailing ring — lags behind via JS lerp */
+.ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(23, 23, 23, 0.25);
+  margin-left: -16px;
+  margin-top: -16px;
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, margin 0.2s ease;
+}
+
+/* Hover over interactive elements */
+.ring.hover {
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
+  border-color: rgba(23, 23, 23, 0.18);
+}
+
+/* Click */
+.dot.pressed {
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  margin-top: -4px;
+  background: #0F6DFF;
+}

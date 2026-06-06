@@ -1,0 +1,124 @@
+.nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+@media (max-width: 680px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .brand { width: 100%; }
+  .links {
+    order: 999;
+    margin-top: 16px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: opacity 0.15s, ring 0.15s;
+}
+.avatar:hover { opacity: 0.9; }
+
+/* Ring wrapper */
+.avatarWrap {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 50%;
+  padding: 3px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  overflow: hidden;
+}
+/* Show ring on hover or when open */
+.avatarWrap:hover,
+.avatarWrapActive {
+  background: conic-gradient(from 135deg, #0F6DFF, #00C6FF, #0040FF, #006FFF, #0F6DFF);
+}
+/* White gap between ring and photo */
+.avatarWrap::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: #fff;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.avatarWrap:hover::after,
+.avatarWrapActive::after {
+  opacity: 1;
+}
+
+/* Glare — sweeps across the photo once on hover */
+.avatarWrap::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255,255,255,0.55) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  z-index: 2;
+  pointer-events: none;
+  transition: background-position 0s;
+}
+.avatarWrap:hover::before {
+  background-position: -200% 0;
+  transition: background-position 0.5s ease;
+}
+
+/* Photo */
+.avatar {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.sig {
+  width: 64px;
+  height: 64px;
+  display: block;
+  flex-shrink: 0;
+}
+.links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.links a {
+  font-size: var(--font-12);
+  line-height: var(--lh);
+  letter-spacing: var(--ls-12);
+  color: var(--text-sub);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.links a:hover { color: var(--text-strong); }
