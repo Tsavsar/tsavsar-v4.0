@@ -60,19 +60,10 @@
 }
 .breadcrumbInner {
   width: 100%;
-  max-width: 789px; /* 113px sidebar + 36px gap + 620px content */
+  max-width: 620px;
   display: flex;
   align-items: center;
-  gap: 0;
-}
-/* Back pill sits in the sidebar column */
-.breadcrumbInner .backPill {
-  flex-shrink: 0;
-  width: 149px; /* 113px sidebar + 36px gap */
-}
-/* Crumbs start at content column, take remaining space */
-.breadcrumbInner .crumbs {
-  flex: 1;
+  gap: 12px;
 }
 .breadcrumbScrolled {
   box-shadow: 0 1px 0 rgba(0,0,0,0.06);
