@@ -172,6 +172,7 @@ export default function Projects() {
 
             {/* KernUI */}
             <ParallaxCard
+              to="/work/kernui"
               name="KernUI"
               category="Design system library"
               desc="Starting from scratch on every project slows teams down. KernUI gives designers and devs a shared component library so they can build faster together."

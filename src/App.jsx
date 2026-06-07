@@ -8,6 +8,7 @@ import Articles from './components/Articles'
 import Footer from './components/Footer'
 import CostGraphPage from './pages/CostGraphPage'
 import LonarPage from './pages/LonarPage'
+import KernUIPage from './pages/KernUIPage'
 import styles from './App.module.css'
 
 function Home() {
@@ -45,6 +46,7 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/work/costgraph" element={<CostGraphPage />} />
       <Route path="/work/lonar" element={<LonarPage />} />
+      <Route path="/work/kernui" element={<KernUIPage />} />
     </Routes>
   )
 }
