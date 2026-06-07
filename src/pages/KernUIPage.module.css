@@ -1,13 +1,20 @@
 .heroImg {
-  width: 100%;
+  width: calc(100% + 149px);
+  margin-left: -149px;
   height: 300px;
   background: linear-gradient(135deg, #7d52f4 0%, #5b2fe8 100%);
   overflow: hidden;
   position: relative;
   transition: height 0.35s cubic-bezier(0.4,0,0.2,1),
               width 0.35s cubic-bezier(0.4,0,0.2,1),
-              border-radius 0.35s ease;
+              margin-left 0.35s cubic-bezier(0.4,0,0.2,1);
   will-change: height;
+}
+
+/* Collapse to mini when hero scrolls out */
+:global(.heroImgMini).heroImg {
+  width: 100px !important;
+  margin-left: 0 !important;
 }
 
 /* Tag with external link */
@@ -16,7 +23,6 @@
   align-items: center;
   gap: 6px;
   background: #f7f7f7;
-  border-radius: 8px;
   padding: 4px 10px;
   font-size: var(--font-12);
   letter-spacing: var(--ls-12);
@@ -31,7 +37,6 @@
   width: 100%;
   height: 300px;
   background: #f7f7f7;
-  border-radius: 8px;
   position: relative;
   overflow: hidden;
 }
@@ -39,7 +44,6 @@
 /* Video block */
 .videoBlock {
   width: 100%;
-  border-radius: 8px;
   overflow: hidden;
   background: #0e0e0e;
   line-height: 0;

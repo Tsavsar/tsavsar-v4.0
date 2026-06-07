@@ -1,0 +1,121 @@
+.trigger {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.clickable { cursor: pointer; }
+
+/* "View project" hint label on hover */
+.hintLabel {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(0,0,0,0.68);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  padding: 5px 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.trigger:hover .hintLabel {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Overlay backdrop ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0);
+  transition: background 0.45s ease;
+  cursor: pointer;
+}
+.overlayVisible {
+  background: rgba(0,0,0,0.55);
+}
+
+/* ── Expanding card ── */
+.card {
+  position: fixed;
+  /* default = fullscreen */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  cursor: default;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 40px;
+  /* animate from inline style (origin rect) to this */
+  transition:
+    top    0.5s cubic-bezier(0.4,0,0.2,1),
+    left   0.5s cubic-bezier(0.4,0,0.2,1),
+    width  0.5s cubic-bezier(0.4,0,0.2,1),
+    height 0.5s cubic-bezier(0.4,0,0.2,1),
+    opacity 0.35s ease;
+}
+
+.cardBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.cardName {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  font-size: 48px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.18);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 1;
+  margin: 0;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: background 0.15s;
+}
+.closeBtn:hover { background: rgba(255,255,255,0.25); }
+
+.visitBtn {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: #111;
+  border: none;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  transition: background 0.15s;
+}
+.visitBtn:hover { background: #f0f0f0; }
