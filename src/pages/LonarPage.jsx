@@ -61,11 +61,11 @@ export default function LonarPage() {
               </svg>
               <span>Back</span>
             </Link>
-            <div className={`${styles.breadcrumbThumb} ${heroCollapsed ? styles.breadcrumbThumbVisible : ''}`}
-              style={{ background: 'linear-gradient(201deg,rgb(251,77,0) 3%,rgb(244,3,131) 96%)' }}>
-              <img src="https://www.figma.com/api/mcp/asset/37c8431b-9aba-43d6-8ef9-e628d5258d3f" alt="" style={{ objectFit:'contain', padding:2 }} />
-            </div>
             <div className={styles.crumbs}>
+              <div className={`${styles.breadcrumbThumb} ${heroCollapsed ? styles.breadcrumbThumbVisible : ''}`}
+                style={{ background: 'linear-gradient(201deg,rgb(251,77,0) 3%,rgb(244,3,131) 96%)' }}>
+                <img src="https://www.figma.com/api/mcp/asset/37c8431b-9aba-43d6-8ef9-e628d5258d3f" alt="" style={{ objectFit:'contain', padding:2 }} />
+              </div>
               <span className={styles.crumbMuted}>Home</span>
               <span className={styles.crumbMuted}>/</span>
               <span className={styles.crumbActive}>Lönar</span>

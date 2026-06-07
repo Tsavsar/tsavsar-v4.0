@@ -60,10 +60,19 @@
 }
 .breadcrumbInner {
   width: 100%;
-  max-width: 620px;
+  max-width: 789px; /* 113px sidebar + 36px gap + 620px content */
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 0;
+}
+/* Back pill sits in the sidebar column */
+.breadcrumbInner .backPill {
+  flex-shrink: 0;
+  width: 149px; /* 113px sidebar + 36px gap */
+}
+/* Crumbs start at content column, take remaining space */
+.breadcrumbInner .crumbs {
+  flex: 1;
 }
 .breadcrumbScrolled {
   box-shadow: 0 1px 0 rgba(0,0,0,0.06);
@@ -110,6 +119,8 @@
 .crumbs { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; }
 .crumbMuted { font-size: var(--font-12); color: var(--text-sub); flex-shrink: 0; letter-spacing: var(--ls-12); }
 .crumbActive { font-size: var(--font-12); color: var(--text-strong); letter-spacing: var(--ls-12); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Arrow pushed to far right inside breadcrumb crumbs row */
+.breadcrumbInner .crumbs svg { margin-left: auto; flex-shrink: 0; }
 
 /* Hero */
 .hero { display: flex; flex-direction: column; gap: 12px; }

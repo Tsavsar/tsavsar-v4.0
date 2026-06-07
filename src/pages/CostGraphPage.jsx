@@ -61,12 +61,12 @@ export default function CostGraphPage() {
               </svg>
               <span>Back</span>
             </Link>
-            {/* Mini cover in breadcrumb when hero collapses */}
-            <div className={`${styles.breadcrumbThumb} ${heroCollapsed ? styles.breadcrumbThumbVisible : ''}`}
-              style={{ background: 'linear-gradient(190.846deg,rgb(3,8,18) 8.57%,rgb(10,52,119) 68.68%)' }}>
-              <img src="/assets/logo front.png" alt="" style={{ objectFit:'contain', padding:4 }} />
-            </div>
             <div className={styles.crumbs}>
+              {/* Mini cover in breadcrumb when hero collapses */}
+              <div className={`${styles.breadcrumbThumb} ${heroCollapsed ? styles.breadcrumbThumbVisible : ''}`}
+                style={{ background: 'linear-gradient(190.846deg,rgb(3,8,18) 8.57%,rgb(10,52,119) 68.68%)' }}>
+                <img src="/assets/logo front.png" alt="" style={{ objectFit:'contain', padding:4 }} />
+              </div>
               <span className={styles.crumbMuted}>Home</span>
               <span className={styles.crumbMuted}>/</span>
               <span className={styles.crumbActive}>CostGraph.ai</span>
