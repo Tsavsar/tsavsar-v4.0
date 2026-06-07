@@ -221,6 +221,38 @@ export default function Projects() {
               </>)}
             </ParallaxCard>
 
+            {/* Fundify */}
+            <ParallaxCard
+              to="/work/fundify"
+              name="Fundify"
+              category="Fintech mobile app"
+              desc="Saving money feels like punishment. Fundify flips that — rewarding every good financial move with FundCoins you can actually spend."
+              bg="#141414"
+            >
+              {reg => (<>
+                {/* Fundify logo wordmark */}
+                <div ref={reg(0)} data-speed="6" className={styles.pi}
+                  style={{ position:'absolute', width:200, left:'calc(50% - 100px)', top:24, pointerEvents:'none' }}>
+                  <img src="https://www.figma.com/api/mcp/asset/1e5ebaee-dd28-464b-a549-30a8497fd6f5" style={{ width:'100%' }} alt="" />
+                </div>
+                {/* Left phone */}
+                <div ref={reg(1)} data-speed="14" className={styles.pi}
+                  style={{ position:'absolute', width:110, left:28, top:110, pointerEvents:'none' }}>
+                  <img src="https://www.figma.com/api/mcp/asset/6612f1fe-c761-4dae-a4f2-fa021c95226f" style={{ width:'100%', objectFit:'cover', objectPosition:'top' }} alt="" />
+                </div>
+                {/* Center phone */}
+                <div ref={reg(2)} data-speed="8" className={styles.pi}
+                  style={{ position:'absolute', width:138, left:'calc(50% - 69px)', top:80, pointerEvents:'none' }}>
+                  <img src="https://www.figma.com/api/mcp/asset/5378a954-2dd8-455b-9938-14458adc0032" style={{ width:'100%', objectFit:'cover', objectPosition:'top' }} alt="" />
+                </div>
+                {/* Right phone */}
+                <div ref={reg(3)} data-speed="18" className={styles.pi}
+                  style={{ position:'absolute', width:110, right:28, top:120, pointerEvents:'none' }}>
+                  <img src="https://www.figma.com/api/mcp/asset/87fab92f-a81e-4a80-b551-1a002372476c" style={{ width:'100%', objectFit:'cover', objectPosition:'top' }} alt="" />
+                </div>
+              </>)}
+            </ParallaxCard>
+
           </div>
         </div>
       </div>
