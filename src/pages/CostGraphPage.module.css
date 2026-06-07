@@ -63,7 +63,6 @@
   background: rgba(255,255,255,0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
 }
 .breadcrumbInner {
   width: 100%;
