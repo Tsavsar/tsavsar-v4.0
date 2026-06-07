@@ -92,8 +92,12 @@ export default function KernUIPage() {
         {/* Hero */}
         <FadeItem><div className={styles.hero}>
           <div className={`${imgStyles.heroImg} ${heroCollapsed ? styles.heroImgMini : ''}`}>
+            {/* KernUI wordmark background */}
             <img src="/assets/kern-hero-img.svg" alt=""
-              style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', pointerEvents:'none' }} />
+              style={{ position:'absolute', width:260, height:260, left:'calc(50% + 0.5px)', top:'calc(50% + 20px)', transform:'translate(-50%,-50%)', opacity:0.35, pointerEvents:'none' }} />
+            {/* Product screenshot */}
+            <img src="/assets/kern-feature-1.svg" alt=""
+              style={{ position:'absolute', width:513, height:320, left:'50%', top:72, transform:'translateX(-50%)', objectFit:'cover', objectPosition:'top', pointerEvents:'none' }} />
           </div>
           <div className={styles.heroTags}>
             <a href="https://www.kernui.com" target="_blank" rel="noopener" className={imgStyles.tagLink}>

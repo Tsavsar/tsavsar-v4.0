@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from './Projects.module.css'
-import CardExpand, { useCursorLabel } from './CardExpand'
+import { useCursorLabel } from './CardExpand'
 
 const ARROW = (
   <svg viewBox="0 0 11.05 8.25" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 14, height: 14, flexShrink: 0 }}>
@@ -13,6 +13,8 @@ const ARROW = (
 function ParallaxCard({ name, category, desc, bg, to, children }) {
   const imgRef  = useRef(null)
   const piRefs  = useRef([])
+  const navigate = useNavigate()
+  const { areaProps: imgAreaProps,  labelEl: imgLabelEl  } = useCursorLabel('View project')
   const { areaProps: descAreaProps, labelEl: descLabelEl } = useCursorLabel('View project')
 
   useEffect(() => {
@@ -56,16 +58,18 @@ function ParallaxCard({ name, category, desc, bg, to, children }) {
 
   return (
     <div className={styles.card}>
+      {to && imgLabelEl}
       <div
         ref={imgRef}
-        className={styles.img}
+        className={`${styles.img} ${to ? styles.imgClickable : ''}`}
         style={{ background: bg }}
         onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
+        onMouseLeave={e => { onMouseLeave(); if (to) imgAreaProps.onMouseLeave(e) }}
+        onMouseEnter={to ? imgAreaProps.onMouseEnter : undefined}
+        onClick={to ? () => navigate(to) : undefined}
+        {...(to ? { onMouseMove: e => { onMouseMove(e); imgAreaProps.onMouseMove(e) } } : {})}
       >
-        <CardExpand bg={bg} to={to} name={name}>
-          {children(reg)}
-        </CardExpand>
+        {children(reg)}
       </div>
       {to ? (
         <>
