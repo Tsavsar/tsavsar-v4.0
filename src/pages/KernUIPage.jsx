@@ -210,7 +210,7 @@ export default function KernUIPage() {
         {/* Articles */}
         <FadeItem><section className={styles.articlesSection}>
           <p className={styles.sectionLabel}>my articles</p>
-          <a className={styles.articleItem} href="/article.html">
+          <a className={styles.articleItem} href="#">
             <div className={styles.articleThumb}>
               <img src="https://www.figma.com/api/mcp/asset/b50054ec-659f-47c0-a81b-02200d94ccc5" alt="" />
             </div>

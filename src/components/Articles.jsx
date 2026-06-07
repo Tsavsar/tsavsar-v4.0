@@ -12,7 +12,7 @@ export default function Articles() {
     <section className={styles.section}>
       <p className={styles.label}>my articles</p>
       <div className={styles.list}>
-        <a className={styles.item} href="/article.html">
+        <a className={styles.item} href="#">
           <div className={styles.thumb}>
             <img src="https://www.figma.com/api/mcp/asset/b50054ec-659f-47c0-a81b-02200d94ccc5" alt="Article thumbnail" />
           </div>
