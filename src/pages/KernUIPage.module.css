@@ -1,23 +1,13 @@
 .heroImg {
-  /* Extend left into the sidebar column so the image starts at the page edge */
-  width: calc(100% + 149px);
-  margin-left: -149px;
+  width: 100%;
   height: 300px;
   background: linear-gradient(135deg, #7d52f4 0%, #5b2fe8 100%);
   overflow: hidden;
   position: relative;
-  border-radius: 12px;
   transition: height 0.35s cubic-bezier(0.4,0,0.2,1),
               width 0.35s cubic-bezier(0.4,0,0.2,1),
-              margin-left 0.35s cubic-bezier(0.4,0,0.2,1),
               border-radius 0.35s ease;
   will-change: height;
-}
-
-/* When hero collapses into mini thumbnail, reset to natural width */
-:global(.heroImgMini).heroImg {
-  width: 100px !important;
-  margin-left: 0 !important;
 }
 
 /* Tag with external link */

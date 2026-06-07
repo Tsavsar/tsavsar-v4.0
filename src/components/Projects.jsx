@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from './Projects.module.css'
 
 const ARROW = (
@@ -12,6 +12,7 @@ const ARROW = (
 function ParallaxCard({ name, category, desc, bg, to, children }) {
   const imgRef  = useRef(null)
   const piRefs  = useRef([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Capture base transform from inline style on each .pi element
@@ -56,12 +57,14 @@ function ParallaxCard({ name, category, desc, bg, to, children }) {
     <div className={styles.card}>
       <div
         ref={imgRef}
-        className={styles.img}
+        className={`${styles.img} ${to ? styles.imgClickable : ''}`}
         style={{ background: bg }}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
+        onClick={to ? () => navigate(to) : undefined}
       >
         {children(reg)}
+        {to && <div className={styles.viewTooltip}>View project</div>}
       </div>
       {to ? (
         <Link to={to} className={styles.info} style={{ textDecoration: 'none' }}>

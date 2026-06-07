@@ -78,7 +78,7 @@ export default function KernUIPage() {
             <div className={styles.crumbs}>
               <div className={`${styles.breadcrumbThumb} ${heroCollapsed ? styles.breadcrumbThumbVisible : ''}`}
                 style={{ background: 'linear-gradient(135deg, #7d52f4 0%, #5b2fe8 100%)' }}>
-                <img src="/assets/kern-logo.svg" alt="" style={{ objectFit:'contain', padding:5, width:'100%', height:'100%', filter:'brightness(10)' }} />
+                <img src="/assets/kern-icon.svg" alt="" style={{ objectFit:'contain', width:'100%', height:'100%', borderRadius:3 }} />
               </div>
               <span className={styles.crumbMuted}>Home</span>
               <span className={styles.crumbMuted}>/</span>
@@ -92,19 +92,12 @@ export default function KernUIPage() {
         {/* Hero */}
         <FadeItem><div className={styles.hero}>
           <div className={`${imgStyles.heroImg} ${heroCollapsed ? styles.heroImgMini : ''}`}>
-            {/* Component grid assets from project card */}
-            <img src="https://www.figma.com/api/mcp/asset/157fe76d-8a66-47a9-a9e9-3a287170d4d8" alt=""
-              style={{ position:'absolute', width:214, height:298, right:19, bottom:-6, pointerEvents:'none', objectFit:'cover' }} />
-            <img src="https://www.figma.com/api/mcp/asset/eb20f63a-67fb-4ebe-95c2-166f2ebc0cb3" alt=""
-              style={{ position:'absolute', width:210, height:192, left:0, top:40, transform:'rotate(19.17deg)', objectFit:'cover', pointerEvents:'none' }} />
-            <img src="https://www.figma.com/api/mcp/asset/277565a6-9c8f-4b73-bd7a-ade04411fb61" alt=""
-              style={{ position:'absolute', width:184, height:176, left:'50%', top:'50%', transform:'translate(-50%,-50%) rotate(28.07deg)', objectFit:'cover', pointerEvents:'none' }} />
-            <img src="https://www.figma.com/api/mcp/asset/ac90efec-3d17-4a41-af04-e96ac83437fb" alt=""
-              style={{ position:'absolute', width:188, height:165, left:20, bottom:10, transform:'rotate(8.02deg)', objectFit:'cover', pointerEvents:'none' }} />
+            <img src="/assets/kern-hero-img.svg" alt=""
+              style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', pointerEvents:'none' }} />
           </div>
           <div className={styles.heroTags}>
             <a href="https://www.kernui.com" target="_blank" rel="noopener" className={imgStyles.tagLink}>
-              <img src="/assets/kern-logo.svg" alt="" style={{ width:14, height:14, objectFit:'contain' }} />
+              <img src="/assets/kern-icon.svg" alt="" style={{ width:14, height:14, objectFit:'contain', borderRadius:3 }} />
               kernui.com
             </a>
             <span className={styles.tag}>2024</span>
