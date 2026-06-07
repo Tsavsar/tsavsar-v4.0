@@ -101,9 +101,9 @@ export default function CostGraphPage() {
         <FadeItem><section id="intro" data-section="Intro" ref={reg('Intro')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>Intro</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>I joined CostGraph in 2025, and since then we've gone on to build a cloud cost optimisation platform built for DevOps engineers and platform teams managing infrastructure at scale.</p>
-            <p>As the sole product designer on the project, I worked closely with engineering to design the product from the ground up — shaping everything from the UX strategy and design system to interactive prototypes powered by real infrastructure data.</p>
-            <p>The project focused heavily on helping teams understand where cloud waste exists and what actions they should take next, instead of overwhelming them with dashboards and metrics.</p>
+            <p>Cloud cost tools give you too much data and not enough direction. That is the problem CostGraph exists to fix.</p>
+            <p>I joined in 2025 as the sole product designer, working directly with engineering to build the platform from the ground up. Everything from UX strategy and the design system to interactive prototypes running on real infrastructure data.</p>
+            <p>The focus was always the same: show teams what actually needs attention, not everything that could possibly be monitored.</p>
           </div>
         </section></FadeItem>
 
@@ -111,17 +111,17 @@ export default function CostGraphPage() {
         <FadeItem><section id="my-role" data-section="My role" ref={reg('My role')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>My role</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>On CostGraph, I was responsible for the entire product experience from zero.</p>
+            <p>I owned the full product experience, from zero.</p>
             <ul className={styles.list}>
               <li>Product strategy and UX direction</li>
               <li>User research synthesis</li>
               <li>Information architecture</li>
-              <li>Design systems</li>
+              <li>Design system</li>
               <li>High-fidelity UI design</li>
               <li>Interactive prototyping</li>
               <li>Design-engineering collaboration</li>
             </ul>
-            <p>I also worked directly with real backend exports and infrastructure datasets instead of placeholder content.</p>
+            <p>All design work was done against real backend exports and infrastructure datasets, not placeholder content.</p>
           </div>
         </section></FadeItem>
 
@@ -129,11 +129,10 @@ export default function CostGraphPage() {
         <FadeItem><section id="process" data-section="Process" ref={reg('Process')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>Process</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>The process behind CostGraph was very much iterative and research-driven.</p>
-            <p>We started with competitive research and user interviews to better understand how DevOps and platform teams currently manage cloud infrastructure, where existing tools fall short, and what information actually matters during day-to-day operations. Those conversations helped validate ideas early and shaped a lot of the product direction.</p>
-            <p>From there, we moved quickly into exploration and prototyping. Instead of jumping straight into polished UI, we used tools like Claude and v0 to rapidly test concepts, layouts, interaction flows, and infrastructure visualisation ideas. This made it easier to experiment with different approaches before committing to final designs.</p>
-            <p>Once ideas felt strong enough, I built interactive prototypes that could be tested and iterated on collaboratively with engineering and users. These prototypes helped us validate workflows, recommendation systems, and navigation structures early before refining everything further in Figma.</p>
-            <p>The final phase focused on polishing the experience, tightening hierarchy, refining interactions, improving consistency through the design system, and preparing flows for user testing and implementation.</p>
+            <p>We started with interviews. DevOps and platform engineers told us what their current tools got wrong, what information they actually looked at, and what they mostly ignored. Those conversations shaped the product direction more than any competitive audit.</p>
+            <p>From there I used Claude and v0 to move fast through concept exploration. Layouts, interaction flows, visualisation approaches. The goal was to test ideas before committing to them, not to produce polished mockups quickly.</p>
+            <p>Once concepts felt solid, I built interactive prototypes against real data. That is where the navigation structure, recommendation logic, and workflow decisions got validated. Figma came later, for refinement.</p>
+            <p>The final phase was about tightening everything. Hierarchy, consistency, interaction states, and preparing flows for implementation.</p>
           </div>
         </section></FadeItem>
 
@@ -141,9 +140,9 @@ export default function CostGraphPage() {
         <FadeItem><section id="design-system" data-section="Design system" ref={reg('Design system')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>Design system</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>I built the CostGraph design system from scratch to support a dense, technical product environment while keeping the interface readable and consistent.</p>
-            <p>The visual language was intentionally restrained, using semantic colour systems to communicate operational states like warnings, inefficiencies, and healthy resources.</p>
-            <p>I also established the full token system, component library, spacing rules, table patterns, recommendation cards, and interaction states used across the platform.</p>
+            <p>Dense technical interfaces go wrong when visual decisions are made ad hoc. I built the CostGraph design system from scratch so that every component, state, and spacing decision had a deliberate answer.</p>
+            <p>Colour is semantic throughout. Warnings, inefficiencies, healthy resources, each has a distinct visual treatment. Not decoration, just signal.</p>
+            <p>The system covers the full token set, component library, spacing rules, table patterns, recommendation cards, and interaction states across the platform.</p>
           </div>
         </section></FadeItem>
 
@@ -151,9 +150,9 @@ export default function CostGraphPage() {
         <FadeItem><section id="graphai" data-section="GraphAI" ref={reg('GraphAI')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>GraphAI</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>GraphAI is CostGraph's persistent AI layer integrated directly into the product experience.</p>
-            <p>Instead of creating a separate AI page, I designed GraphAI as an ambient assistant that stays accessible throughout the platform. The prompts adapt based on the current context, helping users explore infrastructure insights, recommendations, and anomalies without leaving their workflow.</p>
-            <p>The goal was to make AI feel integrated into operations rather than disconnected from them.</p>
+            <p>Most AI features in product tools live on a separate page. You go there, ask something, come back. The context is lost.</p>
+            <p>GraphAI is designed differently. It stays accessible throughout the platform, and the prompts shift based on what the user is currently looking at. Infrastructure insights, anomalies, recommendations. All reachable without breaking the workflow.</p>
+            <p>It does not announce itself. It is just there when you need it.</p>
           </div>
         </section></FadeItem>
 
@@ -161,9 +160,8 @@ export default function CostGraphPage() {
         <FadeItem><section id="lessons" data-section="Lessons" ref={reg('Lessons')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>Lessons</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>CostGraph taught me a lot about designing for technical users and complex systems.</p>
-            <p>One of the biggest lessons was that clarity matters more than volume. Infrastructure teams already have access to endless data — the real challenge is helping them understand what actually needs attention.</p>
-            <p>The project also reinforced the value of working closely with engineering early in the process. Because I was designing directly against backend schemas and real infrastructure behaviour, the product decisions became much more grounded and implementation-friendly.</p>
+            <p>Clarity beats volume. Infrastructure teams already have access to every metric. What they do not have is a clear answer to "what do I fix first." That is the actual design problem.</p>
+            <p>Working against real backend schemas changed how I made decisions. When the data is real, you stop designing for hypothetical states and start designing for what actually happens. The product got better because of it.</p>
           </div>
         </section></FadeItem>
 

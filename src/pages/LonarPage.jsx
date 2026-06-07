@@ -98,9 +98,8 @@ export default function LonarPage() {
         <FadeItem><section id="intro" data-section="Intro" ref={reg('Intro')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>Intro</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>After using multiple invoice generators and invoice platforms, I realised a ton of people didn't have a fixed platform for generating invoices as well as managing them.</p>
-            <p>Other platforms exist but some either force you into a larger ecosystem of products or they take you through tiring onboarding to setup your accounts, payments etc etc. The idea was, I want to open up a platform, create an invoice, send it out and track the payments all within one platform.</p>
-            <p>That was motivation to build this.</p>
+            <p>Most invoice tools make you choose between simplicity and control. The simple ones do not track anything. The powerful ones bury you in onboarding before you can send a single invoice.</p>
+            <p>I wanted to open a platform, create an invoice, send it, and track the payment. All in one place, with no setup friction. That was the whole idea.</p>
           </div>
         </section></FadeItem>
 
@@ -108,17 +107,17 @@ export default function LonarPage() {
         <FadeItem><section id="my-role" data-section="My role" ref={reg('My role')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>My role</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>On Lönar I was/am the product lead and co-founder, I worked on,</p>
+            <p>Co-founder and product lead.</p>
             <ul className={styles.list}>
               <li>Product strategy and UX direction</li>
-              <li>Social media accounts management and creating designs</li>
               <li>User research synthesis</li>
               <li>Information architecture</li>
-              <li>Design systems</li>
+              <li>Design system</li>
               <li>High-fidelity UI design</li>
               <li>Interactive prototyping</li>
               <li>Design-engineering collaboration</li>
-              <li>Light engineering here and there</li>
+              <li>Social presence and brand design</li>
+              <li>Light frontend engineering</li>
             </ul>
           </div>
         </section></FadeItem>
@@ -127,7 +126,7 @@ export default function LonarPage() {
         <FadeItem><section id="solution" data-section="Solution" ref={reg('Solution')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>Solution</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>The solution to the problem mentioned previously was the user comes to the platform, they first off see the invoice generator, then they have the option to save client details on the platform so they don't have to enter them every time.</p>
+            <p>You land on the platform and the invoice generator is the first thing you see. Client details can be saved so you are not re-entering the same information every time.</p>
             <ImgBlock>
               <img src="https://www.figma.com/api/mcp/asset/224f01dd-53c7-414c-a339-7582a7933294" alt=""
                 style={{ position:'absolute', width:343, height:292, left:'calc(50% - 91.5px)', top:'calc(50% + 41px)', transform:'translate(-50%,-50%)', objectFit:'cover', borderRadius:6 }} />
@@ -135,20 +134,20 @@ export default function LonarPage() {
                 style={{ position:'absolute', width:158, height:419, right:0, top:-142, objectFit:'cover' }} />
             </ImgBlock>
 
-            <p>When that is done, they can send the invoice directly to the client's email.</p>
+            <p>From there, the invoice goes directly to the client by email.</p>
             <ImgBlock>
               <img src="https://www.figma.com/api/mcp/asset/d6e0b35a-fbda-4ebc-970f-e114af912dce" alt=""
                 style={{ position:'absolute', width:434, height:370, left:'50%', top:'calc(50% + 35px)', transform:'translate(-50%,-50%)', objectFit:'cover' }} />
             </ImgBlock>
 
-            <p>That's where the creating and sending part ends, now we have the dashboard and the management side of things.</p>
+            <p>That is where creation ends. Then there is the dashboard.</p>
             <ImgBlock>
               <img src="https://www.figma.com/api/mcp/asset/4510881e-c2f5-48e1-9fa5-e1fa148f7ad5" alt=""
                 style={{ position:'absolute', width:513, height:321, left:'50%', top:42, transform:'translateX(-50%)', objectFit:'cover' }} />
             </ImgBlock>
 
-            <p>I wanted users to see how much they have made in invoices all time and across the last 90, 60 and 30 days. As well as the number of clients they have and the number of invoices. That way the platform gives more than just "Hey, create an invoice".</p>
-            <p>The next thing was managing invoices based on clients, allowing users see all invoices attached to one user. During research I spoke to someone who ran a clothing business and he said he liked to see how much each client has spent.</p>
+            <p>Total earnings, broken down across all time and the last 30, 60, and 90 days. Number of clients, number of invoices. It gives the platform a memory beyond just the last thing you sent.</p>
+            <p>Invoices are also grouped by client, so you can see everything attached to one person at once. During research, someone running a clothing business told me he needed to know how much each client had spent in total. That became a core part of how the client view works.</p>
             <ImgBlock>
               <img src="https://www.figma.com/api/mcp/asset/c5c0a0e6-0556-40be-808e-4183e0d2cdef" alt=""
                 style={{ position:'absolute', width:399, height:250, left:-5, top:21, objectFit:'cover' }} />
@@ -156,7 +155,7 @@ export default function LonarPage() {
                 style={{ position:'absolute', width:141, height:262, right:0, top:15, objectFit:'cover' }} />
             </ImgBlock>
 
-            <p>A lot of features were created from conversations like that and that is why I feel this is such a strong platform.</p>
+            <p>Most of the features came from conversations exactly like that.</p>
             <ImgBlock>
               <img src="https://www.figma.com/api/mcp/asset/38f61ae1-202e-4e98-a5f1-35c7e7c39c1c" alt=""
                 style={{ position:'absolute', width:369, height:315, left:229, top:16, objectFit:'cover' }} />
@@ -170,7 +169,7 @@ export default function LonarPage() {
                 style={{ position:'absolute', width:200, height:213, right:0, top:87, objectFit:'cover' }} />
             </ImgBlock>
 
-            <p>Then we have the system we built to allow you track when payments have been received or not. We don't have payments on the platform just yet but we are working towards it. For now we rely on the client letting the user know when they have paid on the email. The system also sends emails to the client when due dates have been passed.</p>
+            <p>Payment tracking works by status. Full payments are not on the platform yet, so for now the flow relies on the client confirming via email. The system sends automatic reminders to clients when due dates pass. It is a lightweight version of something we plan to own fully.</p>
           </div>
         </section></FadeItem>
 
@@ -178,15 +177,14 @@ export default function LonarPage() {
         <FadeItem><section id="process" data-section="Process" ref={reg('Process')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>Process</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>I was heavy on the research side of things.</p>
-            <p>Started off first with the questionnaires, got a ton of responses that showed that there really was a gap when it came to how people send out invoices to clients.</p>
-            <p>From the responses I put together a user flow diagram, ran it by a couple of people and potential users, got corrections in some areas before going ahead to work on the UI.</p>
-            <p>Did some more validation while the UI was in the high fidelity mode, then put together some prototypes. By this point the app had users since we put out the invoice generator first, so we got revision requests directly from the users.</p>
+            <p>Questionnaires came first. The responses confirmed what I suspected: people were stitching together multiple tools to do something that should take one.</p>
+            <p>From that I built a user flow, pressure-tested it with potential users, and made corrections before touching the UI. A few assumptions did not survive that round.</p>
+            <p>The invoice generator shipped before the full platform. That meant by the time I was deep in high-fidelity design, there were already real users sending feedback. Revision requests came directly from them, not from internal assumptions.</p>
             <ImgBlock>
               <img src="https://www.figma.com/api/mcp/asset/b4d3c79b-f65a-4f4e-a89c-13c96dbc005a" alt=""
                 style={{ position:'absolute', width:514, height:321, left:'50%', top:'calc(50% + 46.5px)', transform:'translate(-50%,-50%)', objectFit:'cover', borderRadius:14 }} />
             </ImgBlock>
-            <p>Next we polished everything — APIs, the pro plan, account creation and management and download/export features as well.</p>
+            <p>The final phase covered APIs, the pro plan, account management, and download and export. Getting the details right after the structure was already proven.</p>
           </div>
         </section></FadeItem>
 
@@ -194,8 +192,8 @@ export default function LonarPage() {
         <FadeItem><section id="lessons" data-section="Lessons" ref={reg('Lessons')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>Lessons</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>Working on this project emphasised the importance of always being ready to reiterate and make changes on the fly because users expect their issues to be solved almost as fast as they came up.</p>
-            <p>Also pushed me to step into a more design engineering role and not just focus entirely on the design side of things.</p>
+            <p>Shipping the generator before the full platform was the right call. It meant real feedback arrived early, when the cost of changing things was still low.</p>
+            <p>It also pushed me further into the engineering side. Owning a product end to end means the line between design and implementation gets blurry fast. I stopped treating that as a problem.</p>
           </div>
         </section></FadeItem>
 

@@ -68,7 +68,13 @@
   opacity: 1;
 }
 
-/* Glare — sweeps across the photo once on hover */
+/* Glare — sweeps across the photo on hover AND every 5s automatically */
+@keyframes glare {
+  0%   { background-position: 200% 0; }
+  18%  { background-position: -200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 .avatarWrap::before {
   content: '';
   position: absolute;
@@ -84,9 +90,10 @@
   background-position: 200% 0;
   z-index: 2;
   pointer-events: none;
-  transition: background-position 0s;
+  animation: glare 5s ease 2s infinite;
 }
 .avatarWrap:hover::before {
+  animation: none;
   background-position: -200% 0;
   transition: background-position 0.5s ease;
 }
