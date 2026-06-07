@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Projects.module.css'
-import CardExpand from './CardExpand'
+import CardExpand, { useCursorLabel } from './CardExpand'
 
 const ARROW = (
   <svg viewBox="0 0 11.05 8.25" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 14, height: 14, flexShrink: 0 }}>
@@ -13,6 +13,7 @@ const ARROW = (
 function ParallaxCard({ name, category, desc, bg, to, children }) {
   const imgRef  = useRef(null)
   const piRefs  = useRef([])
+  const { areaProps: descAreaProps, labelEl: descLabelEl } = useCursorLabel('View project')
 
   useEffect(() => {
     // Capture base transform from inline style on each .pi element
@@ -67,14 +68,17 @@ function ParallaxCard({ name, category, desc, bg, to, children }) {
         </CardExpand>
       </div>
       {to ? (
-        <Link to={to} className={styles.info} style={{ textDecoration: 'none' }}>
-          <div className={styles.meta}>
-            <span className={styles.name}>{name}</span>
-            <span className={styles.category}>{category}</span>
-            {ARROW}
-          </div>
-          <p className={styles.desc}>{desc}</p>
-        </Link>
+        <>
+          {descLabelEl}
+          <Link to={to} className={styles.info} style={{ textDecoration: 'none', cursor: 'none' }} {...descAreaProps}>
+            <div className={styles.meta}>
+              <span className={styles.name}>{name}</span>
+              <span className={styles.category}>{category}</span>
+              {ARROW}
+            </div>
+            <p className={styles.desc}>{desc}</p>
+          </Link>
+        </>
       ) : (
         <div className={styles.info}>
           <div className={styles.meta}>
