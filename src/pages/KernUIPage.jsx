@@ -78,7 +78,7 @@ export default function KernUIPage() {
             <div className={styles.crumbs}>
               <div className={`${styles.breadcrumbThumb} ${heroCollapsed ? styles.breadcrumbThumbVisible : ''}`}
                 style={{ background: 'linear-gradient(135deg, #7d52f4 0%, #5b2fe8 100%)' }}>
-                <img src="https://www.figma.com/api/mcp/asset/5ea2c87b-9202-4e6e-be57-f42810e81721" alt="" style={{ objectFit:'contain', padding:4, width:'100%', height:'100%' }} />
+                <img src="/assets/kern-logo.svg" alt="" style={{ objectFit:'contain', padding:5, width:'100%', height:'100%', filter:'brightness(10)' }} />
               </div>
               <span className={styles.crumbMuted}>Home</span>
               <span className={styles.crumbMuted}>/</span>
@@ -104,7 +104,7 @@ export default function KernUIPage() {
           </div>
           <div className={styles.heroTags}>
             <a href="https://www.kernui.com" target="_blank" rel="noopener" className={imgStyles.tagLink}>
-              <img src="https://www.figma.com/api/mcp/asset/5ea2c87b-9202-4e6e-be57-f42810e81721" alt="" style={{ width:14, height:14, objectFit:'contain' }} />
+              <img src="/assets/kern-logo.svg" alt="" style={{ width:14, height:14, objectFit:'contain' }} />
               kernui.com
             </a>
             <span className={styles.tag}>2024</span>
@@ -142,6 +142,12 @@ export default function KernUIPage() {
           <p className={styles.sectionLabel}><ScrambleText duration={600}>Problem</ScrambleText></p>
           <div className={styles.sectionBody}>
             <p>Teams waste hours rebuilding the same buttons, form fields, and navigation patterns from scratch. The problem is not effort — it is repetition. Every new project resets the work.</p>
+
+            <ImgBlock height={340}>
+              <img src="/assets/kern-feature-1.svg" alt="Production ready components"
+                style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
+            </ImgBlock>
+
             <p>Existing UI kits either go too generic (every interface looks the same) or too rigid (you cannot adapt them to a real product). The handoff between design and development breaks down because the kit does not speak both languages.</p>
             <p>KernUI was built to close that gap. Flexible enough to fit a brand. Structured enough to hand off cleanly.</p>
           </div>
@@ -157,20 +163,23 @@ export default function KernUIPage() {
 
             <p>Components are built in layers. Atoms (buttons, inputs, badges) compose into molecules (cards, modals, nav bars), which compose into templates. Every state is designed: default, hover, focus, error, disabled. Nothing is left for developers to guess.</p>
 
-            <ImgBlock>
-              <img src="https://www.figma.com/api/mcp/asset/157fe76d-8a66-47a9-a9e9-3a287170d4d8" alt=""
-                style={{ position:'absolute', width:'60%', right:0, top:'50%', transform:'translateY(-50%)', objectFit:'cover' }} />
-              <img src="https://www.figma.com/api/mcp/asset/b7ab85a6-827e-41d0-817f-8d64d527b25e" alt=""
-                style={{ position:'absolute', width:'40%', left:0, top:'50%', transform:'translateY(-50%)', objectFit:'cover' }} />
+            <ImgBlock height={340}>
+              <img src="/assets/kern-feature-6.svg" alt="Light and dark mode components"
+                style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
             </ImgBlock>
 
             <p>The icon library sits at 1,600+ and is organised by category. Every icon has a consistent 24px grid, two weight variants, and is exported as both SVG and component-ready format.</p>
 
-            <ImgBlock>
-              <img src="https://www.figma.com/api/mcp/asset/ac90efec-3d17-4a41-af04-e96ac83437fb" alt=""
-                style={{ position:'absolute', width:'55%', left:0, top:'50%', transform:'translateY(-50%)', objectFit:'cover' }} />
-              <img src="https://www.figma.com/api/mcp/asset/a2ea3a77-1447-48d6-a436-ac643d649633" alt=""
-                style={{ position:'absolute', width:'50%', right:0, bottom:20, objectFit:'cover' }} />
+            <ImgBlock height={300}>
+              <img src="/assets/kern-feature-4.svg" alt="Over 1600 themed icons"
+                style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
+            </ImgBlock>
+
+            <p>The avatar system ships with hundreds of diverse, illustrated and photographic options. Everything from custom illustrations to real-photo avatars, all on a consistent circular grid.</p>
+
+            <ImgBlock height={300}>
+              <img src="/assets/kern-feature-3.svg" alt="Avatars and custom illustrations"
+                style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
             </ImgBlock>
 
             <p>There are three tiers. Free covers the palette, typography, icons, and logo/flag sets. Startup ($99) unlocks the full variable system, pre-built components, and regular updates. Enterprise is custom — dedicated support, team training, and bespoke design work.</p>
@@ -183,9 +192,9 @@ export default function KernUIPage() {
           <div className={styles.sectionBody}>
             <p>Over 1,200 designers and developers use KernUI. The feedback that comes up most: it reduces the back-and-forth between design and development. Teams spend less time arguing about spacing and more time shipping.</p>
 
-            <ImgBlock>
-              <img src="https://www.figma.com/api/mcp/asset/277565a6-9c8f-4b73-bd7a-ade04411fb61" alt=""
-                style={{ position:'absolute', width:'65%', left:'50%', top:'50%', transform:'translate(-50%,-50%)', objectFit:'cover' }} />
+            <ImgBlock height={340}>
+              <img src="/assets/kern-feature-5.svg" alt="KernUI design system"
+                style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
             </ImgBlock>
 
             <p>The freemium model was deliberate. Giving the palette and icons away for free meant people could evaluate the system before committing. Conversion from free to Startup followed naturally once they hit the limits of what free covered.</p>
