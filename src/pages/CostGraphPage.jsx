@@ -113,14 +113,8 @@ export default function CostGraphPage() {
         {/* Hero */}
         <FadeItem><div className={styles.hero}>
           <div className={`${styles.heroImg} ${heroCollapsed ? styles.heroImgMini : ""}`}>
-            <img src="/assets/cg-dots-bg.png" alt=""
-              style={{ position:'absolute', width:155, height:176, left:'calc(50% - 0.5px)', top:'calc(50% + 42px)', transform:'translate(-50%,-50%)', pointerEvents:'none' }} />
-            <img src="/assets/glass bottom.png" alt=""
-              style={{ position:'absolute', width:811, height:791, left:-22, top:12, pointerEvents:'none' }} />
-            <img src="/assets/glass top.png" alt=""
-              style={{ position:'absolute', width:443, height:423, left:-163, top:-264, pointerEvents:'none' }} />
-            <img src="/assets/cg-logo-icon.png" alt=""
-              style={{ position:'absolute', width:46, height:52, left:'50%', top:'50%', transform:'translate(-50%,-50%)', pointerEvents:'none' }} />
+            <img src="/assets/Costgraph cover.png" alt=""
+              style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', pointerEvents:'none' }} />
           </div>
           <div className={styles.heroTags}>
             <span className={styles.tag}>
