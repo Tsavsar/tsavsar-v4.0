@@ -82,7 +82,7 @@ export default function LonarPage() {
             <div className={styles.crumbs}>
               <div className={`${styles.breadcrumbThumb} ${heroCollapsed ? styles.breadcrumbThumbVisible : ''}`}
                 style={{ background: 'linear-gradient(201deg,rgb(251,77,0) 3%,rgb(244,3,131) 96%)' }}>
-                <img src="https://www.figma.com/api/mcp/asset/37c8431b-9aba-43d6-8ef9-e628d5258d3f" alt="" style={{ objectFit:'contain', padding:2 }} />
+                <img src="https://www.figma.com/api/mcp/asset/6763a071-d30d-4b36-81d8-a68225f7ca13" alt="" style={{ objectFit:'contain', padding:4 }} />
               </div>
               <span className={styles.crumbMuted}>Home</span>
               <span className={styles.crumbMuted}>/</span>
@@ -121,7 +121,7 @@ export default function LonarPage() {
           </div>
           <div className={styles.heroTags}>
             <a href="https://lonar.cc" target="_blank" rel="noopener" className={imgStyles.tagLink}>
-              <img src="https://www.figma.com/api/mcp/asset/dcb346dd-763a-47fa-bc2c-194e349dbf8d" alt="" style={{ width:14, height:14, objectFit:'contain' }} />
+              <img src="https://www.figma.com/api/mcp/asset/6763a071-d30d-4b36-81d8-a68225f7ca13" alt="" style={{ width:14, height:14, objectFit:'contain' }} />
               lonar.cc
             </a>
             <span className={styles.tag}>2026</span>
