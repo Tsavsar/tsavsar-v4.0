@@ -43,10 +43,10 @@ export default function useClickSound() {
       return ctxRef.current
     }
 
-    function handleClick(e) {
+    async function handleClick(e) {
       const target = e.target
       const ctx = getCtx()
-      if (ctx.state === 'suspended') ctx.resume()
+      if (ctx.state === 'suspended') await ctx.resume()
 
       // "open" sound for buttons, navs, gallery, dropdowns
       const isOpen = target.closest('button, [role="button"], nav a, .pi')

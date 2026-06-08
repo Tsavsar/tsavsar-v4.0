@@ -35,11 +35,13 @@
 
 /* Main content */
 .content {
-  width: 620px;
+  width: 100%;
+  max-width: 620px;
   display: flex;
   flex-direction: column;
   gap: 48px;
-  flex-shrink: 0;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 /* Breadcrumb — fixed via portal, always visible on scroll */
