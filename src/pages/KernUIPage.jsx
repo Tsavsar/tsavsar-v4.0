@@ -155,11 +155,6 @@ export default function KernUIPage() {
           <div className={styles.sectionBody}>
             <p>Teams waste hours rebuilding the same buttons, form fields, and navigation patterns from scratch. The problem is not effort — it is repetition. Every new project resets the work.</p>
 
-            <ImgBlock height={340}>
-              <img src="/assets/kern-feature-1.svg" alt="Production ready components"
-                style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
-            </ImgBlock>
-
             <p>Existing UI kits either go too generic (every interface looks the same) or too rigid (you cannot adapt them to a real product). The handoff between design and development breaks down because the kit does not speak both languages.</p>
             <p>KernUI was built to close that gap. Flexible enough to fit a brand. Structured enough to hand off cleanly.</p>
           </div>
