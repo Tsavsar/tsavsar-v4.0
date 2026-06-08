@@ -1,25 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { font-size: clamp(14px, calc(100vw / 90), 17.5px); }
-
-@media (max-width: 680px) {
-  html { font-size: clamp(16px, 4.5vw, 19px); }
-  body { line-height: 1.3; }
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: #ffffff;
-  color: #171717;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
-
 :root {
+  --font-sf: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
   --text-strong: #171717;
   --text-sub: #5c5c5c;
   --text-soft: #a3a3a3;
@@ -30,9 +12,25 @@ body {
   --font-12: 0.75rem;
   --font-14: 0.875rem;
   --font-16: 1rem;
-  --lh: 1.3;
-  --ls-12: 0.02em;
-  --ls-14: 0.02em;
+  --lh: 22px;
+  --ls-12: 0.01em;
+  --ls-14: 0.01em;
+}
+
+body {
+  font-family: var(--font-sf);
+  font-size: 14px;
+  line-height: 22px;
+  background: #ffffff;
+  color: #171717;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+@media (max-width: 680px) {
+  body { font-size: 14px; line-height: 22px; }
 }
 
 ::selection { background: #0F6DFF; color: #ffffff; }
