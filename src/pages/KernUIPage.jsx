@@ -119,7 +119,7 @@ export default function KernUIPage() {
               <img src="/assets/kern-icon.svg" alt="" style={{ width:14, height:14, objectFit:'contain', borderRadius:6 }} />
               kernui.com
             </a>
-            <span className={styles.tag}>2024</span>
+            <span className={styles.tag}>2025</span>
           </div>
         </div></FadeItem>
 
