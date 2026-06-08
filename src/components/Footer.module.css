@@ -10,7 +10,7 @@
 .lines { display: flex; flex-direction: column; gap: 1px; }
 .text {
   font-size: var(--font-12);
-  line-height: 16px;
+  line-height: var(--lh);
   letter-spacing: var(--ls-12);
   font-weight: 400;
   color: var(--text-sub);
