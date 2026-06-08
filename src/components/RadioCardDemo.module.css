@@ -1,0 +1,255 @@
+.root {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f7f7;
+  border-radius: 20px;
+  padding: 48px 32px;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 16px;
+  box-shadow: 0 5px 6.5px rgba(0,0,0,0.05), 0 2px 2px rgba(0,0,0,0.02);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: #f7f7f7;
+  border-radius: 99px;
+  margin: 4px 0;
+}
+
+/* ── List item ── */
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 12px;
+  gap: 8px;
+}
+
+.listItemMain {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.listItemText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.listItemTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #171717;
+  letter-spacing: 0.02em;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.listItemSub {
+  font-size: 12px;
+  font-weight: 400;
+  color: #5c5c5c;
+  letter-spacing: 0.02em;
+  line-height: 16px;
+}
+
+/* ── Text button ── */
+.textBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: #171717;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ── Radio group ── */
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 8px;
+}
+
+/* ── Radio card ── */
+.radioCard {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 16px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: border-color 0.15s;
+}
+
+.radioCardSelected {
+  border: 1.5px solid #7d52f4;
+}
+
+.radioCardIcon {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 9999px;
+  box-shadow: 0 5px 13px -5px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.radioCardBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.radioCardTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.radioCardTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #171717;
+  letter-spacing: 0.02em;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.radioCardSub {
+  font-size: 12px;
+  font-weight: 400;
+  color: #5c5c5c;
+  letter-spacing: 0.02em;
+  line-height: 16px;
+}
+
+/* ── Badge ── */
+.badge {
+  background: #efebff;
+  color: #7d52f4;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+/* ── Radio button ── */
+.radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.25px solid #d1d1d1;
+  background: #fff;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s;
+  overflow: hidden;
+  position: relative;
+}
+
+.radioSelected {
+  border: 0.75px solid #351a75;
+  box-shadow: 0 0 0 1px rgba(125,82,244,0.04), 0 1px 3px rgba(125,82,244,0.2);
+}
+
+.radioInner {
+  position: absolute;
+  inset: 0;
+  background: #7d52f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radioDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* ── Action group ── */
+.actionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Toggle ── */
+.toggle {
+  width: 36px;
+  height: 20px;
+  border-radius: 37px;
+  background: #d1d1d1;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  transition: left 0.2s;
+  box-shadow: 0 10px 20px 3px rgba(0,0,0,0.04);
+}
+
+.toggleOn {
+  background: #7d52f4;
+  border: 0.75px solid #351a75;
+  box-shadow: 0 0 0 1px rgba(125,82,244,0.04), 0 1px 3px rgba(125,82,244,0.2);
+}
+
+.toggleOn::after {
+  left: calc(100% - 17px);
+}

@@ -119,8 +119,41 @@
 .crumbs a { text-decoration: none; }
 .crumbMuted { font-size: var(--font-12); color: var(--text-sub); flex-shrink: 0; letter-spacing: var(--ls-12); }
 .crumbActive { font-size: var(--font-12); color: var(--text-strong); letter-spacing: var(--ls-12); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-/* Arrow pushed to far right inside breadcrumb crumbs row */
-.breadcrumbInner .crumbs svg { margin-left: auto; flex-shrink: 0; }
+/* Copy-link button in breadcrumb */
+.copyBtn {
+  margin-left: auto;
+  flex-shrink: 0;
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+/* Spacer: invisible, sizes the button to the widest state */
+.copyBtnSpacer {
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+}
+/* Both states layered on top */
+.copyBtnState {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  transition: opacity 0.25s ease;
+  white-space: nowrap;
+}
 
 /* Hero */
 .hero { display: flex; flex-direction: column; gap: 12px; }
@@ -171,7 +204,13 @@
 .sectionBody {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
+}
+
+/* Extra breathing room around interactive component blocks */
+.sectionBody > *:not(p):not(ul):not(li) {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 .sectionBody p {
   font-size: var(--font-14);
@@ -208,5 +247,13 @@
 
 @media (max-width: 900px) {
   .sidebar { display: none; }
-  .content { width: 100%; padding: 0 24px; }
+  .content { width: 100%; padding: 52px 24px 0; }
+}
+
+@media (max-width: 560px) {
+  .content { padding: 52px 20px 0; }
+  .breadcrumb { padding: 8px 20px; }
+  .breadcrumbInner { padding: 0; }
+  .section { gap: 10px; }
+  .hero { gap: 10px; }
 }

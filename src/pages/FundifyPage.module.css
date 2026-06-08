@@ -39,3 +39,17 @@
   position: relative;
   overflow: hidden;
 }
+
+.videoBlock {
+  width: 100%;
+  overflow: hidden;
+  background: #0e0e0e;
+  line-height: 0;
+}
+
+.video {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}

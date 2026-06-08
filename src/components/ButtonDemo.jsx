@@ -1,11 +1,18 @@
 import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import styles from './ButtonDemo.module.css'
 
 const ICON_WHITE  = 'https://www.figma.com/api/mcp/asset/f9e38a1f-fb62-4e34-ba20-84caa7f8a205'
 const ICON_PURPLE = 'https://www.figma.com/api/mcp/asset/aa3f2d72-1c24-4ba8-a563-e2c5d14d6aaf'
 const ICON_GREY   = 'https://www.figma.com/api/mcp/asset/1850f1de-4b9a-4ec3-bf4a-95fd90e81f9d'
-// Chevron icon for dropdown
-const CHEVRON_ICON = 'https://www.figma.com/api/mcp/asset/2e0af8b4-1607-4ffb-8843-9bdbff76dda6'
+
+const CHEVRON_SVG = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18">
+    <g fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" stroke="#b0b0b0">
+      <path d="M15.25 6.5L9 12.75L2.75 6.5" />
+    </g>
+  </svg>
+)
 
 const VARIANTS   = ['Primary', 'Secondary', 'Destructive', 'Disabled']
 const STATES     = ['Idle', 'Hover', 'Focused', 'Disabled']
@@ -33,10 +40,20 @@ function getIcon(variant, state, style) {
   return ICON_WHITE
 }
 
-// ── KernUI-style select dropdown ──────────────────────────────────────
+// ── KernUI-style select dropdown (portalled) ─────────────────────────
 function KernSelect({ value, options, onChange }) {
   const [open, setOpen] = useState(false)
+  const [pos,  setPos]  = useState({ top: 0, left: 0, width: 0, triggerTop: 0, openUp: false })
   const ref = useRef(null)
+
+  function handleToggle() {
+    if (!open && ref.current) {
+      const r = ref.current.getBoundingClientRect()
+      const openUp = window.innerHeight - r.bottom < 220
+      setPos({ top: r.bottom, left: r.left, width: r.width, triggerTop: r.top, openUp })
+    }
+    setOpen(v => !v)
+  }
 
   useEffect(() => {
     if (!open) return
@@ -45,26 +62,44 @@ function KernSelect({ value, options, onChange }) {
     return () => document.removeEventListener('mousedown', onOut)
   }, [open])
 
+  useEffect(() => {
+    if (!open) return
+    const close = () => setOpen(false)
+    window.addEventListener('scroll', close, { passive: true })
+    return () => window.removeEventListener('scroll', close)
+  }, [open])
+
   return (
     <div className={styles.select} ref={ref}>
-      <button className={styles.selectTrigger} onClick={() => setOpen(v => !v)}>
+      <button className={styles.selectTrigger} onClick={handleToggle}>
         <span className={styles.selectValue}>{value}</span>
-        <span className={styles.selectChevron}>
-          <img src={CHEVRON_ICON} alt="" width="16" height="16" style={{ display:'block' }} />
-        </span>
+        <span className={styles.selectChevron}>{CHEVRON_SVG}</span>
       </button>
-      {open && (
-        <div className={styles.dropdown}>
+      {open && createPortal(
+        <div
+          className={styles.dropdown}
+          style={{
+            position:  'fixed',
+            top:       pos.openUp ? 'auto' : pos.top + 4,
+            bottom:    pos.openUp ? window.innerHeight - pos.triggerTop + 4 : 'auto',
+            left:      pos.left,
+            width:     pos.width,
+            zIndex:    9999,
+            maxHeight: 200,
+            overflowY: 'auto',
+          }}
+        >
           {options.map(opt => (
             <div
               key={opt}
               className={`${styles.dropdownItem} ${opt === value ? styles.dropdownItemActive : ''}`}
-              onClick={() => { onChange(opt); setOpen(false) }}
+              onMouseDown={e => { e.preventDefault(); onChange(opt); setOpen(false) }}
             >
               {opt}
             </div>
           ))}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )

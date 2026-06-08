@@ -1,0 +1,154 @@
+.root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* ── Preview area ── */
+.preview {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Controls row ── */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* ── Toolbar pill ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 12px;
+  box-shadow: 0 5px 6.5px rgba(0,0,0,0.05), 0 2px 2px rgba(0,0,0,0.02);
+  padding: 6px 6px 6px 10px;
+}
+
+/* ── Divider ── */
+.div {
+  width: 1px;
+  height: 24px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ── Tool group ── */
+.group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+/* ── Tool button ── */
+.toolBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.1s;
+  padding: 0;
+}
+.toolBtn:hover { background: #f5f5f5; }
+
+/* ── Text dropdown trigger ── */
+.textDropdown {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 2px 4px 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  color: #171717;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: background 0.1s;
+  height: 28px;
+}
+.textDropdown:hover { background: #f5f5f5; }
+
+/* ── Color button ── */
+.colorBtn {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: #f7f7f7;
+  border: none;
+  border-radius: 12px;
+  padding: 2px 2px 2px 2px;
+  cursor: pointer;
+  height: 28px;
+  transition: background 0.1s;
+}
+.colorBtn:hover { background: #efefef; }
+
+.colorSwatch {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: #7d52f4;
+  flex-shrink: 0;
+}
+
+/* ── Panel ── */
+.panel {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 6px 0;
+  min-width: 220px;
+  position: relative;
+  overflow: visible;
+}
+
+/* ── Colour palette popup ── */
+.colorPalette {
+  display: grid;
+  grid-template-columns: repeat(5, 22px);
+  gap: 6px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 12px;
+  box-shadow: 0 5px 13px -5px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+  padding: 10px;
+}
+.colorDot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  flex-shrink: 0;
+}
+.colorDot:hover { transform: scale(1.15); }
+.colorDotActive {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px currentColor;
+}
+
+@media (max-width: 560px) {
+  .toolbar { flex-wrap: wrap; }
+  .panel { width: 100%; }
+}

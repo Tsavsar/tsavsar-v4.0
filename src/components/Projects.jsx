@@ -226,30 +226,42 @@ export default function Projects() {
               to="/work/fundify"
               name="Fundify"
               category="Fintech mobile app"
-              desc="Saving money feels like punishment. Fundify flips that — rewarding every good financial move with FundCoins you can actually spend."
+              desc="Saving money feels like punishment. Fundify flips that, rewarding every good financial move with FundCoins you can actually spend."
               bg="#141414"
             >
               {reg => (<>
-                {/* Fundify logo wordmark */}
-                <div ref={reg(0)} data-speed="6" className={styles.pi}
-                  style={{ position:'absolute', width:200, left:'calc(50% - 100px)', top:24, pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/1e5ebaee-dd28-464b-a549-30a8497fd6f5" style={{ width:'100%' }} alt="" />
+                {/* Wallet card */}
+                <img ref={reg(0)} data-speed="16" className={styles.pi} src="/assets/fundifyassets/Group 586905 1.png" alt=""
+                  style={{ position:'absolute', width:'51.56%', left:'12.56%', bottom:'-6.17%', transform:'rotate(16.15deg)', pointerEvents:'none' }} />
+
+
+                {/* Voucher card 1 */}
+                <img ref={reg(5)} data-speed="18" className={styles.pi} src="/assets/fundifyassets/Frame 586919 1.png" alt=""
+                  style={{ position:'absolute', width:'63.13%', left:'52.81%', bottom:'32.6%', transform:'rotate(-13.87deg)', pointerEvents:'none' }} />
+
+                {/* Voucher card 2 */}
+                <img ref={reg(6)} data-speed="16" className={styles.pi} src="/assets/fundifyassets/Frame 586919 2.png" alt=""
+                  style={{ position:'absolute', width:'60%', left:'65.69%', bottom:'25.98%', transform:'rotate(1.66deg)', pointerEvents:'none' }} />
+
+                {/* Voucher card 3 */}
+                <img ref={reg(7)} data-speed="14" className={styles.pi} src="/assets/fundifyassets/Frame 586919 3.png" alt=""
+                  style={{ position:'absolute', width:'61.25%', left:'59.38%', bottom:'6.83%', transform:'rotate(5.1deg)', pointerEvents:'none' }} />
+
+                {/* Voucher card 4 */}
+                <img ref={reg(8)} data-speed="12" className={styles.pi} src="/assets/fundifyassets/Frame 586919 4.png" alt=""
+                  style={{ position:'absolute', width:'62.19%', left:'58.66%', bottom:'-5.35%', transform:'rotate(-8.98deg)', pointerEvents:'none' }} />
+
+                {/* Phone — node 363:838, high quality Figma asset, on top of all bg elements */}
+                <div ref={reg(9)} data-speed="8" className={styles.pi}
+                  style={{ position:'absolute', width:'54.06%', height:'71%', left:'calc(50% - 27.03%)', top:'34.33%', overflow:'hidden', pointerEvents:'none' }}>
+                  <img src="https://www.figma.com/api/mcp/asset/3b9f3b57-88fe-492c-9742-de50ee161fb5" alt=""
+                    style={{ position:'absolute', left:'50%', top:0, width:'110.98%', transform:'translateX(-50%)', display:'block' }} />
+                  <div style={{ position:'absolute', top:'77.46%', left:'calc(50% + 9.86%)', width:'109.31%', height:'156.03%', transform:'translateX(-50%)', background:'linear-gradient(to top, #141414 71.54%, transparent)', pointerEvents:'none' }} />
                 </div>
-                {/* Left phone */}
-                <div ref={reg(1)} data-speed="14" className={styles.pi}
-                  style={{ position:'absolute', width:110, left:28, top:110, pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/6612f1fe-c761-4dae-a4f2-fa021c95226f" style={{ width:'100%', objectFit:'cover', objectPosition:'top' }} alt="" />
-                </div>
-                {/* Center phone */}
-                <div ref={reg(2)} data-speed="8" className={styles.pi}
-                  style={{ position:'absolute', width:138, left:'calc(50% - 69px)', top:80, pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/5378a954-2dd8-455b-9938-14458adc0032" style={{ width:'100%', objectFit:'cover', objectPosition:'top' }} alt="" />
-                </div>
-                {/* Right phone */}
-                <div ref={reg(3)} data-speed="18" className={styles.pi}
-                  style={{ position:'absolute', width:110, right:28, top:120, pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/87fab92f-a81e-4a80-b551-1a002372476c" style={{ width:'100%', objectFit:'cover', objectPosition:'top' }} alt="" />
-                </div>
+
+                {/* Coin — last, on top of everything */}
+                <img ref={reg(10)} data-speed="5" className={styles.pi} src="/assets/fundifyassets/Vector.png" alt=""
+                  style={{ position:'absolute', width:'8.44%', left:'calc(50% - 4.22%)', top:'7.67%', pointerEvents:'none' }} />
               </>)}
             </ParallaxCard>
 

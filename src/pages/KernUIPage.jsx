@@ -10,6 +10,8 @@ import imgStyles from './KernUIPage.module.css'
 import ButtonDemo from '../components/ButtonDemo'
 import AlertDemo from '../components/AlertDemo'
 import AvatarDemo from '../components/AvatarDemo'
+import RadioCardDemo from '../components/RadioCardDemo'
+import RichTextEditorDemo from '../components/RichTextEditorDemo'
 
 const SECTIONS = ['Intro', 'My role', 'Problem', 'System', 'Impact', 'Lessons']
 
@@ -41,7 +43,25 @@ function ImgBlock({ children, height }) {
 
 export default function KernUIPage() {
   const [active, setActive] = useState('Intro')
+  const [copied, setCopied] = useState(false)
   const sectionRefs = useRef({})
+
+  function handleCopy() {
+    navigator.clipboard.writeText(window.location.href).catch(() => {})
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  useEffect(() => {
+    document.title = 'KernUI — Shater Tsavsar'
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'KernUI — Shater Tsavsar')
+    document.querySelector('meta[property="og:image"]')?.setAttribute('content', '/assets/kernui-cover.png')
+    return () => {
+      document.title = 'Shater Tsavsar - Systemic Native'
+      document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'Shater Tsavsar - Systemic Native')
+      document.querySelector('meta[property="og:image"]')?.setAttribute('content', '/og-image.png')
+    }
+  }, [])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -86,7 +106,23 @@ export default function KernUIPage() {
               <span className={styles.crumbMuted}>Home</span>
               <span className={styles.crumbMuted}>/</span>
               <span className={styles.crumbActive}>KernUI</span>
-              {ARROW}
+              <button onClick={handleCopy} className={styles.copyBtn} aria-label="Copy link">
+                <span className={styles.copyBtnSpacer}>
+                  <svg width="16" height="16" viewBox="0 0 18 18" /><span style={{ fontSize:11 }}>Link copied</span>
+                </span>
+                <span className={styles.copyBtnState} style={{ opacity: copied ? 0 : 1 }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18" style={{ flexShrink:0 }}>
+                    <path d="M8.36909 6.8934C8.06649 7.0539 7.78239 7.2617 7.52799 7.517L7.51799 7.527C6.13699 8.908 6.13699 11.146 7.51799 12.527L9.69299 14.702C11.074 16.083 13.312 16.083 14.693 14.702L14.703 14.692C16.084 13.311 16.084 11.073 14.703 9.692L13.9406 8.9296" stroke="#5c5c5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                    <path d="M9.63289 11.1066C9.93549 10.9461 10.2196 10.7383 10.474 10.483L10.484 10.473C11.865 9.09199 11.865 6.85399 10.484 5.47299L8.30899 3.29799C6.92799 1.91699 4.68999 1.91699 3.30899 3.29799L3.29899 3.30799C1.91799 4.68899 1.91799 6.92699 3.29899 8.30799L4.06139 9.07039" stroke="#5c5c5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                  </svg>
+                </span>
+                <span className={styles.copyBtnState} style={{ opacity: copied ? 1 : 0 }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18" style={{ flexShrink:0 }}>
+                    <path d="M6.50011 15C6.23741 14.9834 5.96302 14.8438 5.83412 14.5952C4.78042 12.563 3.5987 10.9062 2.2198 9.5307C1.9268 9.2382 1.92683 8.7631 2.21883 8.4702C2.51083 8.1773 2.98642 8.1763 3.28032 8.4692C4.48242 9.6699 5.54301 11.0605 6.50001 12.6958C8.76461 8.7539 11.5537 5.5454 14.8047 3.1465C15.1377 2.9004 15.6074 2.9722 15.8535 3.3047C16.0996 3.6377 16.0283 4.1074 15.6953 4.3535C12.3027 6.8574 9.4316 10.3047 7.1631 14.6001C7.0332 14.8462 6.77841 15 6.50011 15Z" fill="#5c5c5c"/>
+                  </svg>
+                  <span style={{ fontSize:11, color:'#5c5c5c', fontWeight:500, letterSpacing:'0.01em' }}>Link copied</span>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -125,6 +161,21 @@ export default function KernUIPage() {
             <span className={styles.tag}>2025</span>
           </div>
         </div></FadeItem>
+
+        {/* Figma preview banner */}
+        <FadeItem>
+          <a
+            href="https://www.figma.com/design/rjtGbVAp1klmlQkfUD3O21/%E2%9C%A7-PREVIEW-%E2%9C%A7-KernUI---Design-System-%E2%9C%A7-Pro--v1.0-?node-id=570-21345&p=f&t=qjlnSXoZPVURsTta-0"
+            target="_blank"
+            rel="noopener"
+            className={imgStyles.previewBanner}
+          >
+            <div className={imgStyles.previewBannerLeft}>
+              <span className={imgStyles.previewBannerLabel}>Preview</span>
+              <span className={imgStyles.previewBannerTitle}>Open KernUI in Figma</span>
+            </div>
+          </a>
+        </FadeItem>
 
         {/* Intro */}
         <FadeItem><section id="intro" data-section="Intro" ref={reg('Intro')} className={styles.section}>
@@ -167,9 +218,9 @@ export default function KernUIPage() {
         <FadeItem><section id="system" data-section="System" ref={reg('System')} className={styles.section}>
           <p className={styles.sectionLabel}><ScrambleText duration={600}>System</ScrambleText></p>
           <div className={styles.sectionBody}>
-            <p>The foundation is a token system. Colours, spacing, typography, and radius values are all defined as variables — not hard-coded. Swapping a theme from light to dark does not require touching individual components.</p>
+            <RadioCardDemo />
 
-            <VideoBlock />
+            <p>The foundation is a token system. Colours, spacing, typography, and radius values are all defined as variables — not hard-coded. Swapping a theme from light to dark does not require touching individual components.</p>
 
             <p>Components are built in layers. Atoms (buttons, inputs, badges) compose into molecules (cards, modals, nav bars), which compose into templates. Every state is designed: default, hover, focus, error, disabled. Nothing is left for developers to guess.</p>
 
@@ -184,6 +235,8 @@ export default function KernUIPage() {
             <p>The avatar system ships with three avatar types — humans, illustrations, and memojis — each with default and colour variants. Every avatar supports top and bottom badge slots for status, notification, and action states.</p>
 
             <AvatarDemo />
+
+            <RichTextEditorDemo />
 
             <p>There are three tiers. Free covers the palette, typography, icons, and logo/flag sets. Startup ($99) unlocks the full variable system, pre-built components, and regular updates. Enterprise is custom — dedicated support, team training, and bespoke design work.</p>
           </div>
@@ -207,6 +260,8 @@ export default function KernUIPage() {
             <p>A design system is never finished. The ones that get abandoned are the ones that try to be complete before launching. KernUI shipped incomplete and iterated based on what users actually needed. That is still the right call.</p>
           </div>
         </section></FadeItem>
+
+        <FadeItem><VideoBlock /></FadeItem>
 
         {/* Articles */}
         <FadeItem><section className={styles.articlesSection}>

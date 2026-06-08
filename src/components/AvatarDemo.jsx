@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import styles from './AvatarDemo.module.css'
 import btnStyles from './ButtonDemo.module.css'
 
@@ -15,7 +16,14 @@ const PLUS_ICN    = 'https://www.figma.com/api/mcp/asset/afafa593-ebb0-4f78-9e8c
 const VERIFIED    = 'https://www.figma.com/api/mcp/asset/7c0cf0db-1c49-4ebf-9fc8-a1a310ee0c00'
 const ARROW_ICN   = 'https://www.figma.com/api/mcp/asset/2cf9fae7-7e17-4686-92f5-549eb1e88738'
 const X_ICN       = 'https://www.figma.com/api/mcp/asset/e7efa234-7724-4972-a6a6-1b2934fc973f'
-const CHEVRON     = 'https://www.figma.com/api/mcp/asset/2e0af8b4-1607-4ffb-8843-9bdbff76dda6'
+
+const CHEVRON_SVG = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18">
+    <g fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" stroke="#b0b0b0">
+      <path d="M15.25 6.5L9 12.75L2.75 6.5" />
+    </g>
+  </svg>
+)
 
 // ── Options ───────────────────────────────────────────────────────────
 const AVATAR_TYPES = ['Human', 'Illustration', 'Memoji', 'Initials']
@@ -116,34 +124,64 @@ function AvatarCircle({ type, colored, size, topBadge, bottomBadge }) {
   )
 }
 
-// ── KernSelect (shared from ButtonDemo styles) ────────────────────────
+// ── KernSelect (portalled) ────────────────────────────────────────────
 function KernSelect({ value, options, onChange }) {
   const [open, setOpen] = useState(false)
+  const [pos,  setPos]  = useState({ top: 0, left: 0, width: 0, triggerTop: 0, openUp: false })
   const ref = useRef(null)
+
+  function handleToggle() {
+    if (!open && ref.current) {
+      const r = ref.current.getBoundingClientRect()
+      const openUp = window.innerHeight - r.bottom < 220
+      setPos({ top: r.bottom, left: r.left, width: r.width, triggerTop: r.top, openUp })
+    }
+    setOpen(v => !v)
+  }
+
   useEffect(() => {
     if (!open) return
     const h = e => { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
     document.addEventListener('mousedown', h)
     return () => document.removeEventListener('mousedown', h)
   }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const close = () => setOpen(false)
+    window.addEventListener('scroll', close, { passive: true })
+    return () => window.removeEventListener('scroll', close)
+  }, [open])
+
   return (
     <div className={btnStyles.select} ref={ref}>
-      <button className={btnStyles.selectTrigger} onClick={() => setOpen(v => !v)}>
+      <button className={btnStyles.selectTrigger} onClick={handleToggle}>
         <span className={btnStyles.selectValue}>{value}</span>
-        <span className={btnStyles.selectChevron}>
-          <img src={CHEVRON} alt="" width="16" height="16" style={{ display: 'block' }} />
-        </span>
+        <span className={btnStyles.selectChevron}>{CHEVRON_SVG}</span>
       </button>
-      {open && (
-        <div className={btnStyles.dropdown}>
+      {open && createPortal(
+        <div
+          className={btnStyles.dropdown}
+          style={{
+            position:  'fixed',
+            top:       pos.openUp ? 'auto' : pos.top + 4,
+            bottom:    pos.openUp ? window.innerHeight - pos.triggerTop + 4 : 'auto',
+            left:      pos.left,
+            width:     pos.width,
+            zIndex:    9999,
+            maxHeight: 200,
+            overflowY: 'auto',
+          }}
+        >
           {options.map(opt => (
             <div key={opt}
               className={`${btnStyles.dropdownItem} ${opt === value ? btnStyles.dropdownItemActive : ''}`}
-              onClick={() => { onChange(opt); setOpen(false) }}>
+              onMouseDown={e => { e.preventDefault(); onChange(opt); setOpen(false) }}>
               {opt}
             </div>
           ))}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )
