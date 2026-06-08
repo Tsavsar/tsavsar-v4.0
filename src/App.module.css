@@ -24,7 +24,7 @@
   opacity: 0;
   transform: translateY(20px);
   filter: blur(10px);
-  transition: opacity 0.65s ease, transform 0.65s ease, filter 0.65s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
 }
 .visible {
   opacity: 1;
