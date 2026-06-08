@@ -1,0 +1,116 @@
+.root {
+  width: 100%;
+  background: #f7f7f7;
+  border: 1px solid rgba(0,0,0,0.05);
+  padding: 32px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ── Live preview ── */
+.preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 20px;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    box-shadow 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    opacity 0.18s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.btn:disabled { cursor: not-allowed; }
+
+.iconWrap {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.icon {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  display: block;
+}
+.btnLabel {
+  flex-shrink: 0;
+}
+
+/* ── Category tabs ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: rgba(0,0,0,0.04);
+  padding: 3px;
+  border-radius: 10px;
+}
+.tab {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: #888;
+  background: transparent;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+}
+.tab:hover { color: #171717; }
+.tabActive {
+  background: #fff;
+  color: #171717;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* ── Option pills ── */
+.options {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.pill {
+  font-size: 13px;
+  font-weight: 400;
+  color: #555;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.07);
+  padding: 4px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s, box-shadow 0.12s;
+  font-family: inherit;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.pill:hover { border-color: rgba(0,0,0,0.15); color: #171717; }
+.pillActive {
+  background: #171717;
+  color: #fff;
+  border-color: #171717;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}

@@ -7,6 +7,7 @@ import ScrambleText from '../components/ScrambleText'
 import { useScrollY } from '../hooks/useScrollY'
 import styles from './CostGraphPage.module.css'
 import imgStyles from './KernUIPage.module.css'
+import ButtonDemo from '../components/ButtonDemo'
 
 const SECTIONS = ['Intro', 'My role', 'Problem', 'System', 'Impact', 'Lessons']
 
@@ -169,6 +170,8 @@ export default function KernUIPage() {
             <VideoBlock />
 
             <p>Components are built in layers. Atoms (buttons, inputs, badges) compose into molecules (cards, modals, nav bars), which compose into templates. Every state is designed: default, hover, focus, error, disabled. Nothing is left for developers to guess.</p>
+
+            <ButtonDemo />
 
             <ImgBlock height={340}>
               <img src="/assets/kern-feature-6.svg" alt="Light and dark mode components"
