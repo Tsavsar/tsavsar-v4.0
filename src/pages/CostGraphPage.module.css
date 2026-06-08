@@ -66,14 +66,13 @@
 }
 .breadcrumbInner {
   width: 100%;
-  max-width: 769px; /* 113px sidebar + 36px gap + 620px content */
-  display: grid;
-  grid-template-columns: 149px 1fr;
+  max-width: 769px;
+  display: flex;
   align-items: center;
+  gap: 16px;
 }
-/* Back pill — natural width, hugging left of its column */
 .breadcrumbInner > a.backPill {
-  justify-self: start;
+  flex-shrink: 0;
   text-decoration: none;
 }
 /* Mini cover thumbnail in breadcrumb */
