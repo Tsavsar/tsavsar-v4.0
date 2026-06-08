@@ -181,11 +181,6 @@ export default function KernUIPage() {
 
             <p>The icon library sits at 1,600+ and is organised by category. Every icon has a consistent 24px grid, two weight variants, and is exported as both SVG and component-ready format.</p>
 
-            <ImgBlock height={300}>
-              <img src="/assets/kern-feature-4.svg" alt="Over 1600 themed icons"
-                style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
-            </ImgBlock>
-
             <p>The avatar system ships with three avatar types — humans, illustrations, and memojis — each with default and colour variants. Every avatar supports top and bottom badge slots for status, notification, and action states.</p>
 
             <AvatarDemo />
@@ -199,11 +194,6 @@ export default function KernUIPage() {
           <p className={styles.sectionLabel}><ScrambleText duration={600}>Impact</ScrambleText></p>
           <div className={styles.sectionBody}>
             <p>Over 1,200 designers and developers use KernUI. The feedback that comes up most: it reduces the back-and-forth between design and development. Teams spend less time arguing about spacing and more time shipping.</p>
-
-            <ImgBlock height={340}>
-              <img src="/assets/kern-feature-5.svg" alt="KernUI design system"
-                style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
-            </ImgBlock>
 
             <p>The freemium model was deliberate. Giving the palette and icons away for free meant people could evaluate the system before committing. Conversion from free to Startup followed naturally once they hit the limits of what free covered.</p>
           </div>
