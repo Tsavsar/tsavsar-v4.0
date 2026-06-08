@@ -22,10 +22,12 @@
 }
 .section {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
+  transform: translateY(20px);
+  filter: blur(10px);
+  transition: opacity 0.65s ease, transform 0.65s ease, filter 0.65s ease;
 }
 .visible {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0px);
 }
