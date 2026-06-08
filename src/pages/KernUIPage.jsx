@@ -8,6 +8,7 @@ import { useScrollY } from '../hooks/useScrollY'
 import styles from './CostGraphPage.module.css'
 import imgStyles from './KernUIPage.module.css'
 import ButtonDemo from '../components/ButtonDemo'
+import AlertDemo from '../components/AlertDemo'
 
 const SECTIONS = ['Intro', 'My role', 'Problem', 'System', 'Impact', 'Lessons']
 
@@ -177,6 +178,10 @@ export default function KernUIPage() {
               <img src="/assets/kern-feature-6.svg" alt="Light and dark mode components"
                 style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
             </ImgBlock>
+
+            <p>The same state logic applies across every component. Alert notifications carry their own variant, colour, size, and visibility controls — all wired to the same token system.</p>
+
+            <AlertDemo />
 
             <p>The icon library sits at 1,600+ and is organised by category. Every icon has a consistent 24px grid, two weight variants, and is exported as both SVG and component-ready format.</p>
 

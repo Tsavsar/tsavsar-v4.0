@@ -1,0 +1,212 @@
+.root {
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 32px;
+}
+
+/* ── Live preview ── */
+.preview {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert {
+  display: flex;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+.alertIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.alertBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.alertTitle {
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.alertText {
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.alertActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.alertActionBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  padding: 2px 0;
+  letter-spacing: 0.02em;
+}
+
+.alertCancel {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: inherit;
+  white-space: nowrap;
+  padding: 0;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.alertCloseIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.alertCloseAbsolute {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ── Figma panel ── */
+.panel {
+  width: 210px;
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px 4px;
+}
+.panelTitle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #171717;
+  letter-spacing: 0.01em;
+}
+.panelIcons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: #555;
+}
+.panelSub {
+  font-size: 11px;
+  color: #aaa;
+  padding: 0 12px 8px;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+.diamond { font-size: 10px; }
+
+.divider {
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+  margin: 0 0 2px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 12px;
+  gap: 8px;
+  user-select: none;
+  transition: background 0.1s;
+}
+.row[role="button"] { cursor: pointer; }
+.row[role="button"]:hover { background: #f7f7f7; }
+
+.rowLabel {
+  font-size: 11px;
+  color: #888;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+}
+.rowValue {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #171717;
+  background: #f7f7f7;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 5px;
+  padding: 2px 6px;
+  min-width: 70px;
+  justify-content: space-between;
+}
+
+/* ── Toggle ── */
+.toggle {
+  width: 28px; height: 16px;
+  background: #d1d1d1;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.18s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+.toggleOn { background: #7d52f4; }
+.toggleThumb {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: left 0.18s ease;
+}
+.toggleOn .toggleThumb { left: 14px; }
+
+/* ── Responsive ── */
+@media (max-width: 580px) {
+  .root { flex-direction: column; gap: 24px; padding: 24px 20px; }
+  .panel { width: 100%; }
+}
