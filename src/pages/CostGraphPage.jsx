@@ -113,7 +113,7 @@ export default function CostGraphPage() {
         {/* Hero */}
         <FadeItem><div className={styles.hero}>
           <div className={`${styles.heroImg} ${heroCollapsed ? styles.heroImgMini : ""}`}>
-            <img src="/assets/Costgraph cover.png" alt=""
+            <img src="/assets/costgraph-cover.png" alt=""
               style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', pointerEvents:'none' }} />
           </div>
           <div className={styles.heroTags}>
