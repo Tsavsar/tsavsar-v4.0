@@ -11,6 +11,7 @@ import LonarPage from './pages/LonarPage'
 import KernUIPage from './pages/KernUIPage'
 import FundifyPage from './pages/FundifyPage'
 import styles from './App.module.css'
+import useClickSound from './hooks/useClickSound'
 
 function Home() {
   const refs = useRef([])
@@ -42,6 +43,7 @@ function Home() {
 }
 
 export default function App() {
+  useClickSound()
   return (
     <Routes>
       <Route path="/" element={<Home />} />
