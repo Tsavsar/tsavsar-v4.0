@@ -78,7 +78,7 @@ export default function KernUIPage() {
             <div className={styles.crumbs}>
               <div className={`${styles.breadcrumbThumb} ${heroCollapsed ? styles.breadcrumbThumbVisible : ''}`}
                 style={{ background: 'linear-gradient(135deg, #7d52f4 0%, #5b2fe8 100%)' }}>
-                <img src="/assets/kern-icon.svg" alt="" style={{ objectFit:'contain', width:'100%', height:'100%', borderRadius:3 }} />
+                <img src="/assets/kern-icon.svg" alt="" style={{ objectFit:'contain', width:'100%', height:'100%', borderRadius:6 }} />
               </div>
               <span className={styles.crumbMuted}>Home</span>
               <span className={styles.crumbMuted}>/</span>
@@ -116,7 +116,7 @@ export default function KernUIPage() {
           </div>
           <div className={styles.heroTags}>
             <a href="https://www.kernui.com" target="_blank" rel="noopener" className={imgStyles.tagLink}>
-              <img src="/assets/kern-icon.svg" alt="" style={{ width:14, height:14, objectFit:'contain', borderRadius:3 }} />
+              <img src="/assets/kern-icon.svg" alt="" style={{ width:14, height:14, objectFit:'contain', borderRadius:6 }} />
               kernui.com
             </a>
             <span className={styles.tag}>2024</span>
