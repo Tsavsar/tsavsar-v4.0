@@ -9,6 +9,7 @@ import styles from './CostGraphPage.module.css'
 import imgStyles from './KernUIPage.module.css'
 import ButtonDemo from '../components/ButtonDemo'
 import AlertDemo from '../components/AlertDemo'
+import AvatarDemo from '../components/AvatarDemo'
 
 const SECTIONS = ['Intro', 'My role', 'Problem', 'System', 'Impact', 'Lessons']
 
@@ -174,11 +175,6 @@ export default function KernUIPage() {
 
             <ButtonDemo />
 
-            <ImgBlock height={340}>
-              <img src="/assets/kern-feature-6.svg" alt="Light and dark mode components"
-                style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
-            </ImgBlock>
-
             <p>The same state logic applies across every component. Alert notifications carry their own variant, colour, size, and visibility controls — all wired to the same token system.</p>
 
             <AlertDemo />
@@ -190,12 +186,9 @@ export default function KernUIPage() {
                 style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
             </ImgBlock>
 
-            <p>The avatar system ships with hundreds of diverse, illustrated and photographic options. Everything from custom illustrations to real-photo avatars, all on a consistent circular grid.</p>
+            <p>The avatar system ships with three avatar types — humans, illustrations, and memojis — each with default and colour variants. Every avatar supports top and bottom badge slots for status, notification, and action states.</p>
 
-            <ImgBlock height={300}>
-              <img src="/assets/kern-feature-3.svg" alt="Avatars and custom illustrations"
-                style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
-            </ImgBlock>
+            <AvatarDemo />
 
             <p>There are three tiers. Free covers the palette, typography, icons, and logo/flag sets. Startup ($99) unlocks the full variable system, pre-built components, and regular updates. Enterprise is custom — dedicated support, team training, and bespoke design work.</p>
           </div>
