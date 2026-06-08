@@ -5,7 +5,7 @@ const ICON_WHITE  = 'https://www.figma.com/api/mcp/asset/f9e38a1f-fb62-4e34-ba20
 const ICON_PURPLE = 'https://www.figma.com/api/mcp/asset/aa3f2d72-1c24-4ba8-a563-e2c5d14d6aaf'
 const ICON_GREY   = 'https://www.figma.com/api/mcp/asset/1850f1de-4b9a-4ec3-bf4a-95fd90e81f9d'
 // Chevron icon for dropdown
-const CHEVRON_ICON = 'https://www.figma.com/api/mcp/asset/7d59be1e-cd15-45e3-9cf6-833ae01adebf'
+const CHEVRON_ICON = 'https://www.figma.com/api/mcp/asset/2e0af8b4-1607-4ffb-8843-9bdbff76dda6'
 
 const VARIANTS   = ['Primary', 'Secondary', 'Destructive', 'Disabled']
 const STATES     = ['Idle', 'Hover', 'Focused', 'Disabled']
@@ -76,9 +76,7 @@ function PropRow({ label, value, options, onChange, isToggle, toggled, onToggle 
     return (
       <div className={styles.row}>
         <span className={styles.rowLabel}>{label}</span>
-        <button className={`${styles.toggle} ${toggled ? styles.toggleOn : ''}`} onClick={onToggle}>
-          <span className={styles.toggleThumb} />
-        </button>
+        <button className={`${styles.toggle} ${toggled ? styles.toggleOn : ''}`} onClick={onToggle} aria-label={label} />
       </div>
     )
   }

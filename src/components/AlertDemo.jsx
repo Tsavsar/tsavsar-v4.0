@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import styles from './AlertDemo.module.css'
 import btnStyles from './ButtonDemo.module.css'
 
-const CHEVRON_ICON = 'https://www.figma.com/api/mcp/asset/7d59be1e-cd15-45e3-9cf6-833ae01adebf'
+const CHEVRON_ICON = 'https://www.figma.com/api/mcp/asset/2e0af8b4-1607-4ffb-8843-9bdbff76dda6'
 
 function KernSelect({ value, options, onChange }) {
   const [open, setOpen] = useState(false)
@@ -192,9 +192,7 @@ function PropRow({ label, value, options, onChange, isToggle, toggled, onToggle 
     return (
       <div className={styles.row}>
         <span className={styles.rowLabel}>{label}</span>
-        <button className={`${styles.toggle} ${toggled ? styles.toggleOn : ''}`} onClick={onToggle}>
-          <span className={styles.toggleThumb} />
-        </button>
+        <button className={`${styles.toggle} ${toggled ? styles.toggleOn : ''}`} onClick={onToggle} aria-label={label} />
       </div>
     )
   }
