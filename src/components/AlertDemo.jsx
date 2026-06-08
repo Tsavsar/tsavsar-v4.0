@@ -1,5 +1,40 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import styles from './AlertDemo.module.css'
+import btnStyles from './ButtonDemo.module.css'
+
+const CHEVRON_ICON = 'https://www.figma.com/api/mcp/asset/7d59be1e-cd15-45e3-9cf6-833ae01adebf'
+
+function KernSelect({ value, options, onChange }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  useEffect(() => {
+    if (!open) return
+    function onOut(e) { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
+    document.addEventListener('mousedown', onOut)
+    return () => document.removeEventListener('mousedown', onOut)
+  }, [open])
+  return (
+    <div className={btnStyles.select} ref={ref}>
+      <button className={btnStyles.selectTrigger} onClick={() => setOpen(v => !v)}>
+        <span className={btnStyles.selectValue}>{value}</span>
+        <span className={btnStyles.selectChevron}>
+          <img src={CHEVRON_ICON} alt="" width="12" height="12" style={{ display:'block' }} />
+        </span>
+      </button>
+      {open && (
+        <div className={btnStyles.dropdown}>
+          {options.map(opt => (
+            <div key={opt}
+              className={`${btnStyles.dropdownItem} ${opt === value ? btnStyles.dropdownItemActive : ''}`}
+              onClick={() => { onChange(opt); setOpen(false) }}>
+              {opt}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
 
 // ── Colour map per state ──────────────────────────────────────────────
 const COLORS = {
@@ -152,7 +187,7 @@ function AlertPreview({ variant, state, size, showClose, showButtons, showIcon }
 }
 
 // ── Figma-style panel row ─────────────────────────────────────────────
-function PropRow({ label, value, onClick, isToggle, toggled, onToggle }) {
+function PropRow({ label, value, options, onChange, isToggle, toggled, onToggle }) {
   if (isToggle) {
     return (
       <div className={styles.row}>
@@ -164,15 +199,9 @@ function PropRow({ label, value, onClick, isToggle, toggled, onToggle }) {
     )
   }
   return (
-    <div className={styles.row} onClick={onClick} role="button" tabIndex={0}
-      onKeyDown={e => e.key === 'Enter' && onClick()}>
+    <div className={styles.row}>
       <span className={styles.rowLabel}>{label}</span>
-      <span className={styles.rowValue}>
-        {value}
-        <svg viewBox="0 0 10 6" fill="none" width="10" height="6" style={{ flexShrink:0, opacity:0.4 }}>
-          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </span>
+      <KernSelect value={value} options={options} onChange={onChange} />
     </div>
   )
 }
@@ -198,36 +227,12 @@ export default function AlertDemo() {
 
       {/* Figma panel */}
       <div className={styles.panel}>
-        <div className={styles.panelHeader}>
-          <div className={styles.panelTitle}>
-            <span>Alert</span>
-            <svg viewBox="0 0 10 6" fill="none" width="10" height="6">
-              <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <div className={styles.panelIcons}>
-            <svg viewBox="0 0 16 16" fill="none" width="13" height="13" opacity=".4">
-              <rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2"/>
-              <rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2"/>
-              <rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2"/>
-              <rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2"/>
-            </svg>
-            <svg viewBox="0 0 16 4" fill="none" width="13" height="4" opacity=".4">
-              <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
-              <circle cx="8" cy="2" r="1.5" fill="currentColor"/>
-              <circle cx="14" cy="2" r="1.5" fill="currentColor"/>
-            </svg>
-          </div>
-        </div>
-        <p className={styles.panelSub}>From this file <span className={styles.diamond}>◇</span></p>
-        <div className={styles.divider} />
-
-        <PropRow label="Variant"       value={variant} onClick={() => setVariant(cycle(VARIANTS, variant))} />
-        <PropRow label="State"         value={state}   onClick={() => setStateVal(cycle(STATES, state))} />
-        <PropRow label="Size"          value={size}    onClick={() => setSize(cycle(SIZES, size))} />
-        <PropRow label="Show Close"    isToggle toggled={showClose}   onToggle={() => setShowClose(v => !v)} />
+        <PropRow label="Variant"        value={variant} options={VARIANTS} onChange={setVariant} />
+        <PropRow label="State"          value={state}   options={STATES}   onChange={setStateVal} />
+        <PropRow label="Size"           value={size}    options={SIZES}    onChange={setSize} />
+        <PropRow label="Show Close"     isToggle toggled={showClose}   onToggle={() => setShowClose(v => !v)} />
         <PropRow label="Show Button(s)" isToggle toggled={showButtons} onToggle={() => setShowButtons(v => !v)} />
-        <PropRow label="Show Icon"     isToggle toggled={showIcon}    onToggle={() => setShowIcon(v => !v)} />
+        <PropRow label="Show Icon"      isToggle toggled={showIcon}    onToggle={() => setShowIcon(v => !v)} />
       </div>
     </div>
   )

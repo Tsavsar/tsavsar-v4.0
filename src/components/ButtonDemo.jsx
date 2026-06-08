@@ -1,19 +1,20 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import styles from './ButtonDemo.module.css'
 
 const ICON_WHITE  = 'https://www.figma.com/api/mcp/asset/f9e38a1f-fb62-4e34-ba20-84caa7f8a205'
 const ICON_PURPLE = 'https://www.figma.com/api/mcp/asset/aa3f2d72-1c24-4ba8-a563-e2c5d14d6aaf'
 const ICON_GREY   = 'https://www.figma.com/api/mcp/asset/1850f1de-4b9a-4ec3-bf4a-95fd90e81f9d'
+// Chevron icon for dropdown
+const CHEVRON_ICON = 'https://www.figma.com/api/mcp/asset/7d59be1e-cd15-45e3-9cf6-833ae01adebf'
 
-const VARIANTS = ['Primary', 'Secondary', 'Destructive', 'Disabled']
-const STATES   = ['Idle', 'Hover', 'Focused', 'Disabled']
+const VARIANTS   = ['Primary', 'Secondary', 'Destructive', 'Disabled']
+const STATES     = ['Idle', 'Hover', 'Focused', 'Disabled']
 const STYLES_OPT = ['Default', 'Stroke', 'Lighter', 'Ghost']
+const SIZES      = ['36', '40', '44']
 
-function cycle(arr, current) {
-  return arr[(arr.indexOf(current) + 1) % arr.length]
-}
+const SIZE_PADDING = { '36': '8px 12px', '40': '10px 12px', '44': '12px 14px' }
 
-function getButtonStyle(variant, state, style, onlyIcon) {
+function getButtonStyle(variant, state, style) {
   const isDisabled = variant === 'Disabled' || state === 'Disabled'
   if (isDisabled) return { background: '#d1d1d1', color: '#fff', boxShadow: 'none', border: 'none', cursor: 'not-allowed' }
   if (style === 'Stroke')  return { background: 'transparent', color: '#7d52f4', border: '1px solid #7d52f4', boxShadow: 'none' }
@@ -32,94 +33,97 @@ function getIcon(variant, state, style) {
   return ICON_WHITE
 }
 
-// A single row in the Figma-style panel
-function PropRow({ label, value, onClick, isToggle, toggled, onToggle }) {
+// ── KernUI-style select dropdown ──────────────────────────────────────
+function KernSelect({ value, options, onChange }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (!open) return
+    function onOut(e) { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
+    document.addEventListener('mousedown', onOut)
+    return () => document.removeEventListener('mousedown', onOut)
+  }, [open])
+
+  return (
+    <div className={styles.select} ref={ref}>
+      <button className={styles.selectTrigger} onClick={() => setOpen(v => !v)}>
+        <span className={styles.selectValue}>{value}</span>
+        <span className={styles.selectChevron}>
+          <img src={CHEVRON_ICON} alt="" width="12" height="12" style={{ display:'block' }} />
+        </span>
+      </button>
+      {open && (
+        <div className={styles.dropdown}>
+          {options.map(opt => (
+            <div
+              key={opt}
+              className={`${styles.dropdownItem} ${opt === value ? styles.dropdownItemActive : ''}`}
+              onClick={() => { onChange(opt); setOpen(false) }}
+            >
+              {opt}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── Panel row ─────────────────────────────────────────────────────────
+function PropRow({ label, value, options, onChange, isToggle, toggled, onToggle }) {
   if (isToggle) {
     return (
       <div className={styles.row}>
         <span className={styles.rowLabel}>{label}</span>
-        <button
-          className={`${styles.toggle} ${toggled ? styles.toggleOn : ''}`}
-          onClick={onToggle}
-          aria-label={label}
-        >
+        <button className={`${styles.toggle} ${toggled ? styles.toggleOn : ''}`} onClick={onToggle}>
           <span className={styles.toggleThumb} />
         </button>
       </div>
     )
   }
   return (
-    <div className={styles.row} onClick={onClick} role="button" tabIndex={0}
-      onKeyDown={e => e.key === 'Enter' && onClick()}>
+    <div className={styles.row}>
       <span className={styles.rowLabel}>{label}</span>
-      <span className={styles.rowValue}>
-        {value}
-        <svg viewBox="0 0 10 6" fill="none" width="10" height="6" style={{ flexShrink:0, opacity:0.4 }}>
-          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </span>
+      <KernSelect value={value} options={options} onChange={onChange} />
     </div>
   )
 }
 
+// ── Main ──────────────────────────────────────────────────────────────
 export default function ButtonDemo() {
   const [variant,  setVariant]  = useState('Primary')
   const [state,    setState]    = useState('Idle')
   const [style,    setStyle]    = useState('Default')
+  const [size,     setSize]     = useState('44')
   const [onlyIcon, setOnlyIcon] = useState(false)
 
-  const btnStyle = getButtonStyle(variant, state, style, onlyIcon)
-  const iconSrc  = getIcon(variant, state, style)
+  const btnStyle  = getButtonStyle(variant, state, style)
+  const iconSrc   = getIcon(variant, state, style)
   const isDisabled = variant === 'Disabled' || state === 'Disabled'
 
   return (
     <div className={styles.root}>
-      {/* Left: live button preview */}
+      {/* Live button preview */}
       <div className={styles.preview}>
-        <button className={styles.btn} style={btnStyle} disabled={isDisabled}>
+        <button
+          className={styles.btn}
+          style={{ ...btnStyle, padding: SIZE_PADDING[size] }}
+          disabled={isDisabled}
+        >
           <span className={styles.iconWrap}><img src={iconSrc} alt="" className={styles.icon} /></span>
           {!onlyIcon && <span className={styles.btnLabel}>Continue</span>}
           {!onlyIcon && <span className={styles.iconWrap}><img src={iconSrc} alt="" className={styles.icon} /></span>}
         </button>
       </div>
 
-      {/* Right: Figma-style property panel */}
+      {/* Figma-style property panel */}
       <div className={styles.panel}>
-        {/* Panel header */}
-        <div className={styles.panelHeader}>
-          <div className={styles.panelTitle}>
-            <span>Button</span>
-            <svg viewBox="0 0 10 6" fill="none" width="10" height="6">
-              <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <div className={styles.panelIcons}>
-            <svg viewBox="0 0 16 16" fill="none" width="14" height="14" opacity=".4">
-              <rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2"/>
-              <rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2"/>
-              <rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2"/>
-              <rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2"/>
-            </svg>
-            <svg viewBox="0 0 16 4" fill="none" width="14" height="4" opacity=".4">
-              <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
-              <circle cx="8" cy="2" r="1.5" fill="currentColor"/>
-              <circle cx="14" cy="2" r="1.5" fill="currentColor"/>
-            </svg>
-          </div>
-        </div>
-        <p className={styles.panelSub}>From this file <span className={styles.diamond}>◇</span></p>
-        <div className={styles.divider} />
-
-        {/* Properties */}
-        <PropRow label="Size"    value="Medium (44)" onClick={() => {}} />
-        <PropRow label="Variant" value={variant}
-          onClick={() => setVariant(cycle(VARIANTS, variant))} />
+        <PropRow label="Size"      value={size}    options={SIZES}      onChange={setSize} />
+        <PropRow label="Variant"   value={variant} options={VARIANTS}   onChange={setVariant} />
         <PropRow label="Only Icon" isToggle toggled={onlyIcon} onToggle={() => setOnlyIcon(v => !v)} />
-        <PropRow label="Style"  value={style}
-          onClick={() => setStyle(cycle(STYLES_OPT, style))} />
-        <PropRow label="State"  value={state}
-          onClick={() => setState(cycle(STATES, state))} />
-        <PropRow label="Icon"   value="atom" onClick={() => {}} />
+        <PropRow label="Style"     value={style}   options={STYLES_OPT} onChange={setStyle} />
+        <PropRow label="State"     value={state}   options={STATES}     onChange={setState} />
       </div>
     </div>
   )
