@@ -32,7 +32,7 @@ function createClick(ctx, type = 'click') {
   }
 }
 
-export default function useClickSound() {
+export default function useClickSound(enabledRef) {
   const ctxRef = useRef(null)
 
   useEffect(() => {
@@ -44,16 +44,16 @@ export default function useClickSound() {
     }
 
     async function handleClick(e) {
+      if (enabledRef && !enabledRef.current) return
       const target = e.target
       const ctx = getCtx()
       if (ctx.state === 'suspended') await ctx.resume()
 
-      // "open" sound for buttons, navs, gallery, dropdowns
       const isOpen = target.closest('button, [role="button"], nav a, .pi')
       createClick(ctx, isOpen ? 'open' : 'click')
     }
 
     document.addEventListener('click', handleClick, { passive: true })
     return () => document.removeEventListener('click', handleClick)
-  }, [])
+  }, [enabledRef])
 }
