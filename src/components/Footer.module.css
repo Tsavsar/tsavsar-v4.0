@@ -7,10 +7,10 @@
   cursor: pointer;
   width: fit-content;
 }
-.lines { display: flex; flex-direction: column; gap: 2px; }
+.lines { display: flex; flex-direction: column; gap: 1px; }
 .text {
   font-size: var(--font-12);
-  line-height: var(--lh);
+  line-height: 16px;
   letter-spacing: var(--ls-12);
   font-weight: 400;
   color: var(--text-sub);

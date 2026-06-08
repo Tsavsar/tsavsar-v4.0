@@ -10,6 +10,7 @@ import CostGraphPage from './pages/CostGraphPage'
 import LonarPage from './pages/LonarPage'
 import KernUIPage from './pages/KernUIPage'
 import FundifyPage from './pages/FundifyPage'
+import ArticleVicariouslyPage from './pages/ArticleVicariouslyPage'
 import styles from './App.module.css'
 import useClickSound from './hooks/useClickSound'
 
@@ -51,6 +52,7 @@ export default function App() {
       <Route path="/work/lonar" element={<LonarPage />} />
       <Route path="/work/kernui" element={<KernUIPage />} />
       <Route path="/work/fundify" element={<FundifyPage />} />
+      <Route path="/articles/vicariously" element={<ArticleVicariouslyPage />} />
     </Routes>
   )
 }

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './Articles.module.css'
 
 const ARROW = (
@@ -12,7 +13,7 @@ export default function Articles() {
     <section className={styles.section}>
       <p className={styles.label}>my articles</p>
       <div className={styles.list}>
-        <a className={styles.item} href="#">
+        <Link className={styles.item} to="/articles/vicariously">
           <div className={styles.thumb}>
             <img src="https://www.figma.com/api/mcp/asset/b50054ec-659f-47c0-a81b-02200d94ccc5" alt="Article thumbnail" />
           </div>
@@ -28,7 +29,7 @@ export default function Articles() {
               <span>2026</span>
             </div>
           </div>
-        </a>
+        </Link>
       </div>
     </section>
   )
