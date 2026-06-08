@@ -131,7 +131,7 @@ function KernSelect({ value, options, onChange }) {
       <button className={btnStyles.selectTrigger} onClick={() => setOpen(v => !v)}>
         <span className={btnStyles.selectValue}>{value}</span>
         <span className={btnStyles.selectChevron}>
-          <img src={CHEVRON} alt="" width="12" height="12" style={{ display: 'block' }} />
+          <img src={CHEVRON} alt="" width="16" height="16" style={{ display: 'block' }} />
         </span>
       </button>
       {open && (
