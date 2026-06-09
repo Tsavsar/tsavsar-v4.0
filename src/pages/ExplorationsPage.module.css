@@ -77,14 +77,16 @@
   position: relative;
 }
 
-.cell img {
+.cell img,
+.cellVideo {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   transition: transform 0.4s cubic-bezier(.2,.88,.24,1);
 }
-.cell:hover img { transform: scale(1.02); }
+.cell:hover img,
+.cell:hover .cellVideo { transform: scale(1.02); }
 
 /* Lightbox */
 .lightboxOverlay {

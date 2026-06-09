@@ -5,34 +5,98 @@ import Footer from '../components/Footer'
 import { useScrollY } from '../hooks/useScrollY'
 import styles from './ExplorationsPage.module.css'
 
-// Layout: 'full' = one image spanning full width, 'split' = two images side by side
-// flex values control proportional width in split rows
+// Each item can be type 'img' or 'video'
+// Rows alternate: full-width, two-col split
 const ROWS = [
-  { type: 'full',  images: [{ src: '/assets/explorations/lonar-dashboard.jpeg',  alt: 'Lönar — login and dashboard' }] },
-  { type: 'split', images: [
-    { src: '/assets/explorations/skaraa-audio.png',   alt: 'Skaraa — audio stem splitter', flex: 46 },
-    { src: '/assets/explorations/context-menus.jpeg', alt: 'Context menu variants',         flex: 54 },
+  // ── Videos first ──
+  { type: 'full',  items: [{ kind: 'video', src: '/assets/explorations/video-main.mp4' }] },
+  { type: 'split', items: [
+    { kind: 'video', src: '/assets/explorations/video-copy.mp4',  flex: 50 },
+    { kind: 'video', src: '/assets/explorations/video-copy2.mp4', flex: 50 },
   ]},
-  { type: 'full',  images: [{ src: '/assets/explorations/settings-page.jpeg', alt: 'Settings page' }] },
-  { type: 'split', images: [
-    { src: '/assets/explorations/lonar-invoice.jpeg', alt: 'Lönar — invoice send flow', flex: 54 },
-    { src: '/assets/explorations/filter-chips.jpeg',  alt: 'Filter chip components',    flex: 46 },
+  { type: 'full',  items: [{ kind: 'video', src: '/assets/explorations/video-1420.mp4' }] },
+  { type: 'split', items: [
+    { kind: 'video', src: '/assets/explorations/video-1260.mp4', flex: 48 },
+    { kind: 'video', src: '/assets/explorations/video-1234.mp4', flex: 52 },
   ]},
-  { type: 'full',  images: [{ src: '/assets/explorations/finance-cards.jpeg', alt: 'Finance category cards' }] },
-  { type: 'split', images: [
-    { src: '/assets/explorations/transaction-feed.jpeg', alt: 'Transaction activity feed', flex: 46 },
-    { src: '/assets/explorations/tanj-banner.jpeg',      alt: 'Tanj — CTA banner',         flex: 54 },
+  { type: 'full',  items: [{ kind: 'video', src: '/assets/explorations/video-1046.mp4' }] },
+  { type: 'split', items: [
+    { kind: 'video', src: '/assets/explorations/video-1104.mp4',  flex: 50 },
+    { kind: 'video', src: '/assets/explorations/video-1280a.mp4', flex: 50 },
   ]},
-  { type: 'full',  images: [{ src: '/assets/explorations/task-pricing.jpeg', alt: 'Task categories and pricing plans' }] },
-  { type: 'split', images: [
-    { src: '/assets/explorations/auth-flows.webp', alt: 'Auth flows',        flex: 52 },
-    { src: '/assets/explorations/otp-input.jpeg',  alt: 'OTP input states',  flex: 48 },
+  { type: 'full',  items: [{ kind: 'video', src: '/assets/explorations/video-1280b.mp4' }] },
+  { type: 'split', items: [
+    { kind: 'video', src: '/assets/explorations/video-twitter.mp4',  flex: 50 },
+    { kind: 'video', src: '/assets/explorations/video-twitter2.mp4', flex: 50 },
   ]},
-  { type: 'full',  images: [{ src: '/assets/explorations/pricing-page.jpeg', alt: 'Pricing page layout' }] },
-  { type: 'full',  images: [{ src: '/assets/explorations/pricing-grows.png', alt: 'Pricing — grows with you' }] },
+  { type: 'full',  items: [{ kind: 'video', src: '/assets/explorations/video-fundify.mov' }] },
+  { type: 'split', items: [
+    { kind: 'video', src: '/assets/explorations/video-rec1.mov', flex: 50 },
+    { kind: 'video', src: '/assets/explorations/video-rec2.mov', flex: 50 },
+  ]},
+  { type: 'full',  items: [{ kind: 'video', src: '/assets/explorations/video-rec3.mov' }] },
+  { type: 'split', items: [
+    { kind: 'video', src: '/assets/explorations/video-feb3.mov',  flex: 50 },
+    { kind: 'video', src: '/assets/explorations/video-jan31.mov', flex: 50 },
+  ]},
+
+  // ── Original design shots ──
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/lonar-dashboard.jpeg', alt: 'Lönar dashboard' }] },
+  { type: 'split', items: [
+    { kind: 'img', src: '/assets/explorations/skaraa-audio.png',   alt: 'Skaraa audio', flex: 46 },
+    { kind: 'img', src: '/assets/explorations/context-menus.jpeg', alt: 'Context menus', flex: 54 },
+  ]},
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/settings-page.jpeg', alt: 'Settings page' }] },
+  { type: 'split', items: [
+    { kind: 'img', src: '/assets/explorations/lonar-invoice.jpeg', alt: 'Lönar invoice', flex: 54 },
+    { kind: 'img', src: '/assets/explorations/filter-chips.jpeg',  alt: 'Filter chips',  flex: 46 },
+  ]},
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/finance-cards.jpeg', alt: 'Finance cards' }] },
+  { type: 'split', items: [
+    { kind: 'img', src: '/assets/explorations/transaction-feed.jpeg', alt: 'Transaction feed', flex: 46 },
+    { kind: 'img', src: '/assets/explorations/tanj-banner.jpeg',      alt: 'Tanj banner',      flex: 54 },
+  ]},
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/task-pricing.jpeg', alt: 'Task pricing' }] },
+  { type: 'split', items: [
+    { kind: 'img', src: '/assets/explorations/auth-flows.webp', alt: 'Auth flows',  flex: 52 },
+    { kind: 'img', src: '/assets/explorations/otp-input.jpeg',  alt: 'OTP input',   flex: 48 },
+  ]},
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/pricing-page.jpeg', alt: 'Pricing page' }] },
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/pricing-grows.png', alt: 'Pricing grows' }] },
+
+  // ── Additional design shots from Design Shots folder ──
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/demo-audio.png', alt: 'Demo audio' }] },
+  { type: 'split', items: [
+    { kind: 'img', src: '/assets/explorations/design-1.jpeg', alt: 'Design shot', flex: 50 },
+    { kind: 'img', src: '/assets/explorations/design-2.jpeg', alt: 'Design shot', flex: 50 },
+  ]},
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/media-0.jpeg', alt: 'Media post' }] },
+  { type: 'split', items: [
+    { kind: 'img', src: '/assets/explorations/media-1.jpeg', alt: 'Media post', flex: 50 },
+    { kind: 'img', src: '/assets/explorations/media-2.jpeg', alt: 'Media post', flex: 50 },
+  ]},
+  { type: 'split', items: [
+    { kind: 'img', src: '/assets/explorations/media-3.jpeg', alt: 'Media post', flex: 50 },
+    { kind: 'img', src: '/assets/explorations/media-4.jpeg', alt: 'Media post', flex: 50 },
+  ]},
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/media-5.jpeg', alt: 'Media post' }] },
+  { type: 'split', items: [
+    { kind: 'img', src: '/assets/explorations/shater-1.jpeg', alt: 'Design', flex: 50 },
+    { kind: 'img', src: '/assets/explorations/shater-2.jpeg', alt: 'Design', flex: 50 },
+  ]},
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/shater-3.jpeg', alt: 'Design' }] },
+  { type: 'split', items: [
+    { kind: 'img', src: '/assets/explorations/authstuff.webp',     alt: 'Auth stuff',    flex: 54 },
+    { kind: 'img', src: '/assets/explorations/project-image.png',  alt: 'Project image', flex: 46 },
+  ]},
+  { type: 'split', items: [
+    { kind: 'img', src: '/assets/explorations/screenshot-1.png', alt: 'Screenshot', flex: 50 },
+    { kind: 'img', src: '/assets/explorations/screenshot-2.png', alt: 'Screenshot', flex: 50 },
+  ]},
+  { type: 'full',  items: [{ kind: 'img', src: '/assets/explorations/design-extra.jpeg', alt: 'Design' }] },
 ]
 
-const ALL_IMAGES = ROWS.flatMap(r => r.images)
+const ALL_LIGHTBOX = ROWS.flatMap(r => r.items.filter(i => i.kind === 'img'))
 
 export default function ExplorationsPage() {
   const scrollY = useScrollY()
@@ -47,14 +111,14 @@ export default function ExplorationsPage() {
   useEffect(() => {
     function onKey(e) {
       if (e.key === 'Escape') setLightbox(null)
-      if (e.key === 'ArrowRight' && lightbox !== null) setLightbox(i => Math.min(i + 1, ALL_IMAGES.length - 1))
+      if (e.key === 'ArrowRight' && lightbox !== null) setLightbox(i => Math.min(i + 1, ALL_LIGHTBOX.length - 1))
       if (e.key === 'ArrowLeft'  && lightbox !== null) setLightbox(i => Math.max(i - 1, 0))
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [lightbox])
 
-  let imgIndex = 0
+  let imgLightboxIdx = 0
 
   return (
     <>
@@ -80,8 +144,8 @@ export default function ExplorationsPage() {
       {lightbox !== null && (
         <div className={styles.lightboxOverlay} onClick={() => setLightbox(null)}>
           <img
-            src={ALL_IMAGES[lightbox].src}
-            alt={ALL_IMAGES[lightbox].alt}
+            src={ALL_LIGHTBOX[lightbox].src}
+            alt={ALL_LIGHTBOX[lightbox].alt}
             className={styles.lightboxImg}
             onClick={e => e.stopPropagation()}
           />
@@ -90,27 +154,34 @@ export default function ExplorationsPage() {
 
       <div className={styles.page}>
         <div className={styles.grid}>
-          {ROWS.map((row, ri) => {
-            const rowStart = imgIndex
-            imgIndex += row.images.length
-            return (
-              <div key={ri} className={row.type === 'full' ? styles.rowFull : styles.rowSplit}>
-                {row.images.map((img, ii) => {
-                  const idx = rowStart + ii
-                  return (
-                    <div
-                      key={ii}
-                      className={styles.cell}
-                      style={img.flex ? { flex: img.flex } : undefined}
-                      onClick={() => setLightbox(idx)}
-                    >
-                      <img src={img.src} alt={img.alt} loading="lazy" />
-                    </div>
-                  )
-                })}
-              </div>
-            )
-          })}
+          {ROWS.map((row, ri) => (
+            <div key={ri} className={row.type === 'full' ? styles.rowFull : styles.rowSplit}>
+              {row.items.map((item, ii) => {
+                const lbIdx = item.kind === 'img' ? imgLightboxIdx++ : null
+                return (
+                  <div
+                    key={ii}
+                    className={styles.cell}
+                    style={item.flex ? { flex: item.flex } : undefined}
+                    onClick={item.kind === 'img' ? () => setLightbox(lbIdx) : undefined}
+                  >
+                    {item.kind === 'video' ? (
+                      <video
+                        src={item.src}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className={styles.cellVideo}
+                      />
+                    ) : (
+                      <img src={item.src} alt={item.alt} loading="lazy" />
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          ))}
         </div>
 
         <div className={styles.footer}>
