@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Nav from './components/Nav'
 import Gallery from './components/Gallery'
@@ -19,31 +19,19 @@ import styles from './App.module.css'
 import useClickSound from './hooks/useClickSound'
 
 function Home() {
-  const refs = useRef([])
   const [galleryOpen, setGalleryOpen] = useState(false)
-
-  useEffect(() => {
-    const startDelay = 300
-    const stagger    = 180
-    refs.current.forEach((el, i) => {
-      if (!el) return
-      setTimeout(() => el.classList.add(styles.visible), startDelay + i * stagger)
-    })
-  }, [])
-
-  const reg = i => el => { refs.current[i] = el }
 
   return (
     <div className={styles.page}>
-      <div ref={reg(0)} className={`${styles.section} ${styles.navGroup}`}>
+      <div className={`${styles.section} ${styles.navGroup}`} style={{ '--appear-delay': '0s' }}>
         <Nav galleryOpen={galleryOpen} onAvatarClick={() => setGalleryOpen(o => !o)} />
         <Gallery open={galleryOpen} />
       </div>
-      <div ref={reg(1)} className={styles.section}><Intro /></div>
-      <div ref={reg(2)} className={styles.section}><Projects /></div>
-      <div ref={reg(3)} className={styles.section}><Explorations /></div>
-      <div ref={reg(4)} className={styles.section}><Articles /></div>
-      <div ref={reg(5)} className={styles.section}><Footer /></div>
+      <div className={styles.section} style={{ '--appear-delay': '0.1s' }}><Intro /></div>
+      <div className={styles.section} style={{ '--appear-delay': '0.18s' }}><Projects /></div>
+      <div className={styles.section} style={{ '--appear-delay': '0.26s' }}><Explorations /></div>
+      <div className={styles.section} style={{ '--appear-delay': '0.34s' }}><Articles /></div>
+      <div className={styles.section} style={{ '--appear-delay': '0.42s' }}><Footer /></div>
     </div>
   )
 }
