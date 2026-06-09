@@ -3,7 +3,7 @@
   font-size: var(--font-14);
   line-height: var(--lh);
   letter-spacing: var(--ls-14);
-  font-weight: 320;
+  font-weight: 360;
   color: var(--text-sub);
   margin-bottom: 18px;
 }
@@ -40,7 +40,7 @@
   font-size: 13px;
   line-height: 18px;
   letter-spacing: 0.01em;
-  font-weight: 320;
+  font-weight: 360;
   color: var(--text-sub);
   white-space: nowrap;
   overflow: hidden;
@@ -48,5 +48,5 @@
   max-width: 100%;
 }
 .meta { display: flex; align-items: center; gap: 4px; margin-top: 2px; }
-.meta span { font-size: 12px; line-height: 16px; letter-spacing: 0.01em; font-weight: 320; color: var(--text-soft); white-space: nowrap; }
+.meta span { font-size: 12px; line-height: 16px; letter-spacing: 0.01em; font-weight: 360; color: var(--text-soft); white-space: nowrap; }
 .dot { width: 2px; height: 2px; border-radius: 50%; background: var(--text-disabled); flex-shrink: 0; }

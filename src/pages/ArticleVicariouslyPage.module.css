@@ -131,7 +131,7 @@
   font-size: var(--font-12);
   line-height: 16px;
   letter-spacing: var(--ls-12);
-  font-weight: 320;
+  font-weight: 360;
   color: var(--text-strong);
   white-space: nowrap;
 }
@@ -146,7 +146,7 @@
   font-size: var(--font-14);
   line-height: 20px;
   letter-spacing: var(--ls-14);
-  font-weight: 320;
+  font-weight: 360;
   color: var(--text-strong);
   margin: 0;
 }
