@@ -37,7 +37,6 @@ const ITEMS = [
   { kind: 'img', src: '/assets/explorations/tanj-banner.jpeg',      alt: 'Tanj banner' },
   { kind: 'img', src: '/assets/explorations/task-pricing.jpeg',     alt: 'Task pricing' },
   { kind: 'img', src: '/assets/explorations/auth-flows.webp',       alt: 'Auth flows' },
-  { kind: 'img', src: '/assets/explorations/otp-input.jpeg',        alt: 'OTP input' },
   { kind: 'img', src: '/assets/explorations/pricing-page.jpeg',     alt: 'Pricing page' },
   { kind: 'img', src: '/assets/explorations/pricing-grows.png',     alt: 'Pricing grows' },
   { kind: 'img', src: '/assets/explorations/demo-audio.png',        alt: 'Demo audio' },
