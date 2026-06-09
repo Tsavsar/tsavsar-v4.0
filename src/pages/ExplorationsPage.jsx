@@ -85,6 +85,8 @@ export default function ExplorationsPage() {
   const scrollY = useScrollY()
   const [lightbox, setLightbox] = useState(null)
   const [copied, setCopied] = useState(false)
+  const [loadedSet, setLoadedSet] = useState(() => new Set())
+  const markLoaded = useCallback((i) => setLoadedSet(prev => { const s = new Set(prev); s.add(i); return s }), [])
 
   const copyLink = useCallback(() => {
     navigator.clipboard.writeText(window.location.href).catch(() => {})
@@ -166,13 +168,13 @@ export default function ExplorationsPage() {
             return (
               <div
                 key={i}
-                className={styles.cell}
+                className={`${styles.cell} ${loadedSet.has(i) ? styles.cellLoaded : ''}`}
                 onClick={item.kind === 'img' ? () => setLightbox(idx) : undefined}
               >
                 {item.kind === 'video' ? (
-                  <video src={item.src} autoPlay muted loop playsInline />
+                  <video src={item.src} autoPlay muted loop playsInline onCanPlay={() => markLoaded(i)} />
                 ) : (
-                  <img src={item.src} alt={item.alt} loading="lazy" />
+                  <img src={item.src} alt={item.alt} loading="lazy" onLoad={() => markLoaded(i)} />
                 )}
               </div>
             )
