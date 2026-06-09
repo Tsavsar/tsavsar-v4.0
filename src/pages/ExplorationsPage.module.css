@@ -146,5 +146,6 @@
 }
 
 @media (max-width: 680px) {
-  .cell { aspect-ratio: 1/1; }
+  .grid { grid-template-columns: 1fr; }
+  .cell { aspect-ratio: 4/3; }
 }
