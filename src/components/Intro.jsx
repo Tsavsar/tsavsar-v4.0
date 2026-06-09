@@ -90,13 +90,13 @@ export default function Intro() {
 
   return (
     <section className={styles.intro} id="about">
-      <p>Shater Tsavsar, a product designer.</p>
-      <p>
+      <p className={styles.lead}>Shater Tsavsar, a product designer.</p>
+      <p className={styles.soft}>
         The best way to describe myself is a{' '}
         <span className={styles.medium}>"Systemic Native"</span>.
         {' '}Everything I do is grounded in some sort of system and that is largely reflected in the work I put out.
       </p>
-      <p className={styles.workText}>
+      <p className={styles.soft}>
         I'm currently designing{' '}
         <span className={styles.badgeTrigger}>
           <a

@@ -11,11 +11,20 @@
   color: var(--text-strong);
 }
 .intro p strong { font-weight: 500; }
-.workText {
+
+.lead {
   font-size: var(--font-14);
   line-height: var(--lh);
   letter-spacing: var(--ls-14);
+  font-weight: 400;
   color: var(--text-strong);
+}
+.soft {
+  font-size: var(--font-14);
+  line-height: var(--lh);
+  letter-spacing: var(--ls-14);
+  font-weight: 400;
+  color: var(--text-sub);
 }
 .badgeTrigger { position: relative; display: inline-block; }
 .badge {
