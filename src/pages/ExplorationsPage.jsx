@@ -26,11 +26,11 @@ const ITEMS = [
   { kind: 'video', src: '/assets/explorations/video-feb3.mov' },
   { kind: 'video', src: '/assets/explorations/video-jan31.mov' },
   // Images
+  { kind: 'img', src: '/assets/explorations/project-image.png',     alt: 'Project' },
   { kind: 'img', src: '/assets/explorations/lonar-dashboard.jpeg',  alt: 'Lönar dashboard' },
   { kind: 'img', src: '/assets/explorations/skaraa-audio.png',      alt: 'Skaraa audio' },
   { kind: 'img', src: '/assets/explorations/context-menus.jpeg',    alt: 'Context menus' },
   { kind: 'img', src: '/assets/explorations/settings-page.jpeg',    alt: 'Settings page' },
-  { kind: 'img', src: '/assets/explorations/lonar-invoice.jpeg',    alt: 'Lönar invoice' },
   { kind: 'img', src: '/assets/explorations/filter-chips.jpeg',     alt: 'Filter chips' },
   { kind: 'img', src: '/assets/explorations/finance-cards.jpeg',    alt: 'Finance cards' },
   { kind: 'img', src: '/assets/explorations/transaction-feed.jpeg', alt: 'Transaction feed' },
