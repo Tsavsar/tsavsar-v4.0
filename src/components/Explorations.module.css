@@ -26,3 +26,34 @@
 .footer:hover .arrow { transform: translateX(4px); }
 
 .footerDesc { font-size: var(--font-12); color: var(--text-sub); letter-spacing: var(--ls-12); margin-top: 6px; }
+
+.sites {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.siteTab {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-12);
+  letter-spacing: var(--ls-12);
+  color: var(--text-sub);
+  background: #f2f2f2;
+  border-radius: 6px;
+  padding: 4px 8px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.siteTab:hover {
+  background: #e8e8e8;
+  color: var(--text-strong);
+}
+.extIcon {
+  opacity: 0.5;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.siteTab:hover .extIcon { opacity: 0.8; }
