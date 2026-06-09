@@ -12,7 +12,7 @@
   font-size: var(--font-12);
   line-height: var(--lh);
   letter-spacing: var(--ls-12);
-  font-weight: 400;
+  font-weight: 320;
   color: var(--text-sub);
   white-space: nowrap;
 }
@@ -47,4 +47,4 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .bar { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-.bar p { font-size: var(--font-12); line-height: var(--lh); letter-spacing: var(--ls-12); font-weight: 400; color: var(--text-sub); white-space: nowrap; }
+.bar p { font-size: var(--font-12); line-height: var(--lh); letter-spacing: var(--ls-12); font-weight: 320; color: var(--text-sub); white-space: nowrap; }

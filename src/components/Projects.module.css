@@ -3,7 +3,7 @@
   font-size: var(--font-14);
   line-height: var(--lh);
   letter-spacing: var(--ls-14);
-  font-weight: 400;
+  font-weight: 320;
   color: var(--text-sub);
   margin-bottom: 18px;
 }
@@ -64,8 +64,8 @@
 .info { display: flex; flex-direction: column; gap: 6px; }
 .meta { display: flex; align-items: center; gap: 8px; }
 .name { font-size: var(--font-14); line-height: var(--lh); letter-spacing: var(--ls-14); font-weight: 500; color: var(--text-strong); white-space: nowrap; }
-.category { font-size: var(--font-12); line-height: var(--lh); letter-spacing: var(--ls-12); font-weight: 400; color: var(--text-sub); flex: 1; }
-.desc { font-size: 13px; line-height: 1.4; letter-spacing: var(--ls-12); font-weight: 400; color: var(--text-sub); }
+.category { font-size: var(--font-12); line-height: var(--lh); letter-spacing: var(--ls-12); font-weight: 320; color: var(--text-sub); flex: 1; }
+.desc { font-size: 13px; line-height: 1.4; letter-spacing: var(--ls-12); font-weight: 320; color: var(--text-sub); }
 
 /* Parallax items */
 .pi {
