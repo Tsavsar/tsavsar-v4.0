@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
@@ -82,6 +82,13 @@ const ALL_LIGHTBOX = ITEMS.filter(i => i.kind === 'img')
 export default function ExplorationsPage() {
   const scrollY = useScrollY()
   const [lightbox, setLightbox] = useState(null)
+  const [copied, setCopied] = useState(false)
+
+  const copyLink = useCallback(() => {
+    navigator.clipboard.writeText(window.location.href)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }, [])
 
   useEffect(() => {
     document.title = 'Design Explorations — Shater Tsavsar'
@@ -117,6 +124,24 @@ export default function ExplorationsPage() {
               <span className={styles.crumbMuted}>/</span>
               <span className={styles.crumbActive}>Design explorations</span>
             </div>
+            <button className={styles.copyBtn} onClick={copyLink}>
+              {copied ? (
+                <>
+                  <svg viewBox="0 0 16 16" fill="none" width="13" height="13">
+                    <path d="M3 8l3.5 3.5L13 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span>Copied</span>
+                </>
+              ) : (
+                <>
+                  <svg viewBox="0 0 16 16" fill="none" width="13" height="13">
+                    <path d="M6.5 9.5a3.5 3.5 0 0 0 5 0l2-2a3.5 3.5 0 0 0-5-5l-1 1" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                    <path d="M9.5 6.5a3.5 3.5 0 0 0-5 0l-2 2a3.5 3.5 0 0 0 5 5l1-1" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round"/>
+                  </svg>
+                  <span>Copy link</span>
+                </>
+              )}
+            </button>
           </div>
         </div>,
         document.body
