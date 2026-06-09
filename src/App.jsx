@@ -6,6 +6,7 @@ import Intro from './components/Intro'
 import Projects from './components/Projects'
 import Articles from './components/Articles'
 import Explorations from './components/Explorations'
+import ExplorationsBar from './components/ExplorationsBar'
 import Footer from './components/Footer'
 import AudioModal from './components/AudioModal'
 import AudioToggle from './components/AudioToggle'
@@ -29,6 +30,7 @@ function Home() {
       </div>
       <div className={styles.section} style={{ '--appear-delay': '0.1s' }}><Intro /></div>
       <div className={styles.section} style={{ '--appear-delay': '0.18s' }}><Projects /></div>
+      <div className={styles.section} style={{ '--appear-delay': '0.22s' }}><ExplorationsBar /></div>
       <div className={styles.section} style={{ '--appear-delay': '0.26s' }}><Articles /></div>
       <div className={styles.section} style={{ '--appear-delay': '0.42s' }}><Footer /></div>
     </div>
