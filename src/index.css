@@ -1,4 +1,4 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-weight: 400; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-weight: 320; }
 
 :root {
   --font-sf: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
@@ -20,7 +20,7 @@
 body {
   font-family: var(--font-sf);
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 320;
   line-height: 22px;
   background: #ffffff;
   color: #171717;
