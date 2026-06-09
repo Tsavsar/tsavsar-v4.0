@@ -29,8 +29,7 @@ function Home() {
       </div>
       <div className={styles.section} style={{ '--appear-delay': '0.1s' }}><Intro /></div>
       <div className={styles.section} style={{ '--appear-delay': '0.18s' }}><Projects /></div>
-      <div className={styles.section} style={{ '--appear-delay': '0.26s' }}><Explorations /></div>
-      <div className={styles.section} style={{ '--appear-delay': '0.34s' }}><Articles /></div>
+      <div className={styles.section} style={{ '--appear-delay': '0.26s' }}><Articles /></div>
       <div className={styles.section} style={{ '--appear-delay': '0.42s' }}><Footer /></div>
     </div>
   )

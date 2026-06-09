@@ -9,10 +9,10 @@
   --bg-surface: #f7f7f7;
   --bg-layer: #f5f5f5;
   --stroke-soft: rgba(0,0,0,0.05);
-  --font-12: 0.75rem;
-  --font-14: 0.875rem;
-  --font-16: 1rem;
-  --lh: 16px;
+  --font-12: 12px;
+  --font-14: 14px;
+  --font-16: 16px;
+  --lh: 22px;
   --ls-12: 0.01em;
   --ls-14: 0.01em;
 }
@@ -21,7 +21,7 @@ body {
   font-family: var(--font-sf);
   font-size: 14px;
   font-weight: 400;
-  line-height: 16px;
+  line-height: 22px;
   background: #ffffff;
   color: #171717;
   min-height: 100vh;
