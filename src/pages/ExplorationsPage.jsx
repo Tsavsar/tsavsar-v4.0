@@ -26,6 +26,13 @@ const ITEMS = [
   { kind: 'video', src: '/assets/explorations/video-feb3.mov' },
   { kind: 'video', src: '/assets/explorations/video-jan31.mov' },
   // Images
+  { kind: 'img', src: '/assets/explorations/new-1.png',             alt: 'Design' },
+  { kind: 'img', src: '/assets/explorations/new-2.png',             alt: 'Design' },
+  { kind: 'img', src: '/assets/explorations/new-3.png',             alt: 'Design' },
+  { kind: 'img', src: '/assets/explorations/new-4.png',             alt: 'Design' },
+  { kind: 'img', src: '/assets/explorations/new-5.png',             alt: 'Design' },
+  { kind: 'img', src: '/assets/explorations/new-6.png',             alt: 'Design' },
+  { kind: 'img', src: '/assets/explorations/boki-ai.webp',          alt: 'Boki AI' },
   { kind: 'img', src: '/assets/explorations/design-extra.jpeg',     alt: 'Design' },
   { kind: 'img', src: '/assets/explorations/lonar-dashboard.jpeg',  alt: 'Lönar dashboard' },
   { kind: 'img', src: '/assets/explorations/skaraa-audio.png',      alt: 'Skaraa audio' },
