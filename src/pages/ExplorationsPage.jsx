@@ -25,7 +25,16 @@ const ITEMS = [
   { kind: 'video', src: '/assets/explorations/video-rec3.mov' },
   { kind: 'video', src: '/assets/explorations/video-feb3.mov' },
   { kind: 'video', src: '/assets/explorations/video-jan31.mov' },
-  // Images
+  { kind: 'video', src: '/assets/explorations/video-boki.mp4' },
+
+  // Images — ordered by quality
+  { kind: 'img', src: '/assets/explorations/lonar-mobile-1.png',    alt: 'Lönar mobile — settings & overview' },
+  { kind: 'img', src: '/assets/explorations/lonar-mobile-2.png',    alt: 'Lönar mobile — invoice detail' },
+  { kind: 'img', src: '/assets/explorations/lyfers-breakdown.png',  alt: 'Lyfers — balance breakdown' },
+  { kind: 'img', src: '/assets/explorations/lyfers-wallet.png',     alt: 'Lyfers — fund wallet & transaction' },
+  { kind: 'img', src: '/assets/explorations/lyfers-spotify.png',    alt: 'Lyfers — Spotify bottom sheet' },
+  { kind: 'img', src: '/assets/explorations/lyfers-card.png',       alt: 'Lyfers — card screen' },
+  { kind: 'img', src: '/assets/explorations/lyfers-home.png',       alt: 'Lyfers — home balance' },
   { kind: 'img', src: '/assets/explorations/new-1.png',             alt: 'Design' },
   { kind: 'img', src: '/assets/explorations/new-2.png',             alt: 'Design' },
   { kind: 'img', src: '/assets/explorations/new-3.png',             alt: 'Design' },
