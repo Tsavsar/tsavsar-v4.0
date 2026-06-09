@@ -6,7 +6,7 @@ import styles from './Explorations.module.css'
 export default function Explorations() {
   return (
     <section className={styles.section}>
-      <p className={styles.label}>my explorations</p>
+      <p className={styles.label}>my design explorations</p>
 
       <div className={styles.showcase}>
         <p className={styles.hint}>You can interact with the components</p>
