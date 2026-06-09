@@ -26,6 +26,7 @@ const ITEMS = [
   { kind: 'video', src: '/assets/explorations/video-feb3.mov' },
   { kind: 'video', src: '/assets/explorations/video-jan31.mov' },
   // Images
+  { kind: 'img', src: '/assets/explorations/design-extra.jpeg',     alt: 'Design' },
   { kind: 'img', src: '/assets/explorations/lonar-dashboard.jpeg',  alt: 'Lönar dashboard' },
   { kind: 'img', src: '/assets/explorations/skaraa-audio.png',      alt: 'Skaraa audio' },
   { kind: 'img', src: '/assets/explorations/context-menus.jpeg',    alt: 'Context menus' },
@@ -53,7 +54,6 @@ const ITEMS = [
   { kind: 'img', src: '/assets/explorations/authstuff.webp',        alt: 'Auth stuff' },
   { kind: 'img', src: '/assets/explorations/screenshot-1.png',      alt: 'Screenshot' },
   { kind: 'img', src: '/assets/explorations/screenshot-2.png',      alt: 'Screenshot' },
-  { kind: 'img', src: '/assets/explorations/design-extra.jpeg',     alt: 'Design' },
 ]
 
 const ALL_LIGHTBOX = ITEMS.filter(i => i.kind === 'img')
