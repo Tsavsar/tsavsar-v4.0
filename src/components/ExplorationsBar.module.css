@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #a3a3a3;
+  color: #9f9f9f;
   transition: transform 0.6s cubic-bezier(.2,.88,.24,1), color 0.2s;
 }
 .bar:hover .iconWrap { transform: rotate(90deg); color: var(--text-strong); }

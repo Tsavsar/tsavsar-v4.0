@@ -51,14 +51,14 @@
 .title {
   font-size: 13px;
   font-weight: 500;
-  color: #171717;
+  color: #0e0e0e;
   line-height: 16px;
   letter-spacing: 0.01em;
 }
 .sub {
   font-size: 12px;
   font-weight: 320;
-  color: #5c5c5c;
+  color: #6a6a6a;
   line-height: 16px;
   letter-spacing: 0.01em;
 }
@@ -81,11 +81,11 @@
 }
 .btnDisable {
   background: #f7f7f7;
-  color: #171717;
+  color: #0e0e0e;
 }
 .btnDisable:hover { background: #efefef; }
 .btnKeep {
-  background: #171717;
+  background: #0e0e0e;
   color: #ffffff;
 }
 .btnKeep:hover { background: #2a2a2a; }

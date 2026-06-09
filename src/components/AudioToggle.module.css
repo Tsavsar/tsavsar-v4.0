@@ -7,7 +7,7 @@
   height: 36px;
   border-radius: 50%;
   background: #e8e8e8;
-  color: #a3a3a3;
+  color: #9f9f9f;
   border: none;
   cursor: pointer;
   display: flex;
@@ -17,7 +17,7 @@
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 .btn:hover {
-  background: #171717;
+  background: #0e0e0e;
   color: #e8e8e8;
   transform: scale(1.08);
 }

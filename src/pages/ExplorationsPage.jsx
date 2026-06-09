@@ -52,7 +52,7 @@ export default function ExplorationsPage() {
           <div className={styles.breadcrumbInner}>
             <Link to="/" className={styles.backPill}>
               <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
-                <path d="M10 4L6 8L10 12" stroke="#5c5c5c" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M10 4L6 8L10 12" stroke="#6a6a6a" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               <span>Back</span>
             </Link>

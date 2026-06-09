@@ -92,7 +92,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #171717;
+  color: #0e0e0e;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transition: background 0.15s, transform 0.15s;
   z-index: 1;
@@ -117,14 +117,14 @@
   border: none;
   background: none;
   cursor: pointer;
-  color: #5c5c5c;
+  color: #6a6a6a;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   transition: color 0.15s;
 }
-.overlayClose:hover { color: #171717; }
+.overlayClose:hover { color: #0e0e0e; }
 
 /* Dot indicators */
 .overlayDots {
@@ -143,6 +143,6 @@
 }
 .dot:hover { background: rgba(0,0,0,0.4); }
 .dotActive {
-  background: #171717;
+  background: #0e0e0e;
   transform: scale(1.3);
 }

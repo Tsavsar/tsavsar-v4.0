@@ -45,7 +45,7 @@
 .badgeText {
   font-size: var(--font-14);
   font-weight: 320;
-  color: #171717;
+  color: #0e0e0e;
   letter-spacing: var(--ls-14);
   line-height: 1;
   white-space: nowrap;
