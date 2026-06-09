@@ -7,7 +7,9 @@ import styles from './ExplorationsPage.module.css'
 
 const ITEMS = [
   // Videos
+  { kind: 'video', src: '/assets/explorations/video-fundify.mov' },
   { kind: 'video', src: '/assets/explorations/video-main.mp4' },
+
   { kind: 'video', src: '/assets/explorations/video-copy2.mp4' },
   { kind: 'video', src: '/assets/explorations/video-1420.mp4' },
   { kind: 'video', src: '/assets/explorations/video-1260.mp4' },
@@ -18,14 +20,12 @@ const ITEMS = [
   { kind: 'video', src: '/assets/explorations/video-1280b.mp4' },
   { kind: 'video', src: '/assets/explorations/video-twitter.mp4' },
   { kind: 'video', src: '/assets/explorations/video-twitter2.mp4' },
-  { kind: 'video', src: '/assets/explorations/video-fundify.mov' },
   { kind: 'video', src: '/assets/explorations/video-rec1.mov' },
   { kind: 'video', src: '/assets/explorations/video-rec2.mov' },
   { kind: 'video', src: '/assets/explorations/video-rec3.mov' },
   { kind: 'video', src: '/assets/explorations/video-feb3.mov' },
   { kind: 'video', src: '/assets/explorations/video-jan31.mov' },
   // Images
-  { kind: 'img', src: '/assets/explorations/project-image.png',     alt: 'Project' },
   { kind: 'img', src: '/assets/explorations/lonar-dashboard.jpeg',  alt: 'Lönar dashboard' },
   { kind: 'img', src: '/assets/explorations/skaraa-audio.png',      alt: 'Skaraa audio' },
   { kind: 'img', src: '/assets/explorations/context-menus.jpeg',    alt: 'Context menus' },
@@ -51,7 +51,6 @@ const ITEMS = [
   { kind: 'img', src: '/assets/explorations/shater-2.jpeg',         alt: 'Design' },
   { kind: 'img', src: '/assets/explorations/shater-3.jpeg',         alt: 'Design' },
   { kind: 'img', src: '/assets/explorations/authstuff.webp',        alt: 'Auth stuff' },
-  { kind: 'img', src: '/assets/explorations/project-image.png',     alt: 'Project' },
   { kind: 'img', src: '/assets/explorations/screenshot-1.png',      alt: 'Screenshot' },
   { kind: 'img', src: '/assets/explorations/screenshot-2.png',      alt: 'Screenshot' },
   { kind: 'img', src: '/assets/explorations/design-extra.jpeg',     alt: 'Design' },
