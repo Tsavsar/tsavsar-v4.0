@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Nav from './components/Nav'
 import Gallery from './components/Gallery'
