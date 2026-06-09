@@ -5,6 +5,7 @@ import Gallery from './components/Gallery'
 import Intro from './components/Intro'
 import Projects from './components/Projects'
 import Articles from './components/Articles'
+import Explorations from './components/Explorations'
 import Footer from './components/Footer'
 import AudioModal from './components/AudioModal'
 import AudioToggle from './components/AudioToggle'
@@ -13,6 +14,7 @@ import LonarPage from './pages/LonarPage'
 import KernUIPage from './pages/KernUIPage'
 import FundifyPage from './pages/FundifyPage'
 import ArticleVicariouslyPage from './pages/ArticleVicariouslyPage'
+import ExplorationsPage from './pages/ExplorationsPage'
 import styles from './App.module.css'
 import useClickSound from './hooks/useClickSound'
 
@@ -39,8 +41,9 @@ function Home() {
       </div>
       <div ref={reg(1)} className={styles.section}><Intro /></div>
       <div ref={reg(2)} className={styles.section}><Projects /></div>
-      <div ref={reg(3)} className={styles.section}><Articles /></div>
-      <div ref={reg(4)} className={styles.section}><Footer /></div>
+      <div ref={reg(3)} className={styles.section}><Explorations /></div>
+      <div ref={reg(4)} className={styles.section}><Articles /></div>
+      <div ref={reg(5)} className={styles.section}><Footer /></div>
     </div>
   )
 }
@@ -92,6 +95,7 @@ export default function App() {
         <Route path="/work/kernui" element={<KernUIPage />} />
         <Route path="/work/fundify" element={<FundifyPage />} />
         <Route path="/articles/vicariously" element={<ArticleVicariouslyPage />} />
+      <Route path="/explorations" element={<ExplorationsPage />} />
       </Routes>
     </>
   )
