@@ -20,17 +20,4 @@
   flex-direction: column;
   gap: 0;
 }
-.section {
-  animation: .78s cubic-bezier(.2, .88, .24, 1) backwards appear-up;
-  animation-delay: var(--appear-delay, 0s);
-}
-@keyframes appear-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+.section {}
