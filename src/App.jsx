@@ -29,8 +29,12 @@ function Home() {
         <Gallery open={galleryOpen} />
       </div>
       <div className={styles.section} style={{ '--appear-delay': '0.1s' }}><Intro /></div>
-      <div className={styles.section} style={{ '--appear-delay': '0.18s' }}><Projects /></div>
-      <div className={styles.section} style={{ '--appear-delay': '0.22s' }}><ExplorationsBar /></div>
+      <div className={styles.section} style={{ '--appear-delay': '0.18s' }}>
+        <div className={styles.worksGroup}>
+          <Projects />
+          <ExplorationsBar />
+        </div>
+      </div>
       <div className={styles.section} style={{ '--appear-delay': '0.26s' }}><Articles /></div>
       <div className={styles.section} style={{ '--appear-delay': '0.42s' }}><Footer /></div>
     </div>
