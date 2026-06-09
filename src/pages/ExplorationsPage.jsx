@@ -8,7 +8,6 @@ import styles from './ExplorationsPage.module.css'
 const ITEMS = [
   // Videos
   { kind: 'video', src: '/assets/explorations/video-main.mp4' },
-  { kind: 'video', src: '/assets/explorations/video-copy.mp4' },
   { kind: 'video', src: '/assets/explorations/video-copy2.mp4' },
   { kind: 'video', src: '/assets/explorations/video-1420.mp4' },
   { kind: 'video', src: '/assets/explorations/video-1260.mp4' },
