@@ -31,6 +31,7 @@ const ITEMS = [
   { kind: 'img', src: '/assets/explorations/weave-onboarding.png',     alt: 'Weave — secure card payments' },
   { kind: 'img', src: '/assets/explorations/weave-control.png',        alt: 'Weave — financial control' },
   { kind: 'img', src: '/assets/explorations/analytics-dashboard.webp', alt: 'Analytics dashboard' },
+  { kind: 'img', src: '/assets/explorations/lonar-overview.png',         alt: 'Lönar — overview' },
   { kind: 'img', src: '/assets/explorations/lonar-clients.webp',        alt: 'Lönar — clients & detail' },
   { kind: 'img', src: '/assets/explorations/kanban-board.webp',         alt: 'Kanban board' },
   { kind: 'img', src: '/assets/explorations/lonar-mobile-1.png',        alt: 'Lönar mobile — settings & overview' },
