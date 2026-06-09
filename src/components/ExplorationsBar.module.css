@@ -4,10 +4,10 @@
   gap: 6px;
   background: transparent;
   border-radius: 0;
-  padding: 8px;
-  margin: -8px;
+  padding: 8px 24px 8px 8px;
+  margin: -8px -24px -8px -8px;
   text-decoration: none;
-  width: calc(100% + 16px);
+  width: calc(100% + 32px);
   transition: background 0.25s ease;
 }
 .bar:hover { background: #f2f2f2; }
@@ -22,7 +22,7 @@
   color: #a3a3a3;
   transition: transform 0.6s cubic-bezier(.2,.88,.24,1), color 0.2s;
 }
-.bar:hover .iconWrap { transform: rotate(90deg); color: #3b7ff5; }
+.bar:hover .iconWrap { transform: rotate(90deg); color: var(--text-strong); }
 
 .label {
   flex: 1;
