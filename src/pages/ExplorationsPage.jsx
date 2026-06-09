@@ -28,6 +28,8 @@ const ITEMS = [
   { kind: 'video', src: '/assets/explorations/video-boki.mp4' },
 
   // Images — ordered by quality
+  { kind: 'img', src: '/assets/explorations/weave-onboarding.png',     alt: 'Weave — secure card payments' },
+  { kind: 'img', src: '/assets/explorations/weave-control.png',        alt: 'Weave — financial control' },
   { kind: 'img', src: '/assets/explorations/analytics-dashboard.webp', alt: 'Analytics dashboard' },
   { kind: 'img', src: '/assets/explorations/lonar-clients.webp',        alt: 'Lönar — clients & detail' },
   { kind: 'img', src: '/assets/explorations/kanban-board.webp',         alt: 'Kanban board' },
@@ -38,6 +40,7 @@ const ITEMS = [
   { kind: 'img', src: '/assets/explorations/lyfers-spotify.png',    alt: 'Lyfers — Spotify bottom sheet' },
   { kind: 'img', src: '/assets/explorations/lyfers-card.png',       alt: 'Lyfers — card screen' },
   { kind: 'img', src: '/assets/explorations/lyfers-home.png',       alt: 'Lyfers — home balance' },
+  { kind: 'img', src: '/assets/explorations/banking-home.png',      alt: 'Banking app — home' },
   { kind: 'img', src: '/assets/explorations/list-property.webp',   alt: 'List your property' },
   { kind: 'img', src: '/assets/explorations/pdf-upload.png',        alt: 'PDF upload component' },
   { kind: 'img', src: '/assets/explorations/new-1.png',             alt: 'Design' },
