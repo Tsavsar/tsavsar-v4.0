@@ -42,22 +42,37 @@
 .crumbActive { font-size: 12px; color: var(--text-strong); letter-spacing: 0.01em; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .copyBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+  margin-left: auto;
   flex-shrink: 0;
-  background: #f2f2f2;
+  position: relative;
+  background: none;
   border: none;
-  border-radius: 8px;
-  padding: 4px 8px 4px 6px;
-  font-size: 12px;
-  color: var(--text-sub);
-  letter-spacing: 0.01em;
+  padding: 0;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  height: 20px;
+  display: flex;
+  align-items: center;
 }
-.copyBtn:hover { background: #e8e8e8; color: var(--text-strong); }
-.copyBtn span { white-space: nowrap; }
+.copyBtnSpacer {
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.copyBtnState {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  transition: opacity 0.25s ease;
+  white-space: nowrap;
+}
 
 /* Page */
 .page {
