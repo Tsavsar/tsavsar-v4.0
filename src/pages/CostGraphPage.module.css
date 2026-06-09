@@ -239,7 +239,7 @@
 .articleThumb { width: 100px; height: 60px; overflow: hidden; flex-shrink: 0; background: #e9e9e9; }
 .articleThumb img { width: 100%; height: 100%; object-fit: cover; }
 .articleBody { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.articleTitleRow { display: flex; align-items: center; gap: 10px; }
+.articleTitleRow { display: flex; align-items: center; gap: 10px; justify-content: space-between; }
 .articleTitle { flex: 1; font-size: var(--font-14); font-weight: 500; color: var(--text-strong); letter-spacing: var(--ls-14); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .articleExcerpt { font-size: var(--font-12); color: var(--text-sub); letter-spacing: var(--ls-12); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .articleMeta { display: flex; align-items: center; gap: 4px; }
