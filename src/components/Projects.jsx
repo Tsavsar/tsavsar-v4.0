@@ -10,7 +10,7 @@ const ARROW = (
   </svg>
 )
 
-function ParallaxCard({ name, category, desc, bg, to, children }) {
+function ParallaxCard({ name, category, desc, bg, to, children, cardRef, onCardEnter }) {
   const imgRef  = useRef(null)
   const piRefs  = useRef([])
   const navigate = useNavigate()
@@ -57,7 +57,7 @@ function ParallaxCard({ name, category, desc, bg, to, children }) {
   }
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} ref={cardRef} onMouseEnter={onCardEnter}>
       {to && imgLabelEl}
       <div
         ref={imgRef}
@@ -97,9 +97,30 @@ function ParallaxCard({ name, category, desc, bg, to, children }) {
   )
 }
 
+const PROJECT_COUNT = 4
+
 export default function Projects() {
   const scrollRef = useRef(null)
+  const cardRefs = useRef([])
   const drag = useRef({ down: false, startX: 0, scrollLeft: 0 })
+
+  function regCard(i) {
+    return el => { cardRefs.current[i] = el }
+  }
+
+  function handleCardEnter(i) {
+    const outer = scrollRef.current
+    if (!outer) return
+    if (i === PROJECT_COUNT - 1) {
+      // Last card hovered — snap back to the first
+      outer.scrollTo({ left: 0, behavior: 'smooth' })
+    } else {
+      const card = cardRefs.current[i]
+      if (!card) return
+      const target = card.offsetLeft - outer.offsetLeft
+      outer.scrollTo({ left: target, behavior: 'smooth' })
+    }
+  }
 
   function onDown(e) {
     drag.current = { down: true, startX: e.pageX - scrollRef.current.offsetLeft, scrollLeft: scrollRef.current.scrollLeft }
@@ -133,6 +154,8 @@ export default function Projects() {
 
             {/* CostGraph */}
             <ParallaxCard
+              cardRef={regCard(0)}
+              onCardEnter={() => handleCardEnter(0)}
               to="/work/costgraph"
               name="CostGraph.ai"
               category="Cloud cost optimisation"
@@ -157,6 +180,8 @@ export default function Projects() {
 
             {/* Lönar */}
             <ParallaxCard
+              cardRef={regCard(1)}
+              onCardEnter={() => handleCardEnter(1)}
               to="/work/lonar"
               name="Lönar"
               category="Invoice platform"
@@ -183,6 +208,8 @@ export default function Projects() {
 
             {/* KernUI */}
             <ParallaxCard
+              cardRef={regCard(2)}
+              onCardEnter={() => handleCardEnter(2)}
               to="/work/kernui"
               name="KernUI"
               category="Design system library"
@@ -223,6 +250,8 @@ export default function Projects() {
 
             {/* Fundify */}
             <ParallaxCard
+              cardRef={regCard(3)}
+              onCardEnter={() => handleCardEnter(3)}
               to="/work/fundify"
               name="Fundify"
               category="Fintech mobile app"
