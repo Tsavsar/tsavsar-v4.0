@@ -254,7 +254,7 @@ export default function Projects() {
                 {/* Phone — node 363:838, high quality Figma asset, on top of all bg elements */}
                 <div ref={reg(9)} data-speed="8" className={styles.pi}
                   style={{ position:'absolute', width:'54.06%', height:'71%', left:'calc(50% - 27.03%)', top:'34.33%', overflow:'hidden', pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/3b9f3b57-88fe-492c-9742-de50ee161fb5" alt=""
+                  <img src="/assets/fundifyassets/phone.png" alt=""
                     style={{ position:'absolute', left:'50%', top:0, width:'110.98%', transform:'translateX(-50%)', display:'block' }} />
                   <div style={{ position:'absolute', top:'77.46%', left:'calc(50% + 9.86%)', width:'109.31%', height:'156.03%', transform:'translateX(-50%)', background:'linear-gradient(to top, #141414 71.54%, transparent)', pointerEvents:'none' }} />
                 </div>

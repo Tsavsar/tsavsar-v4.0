@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import styles from './RadioCardDemo.module.css'
 
-const GITLAB_ICON = 'https://www.figma.com/api/mcp/asset/1850f1de-4b9a-4ec3-bf4a-95fd90e81f9d'
-
 function Radio({ selected }) {
   return (
     <div className={`${styles.radio} ${selected ? styles.radioSelected : ''}`}>

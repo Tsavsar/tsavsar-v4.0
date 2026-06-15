@@ -2,9 +2,11 @@ import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import styles from './ButtonDemo.module.css'
 
-const ICON_WHITE  = 'https://www.figma.com/api/mcp/asset/f9e38a1f-fb62-4e34-ba20-84caa7f8a205'
-const ICON_PURPLE = 'https://www.figma.com/api/mcp/asset/aa3f2d72-1c24-4ba8-a563-e2c5d14d6aaf'
-const ICON_GREY   = 'https://www.figma.com/api/mcp/asset/1850f1de-4b9a-4ec3-bf4a-95fd90e81f9d'
+const ARROW_ICON_SVG = color => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+    <path d="M5 12H19M13 6L19 12L13 18" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
 
 const CHEVRON_SVG = (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18">
@@ -34,10 +36,10 @@ function getButtonStyle(variant, state, style) {
   return { background: bg, color: '#fff', border: 'none', boxShadow: 'none' }
 }
 
-function getIcon(variant, state, style) {
-  if (variant === 'Disabled' || state === 'Disabled') return ICON_GREY
-  if (style === 'Stroke' || style === 'Lighter' || style === 'Ghost') return ICON_PURPLE
-  return ICON_WHITE
+function getIconColor(variant, state, style) {
+  if (variant === 'Disabled' || state === 'Disabled') return '#9a9a9a'
+  if (style === 'Stroke' || style === 'Lighter' || style === 'Ghost') return '#7d52f4'
+  return '#fff'
 }
 
 // ── KernUI-style select dropdown (portalled) ─────────────────────────
@@ -132,7 +134,7 @@ export default function ButtonDemo() {
   const [onlyIcon, setOnlyIcon] = useState(false)
 
   const btnStyle  = getButtonStyle(variant, state, style)
-  const iconSrc   = getIcon(variant, state, style)
+  const iconColor = getIconColor(variant, state, style)
   const isDisabled = variant === 'Disabled' || state === 'Disabled'
 
   return (
@@ -144,9 +146,9 @@ export default function ButtonDemo() {
           style={{ ...btnStyle, padding: SIZE_PADDING[size] }}
           disabled={isDisabled}
         >
-          <span className={styles.iconWrap}><img src={iconSrc} alt="" className={styles.icon} /></span>
+          <span className={styles.iconWrap}>{ARROW_ICON_SVG(iconColor)}</span>
           {!onlyIcon && <span className={styles.btnLabel}>Continue</span>}
-          {!onlyIcon && <span className={styles.iconWrap}><img src={iconSrc} alt="" className={styles.icon} /></span>}
+          {!onlyIcon && <span className={styles.iconWrap}>{ARROW_ICON_SVG(iconColor)}</span>}
         </button>
       </div>
 

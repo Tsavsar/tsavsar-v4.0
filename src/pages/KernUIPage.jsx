@@ -132,25 +132,25 @@ export default function KernUIPage() {
         <FadeItem><div className={styles.hero}>
           <div className={`${imgStyles.heroImg} ${heroCollapsed ? styles.heroImgMini : ''}`}>
             {/* Background "U" vector */}
-            <img src="https://www.figma.com/api/mcp/asset/5f13c420-29f1-4620-9b83-961535503e0d" alt=""
+            <img src="/assets/kernui/vector-1.svg" alt=""
               style={{ position:'absolute', width:283, height:394, right:44, bottom:-111, pointerEvents:'none' }} />
             {/* Small vector top-right */}
-            <img src="https://www.figma.com/api/mcp/asset/d2b1484e-378f-46e4-94ac-a4d26b8748ac" alt=""
+            <img src="/assets/kernui/vector-2.svg" alt=""
               style={{ position:'absolute', width:42, height:59, left:'calc(50% + 262px)', top:'calc(50% - 95.5px)', transform:'translate(-50%,-50%)', pointerEvents:'none' }} />
             {/* Image — rotated 19.17deg */}
-            <img src="https://www.figma.com/api/mcp/asset/e6355090-881b-4e90-a452-1d66063f17e2" alt=""
+            <img src="/assets/kernui/image-1.png" alt=""
               style={{ position:'absolute', width:210, height:192, left:74, top:93, transform:'rotate(19.17deg)', objectFit:'cover', pointerEvents:'none' }} />
             {/* Image1 — rotated 7.63deg */}
-            <img src="https://www.figma.com/api/mcp/asset/a3a58265-313c-4265-a5e6-de3c207ed0c6" alt=""
+            <img src="/assets/kernui/image-2.png" alt=""
               style={{ position:'absolute', width:125, height:265, left:-25, top:55, transform:'rotate(7.63deg)', objectFit:'cover', pointerEvents:'none' }} />
             {/* Dropdown — rotated 28.07deg */}
-            <img src="https://www.figma.com/api/mcp/asset/3a83dbac-ba62-4200-9761-4fcfac8c1d8c" alt=""
+            <img src="/assets/kernui/dropdown-sample-1.png" alt=""
               style={{ position:'absolute', width:184, height:176, left:230, top:135, transform:'rotate(28.07deg)', objectFit:'cover', pointerEvents:'none' }} />
             {/* Image2 — rotated -19.27deg */}
-            <img src="https://www.figma.com/api/mcp/asset/e63a977a-fa47-4d94-822f-2ff485756135" alt=""
+            <img src="/assets/kernui/image-3.png" alt=""
               style={{ position:'absolute', width:182, height:50, left:178, top:236, transform:'rotate(-19.27deg)', objectFit:'cover', pointerEvents:'none' }} />
             {/* Image3 — rotated 8.02deg */}
-            <img src="https://www.figma.com/api/mcp/asset/f9fc61b6-53d1-4011-bde5-d58d114f472e" alt=""
+            <img src="/assets/kernui/image-4.png" alt=""
               style={{ position:'absolute', width:188, height:165, left:63, top:183, transform:'rotate(8.02deg)', objectFit:'cover', pointerEvents:'none' }} />
           </div>
           <div className={styles.heroTags}>

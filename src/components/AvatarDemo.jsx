@@ -4,18 +4,49 @@ import styles from './AvatarDemo.module.css'
 import btnStyles from './ButtonDemo.module.css'
 
 // ── Avatar assets ─────────────────────────────────────────────────────
-const HUMAN_DEFAULT    = 'https://www.figma.com/api/mcp/asset/e21c4891-335c-4203-9a33-241f5f57567a'
-const HUMAN_COLOR_IMG  = 'https://www.figma.com/api/mcp/asset/e82bbf9c-a999-4da7-a439-44110f40f653'
-const ILLUS_DEFAULT    = 'https://www.figma.com/api/mcp/asset/3a2e69dd-8515-455d-86fc-4b34a59011aa'
-const ILLUS_COLOR_IMG  = 'https://www.figma.com/api/mcp/asset/95ce4427-5844-4d23-b570-be3cfaedb17f'
-const MEMOJI_IMG       = 'https://www.figma.com/api/mcp/asset/679c3160-232b-4a74-ae73-cc7ac9544b93'
-const MEMOJI_COLOR_IMG = 'https://www.figma.com/api/mcp/asset/ebc1c40c-9fa3-44f1-91ad-86e58e7b019f'
+const HUMAN_DEFAULT    = '/assets/kernui-demo/avatar-human-default.png'
+const HUMAN_COLOR_IMG  = '/assets/kernui-demo/avatar-human-color.png'
+const MEMOJI_IMG       = '/assets/kernui-demo/avatar-memoji.png'
+const MEMOJI_COLOR_IMG = '/assets/kernui-demo/avatar-memoji-color.png'
 
-// Badge assets
-const PLUS_ICN    = 'https://www.figma.com/api/mcp/asset/afafa593-ebb0-4f78-9e8c-81fb2ec18194'
-const VERIFIED    = 'https://www.figma.com/api/mcp/asset/7c0cf0db-1c49-4ebf-9fc8-a1a310ee0c00'
-const ARROW_ICN   = 'https://www.figma.com/api/mcp/asset/2cf9fae7-7e17-4686-92f5-549eb1e88738'
-const X_ICN       = 'https://www.figma.com/api/mcp/asset/e7efa234-7724-4972-a6a6-1b2934fc973f'
+// Illustration avatars (inline)
+const ILLUS_DEFAULT_SVG = (
+  <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+    <rect width="80" height="80" fill="#e5e5e5" />
+    <circle cx="40" cy="32" r="14" fill="#bdbdbd" />
+    <path d="M14 80C14 62 24 54 40 54C56 54 66 62 66 80Z" fill="#bdbdbd" />
+  </svg>
+)
+const ILLUS_COLOR_SVG = (
+  <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+    <rect width="80" height="80" fill="#efebff" />
+    <circle cx="40" cy="32" r="14" fill="#7d52f4" />
+    <path d="M14 80C14 62 24 54 40 54C56 54 66 62 66 80Z" fill="#7d52f4" />
+  </svg>
+)
+
+// Badge icons (inline)
+const PLUS_SVG = (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+    <path d="M12 5V19M5 12H19" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
+  </svg>
+)
+const X_SVG = (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+    <path d="M6 6L18 18M18 6L6 18" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
+  </svg>
+)
+const ARROW_BADGE_SVG = (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+    <path d="M7 17L17 7M9 7H17V15" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+const VERIFIED_SVG = (
+  <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+    <circle cx="10" cy="10" r="10" fill="#1A8CFF" />
+    <path d="M6 10.2L8.6 12.8L14 7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+  </svg>
+)
 
 const CHEVRON_SVG = (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18">
@@ -46,23 +77,23 @@ function Badge({ type, sz = 20 }) {
   }
   if (type === 'Verified') return (
     <span style={{ ...base, border: 'none', overflow: 'hidden' }}>
-      <img src={VERIFIED} alt="" style={{ width: '100%', height: '100%', display: 'block' }} />
+      {VERIFIED_SVG}
     </span>
   )
   if (type === 'Plus') return (
     <span style={{ ...base, background: '#1fc16b' }}>
-      <img src={PLUS_ICN} alt="" style={{ width: sz * 0.5, height: sz * 0.5 }} />
+      <span style={{ width: sz * 0.5, height: sz * 0.5 }}>{PLUS_SVG}</span>
     </span>
   )
   if (type === 'Cancel') return (
     <span style={{ ...base, background: '#fb3748' }}>
-      <img src={X_ICN} alt="" style={{ width: sz * 0.4, height: sz * 0.4 }} />
+      <span style={{ width: sz * 0.4, height: sz * 0.4 }}>{X_SVG}</span>
     </span>
   )
   if (type === 'Icon') return (
     <span style={{ ...base, background: '#fff', position: 'relative' }}>
       <span style={{ position: 'absolute', inset: '4.8% 5% 5.2%', background: '#7d52f4', borderRadius: '50%' }} />
-      <img src={ARROW_ICN} alt="" style={{ width: sz * 0.4, height: sz * 0.4, position: 'relative', zIndex: 1 }} />
+      <span style={{ width: sz * 0.4, height: sz * 0.4, position: 'relative', zIndex: 1 }}>{ARROW_BADGE_SVG}</span>
     </span>
   )
   if (type === 'Number') return (
@@ -92,9 +123,7 @@ function AvatarCircle({ type, colored, size, topBadge, bottomBadge }) {
       ? <><div style={{ position: 'absolute', inset: 0, background: '#d55959' }} /><img src={HUMAN_COLOR_IMG} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '125%', objectFit: 'cover' }} /></>
       : <img src={HUMAN_DEFAULT} alt="" style={{ position: 'absolute', inset: '-2px', width: 'calc(100% + 4px)', height: '125%', objectFit: 'cover' }} />
   } else if (type === 'Illustration') {
-    inner = colored
-      ? <><div style={{ position: 'absolute', inset: 0, background: '#f5f5f5' }} /><img src={ILLUS_COLOR_IMG} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transform: 'scaleX(-1) rotate(180deg)' }} /></>
-      : <img src={ILLUS_DEFAULT} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+    inner = colored ? ILLUS_COLOR_SVG : ILLUS_DEFAULT_SVG
   } else if (type === 'Memoji') {
     inner = colored
       ? <><div style={{ position: 'absolute', inset: 0, background: '#e0b0ff' }} /><img src={MEMOJI_COLOR_IMG} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} /></>
