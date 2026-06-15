@@ -1,14 +1,17 @@
 import { useState } from 'react'
 import { useSpotify } from '../hooks/useSpotify'
+import { useCursorLabel } from './CardExpand'
 import VinylOverlay from './VinylOverlay'
 import styles from './Footer.module.css'
 
 export default function Footer() {
   const spotify = useSpotify()
   const [open, setOpen] = useState(false)
+  const { areaProps, labelEl } = useCursorLabel('View recently played')
 
   return (
     <>
+      {labelEl}
       <footer className={styles.footer}>
         <div
           className={styles.tag}
@@ -16,6 +19,7 @@ export default function Footer() {
           tabIndex={0}
           onClick={() => setOpen(true)}
           onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setOpen(true)}
+          {...areaProps}
         >
           {/* Vinyl record */}
           <span className={`${styles.vinyl} ${spotify.isPlaying ? styles.spinning : ''}`}>
