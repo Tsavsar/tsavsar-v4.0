@@ -11,10 +11,7 @@ import imgStyles from './FundifyPage.module.css'
 const SECTIONS = ['Intro', 'My role', 'Problem', 'Design', 'FundCoins', 'Lessons']
 
 // Figma assets
-const VECTOR   = 'https://www.figma.com/api/mcp/asset/48460bb0-4a02-4125-b00e-46af4dddddc5'
-const PHONE_C  = 'https://www.figma.com/api/mcp/asset/5378a954-2dd8-455b-9938-14458adc0032'
-const PHONE_L  = 'https://www.figma.com/api/mcp/asset/6612f1fe-c761-4dae-a4f2-fa021c95226f'
-const PHONE_R  = 'https://www.figma.com/api/mcp/asset/87fab92f-a81e-4a80-b551-1a002372476c'
+const VECTOR   = '/assets/fundifyassets/logo.svg'
 
 const ARROW = (
   <svg viewBox="0 0 11.05 8.25" fill="none" style={{ width: 14, height: 14, flexShrink: 0 }}>
@@ -45,7 +42,7 @@ export default function FundifyPage() {
   useEffect(() => {
     document.title = 'Fundify — Shater Tsavsar'
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'Fundify — Shater Tsavsar')
-    document.querySelector('meta[property="og:image"]')?.setAttribute('content', 'https://www.figma.com/api/mcp/asset/5378a954-2dd8-455b-9938-14458adc0032')
+    document.querySelector('meta[property="og:image"]')?.setAttribute('content', '/assets/fundify cover image internal.png')
     return () => {
       document.title = 'Shater Tsavsar - Systemic Native'
       document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'Shater Tsavsar - Systemic Native')
@@ -190,7 +187,7 @@ export default function FundifyPage() {
             <p>The core screens are the wallet (total balance, top up, transfer), the rewards hub (FundCoins points, redemption catalogue), and the activity feed (transactions, milestones). Navigation is minimal. Every tap is intentional.</p>
             <p>I also designed Travel Vouchers as one of the first redemption categories, a tangible, high-desire reward that gives users a clear reason to accumulate points.</p>
 
-            <img src="https://www.figma.com/api/mcp/asset/d5e620c9-a880-4731-a83f-36a76b6c5b58" alt=""
+            <img src="/assets/fundifyassets/shot2.png" alt=""
               style={{ width:'100%', display:'block', borderRadius:12 }} />
           </div>
         </section></FadeItem>
@@ -204,7 +201,7 @@ export default function FundifyPage() {
             <p>The design challenge was making FundCoins feel real without feeling gimmicky. The gold coin icon, the points balance displayed prominently, the rewards catalogue with actual items. Each decision pushes it toward something that feels earned rather than cheap.</p>
             <p>179,000 points. A user who sees that number does not feel like they are being tracked. They feel like they are getting somewhere.</p>
 
-            <img src="https://www.figma.com/api/mcp/asset/c0a08512-d4ca-4fba-a6db-d9d6a4f837ea" alt=""
+            <img src="/assets/fundifyassets/shot4.png" alt=""
               style={{ width:'100%', display:'block', borderRadius:12 }} />
           </div>
         </section></FadeItem>
@@ -219,10 +216,10 @@ export default function FundifyPage() {
         </section></FadeItem>
 
         {/* Screen showcase */}
-        <FadeItem><img src="https://www.figma.com/api/mcp/asset/f9a200cf-74a2-4575-9224-14c8ad062a8c" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
-        <FadeItem><img src="https://www.figma.com/api/mcp/asset/d5e620c9-a880-4731-a83f-36a76b6c5b58" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
-        <FadeItem><img src="https://www.figma.com/api/mcp/asset/72717aaa-2c12-42a1-97b4-8f9c2dfa1cc9" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
-        <FadeItem><img src="https://www.figma.com/api/mcp/asset/c0a08512-d4ca-4fba-a6db-d9d6a4f837ea" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
+        <FadeItem><img src="/assets/fundifyassets/shot1.png" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
+        <FadeItem><img src="/assets/fundifyassets/shot2.png" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
+        <FadeItem><img src="/assets/fundifyassets/shot3.png" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
+        <FadeItem><img src="/assets/fundifyassets/shot4.png" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
 
         {/* Articles */}
         <FadeItem><section className={styles.articlesSection}>
