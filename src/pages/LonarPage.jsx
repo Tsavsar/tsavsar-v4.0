@@ -82,7 +82,7 @@ export default function LonarPage() {
             <div className={styles.crumbs}>
               <div className={`${styles.breadcrumbThumb} ${heroCollapsed ? styles.breadcrumbThumbVisible : ''}`}
                 style={{ background: 'linear-gradient(201deg,rgb(251,77,0) 3%,rgb(244,3,131) 96%)' }}>
-                <img src="https://www.figma.com/api/mcp/asset/6763a071-d30d-4b36-81d8-a68225f7ca13" alt="" style={{ objectFit:'contain', padding:4, transform:'scaleX(-1)' }} />
+                <img src="/assets/lonar/lonar-icon.svg" alt="" style={{ objectFit:'contain', padding:4, transform:'scaleX(-1)' }} />
               </div>
               <span className={styles.crumbMuted}>Home</span>
               <span className={styles.crumbMuted}>/</span>
@@ -121,7 +121,7 @@ export default function LonarPage() {
           </div>
           <div className={styles.heroTags}>
             <a href="https://lonar.cc" target="_blank" rel="noopener" className={imgStyles.tagLink}>
-              <img src="https://www.figma.com/api/mcp/asset/6763a071-d30d-4b36-81d8-a68225f7ca13" alt="" style={{ width:14, height:14, objectFit:'contain', transform:'scaleX(-1)', filter:'invert(1)' }} />
+              <img src="/assets/lonar/lonar-icon.svg" alt="" style={{ width:14, height:14, objectFit:'contain', transform:'scaleX(-1)', filter:'invert(1)' }} />
               lonar.cc
             </a>
             <span className={styles.tag}>2026</span>
@@ -162,44 +162,44 @@ export default function LonarPage() {
           <div className={styles.sectionBody}>
             <p>You land on the platform and the invoice generator is the first thing you see. Client details can be saved so you are not re-entering the same information every time.</p>
             <ImgBlock>
-              <img src="https://www.figma.com/api/mcp/asset/224f01dd-53c7-414c-a339-7582a7933294" alt=""
+              <img src="/assets/lonar/solution1.png" alt=""
                 style={{ position:'absolute', width:343, height:292, left:'calc(50% - 91.5px)', top:'calc(50% + 41px)', transform:'translate(-50%,-50%)', objectFit:'cover', borderRadius:6 }} />
-              <img src="https://www.figma.com/api/mcp/asset/c786e4f4-e835-4b62-b603-003c0605fb20" alt=""
+              <img src="/assets/lonar/solution2.png" alt=""
                 style={{ position:'absolute', width:158, height:419, right:0, top:-142, objectFit:'cover' }} />
             </ImgBlock>
 
             <p>From there, the invoice goes directly to the client by email.</p>
             <ImgBlock>
-              <img src="https://www.figma.com/api/mcp/asset/d6e0b35a-fbda-4ebc-970f-e114af912dce" alt=""
+              <img src="/assets/lonar/solution3.png" alt=""
                 style={{ position:'absolute', width:434, height:370, left:'50%', top:'calc(50% + 35px)', transform:'translate(-50%,-50%)', objectFit:'cover' }} />
             </ImgBlock>
 
             <p>That is where creation ends. Then there is the dashboard.</p>
             <ImgBlock>
-              <img src="https://www.figma.com/api/mcp/asset/4510881e-c2f5-48e1-9fa5-e1fa148f7ad5" alt=""
+              <img src="/assets/lonar/solution4.png" alt=""
                 style={{ position:'absolute', width:513, height:321, left:'50%', top:42, transform:'translateX(-50%)', objectFit:'cover' }} />
             </ImgBlock>
 
             <p>Total earnings, broken down across all time and the last 30, 60, and 90 days. Number of clients, number of invoices. It gives the platform a memory beyond just the last thing you sent.</p>
             <p>Invoices are also grouped by client, so you can see everything attached to one person at once. During research, someone running a clothing business told me he needed to know how much each client had spent in total. That became a core part of how the client view works.</p>
             <ImgBlock>
-              <img src="https://www.figma.com/api/mcp/asset/c5c0a0e6-0556-40be-808e-4183e0d2cdef" alt=""
+              <img src="/assets/lonar/solution5.png" alt=""
                 style={{ position:'absolute', width:399, height:250, left:-5, top:21, objectFit:'cover' }} />
-              <img src="https://www.figma.com/api/mcp/asset/7864944b-8a0c-46ca-a3f3-b4131b9fbbac" alt=""
+              <img src="/assets/lonar/solution6.png" alt=""
                 style={{ position:'absolute', width:141, height:262, right:0, top:15, objectFit:'cover' }} />
             </ImgBlock>
 
             <p>Most of the features came from conversations exactly like that.</p>
             <ImgBlock>
-              <img src="https://www.figma.com/api/mcp/asset/38f61ae1-202e-4e98-a5f1-35c7e7c39c1c" alt=""
+              <img src="/assets/lonar/solution7.png" alt=""
                 style={{ position:'absolute', width:369, height:315, left:229, top:16, objectFit:'cover' }} />
-              <img src="https://www.figma.com/api/mcp/asset/98b68461-3766-4ef3-815d-179399e144e8" alt=""
+              <img src="/assets/lonar/solution8.png" alt=""
                 style={{ position:'absolute', width:197, height:331, left:22, top:16, objectFit:'cover' }} />
             </ImgBlock>
             <ImgBlock>
-              <img src="https://www.figma.com/api/mcp/asset/fe00d965-02c3-4f37-9ed5-82390a3a89d6" alt=""
+              <img src="/assets/lonar/solution9.png" alt=""
                 style={{ position:'absolute', width:454, height:283, left:'calc(50% - 148px)', top:42, transform:'translateX(-50%)', objectFit:'cover', borderRadius:12 }} />
-              <img src="https://www.figma.com/api/mcp/asset/41023870-ac60-4c0f-834e-354f791870d4" alt=""
+              <img src="/assets/lonar/solution10.png" alt=""
                 style={{ position:'absolute', width:200, height:213, right:0, top:87, objectFit:'cover' }} />
             </ImgBlock>
 
@@ -215,7 +215,7 @@ export default function LonarPage() {
             <p>From that I built a user flow, pressure-tested it with potential users, and made corrections before touching the UI. A few assumptions did not survive that round.</p>
             <p>The invoice generator shipped before the full platform. That meant by the time I was deep in high-fidelity design, there were already real users sending feedback. Revision requests came directly from them, not from internal assumptions.</p>
             <ImgBlock>
-              <img src="https://www.figma.com/api/mcp/asset/b4d3c79b-f65a-4f4e-a89c-13c96dbc005a" alt=""
+              <img src="/assets/lonar/process1.png" alt=""
                 style={{ position:'absolute', width:514, height:321, left:'50%', top:'calc(50% + 46.5px)', transform:'translate(-50%,-50%)', objectFit:'cover', borderRadius:14 }} />
             </ImgBlock>
             <p>The final phase covered APIs, the pro plan, account management, and download and export. Getting the details right after the structure was already proven.</p>
