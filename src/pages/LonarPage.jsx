@@ -163,7 +163,7 @@ export default function LonarPage() {
             <p>You land on the platform and the invoice generator is the first thing you see. Client details can be saved so you are not re-entering the same information every time.</p>
             <ImgBlock>
               <img src="/assets/lonar/solution1.png" alt=""
-                style={{ position:'absolute', width:343, height:292, left:'calc(50% - 91.5px)', top:'calc(50% + 41px)', transform:'translate(-50%,-50%)', objectFit:'cover', borderRadius:6 }} />
+                style={{ position:'absolute', width:343, height:292, left:'calc(50% - 91.5px)', top:'calc(50% + 41px)', transform:'translate(-50%,-50%)', objectFit:'cover' }} />
               <img src="/assets/lonar/solution2.png" alt=""
                 style={{ position:'absolute', width:158, height:419, right:0, top:-142, objectFit:'cover' }} />
             </ImgBlock>
@@ -198,7 +198,7 @@ export default function LonarPage() {
             </ImgBlock>
             <ImgBlock>
               <img src="/assets/lonar/solution9.png" alt=""
-                style={{ position:'absolute', width:454, height:283, left:'calc(50% - 148px)', top:42, transform:'translateX(-50%)', objectFit:'cover', borderRadius:12 }} />
+                style={{ position:'absolute', width:454, height:283, left:'calc(50% - 148px)', top:42, transform:'translateX(-50%)', objectFit:'cover' }} />
               <img src="/assets/lonar/solution10.png" alt=""
                 style={{ position:'absolute', width:200, height:213, right:0, top:87, objectFit:'cover' }} />
             </ImgBlock>
@@ -216,7 +216,7 @@ export default function LonarPage() {
             <p>The invoice generator shipped before the full platform. That meant by the time I was deep in high-fidelity design, there were already real users sending feedback. Revision requests came directly from them, not from internal assumptions.</p>
             <ImgBlock>
               <img src="/assets/lonar/process1.png" alt=""
-                style={{ position:'absolute', width:514, height:321, left:'50%', top:'calc(50% + 46.5px)', transform:'translate(-50%,-50%)', objectFit:'cover', borderRadius:14 }} />
+                style={{ position:'absolute', width:514, height:321, left:'50%', top:'calc(50% + 46.5px)', transform:'translate(-50%,-50%)', objectFit:'cover' }} />
             </ImgBlock>
             <p>The final phase covered APIs, the pro plan, account management, and download and export. Getting the details right after the structure was already proven.</p>
           </div>

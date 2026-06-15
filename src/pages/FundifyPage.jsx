@@ -188,7 +188,7 @@ export default function FundifyPage() {
             <p>I also designed Travel Vouchers as one of the first redemption categories, a tangible, high-desire reward that gives users a clear reason to accumulate points.</p>
 
             <img src="/assets/fundifyassets/shot2.png" alt=""
-              style={{ width:'100%', display:'block', borderRadius:12 }} />
+              style={{ width:'100%', display:'block' }} />
           </div>
         </section></FadeItem>
 
@@ -202,7 +202,7 @@ export default function FundifyPage() {
             <p>179,000 points. A user who sees that number does not feel like they are being tracked. They feel like they are getting somewhere.</p>
 
             <img src="/assets/fundifyassets/shot4.png" alt=""
-              style={{ width:'100%', display:'block', borderRadius:12 }} />
+              style={{ width:'100%', display:'block' }} />
           </div>
         </section></FadeItem>
 
@@ -216,10 +216,10 @@ export default function FundifyPage() {
         </section></FadeItem>
 
         {/* Screen showcase */}
-        <FadeItem><img src="/assets/fundifyassets/shot1.png" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
-        <FadeItem><img src="/assets/fundifyassets/shot2.png" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
-        <FadeItem><img src="/assets/fundifyassets/shot3.png" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
-        <FadeItem><img src="/assets/fundifyassets/shot4.png" alt="" style={{ width:'100%', display:'block', borderRadius:12 }} /></FadeItem>
+        <FadeItem><img src="/assets/fundifyassets/shot1.png" alt="" style={{ width:'100%', display:'block' }} /></FadeItem>
+        <FadeItem><img src="/assets/fundifyassets/shot2.png" alt="" style={{ width:'100%', display:'block' }} /></FadeItem>
+        <FadeItem><img src="/assets/fundifyassets/shot3.png" alt="" style={{ width:'100%', display:'block' }} /></FadeItem>
+        <FadeItem><img src="/assets/fundifyassets/shot4.png" alt="" style={{ width:'100%', display:'block' }} /></FadeItem>
 
         {/* Articles */}
         <FadeItem><section className={styles.articlesSection}>
