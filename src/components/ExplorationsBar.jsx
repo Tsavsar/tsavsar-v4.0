@@ -1,6 +1,16 @@
 import { Link } from 'react-router-dom'
 import Arrow from './Arrow'
+import { useCursorPreview } from './CardExpand'
 import styles from './ExplorationsBar.module.css'
+
+const PREVIEW_VIDEOS = [
+  '/assets/explorations/video-main.mp4',
+  '/assets/explorations/video-fundify.mov',
+  '/assets/explorations/video-1420.mp4',
+  '/assets/explorations/video-1260.mp4',
+  '/assets/explorations/video-twitter2.mp4',
+  '/assets/explorations/video-boki.mp4',
+]
 
 function CompassIcon() {
   return (
@@ -12,11 +22,16 @@ function CompassIcon() {
 }
 
 export default function ExplorationsBar() {
+  const { areaProps, previewEl } = useCursorPreview(PREVIEW_VIDEOS)
+
   return (
-    <Link to="/explorations" className={styles.bar}>
-      <span className={styles.iconWrap}><CompassIcon /></span>
-      <span className={styles.label}>Design explorations</span>
-      <span className={styles.arrow}><Arrow size={14} /></span>
-    </Link>
+    <>
+      {previewEl}
+      <Link to="/explorations" className={styles.bar} {...areaProps}>
+        <span className={styles.iconWrap}><CompassIcon /></span>
+        <span className={styles.label}>Design explorations</span>
+        <span className={styles.arrow}><Arrow size={14} /></span>
+      </Link>
+    </>
   )
 }

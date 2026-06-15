@@ -60,6 +60,82 @@ export function useCursorLabel(text = 'View project') {
 }
 
 /**
+ * useCursorPreview — returns { areaProps, previewEl }
+ * Attach areaProps to a hover zone; previewEl renders a floating video
+ * preview that follows the mouse with a smooth lerp. A random video from
+ * `videos` is picked each time the cursor enters.
+ */
+export function useCursorPreview(videos = []) {
+  const previewRef = useRef(null)
+  const videoRef   = useRef(null)
+  const pos        = useRef({ x: 0, y: 0 })
+  const target     = useRef({ x: 0, y: 0 })
+  const rafId      = useRef(null)
+  const [visible, setVisible] = useState(false)
+  const [src, setSrc] = useState(null)
+
+  const animate = useCallback(() => {
+    pos.current.x += (target.current.x - pos.current.x) * 0.12
+    pos.current.y += (target.current.y - pos.current.y) * 0.12
+    if (previewRef.current) {
+      previewRef.current.style.transform =
+        `translate(${pos.current.x}px, ${pos.current.y}px)`
+    }
+    rafId.current = requestAnimationFrame(animate)
+  }, [])
+
+  function onEnter(e) {
+    if (videos.length) setSrc(videos[Math.floor(Math.random() * videos.length)])
+    target.current = { x: e.clientX, y: e.clientY }
+    pos.current    = { x: e.clientX, y: e.clientY }
+    setVisible(true)
+    rafId.current = requestAnimationFrame(animate)
+  }
+
+  function onMove(e) {
+    target.current = { x: e.clientX + 18, y: e.clientY + 18 }
+  }
+
+  function onLeave() {
+    setVisible(false)
+    cancelAnimationFrame(rafId.current)
+  }
+
+  useEffect(() => () => cancelAnimationFrame(rafId.current), [])
+
+  useEffect(() => {
+    if (visible && videoRef.current) {
+      videoRef.current.currentTime = 0
+      videoRef.current.play().catch(() => {})
+    }
+  }, [visible, src])
+
+  const areaProps = { onMouseEnter: onEnter, onMouseMove: onMove, onMouseLeave: onLeave }
+
+  const previewEl = createPortal(
+    <div
+      ref={previewRef}
+      className={`${styles.cursorPreview} ${visible ? styles.cursorPreviewVisible : ''}`}
+      style={{ willChange: 'transform' }}
+    >
+      {src && (
+        <video
+          ref={videoRef}
+          src={src}
+          muted
+          loop
+          playsInline
+          autoPlay
+        />
+      )}
+    </div>,
+    document.body
+  )
+
+  return { areaProps, previewEl }
+}
+
+/**
  * CardExpand — wraps a project card image.
  * Click → expands to fullscreen with position transition. ESC / click-outside closes.
  */
