@@ -166,16 +166,16 @@ export default function Projects() {
               {reg => (<>
                 <div ref={reg(0)} data-speed="18" className={styles.pi}
                   style={{ position:'absolute', width:237, height:237, left:'calc(50% - 118px)', top:'calc(50% + 27.5px - 118px)', pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/36974781-2699-4c66-9105-a823d94fdb84" style={{ width:'100%', height:'100%' }} alt="" />
+                  <img src="/assets/lonar/lonar-logo.svg" style={{ width:'100%', height:'100%' }} alt="" />
                 </div>
                 <div ref={reg(1)} data-speed="10" className={styles.pi}
                   style={{ position:'absolute', width:40, height:40, left:'calc(50% - 20px)', top:'calc(50% - 102px - 20px)', overflow:'hidden', pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/8ad02711-5ec8-403c-858b-39ced3d34111"
+                  <img src="/assets/lonar/vector.svg"
                     style={{ width:'88%', height:'88%', position:'absolute', top:'6%', left:'6%', transform:'scaleX(-1)' }} alt="" />
                 </div>
                 <div ref={reg(2)} data-speed="25" className={styles.pi}
                   style={{ position:'absolute', width:241, height:335, left:'calc(50% - 118px)', bottom:-127, pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/21b40784-1f5e-42a5-9948-2a5a976d0ff4"
+                  <img src="/assets/lonar/invoice-image.png"
                     style={{ width:'100%', height:'100%', objectFit:'cover' }} alt="" />
                 </div>
               </>)}
@@ -192,31 +192,31 @@ export default function Projects() {
               {reg => (<>
                 <div ref={reg(0)} data-speed="8" className={styles.pi}
                   style={{ position:'absolute', width:214, height:298, right:19, bottom:-6, pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/157fe76d-8a66-47a9-a9e9-3a287170d4d8" style={{ width:'100%', height:'100%' }} alt="" />
+                  <img src="/assets/kernui/vector-1.svg" style={{ width:'100%', height:'100%' }} alt="" />
                 </div>
                 <div ref={reg(1)} data-speed="20" className={styles.pi}
                   style={{ position:'absolute', left:-23, top:21, width:261, height:250, display:'flex', alignItems:'center', justifyContent:'center', pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/eb20f63a-67fb-4ebe-95c2-166f2ebc0cb3" style={{ width:210, height:192, flexShrink:0, transform:'rotate(19.17deg)', objectFit:'cover' }} alt="" />
+                  <img src="/assets/kernui/image-1.png" style={{ width:210, height:192, flexShrink:0, transform:'rotate(19.17deg)', objectFit:'cover' }} alt="" />
                 </div>
                 <div ref={reg(2)} data-speed="14" className={styles.pi}
                   style={{ position:'absolute', left:-35, top:50, width:159, height:279, display:'flex', alignItems:'center', justifyContent:'center', pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/b7ab85a6-827e-41d0-817f-8d64d527b25e" style={{ width:125, height:265, flexShrink:0, transform:'rotate(7.63deg)', objectFit:'cover' }} alt="" />
+                  <img src="/assets/kernui/image-2.png" style={{ width:125, height:265, flexShrink:0, transform:'rotate(7.63deg)', objectFit:'cover' }} alt="" />
                 </div>
                 <div ref={reg(3)} data-speed="24" className={styles.pi}
                   style={{ position:'absolute', left:122, top:134, width:245, height:242, display:'flex', alignItems:'center', justifyContent:'center', pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/277565a6-9c8f-4b73-bd7a-ade04411fb61" style={{ width:184, height:176, flexShrink:0, transform:'rotate(28.07deg)', objectFit:'cover' }} alt="" />
+                  <img src="/assets/kernui/dropdown-sample-1.png" style={{ width:184, height:176, flexShrink:0, transform:'rotate(28.07deg)', objectFit:'cover' }} alt="" />
                 </div>
                 <div ref={reg(4)} data-speed="18" className={styles.pi}
                   style={{ position:'absolute', left:100, top:236, width:188, height:107, display:'flex', alignItems:'center', justifyContent:'center', pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/a2ea3a77-1447-48d6-a436-ac643d649633" style={{ width:182, height:50, flexShrink:0, transform:'rotate(-19.27deg)', objectFit:'cover' }} alt="" />
+                  <img src="/assets/kernui/image-3.png" style={{ width:182, height:50, flexShrink:0, transform:'rotate(-19.27deg)', objectFit:'cover' }} alt="" />
                 </div>
                 <div ref={reg(5)} data-speed="16" className={styles.pi}
                   style={{ position:'absolute', left:-21, top:173, width:209, height:190, display:'flex', alignItems:'center', justifyContent:'center', pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/ac90efec-3d17-4a41-af04-e96ac83437fb" style={{ width:188, height:165, flexShrink:0, transform:'rotate(8.02deg)', objectFit:'cover' }} alt="" />
+                  <img src="/assets/kernui/image-4.png" style={{ width:188, height:165, flexShrink:0, transform:'rotate(8.02deg)', objectFit:'cover' }} alt="" />
                 </div>
                 <div ref={reg(6)} data-speed="28" className={styles.pi}
                   style={{ position:'absolute', width:32, height:44, left:'calc(50% + 108px - 16px)', top:'calc(50% - 92px - 22px)', pointerEvents:'none' }}>
-                  <img src="https://www.figma.com/api/mcp/asset/5ea2c87b-9202-4e6e-be57-f42810e81721" style={{ width:'100%', height:'100%' }} alt="" />
+                  <img src="/assets/kernui/vector-2.svg" style={{ width:'100%', height:'100%' }} alt="" />
                 </div>
               </>)}
             </ParallaxCard>
