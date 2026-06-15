@@ -36,7 +36,7 @@ export default function LonarPage() {
   useEffect(() => {
     document.title = 'Lönar — Shater Tsavsar'
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'Lönar — Shater Tsavsar')
-    document.querySelector('meta[property="og:image"]')?.setAttribute('content', 'https://www.figma.com/api/mcp/asset/37c8431b-9aba-43d6-8ef9-e628d5258d3f')
+    document.querySelector('meta[property="og:image"]')?.setAttribute('content', '/assets/lonar/lonar-logo-internal.svg')
     return () => {
       document.title = 'Shater Tsavsar - Systemic Native'
       document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'Shater Tsavsar - Systemic Native')
@@ -113,10 +113,10 @@ export default function LonarPage() {
         <FadeItem><div className={styles.hero}>
           <div className={`${imgStyles.heroImg} ${heroCollapsed ? styles.heroImgMini : ""}`}>
             {/* Lönar logo centred */}
-            <img src="https://www.figma.com/api/mcp/asset/37c8431b-9aba-43d6-8ef9-e628d5258d3f" alt=""
+            <img src="/assets/lonar/lonar-logo-internal.svg" alt=""
               style={{ position:'absolute', width:237, height:237, left:'calc(50% + 0.5px)', top:'calc(50% + 27.5px)', transform:'translate(-50%,-50%)', pointerEvents:'none' }} />
             {/* Dashboard screenshot */}
-            <img src="https://www.figma.com/api/mcp/asset/4510881e-c2f5-48e1-9fa5-e1fa148f7ad5" alt=""
+            <img src="/assets/lonar/dashboard.png" alt=""
               style={{ position:'absolute', width:513, height:321, left:'50%', top:79, transform:'translateX(-50%)', objectFit:'cover', pointerEvents:'none' }} />
           </div>
           <div className={styles.heroTags}>
@@ -236,7 +236,7 @@ export default function LonarPage() {
           <p className={styles.sectionLabel}>my articles</p>
           <a className={styles.articleItem} href="#">
             <div className={styles.articleThumb}>
-              <img src="https://www.figma.com/api/mcp/asset/b50054ec-659f-47c0-a81b-02200d94ccc5" alt="" />
+              <img src="/assets/article-vicariously/thumbnail.png" alt="" />
             </div>
             <div className={styles.articleBody}>
               <div className={styles.articleTitleRow}>

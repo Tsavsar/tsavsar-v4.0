@@ -35,7 +35,7 @@ export default function Nav({ galleryOpen, onAvatarClick }) {
         >
           <img
             className={styles.avatar}
-            src="https://www.figma.com/api/mcp/asset/1aa1c2c3-f09a-4a01-97ce-b56642ff0c91"
+            src="/assets/pfp.png"
             alt="Shater Tsavsar"
           />
         </div>

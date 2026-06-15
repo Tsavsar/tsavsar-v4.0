@@ -15,7 +15,7 @@ export default function Articles() {
       <div className={styles.list}>
         <Link className={styles.item} to="/articles/vicariously">
           <div className={styles.thumb}>
-            <img src="https://www.figma.com/api/mcp/asset/b50054ec-659f-47c0-a81b-02200d94ccc5" alt="Article thumbnail" />
+            <img src="/assets/article-vicariously/thumbnail.png" alt="Article thumbnail" />
           </div>
           <div className={styles.body}>
             <div className={styles.titleRow}>

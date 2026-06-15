@@ -229,7 +229,7 @@ export default function FundifyPage() {
           <p className={styles.sectionLabel}>my articles</p>
           <a className={styles.articleItem} href="#">
             <div className={styles.articleThumb}>
-              <img src="https://www.figma.com/api/mcp/asset/b50054ec-659f-47c0-a81b-02200d94ccc5" alt="" />
+              <img src="/assets/article-vicariously/thumbnail.png" alt="" />
             </div>
             <div className={styles.articleBody}>
               <div className={styles.articleTitleRow}>
