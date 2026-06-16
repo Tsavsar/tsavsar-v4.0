@@ -13,14 +13,28 @@ const EXPLORATION_CLIPS = [
 
 function ExplorationCard() {
   const [idx, setIdx] = useState(0)
+  const [prevIdx, setPrevIdx] = useState(null)
   const navigate = useNavigate()
   const { areaProps: imgAreaProps, labelEl: imgLabelEl } = useCursorLabel('View explorations')
   const { areaProps: descAreaProps, labelEl: descLabelEl } = useCursorLabel('View explorations')
 
   useEffect(() => {
-    const t = setInterval(() => setIdx(i => (i + 1) % EXPLORATION_CLIPS.length), 2500)
+    const t = setInterval(() => {
+      setIdx(curr => {
+        const next = (curr + 1) % EXPLORATION_CLIPS.length
+        setPrevIdx(curr)
+        return next
+      })
+    }, 2500)
     return () => clearInterval(t)
   }, [])
+
+  // Clear prevIdx after slide completes
+  useEffect(() => {
+    if (prevIdx === null) return
+    const t = setTimeout(() => setPrevIdx(null), 800)
+    return () => clearTimeout(t)
+  }, [prevIdx, idx])
 
   return (
     <div className={styles.card}>
@@ -31,24 +45,27 @@ function ExplorationCard() {
         onClick={() => navigate('/explorations')}
         {...imgAreaProps}
       >
-        {EXPLORATION_CLIPS.map((src, i) => (
-          <video
-            key={src}
-            src={src}
-            autoPlay
-            muted
-            loop
-            playsInline
-            style={{
-              position: 'absolute', inset: 0, width: '100%', height: '100%',
-              objectFit: 'cover',
-              opacity: i === idx ? 1 : 0,
-              filter: i === idx ? 'blur(0px)' : 'blur(10px)',
-              transform: i === idx ? 'scale(1)' : 'scale(1.04)',
-              transition: 'opacity 0.7s ease, filter 0.7s ease, transform 0.7s ease',
-            }}
-          />
-        ))}
+        {EXPLORATION_CLIPS.map((src, i) => {
+          const isActive = i === idx
+          const isPrev   = i === prevIdx
+          return (
+            <video
+              key={src}
+              src={src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{
+                position: 'absolute', inset: 0, width: '100%', height: '100%',
+                objectFit: 'cover',
+                zIndex: isActive ? 2 : isPrev ? 1 : 0,
+                transform: isActive ? 'translateX(0%)' : 'translateX(100%)',
+                transition: isActive ? 'transform 0.75s cubic-bezier(0.4,0,0.2,1)' : 'none',
+              }}
+            />
+          )
+        })}
       </div>
       {descLabelEl}
       <Link to="/explorations" className={styles.info} style={{ textDecoration: 'none', cursor: 'none' }} {...descAreaProps}>
