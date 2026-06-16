@@ -1,7 +1,66 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './Projects.module.css'
 import { useCursorLabel } from './CardExpand'
+
+const EXPLORATION_CLIPS = [
+  '/assets/explorations/video-main.mp4',
+  '/assets/explorations/video-fundify.mov',
+  '/assets/explorations/video-twitter2.mp4',
+  '/assets/explorations/video-1420.mp4',
+  '/assets/explorations/video-boki.mp4',
+  '/assets/explorations/video-1260.mp4',
+]
+
+function ExplorationCard() {
+  const [idx, setIdx] = useState(0)
+  const navigate = useNavigate()
+  const { areaProps: imgAreaProps, labelEl: imgLabelEl } = useCursorLabel('View explorations')
+  const { areaProps: descAreaProps, labelEl: descLabelEl } = useCursorLabel('View explorations')
+
+  useEffect(() => {
+    const t = setInterval(() => setIdx(i => (i + 1) % EXPLORATION_CLIPS.length), 2500)
+    return () => clearInterval(t)
+  }, [])
+
+  return (
+    <div className={styles.card}>
+      {imgLabelEl}
+      <div
+        className={`${styles.img} ${styles.imgClickable}`}
+        style={{ background: '#111' }}
+        onClick={() => navigate('/explorations')}
+        {...imgAreaProps}
+      >
+        {EXPLORATION_CLIPS.map((src, i) => (
+          <video
+            key={src}
+            src={src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%',
+              objectFit: 'cover',
+              opacity: i === idx ? 1 : 0,
+              transition: 'opacity 0.6s ease',
+            }}
+          />
+        ))}
+      </div>
+      {descLabelEl}
+      <Link to="/explorations" className={styles.info} style={{ textDecoration: 'none', cursor: 'none' }} {...descAreaProps}>
+        <div className={styles.meta}>
+          <span className={styles.name}>Design explorations</span>
+          <span className={styles.category}>Experiments & components</span>
+          {ARROW}
+        </div>
+        <p className={styles.desc}>My past design experiments and components.</p>
+      </Link>
+    </div>
+  )
+}
 
 const ARROW = (
   <svg viewBox="0 0 11.05 8.25" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 14, height: 14, flexShrink: 0 }}>
@@ -130,6 +189,8 @@ export default function Projects() {
       >
         <div className={styles.wrapper}>
           <div className={styles.track}>
+
+            <ExplorationCard />
 
             {/* CostGraph */}
             <ParallaxCard
