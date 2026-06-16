@@ -43,7 +43,9 @@ function ExplorationCard() {
               position: 'absolute', inset: 0, width: '100%', height: '100%',
               objectFit: 'cover',
               opacity: i === idx ? 1 : 0,
-              transition: 'opacity 0.6s ease',
+              filter: i === idx ? 'blur(0px)' : 'blur(10px)',
+              transform: i === idx ? 'scale(1)' : 'scale(1.04)',
+              transition: 'opacity 0.7s ease, filter 0.7s ease, transform 0.7s ease',
             }}
           />
         ))}
