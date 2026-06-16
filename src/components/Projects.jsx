@@ -52,7 +52,7 @@ function ExplorationCard() {
       <Link to="/explorations" className={styles.info} style={{ textDecoration: 'none', cursor: 'none' }} {...descAreaProps}>
         <div className={styles.meta}>
           <span className={styles.name}>Design explorations</span>
-          <span className={styles.category}>Experiments & components</span>
+          <span className={styles.category}>Experiments</span>
           {ARROW}
         </div>
         <p className={styles.desc}>My past design experiments and components.</p>
