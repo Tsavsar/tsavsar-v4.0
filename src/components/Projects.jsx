@@ -8,7 +8,6 @@ const EXPLORATION_CLIPS = [
   '/assets/explorations/video-fundify.mov',
   '/assets/explorations/video-twitter2.mp4',
   '/assets/explorations/video-1420.mp4',
-  '/assets/explorations/video-boki.mp4',
   '/assets/explorations/video-1260.mp4',
 ]
 
