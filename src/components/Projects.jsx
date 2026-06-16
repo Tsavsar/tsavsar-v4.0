@@ -14,25 +14,31 @@ const EXPLORATION_CLIPS = [
 function ExplorationCard() {
   const [idx, setIdx] = useState(0)
   const [prevIdx, setPrevIdx] = useState(null)
+  const videoRefs = useRef([])
   const navigate = useNavigate()
   const { areaProps: imgAreaProps, labelEl: imgLabelEl } = useCursorLabel('View explorations')
   const { areaProps: descAreaProps, labelEl: descLabelEl } = useCursorLabel('View explorations')
 
+  function advanceClip() {
+    setIdx(curr => {
+      const next = (curr + 1) % EXPLORATION_CLIPS.length
+      setPrevIdx(curr)
+      return next
+    })
+  }
+
+  // When idx changes, restart that video from the beginning
   useEffect(() => {
-    const t = setInterval(() => {
-      setIdx(curr => {
-        const next = (curr + 1) % EXPLORATION_CLIPS.length
-        setPrevIdx(curr)
-        return next
-      })
-    }, 2500)
-    return () => clearInterval(t)
-  }, [])
+    const vid = videoRefs.current[idx]
+    if (!vid) return
+    vid.currentTime = 0
+    vid.play().catch(() => {})
+  }, [idx])
 
   // Clear prevIdx after slide completes
   useEffect(() => {
     if (prevIdx === null) return
-    const t = setTimeout(() => setPrevIdx(null), 800)
+    const t = setTimeout(() => setPrevIdx(null), 1100)
     return () => clearTimeout(t)
   }, [prevIdx, idx])
 
@@ -51,17 +57,18 @@ function ExplorationCard() {
           return (
             <video
               key={src}
+              ref={el => { videoRefs.current[i] = el }}
               src={src}
-              autoPlay
+              autoPlay={i === 0}
               muted
-              loop
               playsInline
+              onEnded={isActive ? advanceClip : undefined}
               style={{
                 position: 'absolute', inset: 0, width: '100%', height: '100%',
                 objectFit: 'cover',
                 zIndex: isActive ? 2 : isPrev ? 1 : 0,
                 transform: isActive ? 'translateX(0%)' : 'translateX(100%)',
-                transition: isActive ? 'transform 0.75s cubic-bezier(0.4,0,0.2,1)' : 'none',
+                transition: isActive ? 'transform 1s cubic-bezier(0.25,0.46,0.45,0.94)' : 'none',
               }}
             />
           )
