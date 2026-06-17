@@ -1,0 +1,244 @@
+/* ── Page shell — matches CostGraphPage pattern ─────────────────────────── */
+.page {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px 0 80px;
+}
+
+/* 620px centered column — same as .content in CostGraphPage */
+.content {
+  width: 100%;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 52px 16px 0;
+  box-sizing: border-box;
+}
+
+/* ── Breadcrumb — matches CostGraphPage exactly ─────────────────────────── */
+.breadcrumb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  padding: 12px 24px;
+  transition: background 0.35s ease, backdrop-filter 0.35s ease, -webkit-backdrop-filter 0.35s ease;
+}
+.breadcrumbScrolled {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.breadcrumbInner {
+  width: 100%;
+  max-width: 769px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.backPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 4px 7px 4px 4px;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.backPill:hover { background: #efefef; }
+.backPill span { font-size: var(--font-12); color: var(--text-sub); letter-spacing: var(--ls-12); }
+
+.crumbs { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; }
+.sig { width: 24px; height: 24px; cursor: default; flex-shrink: 0; }
+.crumbSep { font-size: var(--font-12); color: var(--text-sub); flex-shrink: 0; letter-spacing: var(--ls-12); }
+.crumbActive { font-size: var(--font-12); color: var(--text-strong); letter-spacing: var(--ls-12); font-weight: 500; }
+
+.copyBtn {
+  margin-left: auto;
+  flex-shrink: 0;
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.copyBtnState {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transition: opacity 0.25s ease;
+  white-space: nowrap;
+}
+
+/* ── Collage — breaks out of the 620px column ───────────────────────────── */
+.collageSectionWrap {
+  /* Negative margins break out of the .content column */
+  width: 100vw;
+  margin-left: calc((100vw - 620px) / -2 - 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Outer scroll wrapper — only scrolls X, padding gives vertical breathing room */
+.collageOuter {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* padding lets items overflow above/below without clipping */
+  padding-top: 60px;
+  padding-bottom: 20px;
+  /* overflow-y cannot be `visible` when overflow-x is `auto` — use margin trick instead */
+  box-sizing: content-box;
+}
+.collageOuter::-webkit-scrollbar { display: none; }
+
+/* Native-size canvas — items are positioned inside, overflow is visible */
+.collageCanvas {
+  position: relative;
+  margin: 0 auto;
+  overflow: visible;
+  min-height: 300px;
+}
+
+.collageItem {
+  position: absolute;
+  cursor: grab;
+  will-change: transform;
+}
+.collageItem:active,
+.itemDragging {
+  cursor: grabbing;
+  z-index: 9999 !important;
+}
+.collageImg {
+  display: block;
+  pointer-events: none;
+  max-width: none;
+}
+
+.collageCaption {
+  font-size: 12px;
+  color: var(--text-disabled);
+  letter-spacing: 0.02em;
+  margin: 0;
+  padding-left: calc((100vw - 620px) / 2 + 16px);
+}
+
+/* ── Sections ───────────────────────────────────────────────────────────── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.section p {
+  font-size: var(--font-14);
+  line-height: var(--lh);
+  letter-spacing: var(--ls-14);
+  color: var(--text-strong);
+  margin: 0;
+}
+
+/* ── Movies ─────────────────────────────────────────────────────────────── */
+.movieRow { display: flex; gap: 10px; }
+.movieCell {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+}
+.movieImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+}
+.movieOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.movieCell:hover .movieOverlay { opacity: 1; }
+.movieOverlay span { font-size: 11px; color: white; font-weight: 500; letter-spacing: 0.04em; }
+
+/* ── Albums ─────────────────────────────────────────────────────────────── */
+.albumGrid { display: flex; flex-direction: column; gap: 10px; }
+.albumRow { display: flex; gap: 10px; }
+.albumCell {
+  flex: 1;
+  position: relative;
+  display: block;
+  text-decoration: none;
+  overflow: hidden;
+}
+.albumImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.albumOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.albumCell:hover .albumOverlay { opacity: 1; }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .content { width: 100%; padding: 52px 24px 0; }
+}
+
+@media (max-width: 680px) {
+  .collageSectionWrap {
+    width: 100%;
+    margin-left: -24px;
+    width: calc(100% + 48px);
+  }
+  .collageCaption {
+    padding-left: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .content { padding: 52px 20px 0; }
+  .breadcrumb { padding: 8px 20px; }
+  .collageSectionWrap {
+    margin-left: -20px;
+    width: calc(100% + 40px);
+  }
+  .collageCaption { padding-left: 20px; }
+}

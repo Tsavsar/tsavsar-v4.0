@@ -15,6 +15,7 @@ import KernUIPage from './pages/KernUIPage'
 import FundifyPage from './pages/FundifyPage'
 import ArticleVicariouslyPage from './pages/ArticleVicariouslyPage'
 import ExplorationsPage from './pages/ExplorationsPage'
+import AboutPage from './pages/AboutPage'
 import styles from './App.module.css'
 import useClickSound from './hooks/useClickSound'
 
@@ -85,6 +86,7 @@ export default function App() {
         <Route path="/work/fundify" element={<FundifyPage />} />
         <Route path="/articles/vicariously" element={<ArticleVicariouslyPage />} />
       <Route path="/explorations" element={<ExplorationsPage />} />
+      <Route path="/about" element={<AboutPage />} />
       </Routes>
     </>
   )

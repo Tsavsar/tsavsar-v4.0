@@ -49,7 +49,7 @@ function Overlay({ open, onClose, spotify }) {
 
       {/* Vinyl + current track */}
       <div className={`${styles.vinylWrap} ${open ? styles.vinylWrapOpen : ''}`}>
-        <div className={styles.vinyl}>
+        <div className={`${styles.vinyl} ${!spotify.isPlaying ? styles.vinylPaused : ''}`}>
           <img className={styles.art} src={spotify.albumArt} alt="" />
           <span className={styles.hole} />
         </div>
