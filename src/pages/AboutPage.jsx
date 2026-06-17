@@ -207,6 +207,7 @@ export default function AboutPage() {
 
           {/* Bio */}
           <section className={`${styles.section} ${styles.fadeItem} ${styles.fadeItem1}`}>
+            <p>btw, go back and click on my picture on the homepage 👀</p>
             <p>Asides the work I have going on, I'm also really invested in sports, supporting Arsenal FC is the longest running commitment in my life, 18 years and counting! Then in the Nba, I'm a New York Knicks fan. I play basketball and I also play chess.</p>
             <p>2026 has been crazy cause both teams won their leagues, what a time to be alive fr.</p>
             <p>There are a couple movies/shows I feel best represent myself and they're always a good watch. Here are a few, it was almost impossible to reduce everything to these 5 but yeah, they're great watches.</p>
