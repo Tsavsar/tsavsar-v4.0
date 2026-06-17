@@ -143,6 +143,22 @@
   padding-left: calc((100vw - 620px) / 2 + 16px);
 }
 
+/* ── Page fade-in ───────────────────────────────────────────────────────── */
+.fadeItem {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp 0.5s ease forwards;
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+.fadeItem0 { animation-delay: 0.08s; }
+.fadeItem1 { animation-delay: 0.14s; }
+.fadeItem2 { animation-delay: 0.20s; }
+.fadeItem3 { animation-delay: 0.26s; }
+.fadeItem4 { animation-delay: 0.32s; }
+.fadeItem5 { animation-delay: 0.38s; }
+
 /* ── Sections ───────────────────────────────────────────────────────────── */
 .section {
   display: flex;

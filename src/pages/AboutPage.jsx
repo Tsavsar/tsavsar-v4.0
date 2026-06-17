@@ -201,19 +201,19 @@ export default function AboutPage() {
         <div className={styles.content}>
 
           {/* Collage — breaks out of the 620px column via negative margins */}
-          <div className={styles.collageSectionWrap}>
+          <div className={`${styles.collageSectionWrap} ${styles.fadeItem} ${styles.fadeItem0}`}>
             <Collage />
           </div>
 
           {/* Bio */}
-          <section className={styles.section}>
+          <section className={`${styles.section} ${styles.fadeItem} ${styles.fadeItem1}`}>
             <p>Asides the work I have going on, I'm also really invested in sports, supporting Arsenal FC is the longest running commitment in my life, 18 years and counting! Then in the Nba, I'm a New York Knicks fan. I play basketball and I also play chess.</p>
             <p>2026 has been crazy cause both teams won their leagues, what a time to be alive fr.</p>
             <p>There are a couple movies/shows I feel best represent myself and they're always a good watch. Here are a few, it was almost impossible to reduce everything to these 5 but yeah, they're great watches.</p>
           </section>
 
           {/* Movies */}
-          <div className={styles.movieRow}>
+          <div className={`${styles.movieRow} ${styles.fadeItem} ${styles.fadeItem2}`}>
             {MOVIES.map(({ src, title, imdb }) => (
               <a key={title} href={imdb} target="_blank" rel="noopener noreferrer" className={styles.movieCell} title={title}>
                 <img src={src} alt={title} className={styles.movieImg} />
@@ -229,13 +229,13 @@ export default function AboutPage() {
           </div>
 
           {/* Music bio */}
-          <section className={styles.section}>
+          <section className={`${styles.section} ${styles.fadeItem} ${styles.fadeItem3}`}>
             <p>I passively write music, vocals here and there but mostly stuff around my bass guitar. I can go on and on about music and it's impact y'know, read some of my articles on that to see where my head is about it all.</p>
             <p>That said, I am very in love with music, it's almost an obsession at this point, here are a few albums I'd 100% recommend you checkout at least once.</p>
           </section>
 
           {/* Albums */}
-          <div className={styles.albumGrid}>
+          <div className={`${styles.albumGrid} ${styles.fadeItem} ${styles.fadeItem4}`}>
             {[ALBUMS.slice(0, 5), ALBUMS.slice(5)].map((row, ri) => (
               <div key={ri} className={styles.albumRow}>
                 {row.map(({ src, spotify }, i) =>
@@ -259,7 +259,8 @@ export default function AboutPage() {
             ))}
           </div>
 
-          <Footer />
+          <div className={`${styles.fadeItem} ${styles.fadeItem5}`}><Footer /></div>
+
         </div>
       </div>
     </>

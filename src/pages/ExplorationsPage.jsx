@@ -79,10 +79,11 @@ const ITEMS = [
   { kind: 'img', src: '/assets/explorations/screenshot-2.png',      alt: 'Screenshot' },
 ]
 
-const ALL_LIGHTBOX = ITEMS.filter(i => i.kind === 'img')
+const ALL_IMG_LIGHTBOX = ITEMS.filter(i => i.kind === 'img')
 
 export default function ExplorationsPage() {
   const scrollY = useScrollY()
+  // lightbox: null | { src, kind, alt, imgIdx? }
   const [lightbox, setLightbox] = useState(null)
   const [copied, setCopied] = useState(false)
   const [loadedSet, setLoadedSet] = useState(() => new Set())
@@ -103,8 +104,16 @@ export default function ExplorationsPage() {
   useEffect(() => {
     function onKey(e) {
       if (e.key === 'Escape') setLightbox(null)
-      if (e.key === 'ArrowRight' && lightbox !== null) setLightbox(i => Math.min(i + 1, ALL_LIGHTBOX.length - 1))
-      if (e.key === 'ArrowLeft'  && lightbox !== null) setLightbox(i => Math.max(i - 1, 0))
+      if (lightbox?.kind === 'img') {
+        if (e.key === 'ArrowRight') setLightbox(lb => {
+          const next = Math.min(lb.imgIdx + 1, ALL_IMG_LIGHTBOX.length - 1)
+          return { ...ALL_IMG_LIGHTBOX[next], imgIdx: next }
+        })
+        if (e.key === 'ArrowLeft') setLightbox(lb => {
+          const prev = Math.max(lb.imgIdx - 1, 0)
+          return { ...ALL_IMG_LIGHTBOX[prev], imgIdx: prev }
+        })
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -152,24 +161,38 @@ export default function ExplorationsPage() {
 
       {lightbox !== null && (
         <div className={styles.lightboxOverlay} onClick={() => setLightbox(null)}>
-          <img
-            src={ALL_LIGHTBOX[lightbox].src}
-            alt={ALL_LIGHTBOX[lightbox].alt}
-            className={styles.lightboxImg}
-            onClick={e => e.stopPropagation()}
-          />
+          {lightbox.kind === 'video' ? (
+            <video
+              key={lightbox.src}
+              src={lightbox.src}
+              className={styles.lightboxVideo}
+              controls
+              autoPlay
+              playsInline
+              onClick={e => e.stopPropagation()}
+            />
+          ) : (
+            <img
+              src={lightbox.src}
+              alt={lightbox.alt}
+              className={styles.lightboxImg}
+              onClick={e => e.stopPropagation()}
+            />
+          )}
         </div>
       )}
 
       <div className={styles.page}>
         <div className={styles.grid}>
           {ITEMS.map((item, i) => {
-            const idx = item.kind === 'img' ? lbIdx++ : null
+            const imgIdx = item.kind === 'img' ? lbIdx++ : null
             return (
               <div
                 key={i}
                 className={`${styles.cell} ${loadedSet.has(i) ? styles.cellLoaded : ''}`}
-                onClick={item.kind === 'img' ? () => setLightbox(idx) : undefined}
+                onClick={item.kind === 'img'
+                  ? () => setLightbox({ ...item, imgIdx })
+                  : () => setLightbox({ ...item })}
               >
                 {item.kind === 'video' ? (
                   <video src={item.src} autoPlay muted loop playsInline onCanPlay={() => markLoaded(i)} />
