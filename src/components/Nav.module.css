@@ -129,7 +129,7 @@
   white-space: nowrap;
   transition: color 0.15s;
   display: inline-block;
-  padding: 10px 6px;
-  margin: -10px -6px;
+  padding: 12px 14px;
+  margin: -12px -14px;
 }
 .links a:hover { color: var(--text-strong); }
