@@ -217,7 +217,7 @@ export default function Projects() {
 
             <ExplorationCard />
 
-            {/* CostGraph — temporarily hidden
+            {/* CostGraph */}
             <ParallaxCard
               to="/work/costgraph"
               name="CostGraph.ai"
@@ -240,7 +240,6 @@ export default function Projects() {
                   style={{ position:'absolute', width:46, height:52, left:'50%', top:'50%', transform:'translate(-50%,-50%)', pointerEvents:'none' }} />
               </>)}
             </ParallaxCard>
-            */}
 
             {/* Lönar */}
             <ParallaxCard
