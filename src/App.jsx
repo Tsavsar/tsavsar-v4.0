@@ -9,7 +9,7 @@ import Explorations from './components/Explorations'
 import Footer from './components/Footer'
 import AudioModal from './components/AudioModal'
 import AudioToggle from './components/AudioToggle'
-import CostGraphPage from './pages/CostGraphPage'
+// import CostGraphPage from './pages/CostGraphPage'
 import LonarPage from './pages/LonarPage'
 import KernUIPage from './pages/KernUIPage'
 import FundifyPage from './pages/FundifyPage'
@@ -80,7 +80,7 @@ export default function App() {
       <AudioToggle enabled={audioEnabled} onToggle={() => setAudioEnabled(v => !v)} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/work/costgraph" element={<CostGraphPage />} />
+        {/* <Route path="/work/costgraph" element={<CostGraphPage />} /> */}
         <Route path="/work/lonar" element={<LonarPage />} />
         <Route path="/work/kernui" element={<KernUIPage />} />
         <Route path="/work/fundify" element={<FundifyPage />} />
