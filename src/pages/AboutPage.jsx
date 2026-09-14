@@ -62,6 +62,7 @@ function Collage() {
   )
   const [dragging, setDragging] = useState(null)
   const [zOrder, setZOrder]     = useState(() => COLLAGE_ITEMS.map(i => i.id))
+  const [loaded, setLoaded]     = useState(() => new Set())
 
   const startDrag = useCallback((clientX, clientY, id) => {
     const off = offsets[id]
@@ -119,7 +120,14 @@ function Collage() {
                 startDrag(t.clientX, t.clientY, item.id)
               }}
             >
-              <img src={item.src} alt="" draggable={false} className={styles.collageImg} style={{ width: item.w }} />
+              <img
+                src={item.src}
+                alt=""
+                draggable={false}
+                className={`${styles.collageImg} ${loaded.has(item.id) ? styles.collageImgLoaded : ''}`}
+                style={{ width: item.w, animationDelay: `${COLLAGE_ITEMS.findIndex(c => c.id === item.id) * 40}ms` }}
+                onLoad={() => setLoaded(prev => { const s = new Set(prev); s.add(item.id); return s })}
+              />
             </div>
           )
         })}
@@ -159,8 +167,9 @@ export default function AboutPage() {
     <div className={`${styles.breadcrumb} ${scrolled ? styles.breadcrumbScrolled : ''}`}>
       <div className={styles.breadcrumbInner}>
         <Link to="/" className={styles.backPill}>
-          <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-            <path d="M10 4L6 8L10 12" stroke="#5C5C5C" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2.39844 8.8H11.1984C12.524 8.8 13.5984 7.7256 13.5984 6.4V4" stroke="#A3A3A3" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M5.59844 5.59961L2.39844 8.79961L5.59844 11.9996" stroke="#A3A3A3" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
           <span>Back</span>
         </Link>
