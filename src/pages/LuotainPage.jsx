@@ -123,8 +123,8 @@ export default function LuotainPage() {
         {/* Hero */}
         <FadeItem><div className={styles.hero}>
           <div className={`${imgStyles.heroImg} ${heroCollapsed ? styles.heroImgMini : ""}`}>
-            <img src="/assets/luotain/shot-1736.png" alt=""
-              style={{ position:'absolute', width:500, left:'50%', top:22, transform:'translateX(-50%)', objectFit:'contain', borderRadius:6, boxShadow:'0 20px 44px rgba(120,60,20,0.18)', pointerEvents:'none' }} />
+            <img src="/assets/luotain/dashboard.png" alt=""
+              style={{ position:'absolute', width:524, left:'50%', top:30, transform:'translateX(-50%)', objectFit:'contain', borderRadius:8, boxShadow:'0 22px 48px rgba(120,60,20,0.20)', pointerEvents:'none' }} />
           </div>
           <div className={styles.heroTags}>
             <a href="https://luotain.app" target="_blank" rel="noopener" className={imgStyles.tagLink}>
