@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
+import CopyLink from '../components/CopyLink'
 import { useScrollY } from '../hooks/useScrollY'
 import styles from './AboutPage.module.css'
 
@@ -138,7 +139,6 @@ function Collage() {
 
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function AboutPage() {
-  const [copied, setCopied] = useState(false)
   const pathRef  = useRef(null)
   const scrollY  = useScrollY()
   const scrolled = scrollY > 10
@@ -149,11 +149,6 @@ export default function AboutPage() {
     return () => { document.title = 'Shater Tsavsar - Systemic Native' }
   }, [])
 
-  function handleCopy() {
-    navigator.clipboard.writeText(window.location.href).catch(() => {})
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
 
   function playSig() {
     if (!pathRef.current) return
@@ -187,17 +182,7 @@ export default function AboutPage() {
           <span className={styles.crumbSep}>/</span>
           <span className={styles.crumbActive}>About me</span>
         </div>
-        <button onClick={handleCopy} className={styles.copyBtn} aria-label="Copy link">
-          <span className={styles.copyBtnState} style={{ opacity: copied ? 0 : 1 }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18" fill="none">
-              <path d="M8.369 6.893c-.303.16-.587.368-.841.624l-.01.01C6.137 8.908 6.137 11.146 7.518 12.527l2.175 2.175c1.381 1.381 3.619 1.381 5 0l.01-.01c1.381-1.381 1.381-3.619 0-5l-.762-.762" stroke="#6a6a6a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M9.633 11.107c.302-.16.586-.369.84-.624l.01-.01c1.381-1.381 1.381-3.619 0-5L8.309 3.298c-1.381-1.381-3.619-1.381-5 0l-.01.01c-1.381 1.381-1.381 3.619 0 5l.762.762" stroke="#6a6a6a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </span>
-          <span className={styles.copyBtnState} style={{ opacity: copied ? 1 : 0, fontSize: 11, fontWeight: 500, color: 'var(--text-sub)' }}>
-            Copied
-          </span>
-        </button>
+        <CopyLink />
       </div>
     </div>
   )
