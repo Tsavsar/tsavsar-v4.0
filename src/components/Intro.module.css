@@ -42,6 +42,7 @@
 .badge:hover { background: #e2e2e2; }
 .badgeLogo { width: 16px; height: 16px; position: relative; flex-shrink: 0; }
 .badgeLogo img { position: absolute; inset: 6.25% 10.94%; width: calc(100% - 21.88%); height: calc(100% - 12.5%); }
+.badgeLogoInline { width: 16px; height: 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
 .badgeText {
   font-size: var(--font-14);
   font-weight: 360;
