@@ -1,3 +1,4 @@
+import { useScrollLock } from '../hooks/useScrollLock'
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useRecentlyPlayed } from '../hooks/useRecentlyPlayed'
@@ -22,10 +23,7 @@ function timeAgo(iso) {
 function Overlay({ open, onClose, spotify }) {
   const recent = useRecentlyPlayed()
 
-  useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [open])
+  useScrollLock(open)
 
   useEffect(() => {
     const fn = e => { if (e.key === 'Escape') onClose() }
@@ -50,7 +48,7 @@ function Overlay({ open, onClose, spotify }) {
       {/* Vinyl + current track */}
       <div className={`${styles.vinylWrap} ${open ? styles.vinylWrapOpen : ''}`}>
         <div className={`${styles.vinyl} ${!spotify.isPlaying ? styles.vinylPaused : ''}`}>
-          <img className={styles.art} src={spotify.albumArt} alt="" />
+          {spotify.albumArt && <img className={styles.art} src={spotify.albumArt} alt="" />}
           <span className={styles.hole} />
         </div>
       </div>
@@ -77,7 +75,7 @@ function Overlay({ open, onClose, spotify }) {
                 rel="noopener"
                 className={styles.recentItem}
               >
-                <img src={t.albumArt} alt="" className={styles.recentArt} />
+                {t.albumArt && <img src={t.albumArt} alt="" className={styles.recentArt} />}
                 <div className={styles.recentInfo}>
                   <span className={styles.recentTitle}>{t.title}</span>
                   <span className={styles.recentArtist}>{t.artist}</span>

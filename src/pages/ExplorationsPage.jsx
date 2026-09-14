@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import CopyLink from '../components/CopyLink'
 import { useScrollY } from '../hooks/useScrollY'
+import { useScrollLock } from '../hooks/useScrollLock'
 import styles from './ExplorationsPage.module.css'
 
 const ITEMS = [
@@ -113,6 +114,8 @@ export default function ExplorationsPage() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [lightbox])
+
+  useScrollLock(lightbox !== null)
 
   let lbIdx = 0
 

@@ -23,7 +23,7 @@ export default function Footer() {
         >
           {/* Vinyl record */}
           <span className={`${styles.vinyl} ${spotify.isPlaying ? styles.spinning : ''}`}>
-            <img className={styles.vinylArt} src={spotify.albumArt} alt="" />
+            {spotify.albumArt && <img className={styles.vinylArt} src={spotify.albumArt} alt="" />}
             <span className={styles.vinylHole} />
           </span>
           {/* Text */}
