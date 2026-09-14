@@ -241,6 +241,16 @@ export default function Projects() {
               </>)}
             </ParallaxCard>
 
+            {/* Luotain */}
+            <ParallaxCard
+              name="Luotain"
+              category="Link & QR analytics"
+              desc="Link shortening with QR code analytics. Every code tracks its own scans, and stays editable after it's printed."
+              bg="url('/assets/luotain-card.png') center / cover no-repeat"
+            >
+              {() => null}
+            </ParallaxCard>
+
             {/* Lönar */}
             <ParallaxCard
               to="/work/lonar"
