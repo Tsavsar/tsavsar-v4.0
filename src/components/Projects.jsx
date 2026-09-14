@@ -243,6 +243,7 @@ export default function Projects() {
 
             {/* Luotain */}
             <ParallaxCard
+              to="/work/luotain"
               name="Luotain"
               category="Link & QR analytics"
               desc="Link shortening with QR code analytics. Every code tracks its own scans, and stays editable after it's printed."

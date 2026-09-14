@@ -11,6 +11,7 @@ import AudioModal from './components/AudioModal'
 import AudioToggle from './components/AudioToggle'
 import CostGraphPage from './pages/CostGraphPage'
 import LonarPage from './pages/LonarPage'
+import LuotainPage from './pages/LuotainPage'
 import KernUIPage from './pages/KernUIPage'
 import FundifyPage from './pages/FundifyPage'
 import ArticleVicariouslyPage from './pages/ArticleVicariouslyPage'
@@ -82,6 +83,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/work/costgraph" element={<CostGraphPage />} />
         <Route path="/work/lonar" element={<LonarPage />} />
+        <Route path="/work/luotain" element={<LuotainPage />} />
         <Route path="/work/kernui" element={<KernUIPage />} />
         <Route path="/work/fundify" element={<FundifyPage />} />
         <Route path="/articles/vicariously" element={<ArticleVicariouslyPage />} />
