@@ -54,6 +54,79 @@
 }
 .badge:hover .badgeText { font-weight: 500; }
 
+/* Projects list */
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* .intro's own 18px gap + 10px = 28px, so the list reads as its own group */
+  margin-top: 10px;
+}
+.projectsLabel {
+  font-size: var(--font-14);
+  line-height: var(--lh);
+  letter-spacing: var(--ls-14);
+  font-weight: 360;
+  color: var(--text-sub);
+}
+.projectsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+}
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  /* Negative margin cancels the padding, so the 16px list gap stays a content gap */
+  padding: 6px 10px;
+  margin: -6px -10px;
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  transition: background 0.25s ease;
+}
+.rowLink:hover { background: #f8f8f8; }
+/* 16px mark, vertically centred on the first text line */
+.rowMark {
+  width: 16px;
+  height: var(--lh);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Marks rest desaturated, and come up to full colour on row hover */
+.rowMark svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  scale: var(--mark-scale, 1);
+  filter: grayscale(1);
+  opacity: 0.45;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+.row:hover .rowMark svg {
+  filter: grayscale(0);
+  opacity: 1;
+}
+.rowText {
+  font-size: var(--font-14);
+  line-height: var(--lh);
+  letter-spacing: var(--ls-14);
+  font-weight: 360;
+  color: var(--text-sub);
+}
+.rowName {
+  font-weight: 500;
+  color: var(--text-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row, .rowMark svg { transition: none; }
+}
+
 /* Tooltip */
 .tooltip {
   position: fixed;
