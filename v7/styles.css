@@ -814,6 +814,10 @@ a.album:hover img { transform: translateY(-4px); }
   line-height: 1.25;
 }
 .card-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
   color: rgba(255, 255, 255, 0.95);
   font-size: var(--font-sm);
   line-height: 1.38;
@@ -997,7 +1001,7 @@ a.album:hover img { transform: translateY(-4px); }
   left: 16px;
   top: 46px;
   right: -34px;
-  aspect-ratio: 2 / 1;
+  bottom: 92px;
   border-radius: 5px;
   overflow: hidden;
   box-shadow:
