@@ -9,7 +9,7 @@
 
 
   /* ---- click sound ----------------------------------------------------- */
-  // Cuelume (MIT) — https://cuelume.dev. Synthesised Web Audio, no files.
+  // Cuelume (MIT), https://cuelume.dev. Synthesised Web Audio, no files.
   // Vendored so the sounds don't depend on a CDN staying up.
   var play = null;
   var audioOn = true;
@@ -75,7 +75,7 @@
   });
   var hourFmt = new Intl.DateTimeFormat('en-GB', { timeZone: TZ, hour: '2-digit', hour12: false });
 
-  // Tiv evening/night greetings are still missing — English + German only there.
+  // Tiv evening/night greetings are still missing; English + German only there.
   var GREETINGS = {
     morning:   [['en', 'good morning'],   ['tiv', 'U nder vee'],  ['de', 'Guten Morgen']],
     afternoon: [['en', 'good afternoon'], ['tiv', 'U pande vee'], ['de', 'Guten Tag']],
@@ -279,12 +279,15 @@
     var state  = $('#playerState');
     var title  = $('#trackTitle');
     var artist = $('#trackArtist');
+    var trackLine = $('.player-track');
     var tag    = $('#player');
 
     function paint(d) {
       state.textContent  = d.isPlaying ? 'Now playing' : 'Last played';
-      title.textContent  = d.title  || '—';
-      artist.textContent = d.artist || '—';
+      var named = !!(d.title || d.artist);
+      title.textContent  = d.title  || '';
+      artist.textContent = d.artist || '';
+      trackLine.hidden = !named;
       vinyl.classList.toggle('spinning', !!d.isPlaying);
       if (d.albumArt) { art.src = d.albumArt; art.hidden = false; }
       if (d.songUrl) {
@@ -297,7 +300,7 @@
       fetch(SPOTIFY)
         .then(function (r) { return r.json(); })
         .then(paint)
-        .catch(function () { /* endpoint down — leave the last good state */ });
+        .catch(function () { /* endpoint down, leave the last good state */ });
     }
     poll();
     setInterval(poll, 10000);
