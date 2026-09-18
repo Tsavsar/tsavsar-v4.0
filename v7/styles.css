@@ -1194,8 +1194,8 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
   z-index: 0;
   pointer-events: none;
   background: linear-gradient(to top,
-    rgba(0, 0, 0, 0.58) 0%,
-    rgba(0, 0, 0, 0.3) 22%,
+    rgba(0, 0, 0, 0.34) 0%,
+    rgba(0, 0, 0, 0.16) 28%,
     transparent 62%);
 }
 
