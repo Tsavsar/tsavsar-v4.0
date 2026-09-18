@@ -1069,3 +1069,14 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
 @media (max-width: 600px) {
   .study-hero { aspect-ratio: 4 / 3; padding: 16px 16px 0; }
 }
+
+/* Sub-headings inside a study, so a long section reads as parts rather
+   than one run of prose */
+.study-subhead {
+  font-size: var(--font);
+  line-height: var(--lh);
+  font-weight: 500;
+  color: var(--text-strong);
+  margin-top: 10px;
+}
+.study-content > .study-subhead:first-child { margin-top: 0; }
