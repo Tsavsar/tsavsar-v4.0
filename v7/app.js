@@ -328,33 +328,6 @@
     var STUDIES = null;
     import('./studies.js').then(function (m) { STUDIES = m.STUDIES; }).catch(function () {});
 
-    // Order follows the card row, so the peeks match what's on the page
-    var ORDER = cards.map(function (c) {
-      return (c.className.match(/card-([a-z]+)/) || [])[1];
-    }).filter(Boolean);
-
-    var peekPrev = $('.study-peek-prev', study);
-    var peekNext = $('.study-peek-next', study);
-
-    function paintPeek(el, slug) {
-      var s = STUDIES && STUDIES[slug];
-      if (!s) { el.hidden = true; return; }
-      el.hidden = false;
-      el.dataset.slug = slug;
-      $('.study-peek-card', el).className = 'study-peek-card card-' + slug;
-      $('.study-peek-mark img', el).src = 'icons/' + slug + '.svg';
-      $('.study-peek-name', el).textContent = s.name;
-      el.setAttribute('aria-label', 'Open ' + s.name);
-    }
-
-    function paintPeeks(slug) {
-      var i = ORDER.indexOf(slug);
-      if (i < 0) { peekPrev.hidden = peekNext.hidden = true; return; }
-      // Wraps, so both edges always carry a hint
-      paintPeek(peekPrev, ORDER[(i - 1 + ORDER.length) % ORDER.length]);
-      paintPeek(peekNext, ORDER[(i + 1) % ORDER.length]);
-    }
-
     function fill(slug) {
       var s = STUDIES && STUDIES[slug];
       if (!s) return false;
@@ -399,7 +372,6 @@
         wrap.appendChild(content);
         bodyEl.appendChild(wrap);
       });
-      paintPeeks(slug);
       return true;
     }
 
@@ -450,37 +422,6 @@
       }
       if (!fromPop && location.hash) history.pushState({}, '', location.pathname);
     }
-
-    function switchTo(slug, dir) {
-      if (!STUDIES || !STUDIES[slug]) return;
-      var swap = function () {
-        fill(slug);
-        openSlug = slug;
-        study.scrollTop = 0;
-        history.replaceState({ study: slug }, '', '#' + slug);
-        if (!reduced) {
-          panel.animate([
-            { opacity: 0, transform: 'translateX(' + (dir * 24) + 'px)' },
-            { opacity: 1, transform: 'none' }
-          ], { duration: 280, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
-        }
-      };
-      if (reduced) { swap(); return; }
-      panel.animate([
-        { opacity: 1, transform: 'none' },
-        { opacity: 0, transform: 'translateX(' + (dir * -20) + 'px)' }
-      ], { duration: 160, easing: 'ease-in' }).addEventListener('finish', swap);
-    }
-
-    peekPrev.addEventListener('click', function () { switchTo(peekPrev.dataset.slug, -1); });
-    peekNext.addEventListener('click', function () { switchTo(peekNext.dataset.slug, 1); });
-
-    // Arrow keys walk the same order
-    document.addEventListener('keydown', function (e) {
-      if (study.hidden) return;
-      if (e.key === 'ArrowLeft')  switchTo(peekPrev.dataset.slug, -1);
-      if (e.key === 'ArrowRight') switchTo(peekNext.dataset.slug, 1);
-    });
 
     cards.forEach(function (card) {
       card.addEventListener('click', function (e) {
