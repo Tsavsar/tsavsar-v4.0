@@ -150,8 +150,7 @@ footer {
   align-items: baseline;
   gap: 16px;
   width: 100%;
-  padding-top: 28px;
-  border-top: 1px solid var(--rule);
+  padding-top: 8px;
   color: var(--text-muted);
 }
 .clock { white-space: nowrap; }

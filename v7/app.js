@@ -132,7 +132,7 @@
 
   function scheduleGreeting() {
     clearInterval(greetTimer);
-    greetTimer = setInterval(function () { cycleGreeting(true); }, 3400);
+    greetTimer = setInterval(function () { cycleGreeting(true); }, 2000);
   }
 
   if (greetBtn) {
