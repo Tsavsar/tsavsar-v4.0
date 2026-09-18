@@ -763,14 +763,14 @@ a.album:hover img { transform: translateY(-4px); }
 .card {
   position: relative;
   flex-shrink: 0;
-  width: 300px;
-  aspect-ratio: 6 / 7;
+  width: 208px;
+  aspect-ratio: 5 / 6;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: 16px;
   text-decoration: none;
   isolation: isolate;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -899,12 +899,12 @@ a.album:hover img { transform: translateY(-4px); }
 
 .study-panel {
   position: relative;
-  width: 704px;
+  width: 920px;
   max-width: 100%;
   margin: 0 auto;
   background: var(--page);
   border: 2px solid var(--rule);
-  border-radius: 20px;
+  border-radius: 12px;
   box-shadow: 0 10px 20px 3px rgba(0, 0, 0, 0.04);
   padding: 32px 42px;
   transform-origin: top left;
@@ -1202,3 +1202,9 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
 @media (prefers-reduced-motion: reduce) {
   .card, .study-hero { animation: none; }
 }
+
+
+/* The panel is wide so the hero can breathe, but prose at that width would
+   run to ~120 characters a line. Text keeps its own measure; everything
+   visual spans the panel. */
+.study-label, .study-content { max-width: 640px; }
