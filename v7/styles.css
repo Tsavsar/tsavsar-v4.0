@@ -813,26 +813,26 @@ a.album:hover img { transform: translateY(-4px); }
   line-height: 1.25;
 }
 .card-desc {
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(255, 255, 255, 0.95);
   font-size: var(--font-sm);
   line-height: 1.38;
 }
 
 .card-costgraph {
-  --vg: 0.2;
+  --vg: 0.16;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.77 0.103 292 / 0.3), transparent 64%),
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.68 0.148 292 / 0.3), transparent 64%),
     radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.52 0.276 292 / 0.7), transparent 60%),
     radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.72 0.136 230 / 0.66), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.63 0.161 248) 0%, oklch(0.57 0.221 260) 50%, oklch(0.41 0.243 276) 100%);
+    linear-gradient(in oklch 165deg, oklch(0.7 0.157 248) 0%, oklch(0.57 0.221 260) 50%, oklch(0.32 0.19 276) 100%);
 }
 .card-luotain {
-  --vg: 0.42;
+  --vg: 0.36;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.88 0.076 72 / 0.3), transparent 64%),
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.86 0.09 72 / 0.3), transparent 64%),
     radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.79 0.161 72 / 0.7), transparent 60%),
     radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.59 0.225 18 / 0.66), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.76 0.137 32) 0%, oklch(0.7 0.191 44) 50%, oklch(0.54 0.12 60) 100%);
+    linear-gradient(in oklch 165deg, oklch(0.67 0.208 32) 0%, oklch(0.7 0.191 44) 50%, oklch(0.5 0.112 60) 100%);
 }
 .card-yote {
   --vg: 0.3;
@@ -843,20 +843,20 @@ a.album:hover img { transform: translateY(-4px); }
     linear-gradient(in oklch 165deg, oklch(0.54 0.026 262) 0%, oklch(0.39 0.022 268) 52%, oklch(0.25 0.016 274) 100%);
 }
 .card-lonar {
-  --vg: 0.3;
-  background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.83 0.083 358 / 0.3), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.65 0.251 358 / 0.7), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.64 0.191 40 / 0.66), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.69 0.198 8) 0%, oklch(0.63 0.24 20) 50%, oklch(0.47 0.153 36) 100%);
-}
-.card-kernui {
   --vg: 0.2;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.71 0.195 319 / 0.3), transparent 64%),
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.75 0.134 358 / 0.3), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.65 0.251 358 / 0.7), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.64 0.191 40 / 0.66), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.66 0.225 8) 0%, oklch(0.63 0.24 20) 50%, oklch(0.44 0.143 36) 100%);
+}
+.card-kernui {
+  --vg: 0.16;
+  background:
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.76 0.158 319 / 0.3), transparent 64%),
     radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.64 0.293 319 / 0.7), transparent 60%),
     radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.52 0.214 261 / 0.66), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.57 0.227 277) 0%, oklch(0.51 0.276 289) 50%, oklch(0.35 0.173 305) 100%);
+    linear-gradient(in oklch 165deg, oklch(0.52 0.258 277) 0%, oklch(0.51 0.276 289) 50%, oklch(0.38 0.188 305) 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -869,233 +869,6 @@ a.album:hover img { transform: translateY(-4px); }
   line-height: var(--lh);
   font-weight: 400;
   margin-bottom: 8px;
-}
-
-/* ======================================================================
-   Case study panel — opens over the page, per the Figma
-   Reuses v7's colour tokens so it themes; type follows the design's
-   14/20 and 12/16, which is a step up from the home page's 12.5 because
-   this is long-form reading rather than a list.
-   ====================================================================== */
-.study {
-  position: fixed;
-  inset: 0;
-  z-index: 300;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 40px 24px;
-  --study-font: 14px;
-  --study-lh: 20px;
-  --study-sm: 12px;
-  --study-sm-lh: 16px;
-}
-.study[hidden] { display: none; }
-
-.study-scrim {
-  position: fixed;
-  inset: 0;
-  background: color-mix(in srgb, var(--text-strong) 28%, transparent);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  opacity: 0;
-  transition: opacity 0.32s ease;
-}
-.study.is-open .study-scrim { opacity: 1; }
-
-.study-panel {
-  position: relative;
-  width: 920px;
-  max-width: 100%;
-  margin: 0 auto;
-  background: var(--page);
-  border: 2px solid var(--rule);
-  border-radius: 12px;
-  box-shadow: 0 10px 20px 3px rgba(0, 0, 0, 0.04);
-  padding: 32px 42px;
-  transform-origin: top left;
-}
-.study-inner { display: flex; flex-direction: column; gap: 48px; }
-
-/* top bar */
-.study-top { display: flex; align-items: center; gap: 16px; height: 24px; }
-.study-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 7px 4px 4px;
-  border: none;
-  border-radius: 8px;
-  background: var(--hover);
-  color: var(--text);
-  font: inherit;
-  font-size: var(--study-sm);
-  line-height: var(--study-sm-lh);
-  letter-spacing: 0.24px;
-  cursor: pointer;
-  transition: color 0.15s ease;
-}
-.study-back:hover { color: var(--text-strong); }
-.study-back svg { display: block; }
-
-.study-crumb {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-  font-size: var(--study-sm);
-  line-height: var(--study-sm-lh);
-  letter-spacing: 0.24px;
-  color: var(--text);
-}
-.study-crumb button {
-  border: none;
-  background: none;
-  padding: 0;
-  font: inherit;
-  color: var(--text);
-  cursor: pointer;
-  transition: color 0.15s ease;
-}
-.study-crumb button:hover { color: var(--text-strong); }
-.study-crumb [aria-current] { color: var(--text-strong); }
-
-.study-share {
-  border: none;
-  background: none;
-  padding: 0;
-  color: var(--text);
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  transition: color 0.15s ease;
-}
-.study-share:hover { color: var(--text-strong); }
-.study-share.is-copied { color: #1a9d4b; }
-
-/* hero + pills */
-.study-head { display: flex; flex-direction: column; gap: 12px; }
-.study-hero {
-  height: 300px;
-  border-radius: 10px;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-}
-.study-hero-mark { width: 56px; height: 56px; display: block; }
-.study-hero-mark img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.95;
-}
-
-.study-pills { display: flex; gap: 4px; }
-.study-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 4px 10px;
-  border-radius: 8px;
-  background: var(--hover);
-  color: var(--text-strong);
-  font-size: var(--study-sm);
-  line-height: var(--study-sm-lh);
-  letter-spacing: 0.24px;
-  text-decoration: none;
-  white-space: nowrap;
-}
-a.study-pill { padding-left: 6px; }
-a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text-muted)); }
-.study-pill-mark { width: 16px; height: 16px; display: block; flex-shrink: 0; }
-.study-pill-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
-
-/* sections */
-.study-body { display: flex; flex-direction: column; gap: 32px; }
-.study-section { display: flex; flex-direction: column; gap: 12px; }
-.study-label {
-  color: var(--text);
-  font-size: var(--study-font);
-  line-height: var(--study-lh);
-  letter-spacing: 0.28px;
-}
-.study-content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  color: var(--text-strong);
-  font-size: var(--study-font);
-  line-height: var(--study-lh);
-  letter-spacing: 0.28px;
-}
-.study-content ul { padding-left: 21px; }
-.study-content li { margin-bottom: 7px; }
-.study-content li:last-child { margin-bottom: 0; }
-
-/* articles */
-.study-articles { display: flex; flex-direction: column; gap: 18px; }
-.study-article {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  text-decoration: none;
-  color: inherit;
-}
-.study-thumb { width: 100px; height: 60px; flex-shrink: 0; overflow: hidden; background: var(--hover); }
-.study-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.study-article-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
-.study-article-row { display: flex; align-items: center; gap: 10px; color: var(--text); }
-.study-article-title {
-  flex: 1;
-  min-width: 0;
-  font-size: var(--study-font);
-  line-height: var(--study-lh);
-  letter-spacing: 0.28px;
-  font-weight: 500;
-  color: var(--text-strong);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.study-excerpt {
-  font-size: var(--study-sm);
-  line-height: var(--study-sm-lh);
-  letter-spacing: 0.24px;
-  color: var(--text);
-}
-.study-meta {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: var(--study-sm);
-  line-height: var(--study-sm-lh);
-  letter-spacing: 0.24px;
-  color: var(--text-muted);
-}
-.study-dot { width: 2px; height: 2px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; }
-
-.study-foot {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  font-size: var(--study-sm);
-  line-height: var(--study-sm-lh);
-  letter-spacing: 0.24px;
-  color: var(--text);
-}
-
-@media (max-width: 760px) {
-  .study { padding: 16px 12px; }
-  .study-panel { padding: 20px 18px; border-radius: 16px; }
-  .study-inner { gap: 32px; }
-  .study-hero { height: 200px; }
-  .study-foot { flex-direction: column; gap: 4px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .study-scrim { transition: none; }
 }
 
 /* ======================================================================
@@ -1174,7 +947,7 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
    negative delay so it starts mid-loop. Nothing shares a period with
    anything else, and none of the periods divide evenly into another, so the
    three lights on one card never resynchronise and no two cards match. */
-.card, .study-hero {
+.card {
   animation:
     var(--a1, l1-a) var(--d1, 19s) ease-in-out var(--o1, 0s) infinite,
     var(--a2, l2-a) var(--d2, 23s) ease-in-out var(--o2, 0s) infinite,
@@ -1205,11 +978,7 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card, .study-hero { animation: none; }
+  .card { animation: none; }
 }
 
 
-/* The panel is wide so the hero can breathe, but prose at that width would
-   run to ~120 characters a line. Text keeps its own measure; everything
-   visual spans the panel. */
-.study-label, .study-content { max-width: 640px; }
