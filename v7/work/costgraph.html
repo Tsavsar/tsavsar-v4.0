@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CostGraph.ai — Shater Tsavsar</title>
+<meta name="description" content="Cloud cost tools give you too much data and not enough direction. That is the problem CostGraph exists to fix." />
+<link rel="icon" type="image/png" href="../favicon.png" />
+<meta property="og:title" content="CostGraph.ai — Shater Tsavsar" />
+<meta property="og:description" content="Cloud cost tools give you too much data and not enough direction. That is the problem CostGraph exists to fix." />
+<meta property="og:type" content="article" />
+<script>
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+<div class="chrome">
+<button class="audio-toggle" type="button" aria-label="Enable audio" aria-pressed="false">
+  <svg class="ico-on" viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><path d="M11.35,1.567c-.4-.219-.889-.203-1.273,.044l-5.295,3.389H2.25c-1.241,0-2.25,1.009-2.25,2.25v3.5c0,1.241,1.009,2.25,2.25,2.25h2.531l5.295,3.389c.205,.131,.439,.198,.675,.198,.206,0,.412-.051,.599-.153,.401-.219,.65-.64,.65-1.097V2.664c0-.457-.249-.877-.65-1.097Z"/><path d="M14.444,7.056c-.293-.293-.769-.293-1.061,0-.293,.293-.293,.768,0,1.061,.236,.236,.366,.55,.366,.884s-.13,.647-.366,.884c-.293,.292-.293,.768,0,1.061,.146,.146,.338,.22,.53,.22s.384-.073,.53-.22c.52-.519,.806-1.209,.806-1.944s-.286-1.425-.806-1.944Z"/><path d="M15.329,5.111c-.293,.293-.293,.768,0,1.061,1.56,1.56,1.56,4.098,0,5.657-.293,.293-.293,.768,0,1.061,.146,.146,.338,.22,.53,.22s.384-.073,.53-.22c1.039-1.039,1.611-2.42,1.611-3.889s-.572-2.851-1.611-3.889c-.293-.293-.768-.293-1.061,0Z"/></g></svg>
+  <svg class="ico-off" viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><path d="M14.35,1.567c-.4-.219-.889-.203-1.273,.044l-5.295,3.389h-3.531c-1.241,0-2.25,1.009-2.25,2.25v3.5c0,1.241,1.009,2.25,2.25,2.25h3.531l5.295,3.389c.205,.131,.439,.198,.675,.198,.206,0,.412-.051,.599-.153,.401-.219,.65-.64,.65-1.097V2.664c0-.457-.249-.877-.65-1.097Z"/></g></svg>
+</button>
+<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+  <svg viewBox="0 0 16 16" aria-hidden="true">
+    <circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.3" />
+    <path d="M8 1.6 A6.4 6.4 0 0 1 8 14.4 Z" fill="currentColor" />
+  </svg>
+</button>
+</div>
+
+<main class="content">
+
+<nav class="nav appear">
+  <div class="brand">
+    <button class="avatar-wrap" type="button" aria-label="View photo gallery">
+      <img class="avatar" src="../pfp.png" width="40" height="40" alt="Shater Tsavsar" />
+    </button>
+    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Signature" role="img">
+      <path class="sig-path" d="M40.8613 34.142C49.863 29.7983 48.196 22.9486 43.0284 23.6169C36.4797 26.6814 34.11 32.2208 28.2756 52.3521C21.3577 67.7221 9.27205 71.3975 10.8558 65.5502C16.0772 58.2166 38.5275 44.4165 57.1143 40.1564C71.4502 36.8705 76.4511 37.3163 79.7017 34.142M75.8677 26.9582C75.0342 28.2947 72.031 27.2923 69.9473 28.8795C67.5558 29.5208 67.3991 30.0536 65.3658 31.469C63.8516 32.523 62.7962 34.0245 61.0316 34.5597C59.2338 35.105 59.0361 33.268 57.6143 33.8914C53.6136 35.6456 49.6129 37.901 47.6958 38.4857C46.6687 38.799 48.2793 36.2303 46.8624 35.8127C45.4454 35.395 40.4445 41.0752 39.6944 40.407C38.9442 39.7387 39.4443 38.4857 39.4443 38.4857M69.9473 28.8795C70.5308 27.4594 73.7006 25.3711 73.0338 24.4522C72.367 23.5334 71.3669 25.7888 70.45 27.6265C69.5332 29.4642 68.4654 33.9038 71.1168 34.6432C73.4955 35.3065 77.4021 31.469 78.322 30.0103"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </div>
+  <div class="nav-links">
+    <a href="../about.html">About me</a>
+    <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a>
+    <a href="https://www.linkedin.com/in/tsavsar/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:shatermt@gmail.com">Email</a>
+  </div>
+</nav>
+
+  <nav class="crumb appear" style="--i:1" aria-label="Breadcrumb">
+    <a href="../index.html">Home</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">CostGraph.ai</span>
+  </nav>
+
+  <section class="study-head appear" style="--i:2">
+    <div class="study-hero card-costgraph">
+      <img src="../heroes/costgraph.jpg" alt="CostGraph.ai" />
+    </div>
+    <div class="study-pills"><a class="study-pill" href="https://costgraph.ai" target="_blank" rel="noopener"><span class="study-pill-mark"><img src="../icons/costgraph.svg" alt="" aria-hidden="true" /></span><span>costgraph.ai</span></a><span class="study-pill">2026</span></div>
+  </section>
+
+      <section class="study-section appear" style="--i:3">
+        <p class="study-label">Intro</p>
+        <div class="study-content">
+          <p>Cloud cost tools give you too much data and not enough direction. That is the problem CostGraph exists to fix.</p>
+          <p>I joined in 2025 as the sole product designer, working directly with engineering to build the platform from the ground up. Everything from UX strategy and the design system to interactive prototypes running on real infrastructure data.</p>
+          <p>The focus was always the same: show teams what actually needs attention, not everything that could possibly be monitored.</p>
+        </div>
+      </section>
+      <section class="study-section appear" style="--i:4">
+        <p class="study-label">My role</p>
+        <div class="study-content">
+          <p>I owned the full product experience, from zero.</p>
+          <ul>
+            <li>Product strategy and UX direction</li>
+            <li>User research synthesis</li>
+            <li>Information architecture</li>
+            <li>Design system</li>
+            <li>High-fidelity UI design</li>
+            <li>Interactive prototyping</li>
+            <li>Design-engineering collaboration</li>
+          </ul>
+          <p>All design work was done against real backend exports and infrastructure datasets, not placeholder content.</p>
+        </div>
+      </section>
+      <section class="study-section appear" style="--i:5">
+        <p class="study-label">Process</p>
+        <div class="study-content">
+          <p>We started with interviews. DevOps and platform engineers told us what their current tools got wrong, what information they actually looked at, and what they mostly ignored. Those conversations shaped the product direction more than any competitive audit.</p>
+          <p>From there I used Claude and v0 to move fast through concept exploration. Layouts, interaction flows, visualisation approaches. The goal was to test ideas before committing to them, not to produce polished mockups quickly.</p>
+          <p>Once concepts felt solid, I built interactive prototypes against real data. That is where the navigation structure, recommendation logic, and workflow decisions got validated. Figma came later, for refinement.</p>
+          <p>The final phase was about tightening everything. Hierarchy, consistency, interaction states, and preparing flows for implementation.</p>
+        </div>
+      </section>
+      <section class="study-section appear" style="--i:6">
+        <p class="study-label">Design system</p>
+        <div class="study-content">
+          <p>Dense technical interfaces go wrong when visual decisions are made ad hoc. I built the CostGraph design system from scratch so that every component, state, and spacing decision had a deliberate answer.</p>
+          <p>Colour is semantic throughout. Warnings, inefficiencies, healthy resources, each has a distinct visual treatment. Not decoration, just signal.</p>
+          <p>The system covers the full token set, component library, spacing rules, table patterns, recommendation cards, and interaction states across the platform.</p>
+        </div>
+      </section>
+      <section class="study-section appear" style="--i:7">
+        <p class="study-label">GraphAI</p>
+        <div class="study-content">
+          <p>Most AI features in product tools live on a separate page. You go there, ask something, come back. The context is lost.</p>
+          <p>GraphAI is designed differently. It stays accessible throughout the platform, and the prompts shift based on what the user is currently looking at. Infrastructure insights, anomalies, recommendations. All reachable without breaking the workflow.</p>
+          <p>It does not announce itself. It is just there when you need it.</p>
+        </div>
+      </section>
+      <section class="study-section appear" style="--i:8">
+        <p class="study-label">Lessons</p>
+        <div class="study-content">
+          <p>Clarity beats volume. Infrastructure teams already have access to every metric. What they do not have is a clear answer to "what do I fix first." That is the actual design problem.</p>
+          <p>Working against real backend schemas changed how I made decisions. When the data is real, you stop designing for hypothetical states and start designing for what actually happens. The product got better because of it.</p>
+        </div>
+      </section>
+
+  <section class="link-section appear" style="--i:9">
+    <h2>writing</h2>
+    <a class="link-row" href="https://www.shatermt.com/articles/vicariously">
+      <span class="row-head"><span class="row-name">Vicariously living through the main character</span><span class="row-meta">5 min read</span></span>
+    </a>
+  </section>
+
+<div class="player appear" style="--i:8">
+  <button class="player-tag" type="button" id="player" aria-label="Open recently played">
+    <span class="vinyl" id="vinyl">
+      <img class="vinyl-art" id="vinylArt" alt="" hidden />
+      <span class="vinyl-hole"></span>
+    </span>
+    <span class="player-lines">
+      <span class="player-state" id="playerState">Last played</span>
+      <span class="player-track" hidden><strong id="trackTitle"></strong><span class="by"> by </span><strong id="trackArtist"></strong></span>
+    </span>
+  </button>
+</div>
+
+  <footer class="appear" style="--i:9">
+    <span>&copy; 2026 Shater M. Tsavsar</span>
+    <span class="clock"><span class="tz">WAT</span> <time id="clock"></time></span>
+  </footer>
+
+</main>
+
+<script type="module" src="../app.js"></script>
+</body>
+</html>

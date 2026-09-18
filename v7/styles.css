@@ -988,3 +988,84 @@ a.album:hover img { transform: translateY(-4px); }
 }
 
 
+
+/* Greeting stays lowercase whatever language it lands on, without
+   mangling the source text or its lang attribute */
+.greeting-text { text-transform: lowercase; }
+
+/* ======================================================================
+   Case study pages
+   Same shell as the homepage. The hero sits the real product screenshot
+   on that project's own gradient, so the page opens on the work itself.
+   ====================================================================== */
+.crumb { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
+.crumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s ease; }
+.crumb a:hover { color: var(--text-strong); }
+.crumb [aria-current] { color: var(--text-strong); }
+
+.study-head { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+
+.study-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 26px 26px 0;
+}
+.study-hero img {
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.45);
+  display: block;
+}
+
+.study-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+.study-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--hover);
+  color: var(--text-strong);
+  font-size: var(--font-sm);
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.study-pill { padding-left: 6px; }
+a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text-muted)); }
+.study-pill-mark { width: 14px; height: 14px; flex-shrink: 0; }
+.study-pill-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+.study-section { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.study-label { color: var(--text-muted); }
+.study-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--text-strong);
+  max-width: 620px;
+}
+.study-content ul { padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+
+/* Media inside a section breaks the measure and runs the full column */
+.study-media {
+  width: 100%;
+  max-width: none;
+  border-radius: 8px;
+  display: block;
+  margin-block: 4px;
+  background: var(--hover);
+}
+
+@media (max-width: 600px) {
+  .study-hero { aspect-ratio: 4 / 3; padding: 16px 16px 0; }
+}
