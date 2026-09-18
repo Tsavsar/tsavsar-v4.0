@@ -9,9 +9,13 @@ html[data-theme="light"] {
   --rule:        rgba(0, 0, 0, 0.07);
 
   /* type scale */
-  --font:    12.5px;
-  --lh:      20px;
-  --font-sm: 11px;
+  --font:    13.5px;
+  --lh:      21px;
+  --font-sm: 12px;
+
+  /* Held at the old scale: cards and the nav links stay put */
+  --font-fixed:    12.5px;
+  --font-fixed-sm: 11px;
 }
 html[data-theme="dark"] {
   --page:        #0e0e0e;
@@ -308,6 +312,7 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
 .nav-links { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
 .nav-links a {
   color: var(--text-muted);
+  font-size: var(--font-fixed);
   text-decoration: none;
   white-space: nowrap;
   padding: 6px 8px;
@@ -809,12 +814,13 @@ a.album:hover img { transform: translateY(-4px); }
 .card-body { display: flex; flex-direction: column; gap: 6px; }
 .card-name {
   color: #fff;
+  font-size: var(--font-fixed);
   font-weight: 500;
   line-height: 1.25;
 }
 .card-desc {
   color: rgba(255, 255, 255, 0.95);
-  font-size: var(--font-sm);
+  font-size: var(--font-fixed-sm);
   line-height: 1.38;
 }
 
