@@ -1170,7 +1170,7 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
 /* ======================================================================
    Drifting lights
    Registered so the browser can interpolate them; without @property these
-   stay plain custom properties and the gradient simply sits still.
+   resolve as static values and the gradient simply sits still.
    ====================================================================== */
 @property --l1x { syntax: '<percentage>'; inherits: true; initial-value: 76%; }
 @property --l1y { syntax: '<percentage>'; inherits: true; initial-value: 6%; }
@@ -1185,26 +1185,92 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
   --l3x: 52%; --l3y: 22%;
 }
 
-/* Three different periods, so they never resynchronise into an obvious
-   loop. Y stays in the upper half throughout, which is what leaves the
-   text zone - and its contrast figures - untouched. */
-@keyframes drift-1 {
-  0%, 100% { --l1x: 76%; --l1y: 6%; }
-  50%      { --l1x: 57%; --l1y: 19%; }
+/* Three different paths per light. Four stops rather than two, so a light
+   traces a loop around the card instead of sliding back and forth along
+   the same line. */
+@keyframes l1-a {
+  0%,100% { --l1x: 78%; --l1y: 8%; }
+  25%     { --l1x: 30%; --l1y: 26%; }
+  50%     { --l1x: 12%; --l1y: 62%; }
+  75%     { --l1x: 58%; --l1y: 40%; }
 }
-@keyframes drift-2 {
-  0%, 100% { --l2x: 8%;  --l2y: 30%; }
-  50%      { --l2x: 27%; --l2y: 13%; }
+@keyframes l1-b {
+  0%,100% { --l1x: 14%; --l1y: 18%; }
+  33%     { --l1x: 86%; --l1y: 44%; }
+  66%     { --l1x: 46%; --l1y: 66%; }
 }
-@keyframes drift-3 {
-  0%, 100% { --l3x: 52%; --l3y: 22%; }
-  50%      { --l3x: 39%; --l3y: 7%; }
+@keyframes l1-c {
+  0%,100% { --l1x: 50%; --l1y: 64%; }
+  30%     { --l1x: 88%; --l1y: 12%; }
+  70%     { --l1x: 18%; --l1y: 34%; }
 }
 
+@keyframes l2-a {
+  0%,100% { --l2x: 10%; --l2y: 34%; }
+  30%     { --l2x: 62%; --l2y: 66%; }
+  65%     { --l2x: 90%; --l2y: 16%; }
+}
+@keyframes l2-b {
+  0%,100% { --l2x: 88%; --l2y: 58%; }
+  25%     { --l2x: 44%; --l2y: 10%; }
+  50%     { --l2x: 6%;  --l2y: 46%; }
+  75%     { --l2x: 70%; --l2y: 30%; }
+}
+@keyframes l2-c {
+  0%,100% { --l2x: 34%; --l2y: 12%; }
+  40%     { --l2x: 8%;  --l2y: 60%; }
+  75%     { --l2x: 76%; --l2y: 52%; }
+}
+
+@keyframes l3-a {
+  0%,100% { --l3x: 54%; --l3y: 20%; }
+  35%     { --l3x: 16%; --l3y: 52%; }
+  70%     { --l3x: 84%; --l3y: 62%; }
+}
+@keyframes l3-b {
+  0%,100% { --l3x: 20%; --l3y: 62%; }
+  25%     { --l3x: 72%; --l3y: 24%; }
+  55%     { --l3x: 92%; --l3y: 54%; }
+  80%     { --l3x: 40%; --l3y: 6%; }
+}
+@keyframes l3-c {
+  0%,100% { --l3x: 90%; --l3y: 36%; }
+  45%     { --l3x: 24%; --l3y: 14%; }
+  75%     { --l3x: 56%; --l3y: 68%; }
+}
+
+/* Each card gets its own combination of paths, its own three periods, and a
+   negative delay so it starts mid-loop. Nothing shares a period with
+   anything else, and none of the periods divide evenly into another, so the
+   three lights on one card never resynchronise and no two cards match. */
 .card, .study-hero, .study-peek-card {
-  animation: drift-1 19s ease-in-out infinite,
-             drift-2 23s ease-in-out infinite,
-             drift-3 29s ease-in-out infinite;
+  animation:
+    var(--a1, l1-a) var(--d1, 19s) ease-in-out var(--o1, 0s) infinite,
+    var(--a2, l2-a) var(--d2, 23s) ease-in-out var(--o2, 0s) infinite,
+    var(--a3, l3-a) var(--d3, 29s) ease-in-out var(--o3, 0s) infinite;
+}
+
+.card-costgraph { --a1: l1-a; --a2: l2-b; --a3: l3-c; --d1: 21s; --d2: 34s; --d3: 27s; --o1: -4s;  --o2: -17s; --o3: -9s;  }
+.card-luotain   { --a1: l1-c; --a2: l2-a; --a3: l3-b; --d1: 31s; --d2: 19s; --d3: 41s; --o1: -13s; --o2: -6s;  --o3: -22s; }
+.card-yote      { --a1: l1-b; --a2: l2-c; --a3: l3-a; --d1: 26s; --d2: 44s; --d3: 33s; --o1: -21s; --o2: -2s;  --o3: -15s; }
+.card-lonar     { --a1: l1-a; --a2: l2-c; --a3: l3-b; --d1: 37s; --d2: 23s; --d3: 29s; --o1: -8s;  --o2: -26s; --o3: -3s;  }
+.card-kernui    { --a1: l1-c; --a2: l2-b; --a3: l3-a; --d1: 24s; --d2: 39s; --d3: 46s; --o1: -18s; --o2: -11s; --o3: -31s; }
+
+/* With the lights free to wander into the lower half, the text can no
+   longer sit on the body's bottom stop alone. This vignette is what it sits
+   on instead: it fades in from 58% and reaches 0.72 at the floor, which
+   holds white above 4.5:1 even against the brightest a light can push the
+   bottom of a card. */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(to top,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.42) 24%,
+    transparent 58%);
 }
 
 @media (prefers-reduced-motion: reduce) {
