@@ -819,39 +819,44 @@ a.album:hover img { transform: translateY(-4px); }
 }
 
 .card-costgraph {
+  --vg: 0.2;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.87 0.05 292 / 0.26), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.74 0.12 292 / 0.72), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.62 0.101 230 / 0.68), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.71 0.127 260) 0%, oklch(0.57 0.198 266) 52%, oklch(0.4 0.206 272) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.77 0.103 292 / 0.3), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.52 0.276 292 / 0.7), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.72 0.136 230 / 0.66), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.63 0.161 248) 0%, oklch(0.57 0.221 260) 50%, oklch(0.41 0.243 276) 100%);
 }
 .card-luotain {
+  --vg: 0.42;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.87 0.075 72 / 0.26), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.74 0.13 72 / 0.72), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.62 0.204 18 / 0.68), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.71 0.162 44) 0%, oklch(0.57 0.127 50) 52%, oklch(0.4 0.078 56) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.88 0.076 72 / 0.3), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.79 0.161 72 / 0.7), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.59 0.225 18 / 0.66), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.76 0.137 32) 0%, oklch(0.7 0.191 44) 50%, oklch(0.54 0.12 60) 100%);
 }
 .card-yote {
+  --vg: 0.3;
   background:
-    radial-gradient(ellipse 70% 34% at var(--l3x) var(--l3y), oklch(0.72 0.02 286 / 0.3), transparent 62%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.52 0.03 286 / 0.72), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.4 0.028 240 / 0.66), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.5 0.026 262) 0%, oklch(0.36 0.022 268) 52%, oklch(0.23 0.016 274) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.78 0.022 286 / 0.34), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.56 0.03 286 / 0.7), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.42 0.028 240 / 0.66), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.54 0.026 262) 0%, oklch(0.39 0.022 268) 52%, oklch(0.25 0.016 274) 100%);
 }
 .card-lonar {
+  --vg: 0.3;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.87 0.055 358 / 0.26), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.74 0.144 358 / 0.72), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.62 0.16 40 / 0.68), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.71 0.154 20) 0%, oklch(0.57 0.195 26) 52%, oklch(0.4 0.122 32) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.83 0.083 358 / 0.3), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.65 0.251 358 / 0.7), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.64 0.191 40 / 0.66), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.69 0.198 8) 0%, oklch(0.63 0.24 20) 50%, oklch(0.47 0.153 36) 100%);
 }
 .card-kernui {
+  --vg: 0.2;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.87 0.073 319 / 0.26), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.74 0.177 319 / 0.72), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.62 0.168 261 / 0.68), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.71 0.136 289) 0%, oklch(0.57 0.224 295) 52%, oklch(0.4 0.17 301) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.71 0.195 319 / 0.3), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.64 0.293 319 / 0.7), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.52 0.214 261 / 0.66), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.57 0.227 277) 0%, oklch(0.51 0.276 289) 50%, oklch(0.35 0.173 305) 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1194,8 +1199,8 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
   z-index: 0;
   pointer-events: none;
   background: linear-gradient(to top,
-    rgba(0, 0, 0, 0.34) 0%,
-    rgba(0, 0, 0, 0.16) 28%,
+    rgba(0, 0, 0, var(--vg, 0.34)) 0%,
+    rgba(0, 0, 0, calc(var(--vg, 0.34) * 0.47)) 28%,
     transparent 62%);
 }
 
