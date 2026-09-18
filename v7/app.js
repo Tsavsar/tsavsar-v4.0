@@ -180,19 +180,69 @@
   }
 
   /* ---- gallery --------------------------------------------------------- */
+  // Clicking the avatar opens an inline strip under the nav, pushing the page
+  // down. Clicking a photo in the strip opens it larger.
   var PHOTOS = [
     'photo1.jpg', 'photo2.jpg', 'photo3.jpg', 'photo4.jpg',
     'IMG_4893.jpg', '_DSC0069-3 2.JPG', '1 2.PNG'
   ].map(function (f) { return ASSET_BASE + encodeURIComponent(f); });
 
   var avatarBtn = $('.avatar-wrap');
-  if (avatarBtn) {
-    var box = null, idx = 0, lastFocus = null;
+  var gallery   = $('#gallery');
+  var track     = $('#galleryTrack');
+
+  if (avatarBtn && gallery && track) {
+    var built = false, open = false, staggerTimers = [];
+
+    var build = function () {
+      PHOTOS.forEach(function (src, i) {
+        var card = document.createElement('button');
+        card.className = 'gallery-card';
+        card.type = 'button';
+        card.setAttribute('aria-label', 'View photo ' + (i + 1));
+        var img = document.createElement('img');
+        img.src = src;
+        img.alt = '';
+        card.appendChild(img);
+        card.addEventListener('click', function () { lightbox(i); });
+        track.appendChild(card);
+      });
+      built = true;
+    };
+
+    var stagger = function (on) {
+      staggerTimers.forEach(clearTimeout);
+      staggerTimers = [];
+      var cards = $$('.gallery-card', track);
+      if (!on) { cards.forEach(function (c) { c.classList.remove('is-in'); }); return; }
+      cards.forEach(function (c, i) {
+        staggerTimers.push(setTimeout(function () { c.classList.add('is-in'); }, 60 + i * 80));
+      });
+    };
+
+    avatarBtn.addEventListener('click', function () {
+      if (!built) build();
+      open = !open;
+      gallery.classList.toggle('is-open', open);
+      gallery.setAttribute('aria-hidden', String(!open));
+      avatarBtn.classList.toggle('is-active', open);
+      avatarBtn.setAttribute('aria-expanded', String(open));
+      stagger(open);
+      click('open');
+    });
+  }
+
+  /* ---- lightbox -------------------------------------------------------- */
+  function lightbox(startAt) {
+    var idx = startAt, box = null;
+    var lastFocus = document.activeElement;
 
     var show = function (i) {
       idx = (i + PHOTOS.length) % PHOTOS.length;
       $('.lb-img', box).src = PHOTOS[idx];
-      $('.lb-count', box).textContent = (idx + 1) + ' / ' + PHOTOS.length;
+      $$('.lb-dot', box).forEach(function (d, n) {
+        d.classList.toggle('is-on', n === idx);
+      });
     };
 
     var onKey = function (e) {
@@ -202,41 +252,42 @@
     };
 
     var close = function () {
-      if (!box) return;
       box.classList.remove('is-open');
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
-      setTimeout(function () { if (box) { box.remove(); box = null; } }, 200);
+      setTimeout(function () { box.remove(); }, 200);
       if (lastFocus) lastFocus.focus();
     };
 
-    var open = function () {
-      lastFocus = document.activeElement;
-      box = document.createElement('div');
-      box.className = 'lightbox';
-      box.setAttribute('role', 'dialog');
-      box.setAttribute('aria-modal', 'true');
-      box.setAttribute('aria-label', 'Photo gallery');
-      box.innerHTML =
+    box = document.createElement('div');
+    box.className = 'lightbox';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.setAttribute('aria-label', 'Photo');
+    box.innerHTML =
+      '<div class="lb-inner">' +
         '<button class="lb-close" type="button" aria-label="Close">&#10005;</button>' +
         '<button class="lb-nav lb-prev" type="button" aria-label="Previous">&#8249;</button>' +
         '<img class="lb-img" alt="" />' +
         '<button class="lb-nav lb-next" type="button" aria-label="Next">&#8250;</button>' +
-        '<span class="lb-count"></span>';
-      document.body.appendChild(box);
-      show(0);
-      document.body.style.overflow = 'hidden';
-      requestAnimationFrame(function () { box.classList.add('is-open'); });
+        '<div class="lb-dots">' +
+          PHOTOS.map(function () { return '<button class="lb-dot" type="button"></button>'; }).join('') +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(box);
+    show(startAt);
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function () { box.classList.add('is-open'); });
 
-      box.addEventListener('click', function (e) { if (e.target === box) close(); });
-      $('.lb-close', box).addEventListener('click', close);
-      $('.lb-prev',  box).addEventListener('click', function () { show(idx - 1); });
-      $('.lb-next',  box).addEventListener('click', function () { show(idx + 1); });
-      document.addEventListener('keydown', onKey);
-      $('.lb-close', box).focus();
-    };
-
-    avatarBtn.addEventListener('click', open);
+    box.addEventListener('click', function (e) { if (e.target === box) close(); });
+    $('.lb-close', box).addEventListener('click', close);
+    $('.lb-prev',  box).addEventListener('click', function () { show(idx - 1); });
+    $('.lb-next',  box).addEventListener('click', function () { show(idx + 1); });
+    $$('.lb-dot',  box).forEach(function (d, n) {
+      d.addEventListener('click', function () { show(n); });
+    });
+    document.addEventListener('keydown', onKey);
+    $('.lb-close', box).focus();
   }
 
   /* ---- now playing ----------------------------------------------------- */
@@ -274,23 +325,6 @@
     });
   }
 
-
-  /* ---- work row covers ------------------------------------------------- */
-  var coverImgs = $$('.row-cover');
-  if (coverImgs.length) {
-    var load = function (img) {
-      if (img.dataset.cover && !img.src) img.src = img.dataset.cover;
-    };
-    coverImgs.forEach(function (img) {
-      var row = img.closest('.has-preview');
-      row.addEventListener('mouseenter', function () { load(img); });
-      row.addEventListener('focus', function () { load(img); });
-    });
-    // Warm the rest once the page is settled, so later hovers are instant
-    window.addEventListener('load', function () {
-      setTimeout(function () { coverImgs.forEach(load); }, 1800);
-    });
-  }
 
   /* ---- collage --------------------------------------------------------- */
   var canvas = $('.collage-canvas');
