@@ -756,6 +756,7 @@ a.album:hover img { transform: translateY(-4px); }
   padding-block: 4px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  overflow-anchor: none;
   scrollbar-width: none;
 }
 .cards::-webkit-scrollbar { display: none; }
@@ -994,9 +995,9 @@ a.album:hover img { transform: translateY(-4px); }
   position: absolute;
   z-index: 0;
   left: 16px;
-  top: 52px;
+  top: 46px;
   right: -34px;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2 / 1;
   border-radius: 5px;
   overflow: hidden;
   box-shadow:
