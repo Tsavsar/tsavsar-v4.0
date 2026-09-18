@@ -7,6 +7,69 @@
   var $  = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
+
+  /* ---- click sound ----------------------------------------------------- */
+  // Synthesised, same as v4 — no audio files to ship.
+  var audioOn = false;
+  try { audioOn = localStorage.getItem('audio') === 'on'; } catch (e) {}
+  var actx = null;
+
+  function click(kind) {
+    if (!audioOn) return;
+    try {
+      if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === 'suspended') actx.resume();
+      var now = actx.currentTime;
+      var gain = actx.createGain();
+      gain.connect(actx.destination);
+
+      if (kind === 'open') {
+        var osc = actx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(900, now);
+        osc.frequency.exponentialRampToValueAtTime(600, now + 0.06);
+        gain.gain.setValueAtTime(0.06, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+        osc.connect(gain);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      } else {
+        var buf = actx.createBuffer(1, actx.sampleRate * 0.03, actx.sampleRate);
+        var data = buf.getChannelData(0);
+        for (var i = 0; i < data.length; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 6);
+        }
+        var src = actx.createBufferSource();
+        src.buffer = buf;
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
+        src.connect(gain);
+        src.start(now);
+      }
+    } catch (e) { /* no audio available — stay silent */ }
+  }
+
+  var audioBtn = $('.audio-toggle');
+  if (audioBtn) {
+    var paintAudio = function () {
+      audioBtn.setAttribute('aria-pressed', String(audioOn));
+      audioBtn.setAttribute('aria-label', audioOn ? 'Disable audio' : 'Enable audio');
+      audioBtn.title = audioOn ? 'Disable audio' : 'Enable audio';
+    };
+    paintAudio();
+    audioBtn.addEventListener('click', function () {
+      audioOn = !audioOn;
+      try { localStorage.setItem('audio', audioOn ? 'on' : 'off'); } catch (e) {}
+      paintAudio();
+      click('open');   // audible confirmation when switching on
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.audio-toggle, #greeting')) return;  // these fire their own
+    click(e.target.closest('button, [role="button"], .nav-links a, .link-row') ? 'open' : 'click');
+  }, { passive: true });
+
   /* ---- theme ----------------------------------------------------------- */
   var root = document.documentElement;
   var toggle = $('.theme-toggle');
@@ -15,6 +78,7 @@
       var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
       root.dataset.theme = next;
       try { localStorage.setItem('theme', next); } catch (e) {}
+      click('open');
     });
   }
 
@@ -27,11 +91,56 @@
   });
   var hourFmt = new Intl.DateTimeFormat('en-GB', { timeZone: TZ, hour: '2-digit', hour12: false });
 
-  function greet(h) {
-    if (h >= 5  && h < 12) return 'good morning';
-    if (h >= 12 && h < 17) return 'good afternoon';
-    if (h >= 17 && h < 22) return 'good evening';
-    return 'good night';
+  // Tiv evening/night greetings are still missing — English + German only there.
+  var GREETINGS = {
+    morning:   [['en', 'good morning'],   ['tiv', 'U nder vee'],  ['de', 'Guten Morgen']],
+    afternoon: [['en', 'good afternoon'], ['tiv', 'U pande vee'], ['de', 'Guten Tag']],
+    evening:   [['en', 'good evening'],                           ['de', 'Guten Abend']],
+    night:     [['en', 'good night'],                             ['de', 'Gute Nacht']]
+  };
+
+  function bucket(h) {
+    if (h >= 5  && h < 12) return 'morning';
+    if (h >= 12 && h < 17) return 'afternoon';
+    if (h >= 17 && h < 22) return 'evening';
+    return 'night';
+  }
+
+  var greetBtn  = $('#greeting');
+  var greetText = $('#greetingText');
+  var greetIdx  = 0;
+  var greetKey  = null;
+  var greetTimer = null;
+
+  function paintGreeting(animate) {
+    if (!greetText) return;
+    var set = GREETINGS[greetKey];
+    var pair = set[greetIdx % set.length];
+    var write = function () {
+      greetText.textContent = pair[1];
+      greetText.setAttribute('lang', pair[0]);
+    };
+    if (!animate) { write(); return; }
+    greetText.classList.add('is-out');
+    setTimeout(function () { write(); greetText.classList.remove('is-out'); }, 180);
+  }
+
+  function cycleGreeting(animate) {
+    greetIdx++;
+    paintGreeting(animate);
+  }
+
+  function scheduleGreeting() {
+    clearInterval(greetTimer);
+    greetTimer = setInterval(function () { cycleGreeting(true); }, 3400);
+  }
+
+  if (greetBtn) {
+    greetBtn.addEventListener('click', function () {
+      cycleGreeting(true);
+      scheduleGreeting();   // clicking restarts the dwell, so it doesn't flip immediately after
+      click('open');
+    });
   }
 
   function tick() {
@@ -40,10 +149,17 @@
       clockEl.textContent = timeFmt.format(now).toLowerCase();
       clockEl.setAttribute('datetime', now.toISOString());
     }
-    // Only the homepage greeting is time-driven; About has its own line.
-    if (greetingEl) greetingEl.textContent = greet(parseInt(hourFmt.format(now), 10) % 24);
+    if (greetText) {
+      var key = bucket(parseInt(hourFmt.format(now), 10) % 24);
+      if (key !== greetKey) {     // crossed into a new part of the day
+        greetKey = key;
+        greetIdx = 0;
+        paintGreeting(false);
+        scheduleGreeting();
+      }
+    }
   }
-  if (clockEl || greetingEl) { tick(); setInterval(tick, 1000); }
+  if (clockEl || greetText) { tick(); setInterval(tick, 1000); }
 
   /* ---- signature ------------------------------------------------------- */
   var sigPath = $('.sig-path');
@@ -155,6 +271,24 @@
 
     tag.addEventListener('click', function () {
       if (tag.dataset.href) window.open(tag.dataset.href, '_blank', 'noopener');
+    });
+  }
+
+
+  /* ---- work row covers ------------------------------------------------- */
+  var coverImgs = $$('.row-cover');
+  if (coverImgs.length) {
+    var load = function (img) {
+      if (img.dataset.cover && !img.src) img.src = img.dataset.cover;
+    };
+    coverImgs.forEach(function (img) {
+      var row = img.closest('.has-preview');
+      row.addEventListener('mouseenter', function () { load(img); });
+      row.addEventListener('focus', function () { load(img); });
+    });
+    // Warm the rest once the page is settled, so later hovers are instant
+    window.addEventListener('load', function () {
+      setTimeout(function () { coverImgs.forEach(load); }, 1800);
     });
   }
 

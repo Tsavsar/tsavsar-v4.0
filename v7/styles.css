@@ -107,10 +107,8 @@ a { color: inherit; }
 }
 
 .link-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: 2px 16px;
+  display: flex;
+  flex-direction: column;
   /* Negative margin keeps the wash off the text column's alignment */
   padding: 7px 10px;
   margin: 0 -10px;
@@ -123,6 +121,13 @@ a { color: inherit; }
 .link-row:focus-visible {
   background: var(--hover);
   outline: none;
+}
+.row-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 16px;
+  width: 100%;
 }
 .row-name {
   color: var(--text-strong);
@@ -528,4 +533,101 @@ a.album:hover img { transform: translateY(-4px); }
   .nav { flex-direction: column; align-items: flex-start; gap: 12px; }
   .nav-links { margin-left: -8px; }
   .collage-canvas { height: 380px; }
+}
+
+
+/* ======================================================================
+   Work row preview — hover drops a cover in and pushes the list down
+   ====================================================================== */
+.row-preview {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.row-preview-inner { overflow: hidden; min-height: 0; }
+
+.has-preview:hover .row-preview,
+.has-preview:focus-visible .row-preview { grid-template-rows: 1fr; }
+
+.row-cover {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  display: block;
+  margin-top: 10px;
+  border-radius: 8px;
+  background: var(--hover);
+  /* Lags the row open very slightly so the height leads and the image follows */
+  opacity: 0;
+  transform: scale(0.985);
+  transition: opacity 0.3s ease 0.06s, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0.06s;
+}
+.has-preview:hover .row-cover,
+.has-preview:focus-visible .row-cover { opacity: 1; transform: none; }
+
+/* Coarse pointers have no hover — never reserve the space */
+@media (hover: none) {
+  .has-preview .row-preview { display: none; }
+}
+
+/* ======================================================================
+   Greeting — rotates through languages, click to advance
+   ====================================================================== */
+.greeting {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.greeting:hover, .greeting:focus-visible { color: var(--text-strong); outline: none; }
+.greeting-text {
+  display: inline-block;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.greeting-text.is-out { opacity: 0; transform: translateY(-3px); }
+
+/* ======================================================================
+   Chrome cluster — audio + theme
+   ====================================================================== */
+.chrome {
+  position: fixed;
+  top: max(20px, env(safe-area-inset-top, 0px));
+  right: max(20px, env(safe-area-inset-right, 0px));
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.chrome .theme-toggle { position: static; top: auto; right: auto; }
+
+.audio-toggle {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.2s ease, color 0.2s ease, transform 0.14s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.audio-toggle:hover, .audio-toggle:focus-visible { opacity: 1; color: var(--text-strong); outline: none; }
+.audio-toggle:active { transform: scale(0.92); }
+.audio-toggle svg { width: 16px; height: 16px; display: block; }
+.audio-toggle .ico-on  { display: none; }
+.audio-toggle .ico-off { display: block; }
+.audio-toggle[aria-pressed="true"] .ico-on  { display: block; }
+.audio-toggle[aria-pressed="true"] .ico-off { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .row-preview { transition: none; }
+  .row-cover   { transition: none; }
 }
