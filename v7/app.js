@@ -10,8 +10,9 @@
 
   /* ---- click sound ----------------------------------------------------- */
   // Synthesised, same as v4 — no audio files to ship.
-  var audioOn = false;
-  try { audioOn = localStorage.getItem('audio') === 'on'; } catch (e) {}
+  // On unless this visitor has explicitly muted it
+  var audioOn = true;
+  try { audioOn = localStorage.getItem('audio') !== 'off'; } catch (e) {}
   var actx = null;
 
   function click(kind) {
@@ -61,13 +62,16 @@
       audioOn = !audioOn;
       try { localStorage.setItem('audio', audioOn ? 'on' : 'off'); } catch (e) {}
       paintAudio();
-      click('open');   // audible confirmation when switching on
     });
   }
 
+  // Every click makes a noise. This is the only place that plays one, so
+  // handlers on individual controls never double up. It runs after their own
+  // listeners, so toggling audio on is itself audible.
   document.addEventListener('click', function (e) {
-    if (e.target.closest('.audio-toggle, #greeting')) return;  // these fire their own
-    click(e.target.closest('button, [role="button"], .nav-links a, .link-row') ? 'open' : 'click');
+    var el = e.target.closest(
+      'button, [role="button"], a, .link-row, .gallery-card, .collage-item');
+    click(el ? 'open' : 'click');
   }, { passive: true });
 
   /* ---- theme ----------------------------------------------------------- */
@@ -78,7 +82,6 @@
       var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
       root.dataset.theme = next;
       try { localStorage.setItem('theme', next); } catch (e) {}
-      click('open');
     });
   }
 
@@ -139,7 +142,6 @@
     greetBtn.addEventListener('click', function () {
       cycleGreeting(true);
       scheduleGreeting();   // clicking restarts the dwell, so it doesn't flip immediately after
-      click('open');
     });
   }
 
@@ -228,7 +230,6 @@
       avatarBtn.classList.toggle('is-active', open);
       avatarBtn.setAttribute('aria-expanded', String(open));
       stagger(open);
-      click('open');
     });
   }
 
