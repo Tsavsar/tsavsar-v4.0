@@ -756,7 +756,6 @@ a.album:hover img { transform: translateY(-4px); }
   padding-block: 4px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
   scrollbar-width: none;
 }
 .cards::-webkit-scrollbar { display: none; }
@@ -773,7 +772,6 @@ a.album:hover img { transform: translateY(-4px); }
   justify-content: space-between;
   padding: 16px;
   text-decoration: none;
-  scroll-snap-align: start;
   isolation: isolate;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -822,30 +820,35 @@ a.album:hover img { transform: translateY(-4px); }
 
 .card-costgraph {
   background:
+    radial-gradient(ellipse 80% 40% at 52% 22%, oklch(0.86 0.19 275 / 0.45), transparent 58%),
     radial-gradient(ellipse 110% 58% at 76% 6%, oklch(0.9 0.16 290 / 0.75), transparent 55%),
     radial-gradient(ellipse 95% 52% at 8% 30%, oklch(0.8 0.22 232 / 0.55), transparent 52%),
     linear-gradient(in oklch 168deg, oklch(0.76 0.21 260) 0%, oklch(0.6 0.22 266) 45%, oklch(0.42 0.17 272) 100%);
 }
 .card-luotain {
   background:
+    radial-gradient(ellipse 80% 40% at 52% 22%, oklch(0.86 0.19 57 / 0.45), transparent 58%),
     radial-gradient(ellipse 110% 58% at 76% 6%, oklch(0.9 0.16 70 / 0.75), transparent 55%),
     radial-gradient(ellipse 95% 52% at 8% 30%, oklch(0.8 0.22 20 / 0.55), transparent 52%),
     linear-gradient(in oklch 168deg, oklch(0.76 0.21 44) 0%, oklch(0.6 0.22 50) 45%, oklch(0.42 0.17 56) 100%);
 }
 .card-yote {
   background:
+    radial-gradient(ellipse 80% 40% at 52% 22%, oklch(0.58 0.03 273 / 0.45), transparent 58%),
     radial-gradient(ellipse 110% 58% at 76% 6%, oklch(0.62 0.03 284 / 0.8), transparent 55%),
     radial-gradient(ellipse 95% 52% at 8% 30%, oklch(0.46 0.025 242 / 0.6), transparent 52%),
     linear-gradient(in oklch 168deg, oklch(0.52 0.028 262) 0%, oklch(0.36 0.024 268) 45%, oklch(0.22 0.018 274) 100%);
 }
 .card-lonar {
   background:
+    radial-gradient(ellipse 80% 40% at 52% 22%, oklch(0.86 0.19 10 / 0.45), transparent 58%),
     radial-gradient(ellipse 110% 58% at 76% 6%, oklch(0.9 0.16 0 / 0.75), transparent 55%),
     radial-gradient(ellipse 95% 52% at 8% 30%, oklch(0.8 0.22 38 / 0.55), transparent 52%),
     linear-gradient(in oklch 168deg, oklch(0.76 0.21 20) 0%, oklch(0.6 0.22 26) 45%, oklch(0.42 0.17 32) 100%);
 }
 .card-kernui {
   background:
+    radial-gradient(ellipse 80% 40% at 52% 22%, oklch(0.86 0.19 303 / 0.45), transparent 58%),
     radial-gradient(ellipse 110% 58% at 76% 6%, oklch(0.9 0.16 317 / 0.75), transparent 55%),
     radial-gradient(ellipse 95% 52% at 8% 30%, oklch(0.8 0.22 263 / 0.55), transparent 52%),
     linear-gradient(in oklch 168deg, oklch(0.76 0.21 289) 0%, oklch(0.6 0.22 295) 45%, oklch(0.42 0.17 301) 100%);
