@@ -159,7 +159,7 @@ export default function Intro() {
 
   return (
     <section className={styles.intro} id="about">
-      <p className={styles.lead}>Shater Tsavsar, a design engineer.</p>
+      <p className={styles.lead}>Shater Tsavsar, a designer.</p>
       <p className={styles.soft}>
         The best way to describe myself is a{' '}
         <span className={styles.medium}>"Systemic Native"</span>.
@@ -186,7 +186,7 @@ export default function Intro() {
       </p>
 
       <div className={styles.projects}>
-        <p className={styles.projectsLabel}>Projects</p>
+        <p className={styles.projectsLabel}>projects</p>
         <ul className={styles.projectsList}>
           {PROJECTS.map(p => <ProjectRow key={p.name} {...p} />)}
         </ul>

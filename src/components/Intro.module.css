@@ -62,7 +62,8 @@
   /* .intro's own 18px gap + 10px = 28px, so the list reads as its own group */
   margin-top: 10px;
 }
-.projectsLabel {
+.intro .projectsLabel {
+  /* Scoped: plain `.projectsLabel` loses to `.intro p`, which forces --text-strong */
   font-size: var(--font-14);
   line-height: var(--lh);
   letter-spacing: var(--ls-14);
