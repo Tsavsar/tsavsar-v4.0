@@ -756,7 +756,6 @@ a.album:hover img { transform: translateY(-4px); }
   padding-block: 4px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  overflow-anchor: none;
   scrollbar-width: none;
 }
 .cards::-webkit-scrollbar { display: none; }
@@ -814,10 +813,6 @@ a.album:hover img { transform: translateY(-4px); }
   line-height: 1.25;
 }
 .card-desc {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
   color: rgba(255, 255, 255, 0.95);
   font-size: var(--font-sm);
   line-height: 1.38;
@@ -987,46 +982,3 @@ a.album:hover img { transform: translateY(-4px); }
 }
 
 
-
-/* ======================================================================
-   Product shot
-   A cropped surface floating on the card's gradient, bleeding off the
-   right edge so it reads as a window into the product rather than a
-   picture pasted onto a panel. Sits under the grain, so the texture
-   carries across the whole card and the shot doesn't look stuck on.
-   ====================================================================== */
-.card-shot {
-  position: absolute;
-  z-index: 0;
-  left: 16px;
-  top: 46px;
-  right: -34px;
-  bottom: 92px;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow:
-    0 1px 0 0 rgba(255, 255, 255, 0.22) inset,
-    0 10px 22px -6px rgba(0, 0, 0, 0.45);
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.card-shot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: left top;
-  display: block;
-}
-/* Leans in slightly as the card lifts */
-.card:hover .card-shot { transform: translate(-3px, -2px); }
-
-/* The copy needs its own footing now that a bright surface sits above it */
-.card:has(.card-shot)::before {
-  background: linear-gradient(to top,
-    rgba(0, 0, 0, calc(var(--vg) + 0.2)) 0%,
-    rgba(0, 0, 0, calc(var(--vg) * 0.7)) 30%,
-    transparent 64%);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .card-shot { transition: none; }
-}
