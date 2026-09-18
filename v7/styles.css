@@ -820,37 +820,37 @@ a.album:hover img { transform: translateY(-4px); }
 
 .card-costgraph {
   background:
-    radial-gradient(ellipse 80% 40% at 52% 22%, oklch(0.86 0.19 275 / 0.45), transparent 58%),
-    radial-gradient(ellipse 110% 58% at 76% 6%, oklch(0.9 0.16 290 / 0.75), transparent 55%),
-    radial-gradient(ellipse 95% 52% at 8% 30%, oklch(0.8 0.22 232 / 0.55), transparent 52%),
+    radial-gradient(ellipse 80% 40% at var(--l3x) var(--l3y), oklch(0.86 0.19 275 / 0.45), transparent 58%),
+    radial-gradient(ellipse 110% 58% at var(--l1x) var(--l1y), oklch(0.9 0.16 290 / 0.75), transparent 55%),
+    radial-gradient(ellipse 95% 52% at var(--l2x) var(--l2y), oklch(0.8 0.22 232 / 0.55), transparent 52%),
     linear-gradient(in oklch 168deg, oklch(0.76 0.21 260) 0%, oklch(0.6 0.22 266) 45%, oklch(0.42 0.17 272) 100%);
 }
 .card-luotain {
   background:
-    radial-gradient(ellipse 80% 40% at 52% 22%, oklch(0.86 0.19 57 / 0.45), transparent 58%),
-    radial-gradient(ellipse 110% 58% at 76% 6%, oklch(0.9 0.16 70 / 0.75), transparent 55%),
-    radial-gradient(ellipse 95% 52% at 8% 30%, oklch(0.8 0.22 20 / 0.55), transparent 52%),
+    radial-gradient(ellipse 80% 40% at var(--l3x) var(--l3y), oklch(0.86 0.19 57 / 0.45), transparent 58%),
+    radial-gradient(ellipse 110% 58% at var(--l1x) var(--l1y), oklch(0.9 0.16 70 / 0.75), transparent 55%),
+    radial-gradient(ellipse 95% 52% at var(--l2x) var(--l2y), oklch(0.8 0.22 20 / 0.55), transparent 52%),
     linear-gradient(in oklch 168deg, oklch(0.76 0.21 44) 0%, oklch(0.6 0.22 50) 45%, oklch(0.42 0.17 56) 100%);
 }
 .card-yote {
   background:
-    radial-gradient(ellipse 80% 40% at 52% 22%, oklch(0.58 0.03 273 / 0.45), transparent 58%),
-    radial-gradient(ellipse 110% 58% at 76% 6%, oklch(0.62 0.03 284 / 0.8), transparent 55%),
-    radial-gradient(ellipse 95% 52% at 8% 30%, oklch(0.46 0.025 242 / 0.6), transparent 52%),
+    radial-gradient(ellipse 80% 40% at var(--l3x) var(--l3y), oklch(0.58 0.03 273 / 0.45), transparent 58%),
+    radial-gradient(ellipse 110% 58% at var(--l1x) var(--l1y), oklch(0.62 0.03 284 / 0.8), transparent 55%),
+    radial-gradient(ellipse 95% 52% at var(--l2x) var(--l2y), oklch(0.46 0.025 242 / 0.6), transparent 52%),
     linear-gradient(in oklch 168deg, oklch(0.52 0.028 262) 0%, oklch(0.36 0.024 268) 45%, oklch(0.22 0.018 274) 100%);
 }
 .card-lonar {
   background:
-    radial-gradient(ellipse 80% 40% at 52% 22%, oklch(0.86 0.19 10 / 0.45), transparent 58%),
-    radial-gradient(ellipse 110% 58% at 76% 6%, oklch(0.9 0.16 0 / 0.75), transparent 55%),
-    radial-gradient(ellipse 95% 52% at 8% 30%, oklch(0.8 0.22 38 / 0.55), transparent 52%),
+    radial-gradient(ellipse 80% 40% at var(--l3x) var(--l3y), oklch(0.86 0.19 10 / 0.45), transparent 58%),
+    radial-gradient(ellipse 110% 58% at var(--l1x) var(--l1y), oklch(0.9 0.16 0 / 0.75), transparent 55%),
+    radial-gradient(ellipse 95% 52% at var(--l2x) var(--l2y), oklch(0.8 0.22 38 / 0.55), transparent 52%),
     linear-gradient(in oklch 168deg, oklch(0.76 0.21 20) 0%, oklch(0.6 0.22 26) 45%, oklch(0.42 0.17 32) 100%);
 }
 .card-kernui {
   background:
-    radial-gradient(ellipse 80% 40% at 52% 22%, oklch(0.86 0.19 303 / 0.45), transparent 58%),
-    radial-gradient(ellipse 110% 58% at 76% 6%, oklch(0.9 0.16 317 / 0.75), transparent 55%),
-    radial-gradient(ellipse 95% 52% at 8% 30%, oklch(0.8 0.22 263 / 0.55), transparent 52%),
+    radial-gradient(ellipse 80% 40% at var(--l3x) var(--l3y), oklch(0.86 0.19 303 / 0.45), transparent 58%),
+    radial-gradient(ellipse 110% 58% at var(--l1x) var(--l1y), oklch(0.9 0.16 317 / 0.75), transparent 55%),
+    radial-gradient(ellipse 95% 52% at var(--l2x) var(--l2y), oklch(0.8 0.22 263 / 0.55), transparent 52%),
     linear-gradient(in oklch 168deg, oklch(0.76 0.21 289) 0%, oklch(0.6 0.22 295) 45%, oklch(0.42 0.17 301) 100%);
 }
 
@@ -1099,7 +1099,8 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
 .study-peek {
   position: fixed;
   top: 50%;
-  z-index: 1;
+  /* Below the panel: a peek should never overlap what you're reading */
+  z-index: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1115,7 +1116,9 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
 
 /* Sits mostly off-screen and leans in on hover */
 .study-peek-prev { left: 0;  transform: translate(-58%, -50%); }
+.study-peek-prev .study-peek-name { right: 8px; }
 .study-peek-next { right: 0; transform: translate(58%, -50%); }
+.study-peek-next .study-peek-name { left: 8px; }
 .study.is-open .study-peek { opacity: 1; }
 .study.is-open .study-peek-prev:hover,
 .study.is-open .study-peek-prev:focus-visible { transform: translate(-44%, -50%); }
@@ -1124,6 +1127,7 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
 .study-peek:focus-visible { outline: none; }
 
 .study-peek-card {
+  position: relative;
   width: 132px;
   aspect-ratio: 5 / 6;
   border-radius: 10px;
@@ -1140,6 +1144,9 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
   opacity: 0.95;
 }
 .study-peek-name {
+  /* Anchored to the on-screen side, since the card is mostly past the edge */
+  position: absolute;
+  bottom: -26px;
   font-size: var(--study-sm);
   line-height: var(--study-sm-lh);
   letter-spacing: 0.24px;
@@ -1157,4 +1164,49 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
 }
 @media (prefers-reduced-motion: reduce) {
   .study-peek { transition: opacity 0.2s ease; }
+}
+
+
+/* ======================================================================
+   Drifting lights
+   Registered so the browser can interpolate them; without @property these
+   stay plain custom properties and the gradient simply sits still.
+   ====================================================================== */
+@property --l1x { syntax: '<percentage>'; inherits: true; initial-value: 76%; }
+@property --l1y { syntax: '<percentage>'; inherits: true; initial-value: 6%; }
+@property --l2x { syntax: '<percentage>'; inherits: true; initial-value: 8%; }
+@property --l2y { syntax: '<percentage>'; inherits: true; initial-value: 30%; }
+@property --l3x { syntax: '<percentage>'; inherits: true; initial-value: 52%; }
+@property --l3y { syntax: '<percentage>'; inherits: true; initial-value: 22%; }
+
+:root {
+  --l1x: 76%; --l1y: 6%;
+  --l2x: 8%;  --l2y: 30%;
+  --l3x: 52%; --l3y: 22%;
+}
+
+/* Three different periods, so they never resynchronise into an obvious
+   loop. Y stays in the upper half throughout, which is what leaves the
+   text zone - and its contrast figures - untouched. */
+@keyframes drift-1 {
+  0%, 100% { --l1x: 76%; --l1y: 6%; }
+  50%      { --l1x: 57%; --l1y: 19%; }
+}
+@keyframes drift-2 {
+  0%, 100% { --l2x: 8%;  --l2y: 30%; }
+  50%      { --l2x: 27%; --l2y: 13%; }
+}
+@keyframes drift-3 {
+  0%, 100% { --l3x: 52%; --l3y: 22%; }
+  50%      { --l3x: 39%; --l3y: 7%; }
+}
+
+.card, .study-hero, .study-peek-card {
+  animation: drift-1 19s ease-in-out infinite,
+             drift-2 23s ease-in-out infinite,
+             drift-3 29s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .study-hero, .study-peek-card { animation: none; }
 }
