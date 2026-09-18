@@ -1092,3 +1092,69 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text
 @media (prefers-reduced-motion: reduce) {
   .study-scrim { transition: none; }
 }
+
+/* ======================================================================
+   Peek cards — the neighbouring projects, hinted at either edge
+   ====================================================================== */
+.study-peek {
+  position: fixed;
+  top: 50%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.study-peek[hidden] { display: none; }
+
+/* Sits mostly off-screen and leans in on hover */
+.study-peek-prev { left: 0;  transform: translate(-58%, -50%); }
+.study-peek-next { right: 0; transform: translate(58%, -50%); }
+.study.is-open .study-peek { opacity: 1; }
+.study.is-open .study-peek-prev:hover,
+.study.is-open .study-peek-prev:focus-visible { transform: translate(-44%, -50%); }
+.study.is-open .study-peek-next:hover,
+.study.is-open .study-peek-next:focus-visible { transform: translate(44%, -50%); }
+.study-peek:focus-visible { outline: none; }
+
+.study-peek-card {
+  width: 132px;
+  aspect-ratio: 5 / 6;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.study-peek-mark { width: 22px; height: 22px; display: block; }
+.study-peek-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+.study-peek-name {
+  font-size: var(--study-sm);
+  line-height: var(--study-sm-lh);
+  letter-spacing: 0.24px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  white-space: nowrap;
+}
+.study-peek:hover .study-peek-name,
+.study-peek:focus-visible .study-peek-name { opacity: 0.9; }
+
+/* Below this the panel leaves no room at the edges */
+@media (max-width: 980px) {
+  .study-peek { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .study-peek { transition: opacity 0.2s ease; }
+}
