@@ -1056,15 +1056,6 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
 }
 .study-content ul { padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
 
-/* Media inside a section breaks the measure and runs the full column */
-.study-media {
-  width: 100%;
-  max-width: none;
-  border-radius: 8px;
-  display: block;
-  margin-block: 4px;
-  background: var(--hover);
-}
 
 @media (max-width: 600px) {
   .study-hero { aspect-ratio: 4 / 3; padding: 16px 16px 0; }
@@ -1080,3 +1071,38 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
   margin-top: 10px;
 }
 .study-content > .study-subhead:first-child { margin-top: 0; }
+
+/* A staged figure, as the case studies have it: a neutral platform with one
+   or two shots sitting on it. Height is fixed and images are contained, so a
+   tall mobile screenshot sits inside the stage instead of running to 1600px
+   at full column width. */
+.study-figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  max-width: none;
+  height: 300px;
+  margin: 6px 0;
+  padding: 18px;
+  background: var(--hover);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.study-figure img,
+.study-figure video {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+  display: block;
+}
+/* A lone wide shot can use the full stage rather than being boxed in */
+.study-figure[data-n="1"] img,
+.study-figure[data-n="1"] video { max-width: 100%; }
+
+@media (max-width: 600px) {
+  .study-figure { height: 220px; padding: 12px; gap: 10px; }
+}
