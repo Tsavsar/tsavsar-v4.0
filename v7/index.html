@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shater Tsavsar — Designer</title>
+<meta name="description" content="Shater Tsavsar, a designer. Everything I do is grounded in some sort of system." />
+<link rel="icon" type="image/png" href="favicon.png" />
+
+<meta property="og:title" content="Shater Tsavsar — Designer" />
+<meta property="og:description" content="Shater Tsavsar, a designer. Everything I do is grounded in some sort of system." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://v7.shatermt.com/" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Shater Tsavsar — Designer" />
+<meta name="twitter:description" content="Shater Tsavsar, a designer. Everything I do is grounded in some sort of system." />
+
+<!-- Set the theme before first paint so there's no flash -->
+<script>
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+  <svg viewBox="0 0 16 16" aria-hidden="true">
+    <circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.3" />
+    <path d="M8 1.6 A6.4 6.4 0 0 1 8 14.4 Z" fill="currentColor" />
+  </svg>
+</button>
+
+<main class="content">
+
+  <img class="avatar appear" src="pfp.png" width="40" height="40" alt="Shater Tsavsar" />
+
+  <section class="intro appear" style="--i:1">
+    <p class="greeting" id="greeting">good morning</p>
+    <p>I’m Shater, a designer. The best way to describe myself is a <em>“Systemic Native”</em> — everything I do is grounded in some sort of system, and that shows up in the work whether I’m in Figma or in the codebase.</p>
+    <p>I design and build <a href="https://costgraph.ai" target="_blank" rel="noopener">CostGraph.ai</a>: the design direction, the design system, and the frontend code those designs become.</p>
+    <p>On the side I ship <a href="https://luotain.app" target="_blank" rel="noopener">Luotain</a> for link and QR analytics, <a href="https://yote.shatermt.com/" target="_blank" rel="noopener">Yote</a> for React inputs, and <a href="https://kernui.framer.website/" target="_blank" rel="noopener">KernUI</a>, a design system used by 1,200+ designers and developers.</p>
+  </section>
+
+  <section class="link-section appear" style="--i:2">
+    <h2>Work</h2>
+    <a class="link-row" href="https://www.shatermt.com/work/costgraph">
+      <span class="row-name">CostGraph.ai</span><span class="row-meta">2026</span>
+    </a>
+    <a class="link-row" href="https://www.shatermt.com/work/luotain">
+      <span class="row-name">Luotain</span><span class="row-meta">2026</span>
+    </a>
+    <a class="link-row" href="https://www.shatermt.com/work/lonar">
+      <span class="row-name">Lönar</span><span class="row-meta">2026</span>
+    </a>
+    <a class="link-row" href="https://www.shatermt.com/work/kernui">
+      <span class="row-name">KernUI</span><span class="row-meta">2025</span>
+    </a>
+    <a class="link-row" href="https://www.shatermt.com/work/fundify">
+      <span class="row-name">Fundify</span><span class="row-meta">2024</span>
+    </a>
+  </section>
+
+  <section class="link-section appear" style="--i:3">
+    <h2>Playground</h2>
+    <a class="link-row" href="https://www.shatermt.com/explorations">
+      <span class="row-name">Design explorations</span><span class="row-meta">ongoing</span>
+    </a>
+  </section>
+
+  <section class="link-section appear" style="--i:4">
+    <h2>Writing</h2>
+    <a class="link-row" href="https://www.shatermt.com/articles/vicariously">
+      <span class="row-name">Vicariously living through the main character</span><span class="row-meta">5 min read</span>
+    </a>
+  </section>
+
+  <section class="link-section connect appear" style="--i:5">
+    <h2>Connect</h2>
+    <p>I’m always up for talking to thoughtful people about design systems, interfaces, and the code they turn into. Reach me at <a href="mailto:shatermt@gmail.com">shatermt@gmail.com</a>, or find me on <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a> and <a href="https://www.linkedin.com/in/tsavsar/" target="_blank" rel="noopener">LinkedIn</a>.</p>
+  </section>
+
+  <footer class="appear" style="--i:6">
+    <span>© 2026 Shater M. Tsavsar</span>
+    <span class="clock"><span class="tz">WAT</span> <time id="clock">—</time></span>
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
