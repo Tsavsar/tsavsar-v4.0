@@ -1015,7 +1015,8 @@ a.album:hover img { transform: translateY(-4px); }
   place-items: center;
   padding: 26px 26px 0;
 }
-.study-hero img {
+.study-hero img,
+.study-hero video {
   width: 100%;
   max-height: 100%;
   object-fit: cover;
@@ -1106,3 +1107,8 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
 @media (max-width: 600px) {
   .study-figure { height: 220px; padding: 12px; gap: 10px; }
 }
+
+/* SVG feature panels are drawn on white, so the grey screenshot stage shows
+   as a halo around them */
+.study-figure:has(img[src$=".svg"]) { background: transparent; padding: 0; }
+.study-figure:has(img[src$=".svg"]) img { border-radius: 8px; }
