@@ -9,45 +9,22 @@
 
 
   /* ---- click sound ----------------------------------------------------- */
-  // Synthesised, same as v4 — no audio files to ship.
-  // On unless this visitor has explicitly muted it
+  // Cuelume (MIT) — https://cuelume.dev. Synthesised Web Audio, no files.
+  // Vendored so the sounds don't depend on a CDN staying up.
+  var play = null;
   var audioOn = true;
   try { audioOn = localStorage.getItem('audio') !== 'off'; } catch (e) {}
-  var actx = null;
+
+  import('./vendor/cuelume.js').then(function (cuelume) {
+    play = cuelume.play;
+    cuelume.setEnabled(audioOn);
+    cuelume.setVolume(0.5);
+    window.__cuelume = cuelume;
+  }).catch(function () { /* sounds simply don't load; everything else works */ });
 
   function click(kind) {
-    if (!audioOn) return;
-    try {
-      if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
-      if (actx.state === 'suspended') actx.resume();
-      var now = actx.currentTime;
-      var gain = actx.createGain();
-      gain.connect(actx.destination);
-
-      if (kind === 'open') {
-        var osc = actx.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(900, now);
-        osc.frequency.exponentialRampToValueAtTime(600, now + 0.06);
-        gain.gain.setValueAtTime(0.06, now);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
-        osc.connect(gain);
-        osc.start(now);
-        osc.stop(now + 0.08);
-      } else {
-        var buf = actx.createBuffer(1, actx.sampleRate * 0.03, actx.sampleRate);
-        var data = buf.getChannelData(0);
-        for (var i = 0; i < data.length; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 6);
-        }
-        var src = actx.createBufferSource();
-        src.buffer = buf;
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
-        src.connect(gain);
-        src.start(now);
-      }
-    } catch (e) { /* no audio available — stay silent */ }
+    if (!audioOn || !play) return;
+    try { play(kind); } catch (e) {}
   }
 
   var audioBtn = $('.audio-toggle');
@@ -61,17 +38,21 @@
     audioBtn.addEventListener('click', function () {
       audioOn = !audioOn;
       try { localStorage.setItem('audio', audioOn ? 'on' : 'off'); } catch (e) {}
+      if (window.__cuelume) window.__cuelume.setEnabled(audioOn);
       paintAudio();
     });
   }
 
   // Every click makes a noise. This is the only place that plays one, so
   // handlers on individual controls never double up. It runs after their own
-  // listeners, so toggling audio on is itself audible.
+  // listeners, so switching audio on is itself audible.
   document.addEventListener('click', function (e) {
-    var el = e.target.closest(
-      'button, [role="button"], a, .link-row, .gallery-card, .collage-item');
-    click(el ? 'open' : 'click');
+    if (e.target.closest('.theme-toggle, .audio-toggle')) return click('toggle');
+    if (e.target.closest('a[href]:not([href^="#"])'))     return click('page');
+    if (e.target.closest('button, [role="button"], .gallery-card, .collage-item')) {
+      return click('press');
+    }
+    click('tick');
   }, { passive: true });
 
   /* ---- theme ----------------------------------------------------------- */
