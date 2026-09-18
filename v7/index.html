@@ -150,6 +150,71 @@
 
 </main>
 
+
+<div class="study" id="study" hidden aria-hidden="true">
+  <div class="study-scrim" data-close></div>
+  <div class="study-panel" role="dialog" aria-modal="true" aria-labelledby="studyName">
+    <div class="study-inner">
+      <div class="study-top">
+        <button class="study-back" type="button" data-close>
+          <svg viewBox="0 0 16 16" aria-hidden="true" width="16" height="16">
+            <path d="M2.4 8.8h8.8a2.4 2.4 0 0 0 2.4-2.4V4" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5.6 5.6 2.4 8.8l3.2 3.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
+        <nav class="study-crumb" aria-label="Breadcrumb">
+          <button type="button" data-close>Home</button>
+          <span aria-hidden="true">/</span>
+          <span id="studyName" aria-current="page"></span>
+        </nav>
+        <button class="study-share" type="button" aria-label="Copy link to this project">
+          <svg viewBox="0 0 14 14" aria-hidden="true" width="14" height="14">
+            <path d="M2.1 10.15h7.7a2.1 2.1 0 0 0 2.1-2.1V5.6" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9.45 3.15 11.9 5.6 9.45 8.05" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="study-head">
+        <div class="study-hero" id="studyHero"><span class="study-hero-mark"><img id="studyHeroMark" src="" alt="" aria-hidden="true" /></span></div>
+        <div class="study-pills">
+          <a class="study-pill" id="studySite" href="#" target="_blank" rel="noopener">
+            <span class="study-pill-mark"><img id="studyPillMark" src="" alt="" aria-hidden="true" /></span>
+            <span id="studySiteText"></span>
+          </a>
+          <span class="study-pill" id="studyYear"></span>
+        </div>
+      </div>
+
+      <div class="study-body" id="studyBody"></div>
+
+      <div class="study-articles">
+        <p class="study-label">my articles</p>
+        <a class="study-article" href="https://www.shatermt.com/articles/vicariously">
+          <span class="study-thumb"><img src="https://www.shatermt.com/assets/article-vicariously/thumbnail.png" alt="" loading="lazy" /></span>
+          <span class="study-article-body">
+            <span class="study-article-row">
+              <span class="study-article-title">Vicariously living through the main character</span>
+              <svg viewBox="0 0 14 14" aria-hidden="true" width="14" height="14">
+                <path d="M2.1 10.15h7.7a2.1 2.1 0 0 0 2.1-2.1V5.6" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.45 3.15 11.9 5.6 9.45 8.05" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="study-excerpt">Why we emotionally attach ourselves to movie characters and the lives they live.</span>
+            <span class="study-meta"><span>5 min</span><span class="study-dot"></span><span>2026</span></span>
+          </span>
+        </a>
+      </div>
+
+      <div class="study-foot">
+        <span>&copy; 2026 Shater M. Tsavsar</span>
+        <span>design closer to the user.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="module" src="app.js"></script>
 </body>
 </html>

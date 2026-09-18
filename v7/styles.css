@@ -866,8 +866,229 @@ a.album:hover img { transform: translateY(-4px); }
   margin-bottom: 8px;
 }
 
-/* The expanding clone sits above everything and keeps its own gradient */
-.card-expanding {
-  pointer-events: none;
-  transform: none !important;
+/* ======================================================================
+   Case study panel — opens over the page, per the Figma
+   Reuses v7's colour tokens so it themes; type follows the design's
+   14/20 and 12/16, which is a step up from the home page's 12.5 because
+   this is long-form reading rather than a list.
+   ====================================================================== */
+.study {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 40px 24px;
+  --study-font: 14px;
+  --study-lh: 20px;
+  --study-sm: 12px;
+  --study-sm-lh: 16px;
+}
+.study[hidden] { display: none; }
+
+.study-scrim {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--text-strong) 28%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.32s ease;
+}
+.study.is-open .study-scrim { opacity: 1; }
+
+.study-panel {
+  position: relative;
+  width: 704px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: var(--page);
+  border: 2px solid var(--rule);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px 3px rgba(0, 0, 0, 0.04);
+  padding: 32px 42px;
+  transform-origin: top left;
+}
+.study-inner { display: flex; flex-direction: column; gap: 48px; }
+
+/* top bar */
+.study-top { display: flex; align-items: center; gap: 16px; height: 24px; }
+.study-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 7px 4px 4px;
+  border: none;
+  border-radius: 8px;
+  background: var(--hover);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--study-sm);
+  line-height: var(--study-sm-lh);
+  letter-spacing: 0.24px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.study-back:hover { color: var(--text-strong); }
+.study-back svg { display: block; }
+
+.study-crumb {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-size: var(--study-sm);
+  line-height: var(--study-sm-lh);
+  letter-spacing: 0.24px;
+  color: var(--text);
+}
+.study-crumb button {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.study-crumb button:hover { color: var(--text-strong); }
+.study-crumb [aria-current] { color: var(--text-strong); }
+
+.study-share {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--text);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: color 0.15s ease;
+}
+.study-share:hover { color: var(--text-strong); }
+.study-share.is-copied { color: #1a9d4b; }
+
+/* hero + pills */
+.study-head { display: flex; flex-direction: column; gap: 12px; }
+.study-hero {
+  height: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.study-hero-mark { width: 56px; height: 56px; display: block; }
+.study-hero-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+.study-pills { display: flex; gap: 4px; }
+.study-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--hover);
+  color: var(--text-strong);
+  font-size: var(--study-sm);
+  line-height: var(--study-sm-lh);
+  letter-spacing: 0.24px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.study-pill { padding-left: 6px; }
+a.study-pill:hover { background: color-mix(in srgb, var(--hover) 70%, var(--text-muted)); }
+.study-pill-mark { width: 16px; height: 16px; display: block; flex-shrink: 0; }
+.study-pill-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* sections */
+.study-body { display: flex; flex-direction: column; gap: 32px; }
+.study-section { display: flex; flex-direction: column; gap: 12px; }
+.study-label {
+  color: var(--text);
+  font-size: var(--study-font);
+  line-height: var(--study-lh);
+  letter-spacing: 0.28px;
+}
+.study-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-strong);
+  font-size: var(--study-font);
+  line-height: var(--study-lh);
+  letter-spacing: 0.28px;
+}
+.study-content ul { padding-left: 21px; }
+.study-content li { margin-bottom: 7px; }
+.study-content li:last-child { margin-bottom: 0; }
+
+/* articles */
+.study-articles { display: flex; flex-direction: column; gap: 18px; }
+.study-article {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+}
+.study-thumb { width: 100px; height: 60px; flex-shrink: 0; overflow: hidden; background: var(--hover); }
+.study-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.study-article-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
+.study-article-row { display: flex; align-items: center; gap: 10px; color: var(--text); }
+.study-article-title {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--study-font);
+  line-height: var(--study-lh);
+  letter-spacing: 0.28px;
+  font-weight: 500;
+  color: var(--text-strong);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.study-excerpt {
+  font-size: var(--study-sm);
+  line-height: var(--study-sm-lh);
+  letter-spacing: 0.24px;
+  color: var(--text);
+}
+.study-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--study-sm);
+  line-height: var(--study-sm-lh);
+  letter-spacing: 0.24px;
+  color: var(--text-muted);
+}
+.study-dot { width: 2px; height: 2px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; }
+
+.study-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: var(--study-sm);
+  line-height: var(--study-sm-lh);
+  letter-spacing: 0.24px;
+  color: var(--text);
+}
+
+@media (max-width: 760px) {
+  .study { padding: 16px 12px; }
+  .study-panel { padding: 20px 18px; border-radius: 16px; }
+  .study-inner { gap: 32px; }
+  .study-hero { height: 200px; }
+  .study-foot { flex-direction: column; gap: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .study-scrim { transition: none; }
 }

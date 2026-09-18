@@ -312,65 +312,155 @@
 
 
 
-  /* ---- card expand ------------------------------------------------------ */
-  // Tapping a card grows it from where it sits to fill the viewport, then
-  // navigates. The destination is a different origin (shatermt.com), so a
-  // cross-document view transition isn't available; this is the same effect
-  // done by hand.
+  /* ---- case study panel ------------------------------------------------ */
+  // Tapping a card opens the study over the page, growing out of the card
+  // itself rather than navigating away.
   var cards = $$('.card');
-  if (cards.length) {
+  var study = $('#study');
+
+  if (cards.length && study) {
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var panel   = $('.study-panel', study);
+    var bodyEl  = $('#studyBody');
+    var lastFocus = null;
+    var openSlug = null;
+
+    var STUDIES = null;
+    import('./studies.js').then(function (m) { STUDIES = m.STUDIES; }).catch(function () {});
+
+    function fill(slug) {
+      var s = STUDIES && STUDIES[slug];
+      if (!s) return false;
+
+      $('#studyName').textContent = s.name;
+      $('#studyYear').textContent = s.year;
+      $('#studySiteText').textContent = s.site;
+      $('#studySite').href = s.siteUrl;
+      $('#studyPillMark').src = 'icons/' + slug + '.svg';
+      $('#studyHeroMark').src = 'icons/' + slug + '.svg';
+
+      // The hero carries the card's own gradient, so the panel reads as the
+      // same object the card was
+      var hero = $('#studyHero');
+      hero.className = 'study-hero card-' + slug;
+
+      bodyEl.textContent = '';
+      s.sections.forEach(function (sec) {
+        var wrap = document.createElement('section');
+        wrap.className = 'study-section';
+        var lab = document.createElement('p');
+        lab.className = 'study-label';
+        lab.textContent = sec.label;
+        var content = document.createElement('div');
+        content.className = 'study-content';
+        sec.blocks.forEach(function (b) {
+          if (b.p) {
+            var p = document.createElement('p');
+            p.textContent = b.p;
+            content.appendChild(p);
+          } else if (b.ul) {
+            var ul = document.createElement('ul');
+            b.ul.forEach(function (t) {
+              var li = document.createElement('li');
+              li.textContent = t;
+              ul.appendChild(li);
+            });
+            content.appendChild(ul);
+          }
+        });
+        wrap.appendChild(lab);
+        wrap.appendChild(content);
+        bodyEl.appendChild(wrap);
+      });
+      return true;
+    }
+
+    function open(slug, fromRect) {
+      if (!fill(slug)) return;
+      openSlug = slug;
+      lastFocus = document.activeElement;
+
+      study.hidden = false;
+      study.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      study.scrollTop = 0;
+      requestAnimationFrame(function () { study.classList.add('is-open'); });
+
+      if (!reduced && fromRect) {
+        // FLIP: start the panel at the card's rect, then release it
+        var to = panel.getBoundingClientRect();
+        var sx = fromRect.width / to.width;
+        var sy = fromRect.height / to.height;
+        panel.animate([
+          { transform: 'translate(' + (fromRect.left - to.left) + 'px,' +
+                       (fromRect.top - to.top) + 'px) scale(' + sx + ',' + sy + ')',
+            opacity: 0.4, borderRadius: '10px' },
+          { transform: 'none', opacity: 1, borderRadius: '20px' }
+        ], { duration: 420, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+      }
+
+      history.pushState({ study: slug }, '', '#' + slug);
+      $('.study-back', study).focus();
+    }
+
+    function close(fromPop) {
+      if (study.hidden) return;
+      study.classList.remove('is-open');
+      var done = function () {
+        study.hidden = true;
+        study.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        openSlug = null;
+        if (lastFocus) lastFocus.focus();
+      };
+      if (reduced) { done(); }
+      else {
+        panel.animate([{ opacity: 1, transform: 'none' },
+                       { opacity: 0, transform: 'translateY(8px) scale(0.98)' }],
+                      { duration: 200, easing: 'ease-in' })
+             .addEventListener('finish', done);
+      }
+      if (!fromPop && location.hash) history.pushState({}, '', location.pathname);
+    }
 
     cards.forEach(function (card) {
       card.addEventListener('click', function (e) {
-        // Let the browser own modified clicks: new tab, new window, download
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-        if (reduced) return;
-
+        var slug = (card.className.match(/card-([a-z]+)/) || [])[1];
+        if (!slug || !STUDIES || !STUDIES[slug]) return;   // fall through to the href
         e.preventDefault();
-        var href = card.getAttribute('href');
-        var r = card.getBoundingClientRect();
-
-        var clone = card.cloneNode(true);
-        clone.className = card.className + ' card-expanding';
-        clone.style.cssText =
-          'position:fixed;margin:0;z-index:200;' +
-          'left:' + r.left + 'px;top:' + r.top + 'px;' +
-          'width:' + r.width + 'px;height:' + r.height + 'px;' +
-          'will-change:left,top,width,height;';
-        document.body.appendChild(clone);
-        card.style.visibility = 'hidden';
-
-        // The text would stretch oddly at full width, so it leaves early
-        var body = clone.querySelector('.card-body');
-        var mark = clone.querySelector('.card-mark');
-        [body, mark].forEach(function (el) {
-          if (el) el.animate([{ opacity: 1 }, { opacity: 0 }],
-            { duration: 180, easing: 'ease-out', fill: 'forwards' });
-        });
-
-        var grow = clone.animate([
-          { left: r.left + 'px', top: r.top + 'px',
-            width: r.width + 'px', height: r.height + 'px', borderRadius: '10px' },
-          { left: '0px', top: '0px',
-            width: '100vw', height: '100dvh', borderRadius: '0px' }
-        ], { duration: 460, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' });
-
-        // Navigate just before the growth settles, so the card is already
-        // covering the viewport when the next page paints
-        var went = false;
-        var go = function () { if (!went) { went = true; window.location.href = href; } };
-        grow.addEventListener('finish', go);
-        setTimeout(go, 520);   // fallback if the animation never finishes
+        open(slug, card.getBoundingClientRect());
       });
     });
 
-    // Coming back via the bfcache would otherwise show a hidden card and a
-    // stale clone sitting over the page
-    window.addEventListener('pageshow', function (e) {
-      if (!e.persisted) return;
-      $$('.card-expanding').forEach(function (n) { n.remove(); });
-      cards.forEach(function (c) { c.style.visibility = ''; });
+    study.addEventListener('click', function (e) {
+      if (e.target.closest('[data-close]')) { e.preventDefault(); close(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !study.hidden) close();
+    });
+    window.addEventListener('popstate', function () {
+      if (!study.hidden) close(true);
+    });
+
+    // Share copies the deep link rather than opening anything
+    var share = $('.study-share', study);
+    if (share) {
+      share.addEventListener('click', function () {
+        var url = location.origin + location.pathname + '#' + openSlug;
+        var ok = function () {
+          share.classList.add('is-copied');
+          setTimeout(function () { share.classList.remove('is-copied'); }, 1400);
+        };
+        if (navigator.clipboard) navigator.clipboard.writeText(url).then(ok, function () {});
+        else ok();
+      });
+    }
+
+    // Deep link straight into a study
+    window.addEventListener('load', function () {
+      var slug = location.hash.replace('#', '');
+      if (slug && STUDIES && STUDIES[slug]) open(slug, null);
     });
   }
 
