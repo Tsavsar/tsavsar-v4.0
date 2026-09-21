@@ -1157,3 +1157,60 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
 @media (max-width: 600px) {
   .study-title h1 { font-size: 22px; }
 }
+
+/* ======================================================================
+   Cards rest in monochrome, and colour arrives on hover
+   The gradient can't be desaturated with a filter on .card, since that
+   would desaturate the text sitting on it too. A veil layer between the
+   gradient and the copy does it instead: it greys the backdrop and lifts
+   it toward the page colour, then fades out as the card rises.
+   ====================================================================== */
+:root {
+  --card-veil: rgba(255, 255, 255, 0.72);
+  --card-ink:  #0e0e0e;
+}
+html[data-theme="dark"] {
+  /* Black copy would vanish on a dark card, so dark keeps light ink and
+     gets its monochrome from the desaturation alone */
+  --card-veil: rgba(18, 18, 18, 0.58);
+  --card-ink:  #ffffff;
+}
+
+.card-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--card-veil);
+  backdrop-filter: grayscale(1);
+  -webkit-backdrop-filter: grayscale(1);
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card:hover .card-veil,
+.card:focus-visible .card-veil { opacity: 0; }
+
+/* The dark vignette is only needed once the colour is back and the copy
+   has gone white */
+.card::before { opacity: 0; transition: opacity 0.45s ease; }
+.card:hover::before,
+.card:focus-visible::before { opacity: 1; }
+
+.card-name, .card-desc { transition: color 0.45s ease; }
+.card-name { color: var(--card-ink); }
+.card-desc { color: color-mix(in srgb, var(--card-ink) 82%, transparent); }
+.card:hover .card-name,
+.card:focus-visible .card-name { color: #fff; }
+.card:hover .card-desc,
+.card:focus-visible .card-desc { color: rgba(255, 255, 255, 0.95); }
+
+.card-mark img {
+  filter: brightness(0);
+  transition: filter 0.45s ease;
+}
+html[data-theme="dark"] .card-mark img { filter: brightness(0) invert(1); }
+.card:hover .card-mark img,
+.card:focus-visible .card-mark img { filter: brightness(0) invert(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .card-veil, .card::before, .card-name, .card-desc, .card-mark img { transition: none; }
+}
