@@ -328,6 +328,75 @@
 
 
 
+
+  /* ---- contribution grid ------------------------------------------------ */
+  // The grid ships baked so it always renders, then refreshes itself from a
+  // public CORS-open endpoint and caches for an hour. If the fetch fails or
+  // returns something short, the baked year stays rather than being wiped.
+  (function () {
+    var grid = $('.contrib-grid');
+    if (!grid) return;
+
+    var TTL = 60 * 60 * 1000;
+    var KEY = 'contrib';
+    var MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    // Same thresholds the bake uses: quartiles of the active days, not fixed
+    // counts, or a sparse year collapses onto one level.
+    function levels(days) {
+      var active = days.map(function (d) { return d.count; })
+                       .filter(function (n) { return n > 0; }).sort(function (a, b) { return a - b; });
+      if (!active.length) return [1, 1, 1];
+      var q = function (p) { return Math.max(1, active[Math.min(active.length - 1, Math.floor(active.length * p))]); };
+      return [q(0.25), q(0.5), q(0.75)];
+    }
+
+    function paint(days, total) {
+      var t = levels(days);
+      var frag = document.createDocumentFragment();
+      days.forEach(function (d) {
+        var n = d.count;
+        var l = n === 0 ? 0 : n <= t[0] ? 1 : n <= t[1] ? 2 : n <= t[2] ? 3 : 4;
+        var cell = document.createElement('i');
+        cell.dataset.l = l;
+        cell.title = n + ' contribution' + (n === 1 ? '' : 's') + ' on ' + d.date;
+        frag.appendChild(cell);
+      });
+      grid.textContent = '';
+      grid.appendChild(frag);
+
+      var fmt = function (s) {
+        var p = s.split('-');
+        return MONTH[parseInt(p[1], 10) - 1] + ' ' + p[0];
+      };
+      var range = fmt(days[0].date) + ' \u2014 ' + fmt(days[days.length - 1].date);
+      var foot = $('.contrib-foot');
+      if (foot) foot.children[0].textContent = total + ' contributions';
+      if (foot && foot.children[1]) foot.children[1].textContent = range;
+      var link = $('.contrib');
+      if (link) link.setAttribute('aria-label',
+        total + ' contributions on GitHub between ' + fmt(days[0].date) + ' and ' + fmt(days[days.length - 1].date));
+    }
+
+    var cached = null;
+    try { cached = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+    if (cached && Date.now() - cached.t < TTL && cached.days && cached.days.length > 300) {
+      paint(cached.days, cached.total);
+      return;
+    }
+
+    fetch('https://github-contributions-api.jogruber.de/v4/Tsavsar?y=last')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var days = d && d.contributions;
+        var total = d && d.total && d.total.lastYear;
+        if (!days || days.length < 300 || !total) return;   // keep the baked year
+        try { localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), days: days, total: total })); } catch (e) {}
+        paint(days, total);
+      })
+      .catch(function () { /* baked grid stands */ });
+  })();
+
   /* ---- collage --------------------------------------------------------- */
   var canvas = $('.collage-canvas');
   if (canvas) {

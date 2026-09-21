@@ -1249,27 +1249,23 @@ html[data-theme="dark"] .card-mark img { filter: brightness(0) invert(1); }
 .contrib-grid i[data-l="3"] { background: var(--contrib-3); }
 .contrib-grid i[data-l="4"] { background: var(--contrib-4); }
 
-/* Monochrome at rest like the cards; the project blue arrives on hover */
+/* GitHub's own palettes, so the grid reads as what it is at a glance */
 :root {
-  --contrib-0: rgba(0, 0, 0, 0.055);
-  --contrib-1: rgba(0, 0, 0, 0.20);
-  --contrib-2: rgba(0, 0, 0, 0.38);
-  --contrib-3: rgba(0, 0, 0, 0.58);
-  --contrib-4: rgba(0, 0, 0, 0.80);
+  --contrib-0: #ebedf0;
+  --contrib-1: #9be9a8;
+  --contrib-2: #40c463;
+  --contrib-3: #30a14e;
+  --contrib-4: #216e39;
 }
 html[data-theme="dark"] {
-  --contrib-0: rgba(255, 255, 255, 0.07);
-  --contrib-1: rgba(255, 255, 255, 0.22);
-  --contrib-2: rgba(255, 255, 255, 0.40);
-  --contrib-3: rgba(255, 255, 255, 0.62);
-  --contrib-4: rgba(255, 255, 255, 0.86);
+  --contrib-0: #161b22;
+  --contrib-1: #0e4429;
+  --contrib-2: #006d32;
+  --contrib-3: #26a641;
+  --contrib-4: #39d353;
 }
-.contrib:hover {
-  --contrib-1: oklch(0.72 0.11 260);
-  --contrib-2: oklch(0.64 0.16 260);
-  --contrib-3: oklch(0.57 0.21 260);
-  --contrib-4: oklch(0.50 0.24 260);
-}
+.contrib:hover .contrib-grid { filter: brightness(1.08) saturate(1.06); }
+.contrib-grid { transition: filter 0.3s ease; }
 
 .contrib-foot {
   display: flex;
