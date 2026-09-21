@@ -83,13 +83,15 @@
   }
 
   // Sound is for the things that behave like objects: the cards, which lift
-  // under the pointer, and the controls that change something. Text links,
-  // pills, crumbs and rows stay silent — a tick on every word the pointer
-  // crosses stops meaning anything.
+  // under the pointer, and the highlighted links in the prose, whose
+  // underline fills in as you reach them. Pills, crumbs, nav links and the
+  // writing and playground rows stay silent — a tick on every word the
+  // pointer crosses stops meaning anything.
   if (window.matchMedia('(hover: hover)').matches) {
     var lastHover = null;
     document.addEventListener('mouseover', function (e) {
-      var el = e.target.closest('.card');
+      // the same pair the stylesheet highlights
+      var el = e.target.closest('.card, .intro a[href], .connect a[href]');
       if (el === lastHover) return;
       lastHover = el;
       if (el) click('tick');
@@ -102,6 +104,7 @@
   document.addEventListener('click', function (e) {
     if (e.target.closest('.theme-toggle, .audio-toggle')) return click('toggle');
     if (e.target.closest('.greeting, .avatar-wrap'))      return click('press');
+    if (e.target.closest('.link-row'))                    return;   // writing and playground, quiet either way
     if (e.target.closest('a[href]:not([href^="#"])'))     return click('page');
   }, { passive: true });
 
