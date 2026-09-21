@@ -1166,13 +1166,13 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
    it toward the page colour, then fades out as the card rises.
    ====================================================================== */
 :root {
-  --card-veil: rgba(255, 255, 255, 0.72);
+  --card-veil: rgba(255, 255, 255, 0.89);
   --card-ink:  #0e0e0e;
 }
 html[data-theme="dark"] {
   /* Black copy would vanish on a dark card, so dark keeps light ink and
      gets its monochrome from the desaturation alone */
-  --card-veil: rgba(18, 18, 18, 0.58);
+  --card-veil: rgba(18, 18, 18, 0.74);
   --card-ink:  #ffffff;
 }
 
