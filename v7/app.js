@@ -82,32 +82,27 @@
     });
   }
 
-  // Every click makes a noise. This is the only place that plays one, so
-  // handlers on individual controls never double up. It runs after their own
-  // listeners, so switching audio on is itself audible.
-  // Anything that makes a noise when clicked also ticks as the pointer
-  // crosses it. Delegated rather than bound per element, so it covers the
-  // studies too, and it tracks the last target so moving within a card
-  // doesn't retrigger on every child.
-  var HOVERABLE = '.card, .link-row, .study-next, .gallery-card, .play-tile,' +
-                  ' .nav-links a, .study-pill, .player-tag, .crumb a';
+  // Sound is for the things that behave like objects: the cards, which lift
+  // under the pointer, and the controls that change something. Text links,
+  // pills, crumbs and rows stay silent — a tick on every word the pointer
+  // crosses stops meaning anything.
   if (window.matchMedia('(hover: hover)').matches) {
     var lastHover = null;
     document.addEventListener('mouseover', function (e) {
-      var el = e.target.closest(HOVERABLE);
+      var el = e.target.closest('.card');
       if (el === lastHover) return;
       lastHover = el;
       if (el) click('tick');
     }, { passive: true });
   }
 
+  // One place decides what a click sounds like, so per-control handlers never
+  // double up. It runs after their own listeners, so switching audio back on
+  // is itself audible. Anything not named here makes no sound at all.
   document.addEventListener('click', function (e) {
     if (e.target.closest('.theme-toggle, .audio-toggle')) return click('toggle');
+    if (e.target.closest('.greeting, .avatar-wrap'))      return click('press');
     if (e.target.closest('a[href]:not([href^="#"])'))     return click('page');
-    if (e.target.closest('button, [role="button"], .gallery-card, .collage-item')) {
-      return click('press');
-    }
-    click('tick');
   }, { passive: true });
 
   /* ---- sound note ------------------------------------------------------ */

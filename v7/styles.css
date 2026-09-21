@@ -1169,7 +1169,7 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 20;
-  height: 42px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1203,32 +1203,32 @@ body.has-note .sound-note { transform: none; }
 
 .sound-note-x {
   position: absolute;
-  right: max(14px, env(safe-area-inset-right, 0px));
+  right: max(12px, env(safe-area-inset-right, 0px));
   top: 50%;
   translate: 0 -50%;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   display: grid;
   place-items: center;
   opacity: 0.7;
   transition: opacity 0.2s ease;
 }
 .sound-note-x:hover, .sound-note-x:focus-visible { opacity: 1; outline: none; }
-.sound-note-x svg { width: 11px; height: 11px; display: block; }
+.sound-note-x svg { width: 10px; height: 10px; display: block; }
 
 /* The page and the fixed toggles come down with it */
 body { transition: background-color 0.3s ease, color 0.3s ease,
                    padding-top 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-body.has-note { padding-top: 42px; }
+body.has-note { padding-top: 32px; }
 .chrome, .theme-toggle { transition: top 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 body.has-note .chrome,
-body.has-note .theme-toggle { top: calc(max(20px, env(safe-area-inset-top, 0px)) + 42px); }
+body.has-note .theme-toggle { top: calc(max(20px, env(safe-area-inset-top, 0px)) + 32px); }
 
 @media (max-width: 560px) {
   /* The speaker is still up there; on a phone the sentence is the part
      that has to survive */
   .sound-note-where { display: none; }
-  .sound-note { padding: 0 42px 0 16px; }
+  .sound-note { padding: 0 40px 0 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .sound-note, body, .chrome, .theme-toggle { transition: none; }
