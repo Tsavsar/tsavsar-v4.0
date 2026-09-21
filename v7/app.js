@@ -27,6 +27,45 @@
     try { play(kind); } catch (e) {}
   }
 
+  // The pen stroke gets its own sound. Cuelume's kit is clicks and chimes;
+  // none of them read as a line being drawn. Noise swept up through a
+  // bandpass and back down is the cheapest thing that does.
+  var actx = null, noiseBuf = null, lastSwoosh = 0;
+  function swoosh() {
+    if (!audioOn) return;
+    if (Date.now() - lastSwoosh < 450) return;          // don't machine-gun on a dart across
+    // Hover isn't a gesture, so without a prior click the context would only
+    // be resumed to play nothing.
+    if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      if (!actx) actx = new AC();
+      if (actx.state === 'suspended') actx.resume();
+      if (!noiseBuf) {
+        var n = Math.floor(actx.sampleRate * 1.2);
+        noiseBuf = actx.createBuffer(1, n, actx.sampleRate);
+        var d = noiseBuf.getChannelData(0);
+        for (var i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+      }
+      lastSwoosh = Date.now();
+      var t = actx.currentTime + 0.18, dur = 0.52;      // starts with the stroke, not before it
+      var src = actx.createBufferSource(); src.buffer = noiseBuf; src.loop = true;
+      var hp = actx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 340;
+      var bp = actx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 0.9;
+      var g  = actx.createGain();
+      // up as the pen picks up speed, down as it lifts: the shape of a stroke
+      bp.frequency.setValueAtTime(430, t);
+      bp.frequency.exponentialRampToValueAtTime(2300, t + dur * 0.42);
+      bp.frequency.exponentialRampToValueAtTime(720, t + dur);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.26, t + dur * 0.3);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      src.connect(hp); hp.connect(bp); bp.connect(g); g.connect(actx.destination);
+      src.start(t); src.stop(t + dur + 0.02);
+    } catch (e) {}
+  }
+
   var audioBtn = $('.audio-toggle');
   if (audioBtn) {
     var paintAudio = function () {
@@ -172,7 +211,7 @@
       );
     };
     draw();
-    $('.sig').addEventListener('mouseenter', draw);
+    $('.sig').addEventListener('mouseenter', function () { draw(); swoosh(); });
     (function loop() {
       setTimeout(function () { draw(); loop(); }, 8000 + Math.random() * 4000);
     })();
