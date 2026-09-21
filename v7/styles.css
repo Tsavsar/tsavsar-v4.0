@@ -1112,3 +1112,48 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
    as a halo around them */
 .study-figure:has(img[src$=".svg"]) { background: transparent; padding: 0; }
 .study-figure:has(img[src$=".svg"]) img { border-radius: 8px; }
+
+/* ======================================================================
+   Study header
+   A study used to open on a screenshot: no name, no one-liner, no role or
+   year above the fold, and the site link arriving small and late. This puts
+   all four first, which also means the intro no longer has to explain what
+   the thing is before the voice can start.
+   ====================================================================== */
+.study-title { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.study-title h1 {
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-strong);
+}
+.study-lede {
+  max-width: 560px;
+  color: var(--text);
+}
+.study-title .study-pills { margin-top: 2px; }
+
+/* A study used to stop dead and drop into the articles block. */
+.study-next {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 0;
+  border-top: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+}
+.study-next-label { color: var(--text-muted); }
+.study-next-name {
+  color: var(--text-strong);
+  font-weight: 500;
+  transition: opacity 0.15s ease;
+}
+.study-next:hover .study-next-name { opacity: 0.65; }
+
+@media (max-width: 600px) {
+  .study-title h1 { font-size: 22px; }
+}
