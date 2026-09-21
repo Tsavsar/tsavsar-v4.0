@@ -110,6 +110,44 @@
     click('tick');
   }, { passive: true });
 
+  /* ---- sound note ------------------------------------------------------ */
+  // A site that makes noise should say so before it makes any. Injected here
+  // rather than written into all seven pages, and gone for good once closed.
+  (function () {
+    var seen = false;
+    try { seen = localStorage.getItem('soundNote') === 'seen'; } catch (e) {}
+    if (seen || !audioOn) return;          // nothing to warn about if it's already off
+
+    var note = document.createElement('div');
+    note.className = 'sound-note';
+    note.setAttribute('role', 'status');
+    note.innerHTML =
+      '<span>This site has sound effects. ' +
+      '<button type="button" class="sound-note-off">Turn them off</button>' +
+      '<span class="sound-note-where">, or use the speaker up top whenever</span>.</span>' +
+      '<button type="button" class="sound-note-x" aria-label="Dismiss">' +
+      '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 1.5l9 9M10.5 1.5l-9 9" ' +
+      'stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>';
+    document.body.appendChild(note);
+
+    // Two frames: one to get it laid out off-screen, one to animate from there
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { document.body.classList.add('has-note'); });
+    });
+
+    var close = function () {
+      document.body.classList.remove('has-note');
+      try { localStorage.setItem('soundNote', 'seen'); } catch (e) {}
+      setTimeout(function () { note.remove(); }, 600);
+    };
+    note.querySelector('.sound-note-x').addEventListener('click', close);
+    note.querySelector('.sound-note-off').addEventListener('click', function () {
+      // Through the real toggle, so there is one path that switches sound off
+      if (audioOn && audioBtn) audioBtn.click();
+      close();
+    });
+  })();
+
   /* ---- theme ----------------------------------------------------------- */
   var root = document.documentElement;
   var toggle = $('.theme-toggle');

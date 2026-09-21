@@ -1157,3 +1157,79 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
 @media (max-width: 600px) {
   .study-title h1 { font-size: 22px; }
 }
+
+/* ======================================================================
+   Sound note
+   One line on arrival, because a site that makes noise should say so
+   before it makes any. It pushes the page and the toggles down rather
+   than covering them, so the speaker it points at stays reachable while
+   the note is up.
+   ====================================================================== */
+.sound-note {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 20;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 46px;
+  /* 6.06:1 against white — AA with room to spare at this size */
+  background: #1257e0;
+  color: #fff;
+  font-size: var(--font-sm);
+  line-height: 1;
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+body.has-note .sound-note { transform: none; }
+
+.sound-note button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.sound-note-off {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  opacity: 0.88;
+  transition: opacity 0.2s ease;
+}
+.sound-note-off:hover, .sound-note-off:focus-visible { opacity: 1; outline: none; }
+
+.sound-note-x {
+  position: absolute;
+  right: max(14px, env(safe-area-inset-right, 0px));
+  top: 50%;
+  translate: 0 -50%;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.sound-note-x:hover, .sound-note-x:focus-visible { opacity: 1; outline: none; }
+.sound-note-x svg { width: 11px; height: 11px; display: block; }
+
+/* The page and the fixed toggles come down with it */
+body { transition: background-color 0.3s ease, color 0.3s ease,
+                   padding-top 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+body.has-note { padding-top: 42px; }
+.chrome, .theme-toggle { transition: top 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+body.has-note .chrome,
+body.has-note .theme-toggle { top: calc(max(20px, env(safe-area-inset-top, 0px)) + 42px); }
+
+@media (max-width: 560px) {
+  /* The speaker is still up there; on a phone the sentence is the part
+     that has to survive */
+  .sound-note-where { display: none; }
+  .sound-note { padding: 0 42px 0 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sound-note, body, .chrome, .theme-toggle { transition: none; }
+}
