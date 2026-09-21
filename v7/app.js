@@ -112,9 +112,15 @@
   // A site that makes noise should say so before it makes any. Injected here
   // rather than written into all seven pages, and gone for good once closed.
   (function () {
+    // The key carries a number: bump it when the note itself changes and
+    // everyone sees the new one once, rather than only new visitors.
+    var KEY = 'soundNote2';
+    // ?note brings it back on a browser that has already dismissed it, for
+    // looking at it again without clearing storage by hand.
+    var forced = /[?&]note(=|&|$)/.test(location.search);
     var seen = false;
-    try { seen = localStorage.getItem('soundNote') === 'seen'; } catch (e) {}
-    if (seen || !audioOn) return;          // nothing to warn about if it's already off
+    try { seen = localStorage.getItem(KEY) === 'seen'; } catch (e) {}
+    if (!forced && (seen || !audioOn)) return;   // nothing to warn about if it's already off
 
     var note = document.createElement('div');
     note.className = 'sound-note';
@@ -135,7 +141,7 @@
 
     var close = function () {
       document.body.classList.remove('has-note');
-      try { localStorage.setItem('soundNote', 'seen'); } catch (e) {}
+      try { localStorage.setItem(KEY, 'seen'); } catch (e) {}
       setTimeout(function () { note.remove(); }, 600);
     };
     note.querySelector('.sound-note-x').addEventListener('click', close);
