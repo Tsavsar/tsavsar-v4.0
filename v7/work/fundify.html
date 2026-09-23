@@ -7,6 +7,7 @@
      the decision is made even if it first renders on a slow connection. -->
 <style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
 <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preconnect" href="https://spotify-api-lilac.vercel.app" crossorigin />
 <link rel="stylesheet" href="../styles.css" />
 <title>Fundify · Shater Tsavsar</title>
 <meta name="description" content="Fundify, a savings app that rewards good financial moves with FundCoins instead of scolding the bad ones." />
@@ -74,13 +75,15 @@
   <nav class="crumb appear" style="--i:1" aria-label="Breadcrumb">
     <a href="../">Home</a>
     <span aria-hidden="true">/</span>
+    <a href="../explorations">Explorations</a>
+    <span aria-hidden="true">/</span>
     <span aria-current="page">Fundify</span>
   </nav>
 
   <header class="study-title appear" style="--i:2">
     <h1>Fundify</h1>
     <p class="study-lede">Saving money feels like punishment. Fundify flips that, rewarding every good financial move with FundCoins you can actually spend.</p>
-    <div class="study-pills"><span class="study-pill">Solo product designer</span><span class="study-pill">2024</span></div>
+    <div class="study-pills"><span class="study-pill">Concept app</span><span class="study-pill">Exploration</span></div>
   </header>
 
   <section class="study-head appear" style="--i:3">

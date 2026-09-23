@@ -258,7 +258,10 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
    length of the stagger. Everything after it still fades in. */
 .intro.appear:first-of-type,
 .study-title.appear,
-.study-head.appear {
+.study-head.appear,
+.cv-head.appear,
+.cv-contact.appear,
+.cv-section.appear {
   opacity: 1;
   animation-name: rise;
 }
@@ -1540,7 +1543,6 @@ html[data-theme="dark"] .yote-stage {
 .row-note {
   color: var(--text);
   margin: -2px 0 10px;
-  max-width: 480px;
 }
 .row-note:last-child { margin-bottom: 0; }
 .link-row-static .row-name { color: var(--text-strong); }

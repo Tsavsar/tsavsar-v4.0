@@ -7,6 +7,7 @@
      the decision is made even if it first renders on a slow connection. -->
 <style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
 <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preconnect" href="https://spotify-api-lilac.vercel.app" crossorigin />
 <link rel="stylesheet" href="../styles.css" />
 <title>Lönar · Shater Tsavsar</title>
 <meta name="description" content="Lönar, invoicing that works before you sign up. How the generator shipped first and the platform grew out of what its users asked for." />
@@ -34,7 +35,7 @@
     if (e.viewTransition) document.documentElement.classList.add('vt-in');
   });
 </script>
-<link rel="preload" as="image" href="../heroes/lonar.jpg" fetchpriority="high" />
+<link rel="preload" as="image" href="../media/lonar/cover.webp" fetchpriority="high" />
 </head>
 <body>
 
@@ -88,7 +89,7 @@
     <div class="study-hero study-hero-framed card-lonar">
       <p class="hero-brand"><img src="../icons/lonar.svg" alt="" aria-hidden="true" /><span>Lönar</span></p>
       <p class="hero-line">Invoicing that works before you sign up</p>
-      <img width="1200" height="750" class="hero-shot" decoding="sync" fetchpriority="high" src="../heroes/lonar.jpg" alt="The Lönar dashboard: earnings, invoices and clients in one overview." />
+      <img width="1000" height="626" class="hero-shot" decoding="sync" fetchpriority="high" src="../media/lonar/cover.webp" alt="The Lönar dashboard: earnings, invoices and clients in one overview." />
     </div>
   </section>
 

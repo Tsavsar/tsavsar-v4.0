@@ -16,10 +16,10 @@ const PAGES = [
   { name: 'costgraph', title: 'CostGraph.ai', desc: 'Kubernetes and cloud spend, and exactly where to cut it.', card: 'card-costgraph', img: '../../v7/media/costgraph/dashboard.webp', url: 'shatermt.com/work/costgraph' },
   { name: 'luotain', title: 'Luotain', desc: 'Short links and QR codes that keep their own scan data, editable after print.', card: 'card-luotain', img: '../../v7/heroes/luotain.jpg', url: 'shatermt.com/work/luotain' },
   { name: 'yote', title: 'Yöte', desc: 'Form inputs for React. One set of props, zero dependencies, 24KB.', card: 'card-yote', img: '../../v7/media/yote/yote-digit.webp', url: 'shatermt.com/work/yote' },
-  { name: 'lonar', title: 'Lönar', desc: 'Invoicing that works before you sign up.', card: 'card-lonar', img: '../../v7/heroes/lonar.jpg', url: 'shatermt.com/work/lonar' },
+  { name: 'lonar', title: 'Lönar', desc: 'Invoicing that works before you sign up.', card: 'card-lonar', img: '../../v7/media/lonar/cover.webp', url: 'shatermt.com/work/lonar' },
   { name: 'kernui', title: 'KernUI', desc: 'A design system of 3,000+ components built on one token set.', card: 'card-kernui', img: '../../v7/media/kernui/kernui-demo-poster.webp', url: 'shatermt.com/work/kernui' },
   { name: 'fundify', title: 'Fundify', desc: 'A savings app that rewards the good moves instead of scolding the bad ones.', card: 'card-kernui', img: '../../v7/heroes/fundify.jpg', url: 'shatermt.com/work/fundify' },
-  { name: 'explorations', title: 'Playground', desc: 'Design explorations, components and experiments.', card: 'card-kernui', img: '../../public/assets/pfp.png', solo: 1, url: 'shatermt.com/explorations' },
+  { name: 'explorations', title: 'Explorations', desc: 'Prototypes, components and experiments.', card: 'card-kernui', img: '../../public/assets/pfp.png', solo: 1, url: 'shatermt.com/explorations' },
   { name: 'vicariously', title: 'Living through the main character', desc: 'Why some films become favourites: the characters we can see ourselves being.', card: 'card-lonar', img: '../../public/assets/pfp.png', solo: 1, url: 'shatermt.com/articles/vicariously' },
 ]
 
