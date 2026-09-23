@@ -102,7 +102,7 @@
   // double up. It runs after their own listeners, so switching audio back on
   // is itself audible. Anything not named here makes no sound at all.
   document.addEventListener('click', function (e) {
-    if (e.target.closest('.theme-toggle, .audio-toggle')) return click('toggle');
+    if (e.target.closest('.theme-toggle, .audio-toggle, .sticker-reset')) return click('toggle');
     if (e.target.closest('.greeting, .avatar-wrap'))      return click('press');
     if (e.target.closest('.link-row'))                    return;   // writing and playground, quiet either way
     if (e.target.closest('a[href]:not([href^="#"])'))     return click('page');
@@ -470,4 +470,391 @@
     window.addEventListener('mouseup', end);
     window.addEventListener('touchend', end);
   }
+  /* ---- stickers -------------------------------------------------------- */
+  // Stickers peek in from the far edges and can be peeled off and dropped
+  // anywhere on the page. Untouched ones stay pinned to their edge as the
+  // window changes; once moved, a sticker stays where it was put.
+  (function () {
+    var layer = $('.stickers');
+    if (!layer) return;
+
+    var BASE = 'https://www.shatermt.com/assets/aboutme%20page/';
+    // w is the display width; nw/nh the natural size, so each box is the
+    // right height before its image arrives. Each side fills top to bottom
+    // in this order; p is how much of it peeks in, r its tilt. phone marks
+    // the few kept on a phone, where the margins are a sliver.
+    var SET = [
+      { f: 'Vector.png',                                          nw: 304, nh: 231,  w: 180, side: 'l', p: 0.55, r: -12, phone: 1 },
+      { f: 'New%20York%20Knicks%20Logo%201995%201.png',           nw: 249, nh: 249,  w: 128,  side: 'r', p: 0.5,  r: 9,   phone: 1 },
+      { f: 'Vector-1.png',                                        nw: 367, nh: 393,  w: 122,  side: 'l', p: 0.45, r: 8 },
+      { f: 'IMG_4892%201.png',                                    nw: 829, nh: 974,  w: 171, side: 'r', p: 0.5,  r: 14 },
+      { f: 'IMG_7535%202.png',                                    nw: 362, nh: 245,  w: 180, side: 'l', p: 0.5,  r: -6,  phone: 1 },
+      { f: 'Vector-2.png',                                        nw: 310, nh: 322,  w: 113,  side: 'r', p: 0.55, r: -10 },
+      { f: 'Vector-4.png',                                        nw: 350, nh: 411,  w: 102,  side: 'l', p: 0.6,  r: 6 },
+      { f: 'IMG_9931.png',                                        nw: 441, nh: 286,  w: 180, side: 'r', p: 0.45, r: 7 },
+      { f: 'image%20282.png',                                     nw: 417, nh: 334,  w: 151, side: 'l', p: 0.5,  r: -14 },
+      { f: '%F0%9F%87%B3%F0%9F%87%AC.png',                        nw: 506, nh: 506,  w: 139,  side: 'r', p: 0.55, r: -7,  phone: 1 },
+      { f: 'Frame%202095587326.png',                              nw: 700, nh: 744,  w: 139,  side: 'l', p: 0.45, r: 10 },
+      { f: 'IMG_7648.png',                                        nw: 718, nh: 601,  w: 160, side: 'r', p: 0.5,  r: 12 },
+      { f: 'image%20283.png',                                     nw: 545, nh: 437,  w: 157, side: 'l', p: 0.55, r: -9,  phone: 1 },
+      { f: 'Frame%202095586967.png',                              nw: 1069, nh: 540, w: 203, side: 'r', p: 0.4,  r: -5 },
+      { f: 'Vector-3.png',                                        nw: 420, nh: 395,  w: 116,  side: 'l', p: 0.5,  r: 11 },
+      { f: 'IMG_6462.png',                                        nw: 331, nh: 382,  w: 122,  side: 'r', p: 0.5,  r: -12 },
+      { f: 'IMG_3050.png',                                        nw: 552, nh: 550,  w: 139,  side: 'l', p: 0.5,  r: -8 },
+      { f: 'Top%20Tracks%20Short%20Term%20from%20Receiptify%201.png', nw: 818, nh: 1067, w: 130, side: 'l', p: 0.5, r: 7 },
+      { f: 'EA%20FC%2026%20Card%20Saliba%201.png',                nw: 608, nh: 690,  w: 180, side: 'r', p: 0.5,  r: -13, phone: 1 }
+    ];
+
+    // The die-cut, drawn once per sticker on a canvas at the screen's real
+    // pixel density rather than through an SVG filter, which some browsers
+    // run at 1x and threshold into a stair-stepped edge. The border is the
+    // art's own outline stamped around a circle, so it follows every shape,
+    // comes out round at the corners, and keeps its anti-aliasing. Then a
+    // soft shade just inside the cut, so the edge reads as having a
+    // thickness.
+    var BORDER = 7, PAD = BORDER + 3;
+    function cut(s) {
+      var d = Math.min(2, window.devicePixelRatio || 1);
+      var w = s.w, h = s.h;
+      var cw = Math.ceil((w + PAD * 2) * d), ch = Math.ceil((h + PAD * 2) * d);
+      var sheet = function () {
+        var c = document.createElement('canvas');
+        c.width = cw; c.height = ch;
+        return c;
+      };
+
+      var art = sheet(), ac = art.getContext('2d');
+      ac.imageSmoothingQuality = 'high';
+      ac.drawImage(s.img, PAD * d, PAD * d, w * d, h * d);
+
+      var sil = sheet(), sc = sil.getContext('2d');
+      [BORDER, BORDER / 2].forEach(function (r) {
+        var rr = r * d, n = Math.max(16, Math.ceil(2 * Math.PI * rr / 1.2));
+        for (var i = 0; i < n; i++) {
+          var t = i / n * 2 * Math.PI;
+          sc.drawImage(art, Math.cos(t) * rr, Math.sin(t) * rr);
+        }
+      });
+      sc.drawImage(art, 0, 0);
+      sc.globalCompositeOperation = 'source-in';
+      sc.fillStyle = '#fff';
+      sc.fillRect(0, 0, cw, ch);
+
+      // everything but the sticker, to cast the inner shade from
+      var outside = sheet(), oc = outside.getContext('2d');
+      oc.fillRect(0, 0, cw, ch);
+      oc.globalCompositeOperation = 'destination-out';
+      oc.drawImage(sil, 0, 0);
+
+      var cv = s.cv;
+      cv.width = cw; cv.height = ch;
+      cv.style.width = (w + PAD * 2) + 'px';
+      cv.style.height = (h + PAD * 2) + 'px';
+      cv.style.margin = -PAD + 'px';
+      var o = cv.getContext('2d');
+      o.drawImage(sil, 0, 0);
+      o.drawImage(art, 0, 0);
+      // Only the shadow lands: the shape itself is drawn a long way off the
+      // canvas and its shadow offset back, so no hard line forms at the cut.
+      o.globalCompositeOperation = 'source-atop';
+      o.shadowColor = 'rgba(0, 0, 0, 0.2)';
+      o.shadowBlur = 3.5 * d;
+      o.shadowOffsetX = cw * 2;
+      o.shadowOffsetY = 1 * d;
+      o.drawImage(outside, -cw * 2, 0);
+      s.cutAt = w + 'x' + d;
+    }
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var content = $('.content');
+    var W = 0, H = 0, gutter = 0, small = false, z = SET.length, raf = 0, last = 0;
+
+    var tf = function (x, y, r, sc) {
+      return 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' +
+             r.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+    };
+    var clampN = function (v, lo, hi) { return Math.min(hi, Math.max(lo, v)); };
+
+    var stickers = SET.map(function (cfg, i) {
+      var el = document.createElement('div');
+      el.className = 'sticker';
+      el.style.zIndex = i + 1;
+      var cv = document.createElement('canvas');
+      el.appendChild(cv);
+      layer.appendChild(el);
+      var img = new Image();
+      img.decoding = 'async';
+      img.src = BASE + cfg.f;
+      return { el: el, cv: cv, img: img, cfg: cfg, i: i, w: 0, h: 0, x: 0, y: 0, rot: cfg.r, tilt: 0, sc: 1,
+               vx: 0, vy: 0, held: false, hover: false, moved: false, ready: false, samples: [], tf: '', cutAt: '' };
+    });
+
+    function measure() {
+      W = layer.clientWidth;
+      H = layer.clientHeight;
+      gutter = (W - (content ? content.getBoundingClientRect().width : 540)) / 2;
+      small = W < 640;
+    }
+
+    // How much of an untouched sticker shows: never more than half-ish of
+    // it, and never enough to reach the text column. The cut border hangs
+    // PAD past the box, so it counts. On a phone the gutter is 24px, so a
+    // sticker is a sliver there until someone pulls it out.
+    function anchor(s) {
+      var show = small
+        ? Math.max(6, gutter - PAD - 8)
+        : Math.max(22, Math.min(s.w * s.cfg.p, gutter - PAD - 20));
+      s.x = s.cfg.side === 'l' ? show - s.w : W - show;
+    }
+
+    // The card row runs past the column to the right edge, so a sticker
+    // pinned there would sit on the cards. Find the bands of page height
+    // that reach into a margin, per side.
+    function bands(side) {
+      var col = content ? content.getBoundingClientRect() : { left: gutter, right: W - gutter };
+      var out = [];
+      $$('.cards').forEach(function (row) {
+        var t = Infinity, b = -Infinity, l = Infinity, r = -Infinity;
+        $$('.card', row).forEach(function (c) {
+          var q = c.getBoundingClientRect();
+          t = Math.min(t, q.top); b = Math.max(b, q.bottom);
+          l = Math.min(l, q.left); r = Math.max(r, q.right);
+        });
+        if (t === Infinity) return;
+        if (side === 'l' ? l < col.left - 4 : r > col.right + 4) {
+          out.push([t + window.scrollY - 24, b + window.scrollY + 24]);
+        }
+      });
+      return out.sort(function (p, q) { return p[0] - q[0]; });
+    }
+
+    // Down each side, spread evenly over whatever height is free: the page
+    // minus the bands something else already occupies. With this many,
+    // neighbours overlap a little, which is how stickers go on anyway.
+    function place(side) {
+      var list = stickers.filter(function (s) {
+        return !s.el.hidden && !s.moved && s.cfg.side === side;
+      });
+      if (!list.length) return;
+      // the right side starts below the fixed toggles
+      var spans = [[side === 'r' ? 116 : 56, H - 16]];
+      bands(side).forEach(function (b) {
+        var next = [];
+        spans.forEach(function (sp) {
+          if (b[1] <= sp[0] || b[0] >= sp[1]) { next.push(sp); return; }
+          if (b[0] > sp[0]) next.push([sp[0], b[0]]);
+          if (b[1] < sp[1]) next.push([b[1], sp[1]]);
+        });
+        spans = next;
+      });
+      spans = spans.filter(function (sp) { return sp[1] - sp[0] > 60; });
+      var total = spans.reduce(function (n, sp) { return n + sp[1] - sp[0]; }, 0);
+      list.forEach(function (s, k) {
+        var d = (k + 0.5) / list.length * total, j = 0;
+        while (j < spans.length - 1 && d > spans[j][1] - spans[j][0]) {
+          d -= spans[j][1] - spans[j][0];
+          j++;
+        }
+        var sp = spans[j];
+        s.y = Math.round(clampN(sp[0] + d - s.h / 2, sp[0], Math.max(sp[0], sp[1] - s.h)));
+      });
+    }
+
+    function render(s) {
+      var t = tf(s.x, s.y, s.rot + s.tilt, s.sc);
+      if (t !== s.tf) { s.el.style.transform = t; s.tf = t; }
+    }
+
+    function layout() {
+      measure();
+      stickers.forEach(function (s) {
+        s.el.hidden = small && !s.cfg.phone;
+        s.w = Math.round(s.cfg.w * (small ? 0.72 : 1));
+        s.h = Math.round(s.w * s.cfg.nh / s.cfg.nw);
+        s.el.style.width = s.w + 'px';
+        s.el.style.height = s.h + 'px';
+        if (s.ready && s.cutAt !== s.w + 'x' + Math.min(2, window.devicePixelRatio || 1)) cut(s);
+        if (s.moved) clamp(s); else anchor(s);
+      });
+      place('l');
+      place('r');
+      stickers.forEach(render);
+    }
+
+    // Pointer velocity over the last few samples, in px/ms. A pointer that
+    // stopped before letting go throws nothing.
+    function velocity(s, now) {
+      var pts = s.samples, n = pts.length;
+      if (n < 2 || now - pts[n - 1].t > 60) return { x: 0, y: 0 };
+      var a = pts[0], b = pts[n - 1], dt = Math.max(8, b.t - a.t);
+      return { x: clampN((b.x - a.x) / dt, -2, 2), y: clampN((b.y - a.y) / dt, -2, 2) };
+    }
+
+    function frame(now) {
+      var dt = Math.min(34, now - last || 16);
+      last = now;
+      var busy = false;
+      var ease = function (tau) { return 1 - Math.exp(-dt / tau); };
+      stickers.forEach(function (s) {
+        if (s.el.hidden || !s.ready) return;
+        // picked up it grows a touch; hovered, less so
+        var tSc = s.held ? 1.07 : (s.hover ? 1.03 : 1);
+        s.sc += (tSc - s.sc) * ease(70);
+        // it swings with the drag, the way a held piece of paper does
+        var tTilt = 0;
+        if (s.held && !reduce) {
+          while (s.samples.length > 2 && now - s.samples[0].t > 90) s.samples.shift();
+          tTilt = clampN(velocity(s, now).x * 9, -10, 10);
+        }
+        s.tilt += (tTilt - s.tilt) * ease(110);
+        // let go mid-flick, it carries on and slows to a stop
+        if (!s.held && (Math.abs(s.vx) > 0.004 || Math.abs(s.vy) > 0.004)) {
+          s.x += s.vx * dt;
+          s.y += s.vy * dt;
+          var decay = Math.exp(-dt / 190);
+          s.vx *= decay; s.vy *= decay;
+          var px = s.x, py = s.y;
+          clamp(s);
+          if (s.x !== px) s.vx = 0;
+          if (s.y !== py) s.vy = 0;
+          busy = true;
+        }
+        if (s.held || Math.abs(tSc - s.sc) > 0.0005 || Math.abs(tTilt - s.tilt) > 0.02) busy = true;
+        render(s);
+      });
+      raf = busy ? requestAnimationFrame(frame) : 0;
+    }
+    function wake() {
+      if (raf) return;
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    }
+
+    stickers.forEach(function (s) {
+      var el = s.el;
+
+      el.addEventListener('pointerdown', function (e) {
+        if (!s.ready || e.button !== 0) return;
+        e.preventDefault();
+        try { el.setPointerCapture(e.pointerId); } catch (err) {}
+        s.held = true;
+        s.moved = true;
+        s.vx = s.vy = 0;
+        s.offX = e.pageX - s.x;
+        s.offY = e.pageY - s.y;
+        s.samples = [{ t: e.timeStamp, x: e.pageX, y: e.pageY }];
+        el.style.zIndex = ++z;
+        el.classList.add('is-held');
+        markMoved();
+        click('press');
+        wake();
+      });
+      el.addEventListener('pointermove', function (e) {
+        if (!s.held) return;
+        s.x = e.pageX - s.offX;
+        s.y = e.pageY - s.offY;
+        clamp(s);
+        s.samples.push({ t: e.timeStamp, x: e.pageX, y: e.pageY });
+        if (s.samples.length > 12) s.samples.shift();
+        wake();
+      });
+      var drop = function (e) {
+        if (!s.held) return;
+        s.held = false;
+        el.classList.remove('is-held');
+        // Only a flick carries on. Setting one down while still drifting a
+        // little shouldn't send it anywhere.
+        if (!reduce && e.type === 'pointerup') {
+          var v = velocity(s, e.timeStamp);
+          if (Math.hypot(v.x, v.y) > 0.35) { s.vx = v.x; s.vy = v.y; }
+        }
+        click('release');
+        wake();
+      };
+      el.addEventListener('pointerup', drop);
+      el.addEventListener('pointercancel', drop);
+      el.addEventListener('pointerenter', function (e) {
+        if (e.pointerType === 'mouse') { s.hover = true; wake(); }
+      });
+      el.addEventListener('pointerleave', function () { s.hover = false; wake(); });
+
+      var img = s.img;
+      img.addEventListener('error', function () { el.remove(); s.el.hidden = true; });
+      // Cut it and slide it in from the edge once there is something to see
+      (img.decode ? img.decode() : Promise.resolve()).catch(function () {}).then(function () {
+        if (!img.naturalWidth) return;
+        s.ready = true;
+        cut(s);
+        render(s);
+        if (reduce || s.el.hidden) return;
+        var out = s.cfg.side === 'l' ? -(s.x + s.w + 24) : (W - s.x + 24);
+        var swing = s.cfg.side === 'l' ? -16 : 16;
+        el.style.pointerEvents = 'none';
+        var done = function () { el.style.pointerEvents = ''; };
+        el.animate(
+          [{ transform: tf(s.x + out, s.y, s.rot + swing, 1) }, { transform: s.tf }],
+          { duration: 900, delay: 300 + s.i * 55, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' }
+        ).finished.then(done, done);
+      });
+    });
+
+    // Reset lives with the other page controls, and only on a page that has
+    // stickers. It stays disabled until something has actually moved.
+    var chrome = $('.chrome');
+    var resetBtn = null;
+    if (chrome) {
+      resetBtn = document.createElement('button');
+      resetBtn.type = 'button';
+      resetBtn.className = 'sticker-reset';
+      resetBtn.setAttribute('aria-label', 'Put the stickers back');
+      resetBtn.title = 'Put the stickers back';
+      resetBtn.disabled = true;
+      resetBtn.innerHTML =
+        '<svg viewBox="0 0 18 18" aria-hidden="true"><g fill="none" stroke="currentColor" ' +
+        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M2.6 9a6.4 6.4 0 1 0 6.4-6.4 6.9 6.9 0 0 0-4.8 1.95L2.6 6.1"/>' +
+        '<path d="M2.6 2.6v3.5h3.5"/></g></svg>';
+      chrome.insertBefore(resetBtn, chrome.firstChild);
+      resetBtn.addEventListener('click', reset);
+    }
+    var markMoved = function () { if (resetBtn) resetBtn.disabled = !stickers.some(function (s) { return s.moved; }); };
+
+    function reset() {
+      var from = stickers.map(function (s) { return s.tf; });
+      stickers.forEach(function (s) {
+        s.moved = false; s.held = false; s.vx = s.vy = 0; s.tilt = 0; s.sc = 1;
+        s.el.classList.remove('is-held');
+        s.el.style.zIndex = s.i + 1;
+      });
+      z = SET.length;
+      layout();
+      markMoved();
+      if (reduce) return;
+      var svg = $('svg', resetBtn);
+      if (svg) svg.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-360deg)' }],
+                           { duration: 520, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+      // each one floats home from wherever it was left
+      stickers.forEach(function (s, i) {
+        if (s.el.hidden || !s.ready || from[i] === s.tf) return;
+        s.el.style.pointerEvents = 'none';
+        var done = function () { s.el.style.pointerEvents = ''; };
+        s.el.animate([{ transform: from[i] }, { transform: s.tf }],
+                     { duration: 700, delay: i * 22, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' })
+          .finished.then(done, done);
+      });
+    }
+
+    layout();
+    // The page changes height as fonts and images land, and width with the
+    // window; re-pin whatever hasn't been moved
+    if (window.ResizeObserver) {
+      var pending = 0;
+      new ResizeObserver(function () {
+        if (pending) return;
+        pending = requestAnimationFrame(function () { pending = 0; layout(); });
+      }).observe(layer);
+    } else {
+      window.addEventListener('resize', layout);
+    }
+  })();
 })();
