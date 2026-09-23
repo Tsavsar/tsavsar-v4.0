@@ -292,7 +292,7 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
 }
 .brand { display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; }
 
-/* Ring + glare, carried over from v4 */
+/* Ring, carried over from v4 */
 .avatar-wrap {
   position: relative;
   flex-shrink: 0;
@@ -325,23 +325,6 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
 .avatar-wrap:hover::after,
 .avatar-wrap:focus-visible::after { opacity: 1; }
 
-@keyframes glare {
-  0%   { background-position: 200% 0; }
-  18%  { background-position: -200% 0; }
-  100% { background-position: -200% 0; }
-}
-.avatar-wrap::before {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  border-radius: 50%;
-  background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%);
-  background-size: 200% 100%;
-  background-position: 200% 0;
-  z-index: 2;
-  pointer-events: none;
-  animation: glare 5s ease 2s infinite;
-}
 .avatar-wrap:hover::before {
   animation: none;
   background-position: -200% 0;
