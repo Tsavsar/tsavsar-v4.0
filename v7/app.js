@@ -3,17 +3,30 @@
 
   var TZ         = 'Africa/Lagos';
   var SPOTIFY    = 'https://spotify-api-lilac.vercel.app/api/now-playing';
-  var ASSET_BASE = 'https://www.shatermt.com/assets/';
+  var ASSET_BASE = '/media/gallery/';
   var $  = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ---- analytics ------------------------------------------------------- */
+  // Vercel Web Analytics, which v4 loaded through its React component. The
+  // script only exists on a Vercel deploy, so it's skipped locally.
+  if (!/^(localhost|127\.|0\.0\.0\.0)/.test(location.hostname)) {
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    var va = document.createElement('script');
+    va.defer = true;
+    va.src = '/_vercel/insights/script.js';
+    document.head.appendChild(va);
+  }
 
 
   /* ---- click sound ----------------------------------------------------- */
   // Cuelume (MIT), https://cuelume.dev. Synthesised Web Audio, no files.
   // Vendored so the sounds don't depend on a CDN staying up.
   var play = null;
-  var audioOn = true;
-  try { audioOn = localStorage.getItem('audio') !== 'off'; } catch (e) {}
+  // Sound is opt-in: nobody should open a portfolio in an office and have it
+  // click at them. The note below offers it once.
+  var audioOn = false;
+  try { audioOn = localStorage.getItem('audio') === 'on'; } catch (e) {}
 
   import('./vendor/cuelume.js').then(function (cuelume) {
     play = cuelume.play;
@@ -114,20 +127,20 @@
   (function () {
     // The key carries a number: bump it when the note itself changes and
     // everyone sees the new one once, rather than only new visitors.
-    var KEY = 'soundNote2';
+    var KEY = 'soundNote3';
     // ?note brings it back on a browser that has already dismissed it, for
     // looking at it again without clearing storage by hand.
     var forced = /[?&]note(=|&|$)/.test(location.search);
     var seen = false;
     try { seen = localStorage.getItem(KEY) === 'seen'; } catch (e) {}
-    if (!forced && (seen || !audioOn)) return;   // nothing to warn about if it's already off
+    if (!forced && (seen || audioOn)) return;   // nothing to offer if it's already on
 
     var note = document.createElement('div');
     note.className = 'sound-note';
     note.setAttribute('role', 'status');
     note.innerHTML =
       '<span>This site has sound effects. ' +
-      '<button type="button" class="sound-note-off">Turn them off</button>' +
+      '<button type="button" class="sound-note-off">Turn them on</button>' +
       '<span class="sound-note-where">, or use the speaker up top whenever</span>.</span>' +
       '<button type="button" class="sound-note-x" aria-label="Dismiss">' +
       '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 1.5l9 9M10.5 1.5l-9 9" ' +
@@ -146,8 +159,8 @@
     };
     note.querySelector('.sound-note-x').addEventListener('click', close);
     note.querySelector('.sound-note-off').addEventListener('click', function () {
-      // Through the real toggle, so there is one path that switches sound off
-      if (audioOn && audioBtn) audioBtn.click();
+      // Through the real toggle, so there is one path that switches sound on
+      if (!audioOn && audioBtn) audioBtn.click();
       close();
     });
   })();
@@ -263,9 +276,9 @@
   // Clicking the avatar opens an inline strip under the nav, pushing the page
   // down. Clicking a photo in the strip opens it larger.
   var PHOTOS = [
-    'photo1.jpg', 'photo2.jpg', 'photo3.jpg', 'photo4.jpg',
-    'IMG_4893.jpg', '_DSC0069-3 2.JPG', '1 2.PNG'
-  ].map(function (f) { return ASSET_BASE + encodeURIComponent(f); });
+    'selfie-hoodie.webp', 'mirror-selfie-arsenal-kit.webp', 'selfie-green-shirt.webp', 'mirror-selfie-black-tee.webp',
+    'playing-bass.webp', 'portrait-bw-armchair.webp', 'portrait-studio-chair.webp'
+  ].map(function (f) { return ASSET_BASE + f; });
 
   var avatarBtn = $('.avatar-wrap');
   var gallery   = $('#gallery');
@@ -369,6 +382,66 @@
     $('.lb-close', box).focus();
   }
 
+  /* ---- videos ---------------------------------------------------------- */
+  // Case-study clips ship with preload="none" and a poster, so nothing loads
+  // until a clip is on screen. They play while mostly visible and pause once
+  // scrolled away. With reduced motion they stay on the poster and get
+  // controls, so playing one is a choice.
+  (function () {
+    var vids = $$('video[preload="none"]');
+    if (!vids.length) return;
+
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still || !('IntersectionObserver' in window)) {
+      vids.forEach(function (v) { v.setAttribute('controls', ''); });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) {
+          var p = v.play();
+          if (p && p.catch) p.catch(function () { /* blocked: poster stays */ });
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    vids.forEach(function (v) { io.observe(v); });
+  })();
+
+  /* ---- work row -------------------------------------------------------- */
+  // The row scrolls sideways with its scrollbar hidden, which a trackpad or
+  // a finger finds and a mouse wheel doesn't. When it overflows on a device
+  // with a pointer, step buttons show and move one card at a time.
+  (function () {
+    var row = $('.cards');
+    var nav = $('.cards-nav');
+    if (!row || !nav) return;
+    var steps = $$('.cards-step', nav);
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    function update() {
+      var max = row.scrollWidth - row.clientWidth;
+      var over = max > 2;
+      nav.hidden = !(over && fine.matches);
+      steps[0].disabled = row.scrollLeft <= 2;
+      steps[1].disabled = row.scrollLeft >= max - 2;
+    }
+    steps.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var card = $('.card', row);
+        var by = card ? card.getBoundingClientRect().width + 14 : 222;
+        row.scrollBy({ left: by * Number(b.dataset.dir), behavior: 'smooth' });
+      });
+    });
+    row.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    if (fine.addEventListener) fine.addEventListener('change', update);
+    update();
+  })();
+
   /* ---- now playing ----------------------------------------------------- */
   var vinyl = $('#vinyl');
   if (vinyl) {
@@ -386,10 +459,12 @@
       artist.textContent = d.artist || '';
       trackLine.hidden = !named;
       vinyl.classList.toggle('spinning', !!d.isPlaying);
-      if (d.albumArt) { art.src = d.albumArt; art.hidden = false; }
+      // Spotify serves covers at 640, 300 and 64px, named by size in the URL.
+      // The vinyl is 40px, so ask for the 300 rather than hauling the 640.
+      if (d.albumArt) { art.src = String(d.albumArt).replace('ab67616d0000b273', 'ab67616d00001e02'); art.hidden = false; }
       if (d.songUrl) {
         tag.dataset.href = d.songUrl;
-        tag.setAttribute('aria-label', 'Open "' + (d.title || 'track') + '" on Spotify');
+        tag.title = 'Open on Spotify';
       }
     }
 
@@ -478,30 +553,30 @@
     var layer = $('.stickers');
     if (!layer) return;
 
-    var BASE = 'https://www.shatermt.com/assets/aboutme%20page/';
+    var BASE = '/media/about/';
     // w is the display width; nw/nh the natural size, so each box is the
     // right height before its image arrives. Each side fills top to bottom
     // in this order; p is how much of it peeks in, r its tilt. read marks
     // the ones with text on them: sized for it, and lifted larger in hand.
     var SET = [
-      { f: 'Vector.png',                                              nw: 304, nh: 231, w: 109, side: 'l', p: 0.55, r: -12 },
-      { f: 'New%20York%20Knicks%20Logo%201995%201.png',               nw: 249, nh: 249, w: 95, side: 'r', p: 0.5, r: 9 },
-      { f: 'Vector-1.png',                                            nw: 367, nh: 393, w: 92, side: 'l', p: 0.45, r: 8 },
-      { f: 'IMG_4892%201.png',                                        nw: 829, nh: 974, w: 171, side: 'r', p: 0.5, r: 14 },
-      { f: 'IMG_7535%202.png',                                        nw: 362, nh: 245, w: 115, side: 'l', p: 0.5, r: -6 },
-      { f: 'Vector-4.png',                                            nw: 350, nh: 411, w: 88, side: 'l', p: 0.6, r: 6 },
-      { f: 'IMG_9931.png',                                            nw: 441, nh: 286, w: 118, side: 'r', p: 0.45, r: 7 },
-      { f: 'image%20282.png',                                         nw: 417, nh: 334, w: 151, side: 'l', p: 0.5, r: -14 },
-      { f: '%F0%9F%87%B3%F0%9F%87%AC.png',                            nw: 506, nh: 506, w: 139, side: 'r', p: 0.55, r: -7 },
-      { f: 'Frame%202095587326.png',                                  nw: 700, nh: 744, w: 170, side: 'l', p: 0.45, r: 10 },
-      { f: 'IMG_7648.png',                                            nw: 718, nh: 601, w: 104, side: 'r', p: 0.5, r: 12 },
-      { f: 'image%20283.png',                                         nw: 545, nh: 437, w: 106, side: 'l', p: 0.55, r: -9 },
-      { f: 'Frame%202095586967.png',                                  nw: 1069, nh: 540, w: 320, side: 'r', p: 0.8, r: -5, read: 1 },
-      { f: 'Vector-3.png',                                            nw: 420, nh: 395, w: 116, side: 'l', p: 0.5, r: 11 },
-      { f: 'IMG_6462.png',                                            nw: 331, nh: 382, w: 122, side: 'r', p: 0.5, r: -12 },
-      { f: 'IMG_3050.png',                                            nw: 552, nh: 550, w: 95, side: 'r', p: 0.5, r: -8 },
-      { f: 'Top%20Tracks%20Short%20Term%20from%20Receiptify%201.png', nw: 818, nh: 1067, w: 240, side: 'l', p: 0.8, r: 7, read: 1 },
-      { f: 'EA%20FC%2026%20Card%20Saliba%201.png',                    nw: 608, nh: 690, w: 180, side: 'r', p: 0.5, r: -13 }
+      { f: 'batman-logo.webp',                                        nw: 304, nh: 231, w: 109, side: 'l', p: 0.55, r: -12 },
+      { f: 'knicks-logo.webp',                                        nw: 249, nh: 249, w: 95, side: 'r', p: 0.5, r: 9 },
+      { f: 'figma-logo.webp',                                         nw: 367, nh: 393, w: 92, side: 'l', p: 0.45, r: 8, own: 1 },
+      { f: 'bass-guitar.webp',                                        nw: 829, nh: 974, w: 171, side: 'r', p: 0.5, r: 14 },
+      { f: 'anime-luffy-boxing.webp',                                 nw: 362, nh: 245, w: 115, side: 'l', p: 0.5, r: -6 },
+      { f: 'chess-pawn.webp',                                         nw: 350, nh: 411, w: 88, side: 'l', p: 0.6, r: 6, own: 1 },
+      { f: 'knicks-player-reaction.webp',                             nw: 441, nh: 286, w: 118, side: 'r', p: 0.45, r: 7 },
+      { f: 'holy-bible.webp',                                         nw: 417, nh: 334, w: 151, side: 'l', p: 0.5, r: -14 },
+      { f: 'flag-nigeria.webp',                                       nw: 506, nh: 506, w: 139, side: 'r', p: 0.55, r: -7 },
+      { f: 'polaroid-selfie.webp',                                    nw: 700, nh: 744, w: 170, side: 'l', p: 0.45, r: 10 },
+      { f: 'manga-he-laughed.webp',                                   nw: 718, nh: 601, w: 104, side: 'r', p: 0.5, r: 12 },
+      { f: 'xbox-controller.webp',                                    nw: 545, nh: 437, w: 106, side: 'l', p: 0.55, r: -9 },
+      { f: 'hugeicons-tweet.webp',                                    nw: 1069, nh: 540, w: 320, side: 'r', p: 0.8, r: -5, read: 1 },
+      { f: 'ornate-a-logo.webp',                                      nw: 420, nh: 395, w: 116, side: 'l', p: 0.5, r: 11, own: 1 },
+      { f: 'book-its-kind-of-a-funny-story.webp',                     nw: 331, nh: 382, w: 122, side: 'r', p: 0.5, r: -12 },
+      { f: 'anime-zoro.webp',                                         nw: 552, nh: 550, w: 95, side: 'r', p: 0.5, r: -8 },
+      { f: 'receiptify-top-tracks.webp',                              nw: 818, nh: 1067, w: 240, side: 'l', p: 0.8, r: 7, read: 1 },
+      { f: 'fc26-card-saliba.webp',                                   nw: 608, nh: 690, w: 180, side: 'r', p: 0.5, r: -13 }
     ];
 
     // The die-cut, drawn once per sticker on a canvas at the screen's real
@@ -511,7 +586,10 @@
     // comes out round at the corners, and keeps its anti-aliasing. Then a
     // soft shade just inside the cut, so the edge reads as having a
     // thickness.
-    var BORDER = 7, PAD = BORDER + 3;
+    // 4px reads as a die-cut without turning into a frame. Art marked own
+    // already has its white edge baked in, so it skips the stamp rather than
+    // wearing two.
+    var BORDER = 4, PAD = BORDER + 3;
     function cut(s) {
       var d = Math.min(2, window.devicePixelRatio || 1);
       var w = s.w, h = s.h;
@@ -540,7 +618,7 @@
       } catch (err) { /* unreadable image: cut it as it is */ }
 
       var sil = sheet(), sc = sil.getContext('2d');
-      [BORDER, BORDER / 2].forEach(function (r) {
+      (s.cfg.own ? [] : [BORDER, BORDER / 2]).forEach(function (r) {
         var rr = r * d, n = Math.max(16, Math.ceil(2 * Math.PI * rr / 1.2));
         for (var i = 0; i < n; i++) {
           var t = i / n * 2 * Math.PI;
@@ -569,8 +647,8 @@
       // Only the shadow lands: the shape itself is drawn a long way off the
       // canvas and its shadow offset back, so no hard line forms at the cut.
       o.globalCompositeOperation = 'source-atop';
-      o.shadowColor = 'rgba(0, 0, 0, 0.2)';
-      o.shadowBlur = 3.5 * d;
+      o.shadowColor = 'rgba(0, 0, 0, 0.12)';
+      o.shadowBlur = 2.5 * d;
       o.shadowOffsetX = cw * 2;
       o.shadowOffsetY = 1 * d;
       o.drawImage(outside, -cw * 2, 0);

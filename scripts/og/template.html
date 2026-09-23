@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../v7/styles.css" />
+<style>
+  /* 1200x630, the size every link unfurler agrees on. Text on the left in the
+     site's own type, the project's card gradient on the right with its shot
+     sitting in it the way the case study heroes do. */
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body { display: grid; grid-template-columns: 1fr 560px; background: var(--page); transition: none; }
+  .copy { display: flex; flex-direction: column; justify-content: space-between; padding: 72px 64px 64px 72px; }
+  .who { display: flex; align-items: center; gap: 14px; font-size: 22px; color: var(--text-muted); }
+  .who img { width: 52px; height: 52px; border-radius: 50%; }
+  h1 { font-size: 64px; line-height: 1.05; font-weight: 500; letter-spacing: -0.025em; color: var(--text-strong); }
+  p { margin-top: 20px; font-size: 26px; line-height: 1.35; color: var(--text); letter-spacing: -0.005em; max-width: 520px; }
+  .url { font-size: 20px; color: var(--text-muted); }
+  .panel { position: relative; margin: 28px 28px 28px 0; border-radius: 22px; overflow: hidden; display: grid; place-items: end center; padding: 44px 36px 0; animation: none !important; }
+  .panel img { width: 100%; max-height: 100%; object-fit: cover; object-position: top center; border-radius: 10px 10px 0 0; box-shadow: 0 24px 60px -16px rgba(0,0,0,.5); display: block; }
+  .panel.solo { place-items: center; padding: 0; }
+  .panel.solo img { width: 180px; height: 180px; border-radius: 50%; box-shadow: none; object-fit: cover; }
+</style>
+</head>
+<body>
+  <div class="copy">
+    <div class="who"><img src="../../public/assets/pfp.png" alt="" /><span>Shater Tsavsar</span></div>
+    <div><h1 id="t"></h1><p id="d"></p></div>
+    <div class="url" id="u">shatermt.com</div>
+  </div>
+  <div class="panel" id="panel"><img id="img" alt="" /></div>
+<script>
+  var q = new URLSearchParams(location.search);
+  document.getElementById('t').textContent = q.get('title');
+  document.getElementById('d').textContent = q.get('desc');
+  document.getElementById('u').textContent = q.get('url') || 'shatermt.com';
+  var panel = document.getElementById('panel');
+  panel.className += ' ' + (q.get('card') || 'card-yote') + (q.get('solo') ? ' solo' : '');
+  document.getElementById('img').src = q.get('img');
+</script>
+</body>
+</html>

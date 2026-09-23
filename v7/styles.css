@@ -1,3 +1,24 @@
+/* ---- fonts -------------------------------------------------------------
+   Inter, self-hosted. Fetching it from Google held the first paint back by
+   over a second on a phone; from here it's one preloaded file. Variable, so
+   400 and 500 come out of the same one. ---------------------------------- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(fonts/inter-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(fonts/inter-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* ---- tokens ------------------------------------------------------------ */
 :root,
 html[data-theme="light"] {
@@ -30,9 +51,17 @@ html[data-theme="dark"]  { color-scheme: dark; }
 html[data-theme="light"] { color-scheme: light; }
 
 /* ---- base -------------------------------------------------------------- */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* The reset sits in a layer so it loses to any library that ships its CSS
+   layered (Yöte does). Unlayered, it beat their padding and flattened the
+   fields; everything else on the site is unlayered and wins as before. */
+@layer reset, yote;
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+}
 
-html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; }
+html { -webkit-text-size-adjust: 100%; scrollbar-width: none; }
+/* No native scrollbar anywhere, the page included */
+html::-webkit-scrollbar { display: none; }
 
 body {
   min-height: 100dvh;
@@ -51,6 +80,10 @@ body {
 ::selection { background: var(--text-strong); color: var(--page); }
 
 a { color: inherit; }
+
+/* Images carry their real size so the page doesn't jump as they load; the
+   attribute sets the ratio, CSS still decides the size */
+img[height] { height: auto; }
 
 /* ---- layout ------------------------------------------------------------ */
 .content {
@@ -85,18 +118,27 @@ a { color: inherit; }
   color: var(--text-strong);
 }
 .intro a,
-.connect a {
+.connect a,
+.study-content a,
+.cv-contact a {
   color: var(--text-strong);
-  text-decoration: none;
-  /* Underline sits off the baseline and only fills in on hover */
-  box-shadow: inset 0 -1px 0 0 var(--rule);
-  transition: box-shadow 0.18s ease;
+  /* A real underline, faint until you reach it: links in running text
+     can't rely on colour alone */
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
+  transition: text-decoration-color 0.18s ease;
 }
 .intro a:hover,
 .connect a:hover,
+.study-content a:hover,
+.cv-contact a:hover,
 .intro a:focus-visible,
-.connect a:focus-visible {
-  box-shadow: inset 0 -1px 0 0 currentColor;
+.connect a:focus-visible,
+.study-content a:focus-visible,
+.cv-contact a:focus-visible {
+  text-decoration-color: currentColor;
 }
 
 /* ---- link lists -------------------------------------------------------- */
@@ -210,6 +252,19 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
 @keyframes appear {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: none; }
+}
+/* What a visitor reads first is painted on the first frame and only rises
+   into place: holding it at opacity 0 made the page count as blank for the
+   length of the stagger. Everything after it still fades in. */
+.intro.appear:first-of-type,
+.study-title.appear,
+.study-head.appear {
+  opacity: 1;
+  animation-name: rise;
+}
+@keyframes rise {
+  from { transform: translateY(8px); }
+  to   { transform: none; }
 }
 
 /* ---- narrow ------------------------------------------------------------ */
@@ -1053,7 +1108,10 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
 .study-pill-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
 .study-section { display: flex; flex-direction: column; gap: 12px; width: 100%; }
-.study-label { color: var(--text-muted); }
+.study-label { color: var(--text-muted); font-size: var(--font); line-height: var(--lh); font-weight: 400; }
+
+/* Read by screen readers, not shown */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 .study-content {
   display: flex;
   flex-direction: column;
@@ -1116,8 +1174,10 @@ a.study-pill:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text
 
 /* SVG feature panels are drawn on white, so the grey screenshot stage shows
    as a halo around them */
-.study-figure:has(img[src$=".svg"]) { background: transparent; padding: 0; }
-.study-figure:has(img[src$=".svg"]) img { border-radius: 8px; }
+.study-figure:has(img[src$=".svg"]) { background: transparent; padding: 0; height: auto; align-items: stretch; }
+/* Panels are shown whole at their own aspect: a fixed-height stage cropped
+   them mid-word, and side by side each takes an equal share of the row */
+.study-figure:has(img[src$=".svg"]) img { border-radius: 8px; flex: 1 1 0; min-width: 0; width: 100%; height: auto; }
 
 /* ======================================================================
    Study header
@@ -1289,3 +1349,404 @@ body { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   .sticker { transition: none; }
 }
+
+/* ======================================================================
+   Yöte study
+   The live fields sit on the same grey stage the screenshots use. Yöte's
+   own surface and text tokens are pointed at the site's, at the stage, so
+   the fields read as part of the page in both themes; the purple accent is
+   the product's and stays. The focus rings are composed from bg-default, so
+   they are restated here or they'd keep Yöte's baked-in ring.
+   ====================================================================== */
+.study-content code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.88em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--hover);
+  color: var(--text-strong);
+  overflow-wrap: anywhere;
+}
+.study-content em { font-style: italic; }
+
+.study-figure-tall { height: auto; padding: 18px; }
+.study-figure-tall img { width: 100%; height: auto; }
+
+.yote-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  margin: 6px 0;
+  padding: 36px 24px;
+  border-radius: 8px;
+  background: var(--hover);
+  /* the widest field is the 380px code row; keep every field on that column */
+  align-items: center;
+}
+.yote-slot { width: 100%; max-width: 380px; }
+.yote-stage {
+  --yote-bg-default: var(--page);
+  --yote-text-strong: var(--text-strong);
+  --yote-popover-bg: var(--page);
+  --yote-focus-active: 0 0 0 2px var(--yote-bg-default), 0 0 0 4px var(--yote-purple-alpha-24);
+  --yote-focus-error: 0 0 0 2px var(--yote-bg-default), 0 0 0 4px var(--yote-error-faint);
+  font-size: 14px;
+}
+html[data-theme="dark"] .yote-stage {
+  --yote-bg-surface: #1c1c1c;
+  --yote-popover-bg: #1c1c1c;
+}
+@media (max-width: 600px) {
+  .yote-stage { padding: 24px 16px; gap: 26px; }
+}
+
+/* ======================================================================
+   Playground (explorations.html)
+   A dense mosaic, as the old page had it: two columns of 4:3 tiles that
+   break out of the 540px column to 980px, one column on a phone. Tiles
+   open in the lightbox (explorations.js), which steps through the lot.
+   ====================================================================== */
+.explore-sites a.study-pill { padding-left: 10px; }
+.explore-sites svg { color: var(--text-muted); flex-shrink: 0; }
+
+.explore-section { width: 100%; }
+.explore-grid {
+  --explore-w: min(980px, calc(100vw - 32px));
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  width: var(--explore-w);
+  /* centred on the column, whatever the column's own width */
+  margin-left: calc((100% - var(--explore-w)) / 2);
+}
+.explore-cell {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--hover);
+  isolation: isolate;
+}
+.explore-open {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+}
+.explore-open:focus-visible { outline: 2px solid var(--text-strong); outline-offset: -2px; }
+.explore-open img,
+.explore-open video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.2, 0.88, 0.24, 1);
+}
+.explore-open:hover img,
+.explore-open:hover video { transform: scale(1.02); }
+
+/* Shimmer until the tile's image (or a video's poster) arrives. Only once
+   the script is there to take it away again. */
+.explore-grid.is-enhanced .explore-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%,
+    color-mix(in srgb, var(--page) 55%, transparent) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: explore-shimmer 1.4s infinite;
+  transition: opacity 0.3s ease;
+}
+.explore-grid.is-enhanced .explore-cell.is-loaded::before { opacity: 0; animation: none; }
+@keyframes explore-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@media (max-width: 680px) {
+  .explore-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* The shared lightbox, widened for screenshots and recordings */
+.lightbox--wide .lb-inner { max-width: min(1100px, 92vw); gap: 12px; }
+.lb-stage { display: flex; align-items: center; justify-content: center; width: 100%; }
+.lightbox--wide .lb-img,
+.lb-video {
+  width: auto;
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+  display: block;
+}
+.lb-video { background: var(--hover); }
+/* Sat over the media rather than hanging off it, so they stay on screen */
+.lightbox--wide .lb-prev { left: 8px; }
+.lightbox--wide .lb-next { right: 8px; }
+.lb-count {
+  color: var(--text-muted);
+  font-size: var(--font-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explore-grid.is-enhanced .explore-cell::before { animation: none; }
+  .explore-open img, .explore-open video { transition: none; }
+}
+
+/* ======================================================================
+   Writing (articles/*.html)
+   The old article hero: a figure on a yellow gradient with four textures
+   soft-lit over it. Positions are the original pixel layout (572 x 300)
+   as percentages, so it scales with the column instead of cropping.
+   ====================================================================== */
+.article-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 572 / 300;
+  border-radius: 10px;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(180deg, #fdcc3d 0%, #fddc7c 100%);
+}
+.article-hero img {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+.article-hero-overlay { mix-blend-mode: soft-light; }
+.article-hero-a { left: -9.79%;  top: 0;       width: 56.99%; height: 109%; }
+.article-hero-b { left: -4.72%;  top: -1.67%;  width: 98.78%; height: 94.33%; }
+.article-hero-c { left: 61.54%;  top: -15.33%; width: 56.64%; height: 137.67%; }
+.article-hero-d { left: 37.41%;  top: 23%;     width: 69.23%; height: 154%; }
+.article-hero-main { left: 16.96%; top: 10%;   width: 78.32%; height: 93.33%; }
+
+/* ======================================================================
+   Earlier work
+   A role row with one line under it. The note sits on the row's text
+   column, and a row with nowhere to go (Volla) keeps its colour still.
+   ====================================================================== */
+.row-note {
+  color: var(--text);
+  margin: -2px 0 10px;
+  max-width: 480px;
+}
+.row-note:last-child { margin-bottom: 0; }
+.link-row-static .row-name { color: var(--text-strong); }
+
+/* ======================================================================
+   Resume
+   The same page doubles as the PDF: print hides the site around it and
+   sets it as a document. resume.pdf is rendered from this page
+   (scripts/resume/pdf.mjs), so the two can't drift apart.
+   ====================================================================== */
+.cv-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; width: 100%; }
+.cv-title h1 { font-size: 24px; line-height: 1.2; font-weight: 500; letter-spacing: -0.01em; color: var(--text-strong); }
+.cv-sub { margin-top: 4px; color: var(--text-muted); }
+.cv-download { flex-shrink: 0; }
+.cv-download svg { width: 14px; height: 14px; }
+a.cv-download { padding-left: 8px; }
+
+.cv-contact { display: flex; flex-wrap: wrap; gap: 4px 8px; color: var(--text-muted); margin-top: -18px; }
+
+.cv-section { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.cv-section .study-label { font-size: var(--font); font-weight: 400; }
+.cv-body { display: flex; flex-direction: column; gap: 18px; color: var(--text-strong); }
+.cv-item { display: flex; flex-direction: column; gap: 6px; }
+.cv-role { display: block; text-decoration: none; color: inherit; }
+.cv-role .row-name { font-weight: 500; }
+a.cv-role:hover .row-name { box-shadow: inset 0 -1px 0 0 currentColor; }
+.cv-item ul { padding-left: 18px; display: flex; flex-direction: column; gap: 4px; color: var(--text); }
+.cv-code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.9em; }
+.cv-skills { gap: 6px; }
+.cv-skills p { color: var(--text); }
+.cv-skills span { display: inline-block; min-width: 64px; color: var(--text-muted); }
+
+@media (max-width: 600px) {
+  .cv-head { flex-direction: column; align-items: flex-start; }
+}
+
+@media print {
+  @page { size: A4; margin: 13mm 16mm; }
+  html, html[data-theme="dark"] {
+    --page: #fff; --text-strong: #111; --text: #3a3a3a; --text-muted: #6b6b6b; --rule: rgba(0,0,0,.12);
+    color-scheme: light;
+  }
+  body { background: #fff; font-size: 9pt; line-height: 1.4; transition: none; }
+  .chrome, .nav, .crumb, .player, footer, .stickers, .sound-note, .cv-download, .gallery { display: none !important; }
+  .appear { opacity: 1 !important; animation: none !important; transform: none !important; }
+  .content { width: auto; max-width: none; padding: 0; gap: 12px; }
+  .cv-title h1 { font-size: 20pt; }
+  .cv-contact { margin-top: -10px; }
+  .cv-contact a { text-decoration: none; }
+  .cv-item { break-inside: avoid; }
+  .cv-section { gap: 6px; }
+  .cv-section .study-label { break-after: avoid; }
+  .cv-body { gap: 8px; }
+  .cv-item { gap: 3px; }
+  .cv-item ul { gap: 1px; }
+  .cv-skills { gap: 2px; }
+}
+
+/* ======================================================================
+   Card to case study
+   Each work card on the homepage and the hero on its case study share a
+   view-transition-name, so following the card grows it into the hero, and
+   going back shrinks the hero into the card. Cross-document, no JS; browsers
+   without support just navigate.
+   ====================================================================== */
+@view-transition { navigation: auto; }
+
+.cards .card-luotain,   .study-hero.card-luotain   { view-transition-name: work-luotain; }
+.cards .card-costgraph, .study-hero.card-costgraph { view-transition-name: work-costgraph; }
+.cards .card-yote,      .study-hero.card-yote      { view-transition-name: work-yote; }
+.cards .card-lonar,     .study-hero.card-lonar     { view-transition-name: work-lonar; }
+.cards .card-kernui,    .study-hero.card-kernui    { view-transition-name: work-kernui; }
+
+::view-transition-group(work-luotain),
+::view-transition-group(work-costgraph),
+::view-transition-group(work-yote),
+::view-transition-group(work-lonar),
+::view-transition-group(work-kernui) {
+  /* Navigation is something people do again and again: quick, not a show */
+  animation-duration: 0.38s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* No object-fit here. The card is portrait and the hero is wide, and
+   cover-scaling either one while the box changes shape makes the zoom rise
+   and fall mid-flight, which reads as a shake. At their own aspect, pinned
+   top and clipped by the pair, both scale in one direction only. */
+::view-transition-image-pair(work-luotain),
+::view-transition-image-pair(work-costgraph),
+::view-transition-image-pair(work-yote),
+::view-transition-image-pair(work-lonar),
+::view-transition-image-pair(work-kernui) {
+  overflow: hidden;          /* the taller snapshot is cut at the box, not spilled */
+  border-radius: 10px;
+}
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: 0.24s; }
+
+html.vt-in .study-head.appear,
+html.vt-in .cards-section.appear { animation: none; opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+/* ======================================================================
+   Framed hero
+   The case study's cover: the project's mark and name, one line, and the
+   product rising from the bottom edge, cut off by the card, on the same
+   gradient as its homepage card.
+   ====================================================================== */
+.study-hero-framed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6% 0 0;
+  text-align: center;
+  color: #fff;
+}
+.study-hero-framed .hero-brand {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.study-hero-framed .hero-brand img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 0;
+  box-shadow: none;
+  filter: brightness(0) invert(1);
+}
+.study-hero-framed .hero-line {
+  position: relative;
+  z-index: 2;
+  margin-top: 3.2%;
+  max-width: 72%;
+  font-size: clamp(16px, 3.7vw, 21px);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.12);
+}
+/* The shot is wider than the space left and runs off the bottom edge */
+.study-hero-framed .hero-shot {
+  flex: none;
+  width: 80%;
+  height: auto;
+  max-height: none;
+  margin-top: 5.5%;
+  background: #fff;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 18px 50px -12px rgb(0 0 0 / 0.45), 0 0 0 1px rgb(255 255 255 / 0.12);
+}
+
+@media (max-width: 600px) {
+  .study-hero-framed { aspect-ratio: 4 / 3.4; padding: 8% 0 0; }
+  .study-hero-framed .hero-brand { font-size: 13px; }
+  .study-hero-framed .hero-brand img { width: 15px; height: 15px; }
+  .study-hero-framed .hero-shot { width: 86%; margin-top: 6%; }
+}
+
+/* ======================================================================
+   Case-study reading size
+   The site's 13.5px works for a homepage of short lines; a 1,000-word case
+   study read on a phone needs more. Labels, pills and captions stay small.
+   ====================================================================== */
+.study-content { font-size: 15px; line-height: 24px; }
+.study-content .study-subhead { font-size: inherit; line-height: inherit; }
+.study-lede { font-size: 15px; line-height: 23px; }
+
+/* ======================================================================
+   Work row
+   Five cards at 208px need 1,096px. Where that fits, the row centres and
+   everything is in view. Where it doesn't, a mouse gets two step buttons
+   beside the label, since the scrollbar is hidden and a wheel only scrolls
+   down; touch keeps the swipe.
+   ====================================================================== */
+.cards-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.cards-head .cards-label { margin-bottom: 0; }
+.cards-nav { display: flex; gap: 2px; margin-right: -6px; }
+.cards-nav[hidden] { display: none; }
+.cards-step {
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border: none; border-radius: 6px;
+  background: transparent;
+  color: var(--text-strong);
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+.cards-step svg { width: 14px; height: 14px; display: block; }
+.cards-step:hover:not(:disabled), .cards-step:focus-visible { background: var(--hover); outline: none; }
+.cards-step:disabled { opacity: 0.28; cursor: default; }
+.cards { scroll-behavior: smooth; scroll-snap-type: x proximity; }
+.cards .card { scroll-snap-align: start; scroll-margin-inline-start: max(24px, calc(50vw - 270px)); }
+@media (min-width: 1180px) {
+  .cards { justify-content: center; padding-inline: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .cards { scroll-behavior: auto; } }

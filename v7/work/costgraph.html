@@ -3,22 +3,38 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CostGraph.ai — Shater Tsavsar</title>
-<meta name="description" content="Cloud cost tools give you too much data and not enough direction. That is the problem CostGraph exists to fix." />
+<!-- The page opts into cross-page transitions before anything else, so
+     the decision is made even if it first renders on a slow connection. -->
+<style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.css" />
+<title>CostGraph.ai · Shater Tsavsar</title>
+<meta name="description" content="How I lead design at CostGraph.ai: the design system, GraphAI and the UI that tells platform teams what to fix first." />
 <link rel="icon" type="image/png" href="../favicon.png" />
-<meta property="og:title" content="CostGraph.ai — Shater Tsavsar" />
-<meta property="og:description" content="Cloud cost tools give you too much data and not enough direction. That is the problem CostGraph exists to fix." />
+<meta property="og:title" content="CostGraph.ai · Shater Tsavsar" />
+<meta property="og:description" content="How I lead design at CostGraph.ai: the design system, GraphAI and the UI that tells platform teams what to fix first." />
 <meta property="og:type" content="article" />
+<link rel="canonical" href="https://www.shatermt.com/work/costgraph" />
+<meta property="og:url" content="https://www.shatermt.com/work/costgraph" />
+<meta property="og:image" content="https://www.shatermt.com/og/costgraph.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="CostGraph.ai · Shater Tsavsar" />
+<meta name="twitter:description" content="How I lead design at CostGraph.ai: the design system, GraphAI and the UI that tells platform teams what to fix first." />
+<meta name="twitter:image" content="https://www.shatermt.com/og/costgraph.png" />
 <script>
   try {
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
+  // Arriving through a view transition: the card and the hero it grows into
+  // have to be visible on the first frame, so they skip the entrance fade.
+  addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('vt-in');
+  });
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../styles.css" />
+<link rel="preload" as="image" href="../media/costgraph/dashboard.webp" fetchpriority="high" />
 </head>
 <body>
 
@@ -48,102 +64,86 @@
     </svg>
   </div>
   <div class="nav-links">
-    <a href="../about.html">About me</a>
+    <a href="../about">About me</a>
     <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a>
     <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>
+    <a href="../resume">Resume</a>
     <a href="mailto:shatermt@gmail.com">Email</a>
   </div>
 </nav>
 
   <nav class="crumb appear" style="--i:1" aria-label="Breadcrumb">
-    <a href="../index.html">Home</a>
+    <a href="../">Home</a>
     <span aria-hidden="true">/</span>
     <span aria-current="page">CostGraph.ai</span>
   </nav>
 
   <header class="study-title appear" style="--i:2">
     <h1>CostGraph.ai</h1>
-    <p class="study-lede">Teams lose track of what they're spending on Kubernetes and VMs. CostGraph surfaces that spend and recommends exactly where to cut.</p>
-    <div class="study-pills"><a class="study-pill" href="https://costgraph.ai" target="_blank" rel="noopener"><span class="study-pill-mark"><img src="../icons/costgraph.svg" alt="" aria-hidden="true" /></span><span>costgraph.ai</span></a><span class="study-pill">Sole product designer</span><span class="study-pill">2026</span></div>
+    <p class="study-lede">Teams lose track of what they're spending on Kubernetes and VMs. CostGraph shows that spend and tells you what to fix first.</p>
+    <div class="study-pills"><a class="study-pill" href="https://costgraph.ai" target="_blank" rel="noopener"><span class="study-pill-mark"><img src="../icons/costgraph.svg" alt="" aria-hidden="true" /></span><span>costgraph.ai</span></a><span class="study-pill">Senior product designer</span><span class="study-pill">2025 to now</span></div>
   </header>
 
   <section class="study-head appear" style="--i:3">
-    <div class="study-hero card-costgraph">
-      <img src="../heroes/costgraph.jpg" alt="CostGraph.ai" />
+    <div class="study-hero study-hero-framed card-costgraph">
+      <p class="hero-brand"><img src="../icons/costgraph.svg" alt="" aria-hidden="true" /><span>CostGraph</span></p>
+      <p class="hero-line">Cloud savings you can act on</p>
+      <img width="2000" height="1166" class="hero-shot" decoding="sync" fetchpriority="high" src="../media/costgraph/dashboard.webp" alt="The CostGraph infrastructure overview: total spend, possible savings, active anomalies and cluster efficiency above cost by provider and a table of Kubernetes clusters." />
     </div>
   </section>
 
       <section class="study-section appear" style="--i:4">
-        <p class="study-label">Intro</p>
+        <h2 class="study-label">Intro</h2>
         <div class="study-content">
-          <p>Cloud cost tools give you too much data and not enough direction. That is the problem CostGraph exists to fix.</p>
-          <p>I joined in 2025 as the sole product designer, working directly with engineering to build the platform from the ground up. Everything from UX strategy and the design system to interactive prototypes running on real infrastructure data.</p>
-          <p>The focus was always the same: show teams what actually needs attention, not everything that could possibly be monitored.</p>
+          <p>If you run Kubernetes, you already have every metric you could ever want. What you don't have is an answer to "what do I fix first?", and that's the one question CostGraph exists to answer.</p>
+          <p>We started with interviews. DevOps and platform engineers told us what their tools got wrong, what they actually looked at, and what they skipped past every single time. Those conversations shaped the product more than any competitor audit did, and most of them came down to the same thing: they didn't need more charts, they needed to know which number to act on.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:5">
-        <p class="study-label">My role</p>
+        <h2 class="study-label">My role</h2>
         <div class="study-content">
-          <p>I owned the full product experience, from zero.</p>
-          <ul>
-            <li>Product strategy and UX direction</li>
-            <li>User research synthesis</li>
-            <li>Information architecture</li>
-            <li>Design system</li>
-            <li>High-fidelity UI design</li>
-            <li>Interactive prototyping</li>
-            <li>Design-engineering collaboration</li>
-          </ul>
-          <p>All design work was done against real backend exports and infrastructure datasets, not placeholder content.</p>
+          <p>I joined in 2025 and lead design on the team building CostGraph. I set the direction and look after the design system, from the tokens in Figma to the React those designs turn into, which I write.</p>
+          <p>I work fast and early in code. Claude and v0 get me through layout and flow ideas quickly, then I prototype against real backend exports rather than placeholder data, and Figma comes last, for refining what already survived real numbers. When the data is real you stop designing for states that never happen and start designing for the ones that do.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:6">
-        <p class="study-label">Process</p>
+        <h2 class="study-label">Design system</h2>
         <div class="study-content">
-          <p>We started with interviews. DevOps and platform engineers told us what their current tools got wrong, what information they actually looked at, and what they mostly ignored. Those conversations shaped the product direction more than any competitive audit.</p>
-          <p>From there I used Claude and v0 to move fast through concept exploration. Layouts, interaction flows, visualisation approaches. The goal was to test ideas before committing to them, not to produce polished mockups quickly.</p>
-          <p>Once concepts felt solid, I built interactive prototypes against real data. That is where the navigation structure, recommendation logic, and workflow decisions got validated. Figma came later, for refinement.</p>
-          <p>The final phase was about tightening everything. Hierarchy, consistency, interaction states, and preparing flows for implementation.</p>
+          <p>Dense technical screens go wrong when every visual decision gets made on the spot. So the system came first: tokens, components and motion rules, designed as primitives that extend and combine instead of getting rebuilt per screen. It ships as its own package, <code>@costgraph/ui</code>, and the app imports it like any other dependency.</p>
+          <p>Colour carries meaning and nothing else. A warning, an inefficiency and a healthy resource each have their own treatment, and nothing gets a colour just to look nice, so when something on the screen is orange it's because you should look at it.</p>
+          <h3 class="study-subhead">One axis for anything you provision</h3>
+          <p>The clearest example is how we show whether something is the right size. Every persistent volume, VM and node has the same question behind it: you paid for this much, you're using this much, and we think you need this much. So instead of three separate numbers there's one track. It runs from zero to what you provisioned, green fills to our recommendation, and orange fills to what you actually use, with a tick on each.</p>
+          <p>Because that question is the same for any provisioned resource, the slider lives in the shared package rather than on one page. Its labels drop to a second row when they'd collide, which turns out to be the normal case, since the recommendation is worked out from usage and the two usually sit close together.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:7">
-        <p class="study-label">Design system</p>
+        <h2 class="study-label">GraphAI</h2>
         <div class="study-content">
-          <p>Dense technical interfaces go wrong when visual decisions are made ad hoc. I built the CostGraph design system from scratch so that every component, state, and spacing decision had a deliberate answer.</p>
-          <p>Colour is semantic throughout. Warnings, inefficiencies, healthy resources, each has a distinct visual treatment. Not decoration, just signal.</p>
-          <p>The system covers the full token set, component library, spacing rules, table patterns, recommendation cards, and interaction states across the platform.</p>
+          <p>GraphAI is our LLM tool for cost analysis. Most AI features in products live on their own page: you go there, ask something, and come back without the context you were asking about. The hard part here was showing what the agent is actually doing without burying the simple version of the screen under it.</p>
+          <p>On a wide screen the panel docks beside the page and pushes the content over rather than covering it, so the thing your question is about stays on screen while you ask. Below 1024px there isn't room for both, so it falls back to an overlay.</p>
+          <p>When an answer mentions a page in the product, the link comes back as a pill that takes you straight there, so an answer is somewhere you can go rather than just text you have to trust. And small numbers stay readable. A chart that says $0 for something costing $0.0012 an hour is lying to you, so every GraphAI chart keeps two significant digits past the leading zeros.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:8">
-        <p class="study-label">GraphAI</p>
+        <h2 class="study-label">Lessons</h2>
         <div class="study-content">
-          <p>Most AI features in product tools live on a separate page. You go there, ask something, come back. The context is lost.</p>
-          <p>GraphAI is designed differently. It stays accessible throughout the platform, and the prompts shift based on what the user is currently looking at. Infrastructure insights, anomalies, recommendations. All reachable without breaking the workflow.</p>
-          <p>It does not announce itself. It is just there when you need it.</p>
-        </div>
-      </section>
-      <section class="study-section appear" style="--i:9">
-        <p class="study-label">Lessons</p>
-        <div class="study-content">
-          <p>Clarity beats volume. Infrastructure teams already have access to every metric. What they do not have is a clear answer to "what do I fix first." That is the actual design problem.</p>
-          <p>Working against real backend schemas changed how I made decisions. When the data is real, you stop designing for hypothetical states and start designing for what actually happens. The product got better because of it.</p>
+          <p>Clarity beats volume. Infrastructure teams can already see everything, so every screen I add has to earn its place by making the next decision easier, not by showing more.</p>
+          <p>Designing against real schemas changed how I decide things. The product got better the moment I stopped designing for the data I imagined and started designing for the data we actually had.</p>
         </div>
       </section>
 
-  <a class="study-next appear" style="--i:10" href="luotain.html">
+  <a class="study-next appear" style="--i:9" href="yote">
     <span class="study-next-label">Next project</span>
-    <span class="study-next-name">Luotain</span>
+    <span class="study-next-name">Yöte</span>
   </a>
 
-  <section class="link-section appear" style="--i:11">
-    <h2>writing</h2>
-    <a class="link-row" href="https://www.shatermt.com/articles/vicariously">
-      <span class="row-head"><span class="row-name">Vicariously living through the main character</span><span class="row-meta">5 min read</span></span>
-    </a>
+  <section class="link-section connect appear" style="--i:11">
+    <h2>connect</h2>
+    <p>I’m always up for talking to thoughtful people about design systems, interfaces, and the code they turn into. Reach me at <a href="mailto:shatermt@gmail.com">shatermt@gmail.com</a>, or find me on <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a> and <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>.</p>
   </section>
 
 <div class="player appear" style="--i:8">
-  <button class="player-tag" type="button" id="player" aria-label="Open recently played">
+  <button class="player-tag" type="button" id="player">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -157,7 +157,7 @@
 
   <footer class="appear" style="--i:9">
     <span>&copy; 2026 Shater M. Tsavsar</span>
-    <span class="clock"><span class="tz">WAT</span> <time id="clock"></time></span>
+    <span class="clock"><span class="tz">Lagos, UTC+1</span> <time id="clock"></time></span>
   </footer>
 
 </main>

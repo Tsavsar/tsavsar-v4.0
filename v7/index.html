@@ -3,26 +3,44 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Shater Tsavsar, designer</title>
-<meta name="description" content="Shater Tsavsar, a designer. Everything I do is grounded in some sort of system." />
+<!-- The page opts into cross-page transitions before anything else, so
+     the decision is made even if it first renders on a slow connection. -->
+<style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="styles.css" />
+<title>Shater Tsavsar, product designer</title>
+<meta name="description" content="Product designer at CostGraph.ai. I design products as systems of reusable parts, then write the frontend they become." />
 <link rel="icon" type="image/png" href="favicon.png" />
-<meta property="og:title" content="Shater Tsavsar, designer" />
-<meta property="og:description" content="Shater Tsavsar, a designer. Everything I do is grounded in some sort of system." />
+<meta property="og:title" content="Shater Tsavsar, product designer" />
+<meta property="og:description" content="Product designer at CostGraph.ai. I design products as systems of reusable parts, then write the frontend they become." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://v7.shatermt.com/" />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Shater Tsavsar, designer" />
-<meta name="twitter:description" content="Shater Tsavsar, a designer. Everything I do is grounded in some sort of system." />
+<meta property="og:url" content="https://www.shatermt.com/" />
+<meta property="og:image" content="https://www.shatermt.com/og/home.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<link rel="canonical" href="https://www.shatermt.com/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.shatermt.com/og/home.png" />
+<meta name="twitter:title" content="Shater Tsavsar, product designer" />
+<meta name="twitter:description" content="Product designer at CostGraph.ai. I design products as systems of reusable parts, then write the frontend they become." />
 <script>
   try {
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
+  // Arriving through a view transition: the card and the hero it grows into
+  // have to be visible on the first frame, so they skip the entrance fade.
+  addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('vt-in');
+  });
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css" />
+<!-- the case study heroes, so each card has its image ready to grow into -->
+<link rel="prefetch" as="image" href="heroes/luotain.jpg" />
+<link rel="prefetch" as="image" href="media/costgraph/dashboard.webp" />
+<link rel="prefetch" as="image" href="media/yote/yote-field.webp" />
+<link rel="prefetch" as="image" href="heroes/lonar.jpg" />
+<link rel="prefetch" as="image" href="media/kernui/kernui-demo-poster.webp" />
+
 </head>
 <body>
 
@@ -60,9 +78,10 @@
     </svg>
   </div>
   <div class="nav-links">
-    <a href="about.html">About me</a>
+    <a href="about">About me</a>
     <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a>
     <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>
+    <a href="resume">Resume</a>
     <a href="mailto:shatermt@gmail.com">Email</a>
   </div>
 </nav>
@@ -70,70 +89,85 @@
   <div class="gallery" id="gallery" aria-hidden="true"><div class="gallery-track" id="galleryTrack"></div></div>
 
   <section class="intro appear" style="--i:1">
-    <button class="greeting" id="greeting" type="button" aria-label="Next greeting language"><span class="greeting-text" id="greetingText" lang="en">good morning</span></button>
-    <p>I’m Shater, a designer. The best way to describe myself is a <em>“Systemic Native”</em>. Everything I do is grounded in some sort of system, and that shows up in the work whether I’m in Figma or in the codebase.</p>
-    <p>I design and build <a href="https://costgraph.ai" target="_blank" rel="noopener">CostGraph.ai</a>: the design direction, the design system, and the frontend code those designs become.</p>
-    <p>On the side I shipped <a href="https://luotain.app" target="_blank" rel="noopener">Luotain</a> for link and QR analytics, <a href="https://yote.shatermt.com/" target="_blank" rel="noopener">Yote</a> for React inputs, and <a href="https://kernui.framer.website/" target="_blank" rel="noopener">KernUI</a>, a design system used by 1,200+ designers and developers.</p>
+    <button class="greeting" id="greeting" type="button"><span class="greeting-text" id="greetingText" lang="en">good morning</span><span class="sr-only"> (say it in another language)</span></button>
+    <p>I’m Shater, a product designer at <a href="https://costgraph.ai" target="_blank" rel="noopener">CostGraph.ai</a>, where I lead design on the team building it. I set the direction and look after the design system, down to the React those designs turn into.</p>
+    <p>The best way to describe myself is a <em>“Systemic Native”</em>. Everything I do is grounded in some sort of system, and that shows up in the work whether I’m in Figma or in the codebase.</p>
+    <p>You can see it in how my projects connect. <a href="work/kernui">KernUI</a> is a design system used by 1,200+ designers and developers. I built <a href="work/luotain">Luotain</a> on its tokens, then pulled Luotain’s inputs out into <a href="work/yote">Yöte</a>, an open-source React library anyone can install.</p>
   </section>
 
   <section class="cards-section appear" style="--i:2">
-    <h2 class="cards-label">work</h2>
+    <div class="cards-head">
+      <h2 class="cards-label">work</h2>
+      <div class="cards-nav" hidden>
+        <button class="cards-step" type="button" data-dir="-1" aria-label="Previous projects" disabled><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="cards-step" type="button" data-dir="1" aria-label="More projects"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
     <div class="cards">
-      <a class="card card-costgraph" href="work/costgraph.html">
-        <span class="card-mark"><img src="icons/costgraph.svg" alt="" aria-hidden="true" /></span>
-        <span class="card-body">
-          <span class="card-name">CostGraph.ai</span>
-          <span class="card-desc">Cloud cost analysis. Surfaces spend across your infrastructure and recommends exactly where to cut.</span>
-        </span>
-      </a>
-      <a class="card card-luotain" href="work/luotain.html">
+      <a class="card card-luotain" href="work/luotain">
         <span class="card-mark"><img src="icons/luotain.svg" alt="" aria-hidden="true" /></span>
         <span class="card-body">
           <span class="card-name">Luotain</span>
-          <span class="card-desc">Link and QR analytics. Every code tracks its own scans, and stays editable after it is printed.</span>
+          <span class="card-desc">Designed, built and shipped solo. A link and its QR code are one object, with their own scan data.</span>
         </span>
       </a>
-      <a class="card card-yote" href="https://yote.shatermt.com/">
+      <a class="card card-costgraph" href="work/costgraph">
+        <span class="card-mark"><img src="icons/costgraph.svg" alt="" aria-hidden="true" /></span>
+        <span class="card-body">
+          <span class="card-name">CostGraph.ai</span>
+          <span class="card-desc">Design direction, the design system and the product UI, built from zero with the team.</span>
+        </span>
+      </a>
+      <a class="card card-yote" href="work/yote">
         <span class="card-mark"><img src="icons/yote.svg" alt="" aria-hidden="true" /></span>
         <span class="card-body">
-          <span class="card-name">Yote</span>
-          <span class="card-desc">Input components for React. Every state designed, every transition tuned, every edge case handled.</span>
+          <span class="card-name">Yöte</span>
+          <span class="card-desc">Open-source React inputs. Zero dependencies, 24KB, one set of props across nine fields.</span>
         </span>
       </a>
-      <a class="card card-lonar" href="work/lonar.html">
+      <a class="card card-lonar" href="work/lonar">
         <span class="card-mark"><img src="icons/lonar.svg" alt="" aria-hidden="true" /></span>
         <span class="card-body">
           <span class="card-name">Lönar</span>
-          <span class="card-desc">Invoicing that keeps clients, payments and chasing in one place, so you always know who owes you.</span>
+          <span class="card-desc">Co-founder. Shipped the free invoice generator first, then built the platform on its feedback.</span>
         </span>
       </a>
-      <a class="card card-kernui" href="work/kernui.html">
+      <a class="card card-kernui" href="work/kernui">
         <span class="card-mark"><img src="icons/kernui.svg" alt="" aria-hidden="true" /></span>
         <span class="card-body">
           <span class="card-name">KernUI</span>
-          <span class="card-desc">A design system of 3,000+ components, used by 1,200+ designers and developers.</span>
+          <span class="card-desc">3,000+ components and 1,600+ icons on one token system, used by 1,200+ designers and developers.</span>
         </span>
       </a>
     </div>
   </section>
 
   <section class="link-section appear" style="--i:3">
-    <h2>playground</h2>
-    <a class="link-row" href="https://www.shatermt.com/explorations"><span class="row-head"><span class="row-name">Design explorations</span><span class="row-meta">ongoing</span></span></a>
+    <h2>before this</h2>
+    <a class="link-row" href="https://hackmamba.io" target="_blank" rel="noopener"><span class="row-head"><span class="row-name">Hackmamba, product designer</span><span class="row-meta">developer marketing</span></span></a>
+    <p class="row-note">Set the product direction for an agency working with Auth0, Appwrite, Netlify, Replit and Sourcegraph, and led Boki, a platform for writing and shipping technical content.</p>
+    <a class="link-row" href="https://x.com/vollapay" target="_blank" rel="noopener"><span class="row-head"><span class="row-name">Volla Finance, product designer</span><span class="row-meta">fintech</span></span></a>
+    <p class="row-note">Designed and tested the interface for Volla’s mobile app, which makes payments across borders simple for Africans at home and abroad.</p>
+    <div class="link-row link-row-static"><span class="row-head"><span class="row-name">BSc Computer Science, Baze University</span><span class="row-meta">Abuja</span></span></div>
   </section>
 
   <section class="link-section appear" style="--i:4">
-    <h2>writing</h2>
-    <a class="link-row" href="https://www.shatermt.com/articles/vicariously"><span class="row-head"><span class="row-name">Vicariously living through the main character</span><span class="row-meta">5 min read</span></span></a>
+    <h2>playground</h2>
+    <a class="link-row" href="explorations"><span class="row-head"><span class="row-name">Design explorations</span><span class="row-meta">ongoing</span></span></a>
   </section>
 
-  <section class="link-section connect appear" style="--i:5">
+  <section class="link-section appear" style="--i:5">
+    <h2>writing</h2>
+    <a class="link-row" href="articles/vicariously"><span class="row-head"><span class="row-name">Vicariously living through the main character</span><span class="row-meta">5 min read</span></span></a>
+  </section>
+
+  <section class="link-section connect appear" style="--i:6">
     <h2>connect</h2>
     <p>I’m always up for talking to thoughtful people about design systems, interfaces, and the code they turn into. Reach me at <a href="mailto:shatermt@gmail.com">shatermt@gmail.com</a>, or find me on <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a> and <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>.</p>
   </section>
 
 <div class="player appear" style="--i:7">
-  <button class="player-tag" type="button" id="player" aria-label="Open recently played">
+  <button class="player-tag" type="button" id="player">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -147,7 +181,7 @@
 
   <footer class="appear" style="--i:8">
     <span>© 2026 Shater M. Tsavsar</span>
-    <span class="clock"><span class="tz">WAT</span> <time id="clock"></time></span>
+    <span class="clock"><span class="tz">Lagos, UTC+1</span> <time id="clock"></time></span>
   </footer>
 
 </main>

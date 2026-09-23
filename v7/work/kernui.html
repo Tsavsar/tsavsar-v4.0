@@ -3,22 +3,38 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>KernUI — Shater Tsavsar</title>
-<meta name="description" content="Most design systems get abandoned. Not because teams do not want one, but because they are too brittle, too generic, or too expensive to maintain. KernUI i" />
+<!-- The page opts into cross-page transitions before anything else, so
+     the decision is made even if it first renders on a slow connection. -->
+<style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.css" />
+<title>KernUI · Shater Tsavsar</title>
+<meta name="description" content="KernUI, a design system of 3,000+ components and 1,600+ icons on one token system, designed and sold solo." />
 <link rel="icon" type="image/png" href="../favicon.png" />
-<meta property="og:title" content="KernUI — Shater Tsavsar" />
-<meta property="og:description" content="Most design systems get abandoned. Not because teams do not want one, but because they are too brittle, too generic, or too expensive to maintain. KernUI i" />
+<meta property="og:title" content="KernUI · Shater Tsavsar" />
+<meta property="og:description" content="KernUI, a design system of 3,000+ components and 1,600+ icons on one token system, designed and sold solo." />
 <meta property="og:type" content="article" />
+<link rel="canonical" href="https://www.shatermt.com/work/kernui" />
+<meta property="og:url" content="https://www.shatermt.com/work/kernui" />
+<meta property="og:image" content="https://www.shatermt.com/og/kernui.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="KernUI · Shater Tsavsar" />
+<meta name="twitter:description" content="KernUI, a design system of 3,000+ components and 1,600+ icons on one token system, designed and sold solo." />
+<meta name="twitter:image" content="https://www.shatermt.com/og/kernui.png" />
 <script>
   try {
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
+  // Arriving through a view transition: the card and the hero it grows into
+  // have to be visible on the first frame, so they skip the entrance fade.
+  addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('vt-in');
+  });
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../styles.css" />
+<link rel="preload" as="image" href="../media/kernui/kernui-demo-poster.webp" fetchpriority="high" />
 </head>
 <body>
 
@@ -48,106 +64,106 @@
     </svg>
   </div>
   <div class="nav-links">
-    <a href="../about.html">About me</a>
+    <a href="../about">About me</a>
     <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a>
     <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>
+    <a href="../resume">Resume</a>
     <a href="mailto:shatermt@gmail.com">Email</a>
   </div>
 </nav>
 
   <nav class="crumb appear" style="--i:1" aria-label="Breadcrumb">
-    <a href="../index.html">Home</a>
+    <a href="../">Home</a>
     <span aria-hidden="true">/</span>
     <span aria-current="page">KernUI</span>
   </nav>
 
   <header class="study-title appear" style="--i:2">
     <h1>KernUI</h1>
-    <p class="study-lede">Starting from scratch on every project slows teams down. KernUI gives designers and devs a shared component library so they can build faster together.</p>
+    <p class="study-lede">A design system of 3,000+ components and 1,600+ icons on one token system, so designers and developers stop rebuilding the same button on every project.</p>
     <div class="study-pills"><a class="study-pill" href="https://kernui.framer.website/" target="_blank" rel="noopener"><span class="study-pill-mark"><img src="../icons/kernui.svg" alt="" aria-hidden="true" /></span><span>kernui.framer.website</span></a><span class="study-pill">Solo designer and founder</span><span class="study-pill">2025</span></div>
   </header>
 
   <section class="study-head appear" style="--i:3">
-    <div class="study-hero card-kernui">
-      <video src="https://www.shatermt.com/assets/kernuivideo.mp4" autoplay muted loop playsinline poster="../heroes/kernui.jpg"></video>
+    <div class="study-hero study-hero-framed card-kernui">
+      <p class="hero-brand"><img src="../icons/kernui.svg" alt="" aria-hidden="true" /><span>KernUI</span></p>
+      <p class="hero-line">3,000+ components on one token system</p>
+      <img width="1276" height="720" class="hero-shot" decoding="sync" fetchpriority="high" src="../media/kernui/kernui-demo-poster.webp" alt="KernUI components: a command palette with recent items and actions beside a payment details panel with saved cards." />
     </div>
   </section>
 
       <section class="study-section appear" style="--i:4">
-        <p class="study-label">Intro</p>
+        <h2 class="study-label">Intro</h2>
         <div class="study-content">
-          <p>Most design systems get abandoned. Not because teams do not want one, but because they are too brittle, too generic, or too expensive to maintain. KernUI is built around the opposite of that.</p>
-          <p>I designed KernUI as a production-ready UI kit for product teams — over 3,000 components, built-in light and dark theming, 1,600+ icons, and a token system that actually scales. It is trusted by more than 1,200 designers and developers.</p>
+          <p>Most design systems get abandoned. It's not that teams don't want one. It's that they end up too brittle to change, too generic to fit a real product, or too expensive to keep alive.</p>
+          <p>KernUI is my answer to that: a production UI kit for product teams, with 3,000+ components, 1,600+ icons, light and dark themes, and one token system underneath all of it. Flexible enough to take on a brand, and structured enough to hand off cleanly.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:5">
-        <p class="study-label">My role</p>
+        <h2 class="study-label">My role</h2>
         <div class="study-content">
-          <p>Solo designer and founder.</p>
-          <ul>
-            <li>Design system architecture</li>
-            <li>Component design and documentation</li>
-            <li>Token system and theming</li>
-            <li>Icon library (1,600+)</li>
-            <li>Brand and marketing design</li>
-            <li>Pricing and product strategy</li>
-            <li>Community and education content</li>
-          </ul>
+          <p>All of it, solo: the architecture, every component and its docs, the tokens and theming, the icon library, and the pricing, brand and site that sell it.</p>
+          <figure class="study-figure" data-n="1"><video src="../media/kernui/kernui-demo.mp4" poster="../media/kernui/kernui-demo-poster.webp" preload="none" muted loop playsinline aria-label="KernUI demo: 3,000+ components, 90+ avatars, light and dark mode, and production-ready components like a command palette, payment details and team settings."></video></figure>
         </div>
       </section>
       <section class="study-section appear" style="--i:6">
-        <p class="study-label">Problem</p>
+        <h2 class="study-label">Problem</h2>
         <div class="study-content">
-          <p>Teams waste hours rebuilding the same buttons, form fields, and navigation patterns from scratch. The problem is not effort — it is repetition. Every new project resets the work.</p>
-          <p>Existing UI kits either go too generic (every interface looks the same) or too rigid (you cannot adapt them to a real product). The handoff between design and development breaks down because the kit does not speak both languages.</p>
-          <p>KernUI was built to close that gap. Flexible enough to fit a brand. Structured enough to hand off cleanly.</p>
+          <p>Teams lose hours rebuilding the same buttons, form fields and navigation on every project. The problem isn't effort, it's repetition, and every new project resets the clock.</p>
+          <p>Existing kits tend to fail one of two ways. Too generic, and every interface looks the same. Too rigid, and you can't bend it to fit a real product. Either way the handoff breaks, because the kit only speaks one of design or code.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:7">
-        <p class="study-label">System</p>
+        <h2 class="study-label">System</h2>
         <div class="study-content">
-          <p>The foundation is a token system. Colours, spacing, typography, and radius values are all defined as variables — not hard-coded. Swapping a theme from light to dark does not require touching individual components.</p>
-          <figure class="study-figure" data-n="2"><img src="https://www.shatermt.com/assets/kern-feature-5.svg" alt="" loading="lazy" /><img src="https://www.shatermt.com/assets/kern-feature-1.svg" alt="" loading="lazy" /></figure>
-          <p>Components are built in layers. Atoms (buttons, inputs, badges) compose into molecules (cards, modals, nav bars), which compose into templates. Every state is designed: default, hover, focus, error, disabled. Nothing is left for developers to guess.</p>
-          <p>The same state logic applies across every component. Alert notifications carry their own variant, colour, size, and visibility controls — all wired to the same token system.</p>
-          <p>The icon library sits at 1,600+ and is organised by category. Every icon has a consistent 24px grid, two weight variants, and is exported as both SVG and component-ready format.</p>
-          <figure class="study-figure" data-n="1"><img src="https://www.shatermt.com/assets/kern-feature-2.svg" alt="" loading="lazy" /></figure>
-          <p>The avatar system ships with three avatar types — humans, illustrations, and memojis — each with default and colour variants. Every avatar supports top and bottom badge slots for status, notification, and action states.</p>
-          <figure class="study-figure" data-n="1"><img src="https://www.shatermt.com/assets/kern-feature-3.svg" alt="" loading="lazy" /></figure>
-          <p>There are three tiers. Free covers the palette, typography, icons, and logo/flag sets. Startup ($99) unlocks the full variable system, pre-built components, and regular updates. Enterprise is custom — dedicated support, team training, and bespoke design work.</p>
-          <figure class="study-figure" data-n="1"><img src="https://www.shatermt.com/assets/kernui/image-4.png" alt="" loading="lazy" /></figure>
+          <h3 class="study-subhead">Tokens first</h3>
+          <p>Colour, spacing, type and radius are all variables, never hard-coded values. That's what makes theming free: switching from light to dark swaps the variables, and not a single component has to be touched.</p>
+          <figure class="study-figure" data-n="2"><img src="../media/kernui/feature-1.svg" alt="A light and dark mode toggle over a half-lit moon." loading="lazy" /><img src="../media/kernui/feature-5.svg" alt="The type scale panel, showing Regular 400 weight at display size." loading="lazy" /></figure>
+          <h3 class="study-subhead">Built in layers</h3>
+          <p>Atoms like buttons, inputs and badges make up molecules like cards, modals and nav bars, and those make up templates. Every state is designed (default, hover, focus, error, disabled), so there's nothing left for a developer to guess, and the same state logic runs through every component.</p>
+          <figure class="study-figure" data-n="2"><img src="../media/kernui/feature-4.svg" alt="List items with avatar, label, badge and checkbox in selected, default, disabled and error states." loading="lazy" /><img src="../media/kernui/feature-6.svg" alt="A payment method picker with saved Visa and Mastercard cards and PayPal, Cash App and Apple Pay options." loading="lazy" /></figure>
+          <h3 class="study-subhead">Icons</h3>
+          <p>1,600+ icons, sorted by category. Every one sits on the same 24px grid, comes in two weights, and exports as both SVG and a ready-made component.</p>
+          <figure class="study-figure" data-n="1"><img src="../media/kernui/feature-2.svg" alt="Icons from the library with their names: brain-warning, bread-slice, orange-slice-alt, password-cursor and sound-high-solid." loading="lazy" /></figure>
+          <h3 class="study-subhead">Avatars</h3>
+          <p>Three kinds (photos, illustrations and memojis), each with default and colour variants, and slots at the top and bottom for status, notifications and actions.</p>
+          <figure class="study-figure" data-n="1"><img src="../media/kernui/feature-3.svg" alt="Four avatars, a memoji, a photo, an illustration and initials, each with status badges." loading="lazy" /></figure>
         </div>
       </section>
       <section class="study-section appear" style="--i:8">
-        <p class="study-label">Impact</p>
+        <h2 class="study-label">Pricing</h2>
         <div class="study-content">
-          <p>Over 1,200 designers and developers use KernUI. The feedback that comes up most: it reduces the back-and-forth between design and development. Teams spend less time arguing about spacing and more time shipping.</p>
-          <figure class="study-figure" data-n="2"><img src="https://www.shatermt.com/assets/kern-feature-4.svg" alt="" loading="lazy" /><img src="https://www.shatermt.com/assets/kern-feature-6.svg" alt="" loading="lazy" /></figure>
-          <p>The freemium model was deliberate. Giving the palette and icons away for free meant people could evaluate the system before committing. Conversion from free to Startup followed naturally once they hit the limits of what free covered.</p>
+          <p>There are three tiers. Free has the palette, type, icons, and the logo and flag sets. Startup, at $99, unlocks the full variable system, the pre-built components and ongoing updates. Enterprise is custom, with dedicated support, team training and bespoke design work.</p>
+          <p>Free was a deliberate choice. Giving the palette and icons away meant people could live with the system before paying for it, and the ones who upgraded were the ones who'd hit the edges of what free covers.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:9">
-        <p class="study-label">Lessons</p>
+        <h2 class="study-label">Impact</h2>
         <div class="study-content">
-          <p>Documentation is half the product. A component without clear usage guidance gets misused or ignored. The time spent writing docs paid back in fewer support questions and faster onboarding.</p>
-          <p>A design system is never finished. The ones that get abandoned are the ones that try to be complete before launching. KernUI shipped incomplete and iterated based on what users actually needed. That is still the right call.</p>
+          <p>1,200+ designers and developers use KernUI. The feedback that comes up most is that it cuts the back-and-forth between design and development, so teams spend less time arguing about spacing and more time shipping.</p>
+          <p>It's also the foundation the rest of my work is built on. Luotain runs on its tokens, and Yöte's inputs came out of that product.</p>
+        </div>
+      </section>
+      <section class="study-section appear" style="--i:10">
+        <h2 class="study-label">Lessons</h2>
+        <div class="study-content">
+          <p>Documentation is half the product. A component without usage guidance gets misused or ignored, and the time I spent on docs paid itself back in fewer support questions.</p>
+          <p>A design system is never finished. The ones that get abandoned are usually the ones that tried to be complete before launch. KernUI shipped incomplete and grew from what people actually asked for, and that's still the right call.</p>
         </div>
       </section>
 
-  <a class="study-next appear" style="--i:10" href="costgraph.html">
+  <a class="study-next appear" style="--i:11" href="luotain">
     <span class="study-next-label">Next project</span>
-    <span class="study-next-name">CostGraph.ai</span>
+    <span class="study-next-name">Luotain</span>
   </a>
 
-  <section class="link-section appear" style="--i:11">
-    <h2>writing</h2>
-    <a class="link-row" href="https://www.shatermt.com/articles/vicariously">
-      <span class="row-head"><span class="row-name">Vicariously living through the main character</span><span class="row-meta">5 min read</span></span>
-    </a>
+  <section class="link-section connect appear" style="--i:11">
+    <h2>connect</h2>
+    <p>I’m always up for talking to thoughtful people about design systems, interfaces, and the code they turn into. Reach me at <a href="mailto:shatermt@gmail.com">shatermt@gmail.com</a>, or find me on <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a> and <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>.</p>
   </section>
 
 <div class="player appear" style="--i:8">
-  <button class="player-tag" type="button" id="player" aria-label="Open recently played">
+  <button class="player-tag" type="button" id="player">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -161,7 +177,7 @@
 
   <footer class="appear" style="--i:9">
     <span>&copy; 2026 Shater M. Tsavsar</span>
-    <span class="clock"><span class="tz">WAT</span> <time id="clock"></time></span>
+    <span class="clock"><span class="tz">Lagos, UTC+1</span> <time id="clock"></time></span>
   </footer>
 
 </main>

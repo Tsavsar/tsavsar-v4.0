@@ -3,22 +3,37 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fundify — Shater Tsavsar</title>
-<meta name="description" content="Most people know they should save. They just do not. The app they downloaded three months ago sits unopened because it made saving feel like a chore." />
+<!-- The page opts into cross-page transitions before anything else, so
+     the decision is made even if it first renders on a slow connection. -->
+<style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.css" />
+<title>Fundify · Shater Tsavsar</title>
+<meta name="description" content="Fundify, a savings app that rewards good financial moves with FundCoins instead of scolding the bad ones." />
 <link rel="icon" type="image/png" href="../favicon.png" />
-<meta property="og:title" content="Fundify — Shater Tsavsar" />
-<meta property="og:description" content="Most people know they should save. They just do not. The app they downloaded three months ago sits unopened because it made saving feel like a chore." />
+<meta property="og:title" content="Fundify · Shater Tsavsar" />
+<meta property="og:description" content="Fundify, a savings app that rewards good financial moves with FundCoins instead of scolding the bad ones." />
 <meta property="og:type" content="article" />
+<link rel="canonical" href="https://www.shatermt.com/work/fundify" />
+<meta property="og:url" content="https://www.shatermt.com/work/fundify" />
+<meta property="og:image" content="https://www.shatermt.com/og/fundify.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Fundify · Shater Tsavsar" />
+<meta name="twitter:description" content="Fundify, a savings app that rewards good financial moves with FundCoins instead of scolding the bad ones." />
+<meta name="twitter:image" content="https://www.shatermt.com/og/fundify.png" />
 <script>
   try {
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
+  // Arriving through a view transition: the card and the hero it grows into
+  // have to be visible on the first frame, so they skip the entrance fade.
+  addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('vt-in');
+  });
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
 
@@ -48,15 +63,16 @@
     </svg>
   </div>
   <div class="nav-links">
-    <a href="../about.html">About me</a>
+    <a href="../about">About me</a>
     <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a>
     <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>
+    <a href="../resume">Resume</a>
     <a href="mailto:shatermt@gmail.com">Email</a>
   </div>
 </nav>
 
   <nav class="crumb appear" style="--i:1" aria-label="Breadcrumb">
-    <a href="../index.html">Home</a>
+    <a href="../">Home</a>
     <span aria-hidden="true">/</span>
     <span aria-current="page">Fundify</span>
   </nav>
@@ -69,19 +85,19 @@
 
   <section class="study-head appear" style="--i:3">
     <div class="study-hero card-fundify">
-      <img src="../heroes/fundify.jpg" alt="Fundify" />
+      <img width="1200" height="580" src="../heroes/fundify.jpg" alt="Fundify’s wallet and rewards screens on a dark background." />
     </div>
   </section>
 
       <section class="study-section appear" style="--i:4">
-        <p class="study-label">Intro</p>
+        <h2 class="study-label">Intro</h2>
         <div class="study-content">
-          <p>Most people know they should save. They just do not. The app they downloaded three months ago sits unopened because it made saving feel like a chore.</p>
+          <p>Most people know they should save. They just don’t. The app they downloaded three months ago sits unopened because it made saving feel like a chore.</p>
           <p>Fundify is a mobile finance app built on a different premise: money management should feel like progress, not punishment. I designed it to reward the behaviours that actually build financial health, saving, transferring, hitting targets, through a points system called FundCoins.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:5">
-        <p class="study-label">My role</p>
+        <h2 class="study-label">My role</h2>
         <div class="study-content">
           <p>Solo product designer, end to end.</p>
           <ul>
@@ -96,54 +112,52 @@
         </div>
       </section>
       <section class="study-section appear" style="--i:6">
-        <p class="study-label">Problem</p>
+        <h2 class="study-label">Problem</h2>
         <div class="study-content">
           <p>Finance apps treat users like they need to be managed. Dashboards full of red numbers, budget warnings, alerts about overspending. The feedback loop is negative by default.</p>
-          <p>That design reflects a fundamental misread of user behaviour. People disengage when tools make them feel bad. They stay when the tool makes them feel like they are winning.</p>
+          <p>That design reflects a fundamental misread of user behaviour. People disengage when tools make them feel bad. They stay when the tool makes them feel like they’re winning.</p>
           <p>The goal was to build the opposite of a budget tracker. Not a tool that catches you failing, a tool that rewards you for doing the right thing.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:7">
-        <p class="study-label">Design</p>
+        <h2 class="study-label">Design</h2>
         <div class="study-content">
           <p>The visual language is deliberately premium and dark. Black backgrounds, gold tones, clean typography. Finance should feel like it has weight. Most finance apps look like productivity tools. Fundify looks like something you want to open.</p>
-          <figure class="study-figure" data-n="1"><video src="https://www.shatermt.com/assets/Fundify demo.mp4" autoplay muted loop playsinline></video></figure>
+          <figure class="study-figure" data-n="1"><video src="../media/fundify/fundify-demo.mp4" poster="../media/fundify/fundify-demo-poster.webp" preload="none" muted loop playsinline aria-label="Fundify app walkthrough"></video></figure>
           <p>The core screens are the wallet (total balance, top up, transfer), the rewards hub (FundCoins points, redemption catalogue), and the activity feed (transactions, milestones). Navigation is minimal. Every tap is intentional.</p>
           <p>I also designed Travel Vouchers as one of the first redemption categories, a tangible, high-desire reward that gives users a clear reason to accumulate points.</p>
-          <figure class="study-figure" data-n="1"><img src="https://www.shatermt.com/assets/fundifyassets/shot2.png" alt="" loading="lazy" /></figure>
+          <figure class="study-figure" data-n="1"><img width="2400" height="1350" src="../media/fundify/wallet-screens.webp" alt="Fundify wallet screens: balance, top up and transfer, in black and gold." loading="lazy" /></figure>
         </div>
       </section>
       <section class="study-section appear" style="--i:8">
-        <p class="study-label">FundCoins</p>
+        <h2 class="study-label">FundCoins</h2>
         <div class="study-content">
           <p>FundCoins are the engine of the product. Every positive financial action earns points: saving a set amount, completing a transfer, hitting a weekly target. Points accumulate and convert to real rewards.</p>
           <p>The design challenge was making FundCoins feel real without feeling gimmicky. The gold coin icon, the points balance displayed prominently, the rewards catalogue with actual items. Each decision pushes it toward something that feels earned rather than cheap.</p>
-          <p>179,000 points. A user who sees that number does not feel like they are being tracked. They feel like they are getting somewhere.</p>
-          <figure class="study-figure" data-n="1"><img src="https://www.shatermt.com/assets/fundifyassets/shot4.png" alt="" loading="lazy" /></figure>
+          <p>179,000 points. A user who sees that number doesn’t feel tracked. They feel like they’re getting somewhere.</p>
+          <figure class="study-figure" data-n="1"><img width="2400" height="1350" src="../media/fundify/rewards-screens.webp" alt="The FundCoins rewards hub, with the points balance and rewards to redeem." loading="lazy" /></figure>
         </div>
       </section>
       <section class="study-section appear" style="--i:9">
-        <p class="study-label">Lessons</p>
+        <h2 class="study-label">Lessons</h2>
         <div class="study-content">
-          <p>Positive reinforcement is a design tool. It is not just a UX nicety. It changes the product category. Fundify does not compete with Monzo or Revolut. It competes with the version of those apps that people actually open.</p>
+          <p>Positive reinforcement is a design tool. It’s more than a UX nicety. It changes the product category. Fundify doesn’t compete with Monzo or Revolut. It competes with the version of those apps people actually open.</p>
           <p>The visual identity did more work than I expected. The dark premium aesthetic set expectations before users read a single word. Tone communicates value before content does.</p>
         </div>
       </section>
 
-  <a class="study-next appear" style="--i:10" href="costgraph.html">
+  <a class="study-next appear" style="--i:10" href="costgraph">
     <span class="study-next-label">Next project</span>
     <span class="study-next-name">CostGraph.ai</span>
   </a>
 
-  <section class="link-section appear" style="--i:11">
-    <h2>writing</h2>
-    <a class="link-row" href="https://www.shatermt.com/articles/vicariously">
-      <span class="row-head"><span class="row-name">Vicariously living through the main character</span><span class="row-meta">5 min read</span></span>
-    </a>
+  <section class="link-section connect appear" style="--i:11">
+    <h2>connect</h2>
+    <p>I’m always up for talking to thoughtful people about design systems, interfaces, and the code they turn into. Reach me at <a href="mailto:shatermt@gmail.com">shatermt@gmail.com</a>, or find me on <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a> and <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>.</p>
   </section>
 
 <div class="player appear" style="--i:8">
-  <button class="player-tag" type="button" id="player" aria-label="Open recently played">
+  <button class="player-tag" type="button" id="player">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -157,7 +171,7 @@
 
   <footer class="appear" style="--i:9">
     <span>&copy; 2026 Shater M. Tsavsar</span>
-    <span class="clock"><span class="tz">WAT</span> <time id="clock"></time></span>
+    <span class="clock"><span class="tz">Lagos, UTC+1</span> <time id="clock"></time></span>
   </footer>
 
 </main>

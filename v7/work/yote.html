@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- The page opts into cross-page transitions before anything else, so
+     the decision is made even if it first renders on a slow connection. -->
+<style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="yote-ui.css" />
+<title>Yöte · Shater Tsavsar</title>
+<meta name="description" content="Nine React form fields with one shared set of props, zero dependencies and 24KB. How Yöte was designed, with the fields live on the page." />
+<link rel="icon" type="image/png" href="../favicon.png" />
+<meta property="og:title" content="Yöte · Shater Tsavsar" />
+<meta property="og:description" content="Nine React form fields with one shared set of props, zero dependencies and 24KB. How Yöte was designed, with the fields live on the page." />
+<meta property="og:type" content="article" />
+<link rel="canonical" href="https://www.shatermt.com/work/yote" />
+<meta property="og:url" content="https://www.shatermt.com/work/yote" />
+<meta property="og:image" content="https://www.shatermt.com/og/yote.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Yöte · Shater Tsavsar" />
+<meta name="twitter:description" content="Nine React form fields with one shared set of props, zero dependencies and 24KB. How Yöte was designed, with the fields live on the page." />
+<meta name="twitter:image" content="https://www.shatermt.com/og/yote.png" />
+<script>
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch (e) {}
+  // Arriving through a view transition: the card and the hero it grows into
+  // have to be visible on the first frame, so they skip the entrance fade.
+  addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('vt-in');
+  });
+</script>
+<link rel="preload" as="image" href="../media/yote/yote-field.webp" fetchpriority="high" />
+</head>
+<body>
+
+<div class="chrome">
+<button class="audio-toggle" type="button" aria-label="Enable audio" aria-pressed="false">
+  <svg class="ico-on" viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><path d="M11.35,1.567c-.4-.219-.889-.203-1.273,.044l-5.295,3.389H2.25c-1.241,0-2.25,1.009-2.25,2.25v3.5c0,1.241,1.009,2.25,2.25,2.25h2.531l5.295,3.389c.205,.131,.439,.198,.675,.198,.206,0,.412-.051,.599-.153,.401-.219,.65-.64,.65-1.097V2.664c0-.457-.249-.877-.65-1.097Z"/><path d="M14.444,7.056c-.293-.293-.769-.293-1.061,0-.293,.293-.293,.768,0,1.061,.236,.236,.366,.55,.366,.884s-.13,.647-.366,.884c-.293,.292-.293,.768,0,1.061,.146,.146,.338,.22,.53,.22s.384-.073,.53-.22c.52-.519,.806-1.209,.806-1.944s-.286-1.425-.806-1.944Z"/><path d="M15.329,5.111c-.293,.293-.293,.768,0,1.061,1.56,1.56,1.56,4.098,0,5.657-.293,.293-.293,.768,0,1.061,.146,.146,.338,.22,.53,.22s.384-.073,.53-.22c1.039-1.039,1.611-2.42,1.611-3.889s-.572-2.851-1.611-3.889c-.293-.293-.768-.293-1.061,0Z"/></g></svg>
+  <svg class="ico-off" viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><path d="M14.35,1.567c-.4-.219-.889-.203-1.273,.044l-5.295,3.389h-3.531c-1.241,0-2.25,1.009-2.25,2.25v3.5c0,1.241,1.009,2.25,2.25,2.25h3.531l5.295,3.389c.205,.131,.439,.198,.675,.198,.206,0,.412-.051,.599-.153,.401-.219,.65-.64,.65-1.097V2.664c0-.457-.249-.877-.65-1.097Z"/></g></svg>
+</button>
+<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+  <svg viewBox="0 0 16 16" aria-hidden="true">
+    <circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.3" />
+    <path d="M8 1.6 A6.4 6.4 0 0 1 8 14.4 Z" fill="currentColor" />
+  </svg>
+</button>
+</div>
+
+<main class="content">
+
+<nav class="nav appear">
+  <div class="brand">
+    <button class="avatar-wrap" type="button" aria-label="View photo gallery">
+      <img class="avatar" src="../pfp.png" width="40" height="40" alt="Shater Tsavsar" />
+    </button>
+    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Signature" role="img">
+      <path class="sig-path" d="M40.8613 34.142C49.863 29.7983 48.196 22.9486 43.0284 23.6169C36.4797 26.6814 34.11 32.2208 28.2756 52.3521C21.3577 67.7221 9.27205 71.3975 10.8558 65.5502C16.0772 58.2166 38.5275 44.4165 57.1143 40.1564C71.4502 36.8705 76.4511 37.3163 79.7017 34.142M75.8677 26.9582C75.0342 28.2947 72.031 27.2923 69.9473 28.8795C67.5558 29.5208 67.3991 30.0536 65.3658 31.469C63.8516 32.523 62.7962 34.0245 61.0316 34.5597C59.2338 35.105 59.0361 33.268 57.6143 33.8914C53.6136 35.6456 49.6129 37.901 47.6958 38.4857C46.6687 38.799 48.2793 36.2303 46.8624 35.8127C45.4454 35.395 40.4445 41.0752 39.6944 40.407C38.9442 39.7387 39.4443 38.4857 39.4443 38.4857M69.9473 28.8795C70.5308 27.4594 73.7006 25.3711 73.0338 24.4522C72.367 23.5334 71.3669 25.7888 70.45 27.6265C69.5332 29.4642 68.4654 33.9038 71.1168 34.6432C73.4955 35.3065 77.4021 31.469 78.322 30.0103"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </div>
+  <div class="nav-links">
+    <a href="../about">About me</a>
+    <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a>
+    <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>
+    <a href="../resume">Resume</a>
+    <a href="mailto:shatermt@gmail.com">Email</a>
+  </div>
+</nav>
+
+  <nav class="crumb appear" style="--i:1" aria-label="Breadcrumb">
+    <a href="../">Home</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">Yöte</span>
+  </nav>
+
+  <header class="study-title appear" style="--i:2">
+    <h1>Yöte</h1>
+    <p class="study-lede">Form inputs for React. Nine fields, one set of props, zero dependencies, 24KB. Every state is designed and every edge case I could find is handled.</p>
+    <div class="study-pills"><a class="study-pill" href="https://yote.shatermt.com/" target="_blank" rel="noopener"><span class="study-pill-mark"><img src="../icons/yote.svg" alt="" aria-hidden="true" /></span><span>yote.shatermt.com</span></a><a class="study-pill" href="https://github.com/Tsavsar/yote" target="_blank" rel="noopener">GitHub</a><a class="study-pill" href="https://www.npmjs.com/package/yote-ui" target="_blank" rel="noopener">npm</a><span class="study-pill">Designed and built solo</span><span class="study-pill">2026</span></div>
+  </header>
+
+  <section class="study-head appear" style="--i:3">
+   <div class="study-hero study-hero-framed card-yote">
+      <p class="hero-brand"><img src="../icons/yote.svg" alt="" aria-hidden="true" /><span>Yöte</span></p>
+      <p class="hero-line">Form inputs for React, done properly</p>
+      <img width="1260" height="1060" class="hero-shot" decoding="sync" fetchpriority="high" src="../media/yote/yote-field.webp" alt="The Yöte digit input: state pills above a four-cell verification code field, with the copyable PinInput code underneath." />
+    </div>>
+  </section>
+
+      <section class="study-section appear" style="--i:4">
+        <h2 class="study-label">Intro</h2>
+        <div class="study-content">
+          <p>Inputs are the part of a product everyone assumes is done. Then you paste a one-time code and nothing happens, or a field jumps half a pixel when it takes focus, or the error pushes the whole form down. None of that shows up in a screenshot. All of it shows up the first time somebody actually uses the form.</p>
+          <p>Radix, Base UI and Ark already own accessible headless primitives, and I wasn't going to compete with them. What none of them ship is the craft: the error transition, the focus ring timing, the way a digit lands in a cell. That's what Yöte is. Install it and the field already feels right.</p>
+          <p>The name is from the Finnish <em>syöte</em>, meaning input, and it's pronounced "yoat". It's Luotain's sister project, and its fields are sized to sit in the same 380px column Luotain's forms use. KernUI is where I learned to think in tokens, Luotain is where I built a whole product on them, and Yöte is the bit I pulled out so anyone can use it.</p>
+        </div>
+      </section>
+
+      <section class="study-section appear" style="--i:5">
+        <h2 class="study-label">Try it</h2>
+        <div class="study-content">
+          <p>These are the real components from the npm package, not recordings. They follow the site's theme toggle too.</p>
+          <div class="yote-stage" id="yoteStage">
+            <div class="yote-slot" data-yote-demo="pin"></div>
+            <div class="yote-slot" data-yote-demo="card"></div>
+            <div class="yote-slot" data-yote-demo="date"></div>
+            <div class="yote-slot" data-yote-demo="phone"></div>
+            <noscript><p>The live fields need JavaScript. The docs at yote.shatermt.com have static previews.</p></noscript>
+          </div>
+        </div>
+      </section>
+
+      <section class="study-section appear" style="--i:6">
+        <h2 class="study-label">One vocabulary</h2>
+        <div class="study-content">
+          <p>The rule I cared about most is that the second field you use needs no new learning. Every field takes the same props: <code>value</code>, <code>onChange</code>, <code>label</code>, <code>hint</code>, <code>error</code>, <code>disabled</code>, <code>size</code>, <code>classNames</code>. <code>onChange</code> always hands you the value, never the event, so nobody has to remember which component gives them a synthetic event.</p>
+          <p><code>ref</code> always lands on the real input, never on a wrapper div, so form libraries and focus management just work. Every state is also a data attribute (<code>data-focused</code>, <code>data-filled</code>, <code>data-invalid</code>), so you can style any of them from outside without asking me for a prop.</p>
+          <figure class="study-figure study-figure-tall" data-n="1"><img width="1340" height="1360" src="../media/yote/yote-digit.webp" alt="The digit input docs page: a row of state pills (Idle, Active, Used, Error, Disabled) above a live four-cell code field, with the copyable PinInput code underneath." loading="lazy" /></figure>
+          <p>The docs work the same way. The pills seed a state, but the field underneath is the real component, and you can type in it.</p>
+        </div>
+      </section>
+
+      <section class="study-section appear" style="--i:7">
+        <h2 class="study-label">Decisions</h2>
+        <div class="study-content">
+          <h3 class="study-subhead">One input, not one per cell</h3>
+          <p>The code field looks like four boxes, but there's one real <code>&lt;input&gt;</code> stretched invisibly across all of them. Most hand-rolled OTP fields render one input per cell, and that quietly breaks three things people rely on: pasting the code, <code>autocomplete="one-time-code"</code>, and the keyboard suggestion on iOS and Android that fills it straight from the SMS. The cells are just a drawing of the value. The hidden input also sits at 16px so iOS doesn't zoom the page when you tap it.</p>
+          <h3 class="study-subhead">Typed, not picked</h3>
+          <p>There's a date field but no calendar. Almost everyone knows their birthday faster than they can find it in a grid. You type the digits and the field puts the slashes in for you, and the same pattern drives the placeholder, the mask and the max length, so they can't drift apart.</p>
+          <h3 class="study-subhead">The card field regroups itself</h3>
+          <p>Most cards are four groups of four, but Amex is 4-6-5. The field works out the brand from the first digits, changes the grouping, and swaps the mark as you type. There are two spaces between groups rather than one, because at 14px a single space was too tight to tell the groups apart at a glance.</p>
+          <h3 class="study-subhead">Errors that replay</h3>
+          <p>If you submit the same wrong code twice, the error message is identical, so a normal component does nothing the second time and it looks like the button broke. There's an <code>errorKey</code> prop so the shake plays again on every failed attempt. Try it on the code field above.</p>
+          <h3 class="study-subhead">Motion</h3>
+          <p>Everything runs on one ease-out curve, <code>cubic-bezier(0.23, 1, 0.32, 1)</code>, and short durations: 140ms for a digit landing, 160ms for borders and focus rings, 280ms for the error shake. These are fields you type into dozens of times a day, so anything longer starts to feel like waiting. Digits come in from 0.9 scale rather than 0, because nothing in the real world appears out of nowhere. With reduced motion turned on, the shake is gone and a digit just fades in.</p>
+          <h3 class="study-subhead">Your classes win</h3>
+          <p>All of Yöte's CSS sits in a cascade layer, and unlayered CSS beats layered CSS whatever the specificity. So your Tailwind utility or your own class overrides mine with no <code>!important</code> and no specificity fight. It also meant a rule for me: single-class selectors only, so one utility is always enough to win.</p>
+          <h3 class="study-subhead">The bug that cost a day</h3>
+          <p>The focus ring is built from other tokens, and a CSS variable resolves where it's declared rather than where it's used. I'd declared the ring only in the light theme, so the page baked a white ring into it and every dark container inherited that. The inputs were correct and the ring was wrong. Now every composed token is restated in every theme block, and the agent skill below checks for exactly this.</p>
+        </div>
+      </section>
+
+      <section class="study-section appear" style="--i:8">
+        <h2 class="study-label">Scope</h2>
+        <div class="study-content">
+          <p>Yöte does fields. It doesn't do form state or validation logic, or the things that sit on top of a field rather than in it. The library renders your error and never decides what one is. If a feature would need it to hold state, guess a locale, or decide whether something is correct, that's the line, and it's written in the README so there's something to point at when the temptation shows up.</p>
+          <p>That's also why it's 1.0 rather than a long 0.x. There's no roadmap waiting to reshape the API. A narrow library that's finished beats a broad one that's forty percent done.</p>
+        </div>
+      </section>
+
+      <section class="study-section appear" style="--i:9">
+        <h2 class="study-label">For agents</h2>
+        <div class="study-content">
+          <p>A lot of UI now gets built by an agent, and agents build inputs that look finished and feel broken. So the repo ships two agent skills. <code>yote-ui</code> covers using the components in an app. <code>design-input</code> is the one that matters: it teaches an agent the rules the nine fields were built on, like the states, what must never shift, and what never ships. It designs against your token names and reads your stylesheet first, so a project with its own accent gets specs in its own colour.</p>
+          <figure class="study-figure study-figure-tall" data-n="1"><img width="1300" height="1200" src="../media/yote/yote-skills.webp" alt="The Skills docs page, explaining why the skills exist and the one-line install command: npx skills@latest add Tsavsar/yote." loading="lazy" /></figure>
+        </div>
+      </section>
+
+      <section class="study-section appear" style="--i:10">
+        <h2 class="study-label">Next</h2>
+        <div class="study-content">
+          <p>The claims above are checked by hand right now, which isn't good enough for a library that says every edge case is handled. Next is a test suite for the behaviour that matters most: paste and autofill on the code field, the card regrouping, and typed dates.</p>
+        </div>
+      </section>
+
+  <a class="study-next appear" style="--i:11" href="lonar">
+    <span class="study-next-label">Next project</span>
+    <span class="study-next-name">Lönar</span>
+  </a>
+
+  <section class="link-section connect appear" style="--i:12">
+    <h2>connect</h2>
+    <p>I’m always up for talking to thoughtful people about design systems, interfaces, and the code they turn into. Reach me at <a href="mailto:shatermt@gmail.com">shatermt@gmail.com</a>, or find me on <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a> and <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>.</p>
+  </section>
+
+
+<div class="player appear" style="--i:8">
+  <button class="player-tag" type="button" id="player">
+    <span class="vinyl" id="vinyl">
+      <img class="vinyl-art" id="vinylArt" alt="" hidden />
+      <span class="vinyl-hole"></span>
+    </span>
+    <span class="player-lines">
+      <span class="player-state" id="playerState">Last played</span>
+      <span class="player-track" hidden><strong id="trackTitle"></strong><span class="by"> by </span><strong id="trackArtist"></strong></span>
+    </span>
+  </button>
+</div>
+
+  <footer class="appear" style="--i:9">
+    <span>&copy; 2026 Shater M. Tsavsar</span>
+    <span class="clock"><span class="tz">Lagos, UTC+1</span> <time id="clock"></time></span>
+  </footer>
+
+</main>
+
+<script type="module" src="../app.js"></script>
+<script>
+  // The live fields carry React with them, so they only load once the
+  // stage is close to the viewport.
+  (function () {
+    var stage = document.getElementById('yoteStage');
+    if (!stage) return;
+    var load = function () { var s = document.createElement('script'); s.type = 'module'; s.src = 'yote-demo.js'; document.body.appendChild(s); };
+    if (!('IntersectionObserver' in window)) return load();
+    var io = new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting) { io.disconnect(); load(); }
+    }, { rootMargin: '600px 0px' });
+    io.observe(stage);
+  })();
+</script>
+</body>
+</html>

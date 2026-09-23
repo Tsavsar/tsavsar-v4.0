@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- The page opts into cross-page transitions before anything else, so
+     the decision is made even if it first renders on a slow connection. -->
+<style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="styles.css" />
+<title>Design explorations · Shater Tsavsar</title>
+<meta name="description" content="Take a look at some component designs, prototypes and concepts I&#x27;ve worked on." />
+<link rel="icon" type="image/png" href="favicon.png" />
+<meta property="og:title" content="Design explorations · Shater Tsavsar" />
+<meta property="og:description" content="Take a look at some component designs, prototypes and concepts I&#x27;ve worked on." />
+<meta property="og:type" content="website" />
+<link rel="canonical" href="https://www.shatermt.com/explorations" />
+<meta property="og:url" content="https://www.shatermt.com/explorations" />
+<meta property="og:image" content="https://www.shatermt.com/og/explorations.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Design explorations · Shater Tsavsar" />
+<meta name="twitter:description" content="Take a look at some component designs, prototypes and concepts I&#x27;ve worked on." />
+<meta name="twitter:image" content="https://www.shatermt.com/og/explorations.png" />
+<script>
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch (e) {}
+  // Arriving through a view transition: the card and the hero it grows into
+  // have to be visible on the first frame, so they skip the entrance fade.
+  addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('vt-in');
+  });
+</script>
+</head>
+<body>
+
+<div class="chrome">
+<button class="audio-toggle" type="button" aria-label="Enable audio" aria-pressed="false">
+  <svg class="ico-on" viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor">
+    <path d="M11.35,1.567c-.4-.219-.889-.203-1.273,.044l-5.295,3.389H2.25c-1.241,0-2.25,1.009-2.25,2.25v3.5c0,1.241,1.009,2.25,2.25,2.25h2.531l5.295,3.389c.205,.131,.439,.198,.675,.198,.206,0,.412-.051,.599-.153,.401-.219,.65-.64,.65-1.097V2.664c0-.457-.249-.877-.65-1.097Z"/>
+    <path d="M14.444,7.056c-.293-.293-.769-.293-1.061,0-.293,.293-.293,.768,0,1.061,.236,.236,.366,.55,.366,.884s-.13,.647-.366,.884c-.293,.292-.293,.768,0,1.061,.146,.146,.338,.22,.53,.22s.384-.073,.53-.22c.52-.519,.806-1.209,.806-1.944s-.286-1.425-.806-1.944Z"/>
+    <path d="M15.329,5.111c-.293,.293-.293,.768,0,1.061,1.56,1.56,1.56,4.098,0,5.657-.293,.293-.293,.768,0,1.061,.146,.146,.338,.22,.53,.22s.384-.073,.53-.22c1.039-1.039,1.611-2.42,1.611-3.889s-.572-2.851-1.611-3.889c-.293-.293-.768-.293-1.061,0Z"/>
+  </g></svg>
+  <svg class="ico-off" viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor">
+    <path d="M14.35,1.567c-.4-.219-.889-.203-1.273,.044l-5.295,3.389h-3.531c-1.241,0-2.25,1.009-2.25,2.25v3.5c0,1.241,1.009,2.25,2.25,2.25h3.531l5.295,3.389c.205,.131,.439,.198,.675,.198,.206,0,.412-.051,.599-.153,.401-.219,.65-.64,.65-1.097V2.664c0-.457-.249-.877-.65-1.097Z"/>
+  </g></svg>
+</button>
+<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+  <svg viewBox="0 0 16 16" aria-hidden="true">
+    <circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.3" />
+    <path d="M8 1.6 A6.4 6.4 0 0 1 8 14.4 Z" fill="currentColor" />
+  </svg>
+</button>
+</div>
+
+<main class="content">
+
+<nav class="nav appear">
+  <div class="brand">
+    <button class="avatar-wrap" type="button" aria-label="View photo gallery">
+      <img class="avatar" src="pfp.png" width="40" height="40" alt="Shater Tsavsar" />
+    </button>
+    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Signature" role="img">
+      <path class="sig-path" d="M40.8613 34.142C49.863 29.7983 48.196 22.9486 43.0284 23.6169C36.4797 26.6814 34.11 32.2208 28.2756 52.3521C21.3577 67.7221 9.27205 71.3975 10.8558 65.5502C16.0772 58.2166 38.5275 44.4165 57.1143 40.1564C71.4502 36.8705 76.4511 37.3163 79.7017 34.142M75.8677 26.9582C75.0342 28.2947 72.031 27.2923 69.9473 28.8795C67.5558 29.5208 67.3991 30.0536 65.3658 31.469C63.8516 32.523 62.7962 34.0245 61.0316 34.5597C59.2338 35.105 59.0361 33.268 57.6143 33.8914C53.6136 35.6456 49.6129 37.901 47.6958 38.4857C46.6687 38.799 48.2793 36.2303 46.8624 35.8127C45.4454 35.395 40.4445 41.0752 39.6944 40.407C38.9442 39.7387 39.4443 38.4857 39.4443 38.4857M69.9473 28.8795C70.5308 27.4594 73.7006 25.3711 73.0338 24.4522C72.367 23.5334 71.3669 25.7888 70.45 27.6265C69.5332 29.4642 68.4654 33.9038 71.1168 34.6432C73.4955 35.3065 77.4021 31.469 78.322 30.0103"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </div>
+  <div class="nav-links">
+    <a href="about">About me</a>
+    <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a>
+    <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>
+    <a href="resume">Resume</a>
+    <a href="mailto:shatermt@gmail.com">Email</a>
+  </div>
+</nav>
+
+  <nav class="crumb appear" style="--i:1" aria-label="Breadcrumb">
+    <a href="./">Home</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">Playground</span>
+  </nav>
+
+  <header class="study-title appear" style="--i:2">
+    <h1>Design explorations</h1>
+    <p class="study-lede">Take a look at some component designs, prototypes and concepts I&#x27;ve worked on.</p>
+    <div class="study-pills explore-sites">
+      <a class="study-pill" href="https://tanj.framer.website/" target="_blank" rel="noopener">Tanj<svg viewBox="0 0 12 12" fill="none" width="11" height="11" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H5M9.5 2.5V7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="study-pill" href="https://clearline.framer.website/" target="_blank" rel="noopener">Clearline<svg viewBox="0 0 12 12" fill="none" width="11" height="11" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H5M9.5 2.5V7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </header>
+
+  <section class="explore-section appear" style="--i:3" aria-label="Explorations">
+    <ul class="explore-grid" role="list">
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Workspace image upload: an image dragged onto a drop zone"><video src="media/explorations/workspace-image-upload.mp4" poster="media/explorations/workspace-image-upload-poster.webp" preload="none" muted loop playsinline aria-label="Workspace image upload: an image dragged onto a drop zone"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Fundify: a coin animation that opens into the welcome screen"><video src="media/explorations/fundify-onboarding.mp4" poster="media/explorations/fundify-onboarding-poster.webp" preload="none" muted loop playsinline aria-label="Fundify: a coin animation that opens into the welcome screen"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Tanj: testimonial cards that expand on hover"><video src="media/explorations/tanj-testimonials.mp4" poster="media/explorations/tanj-testimonials-poster.webp" preload="none" muted loop playsinline aria-label="Tanj: testimonial cards that expand on hover"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Row actions menu opening from a lease table"><video src="media/explorations/table-row-actions.mp4" poster="media/explorations/table-row-actions-poster.webp" preload="none" muted loop playsinline aria-label="Row actions menu opening from a lease table"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Plan usage card showing free documents left and upgrade plans"><video src="media/explorations/plan-usage-card.mp4" poster="media/explorations/plan-usage-card-poster.webp" preload="none" muted loop playsinline aria-label="Plan usage card showing free documents left and upgrade plans"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Frakt: the stacking your files progress state"><video src="media/explorations/frakt-stacking-files.mp4" poster="media/explorations/frakt-stacking-files-poster.webp" preload="none" muted loop playsinline aria-label="Frakt: the stacking your files progress state"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Verification code entry with a countdown"><video src="media/explorations/verification-code.mp4" poster="media/explorations/verification-code-poster.webp" preload="none" muted loop playsinline aria-label="Verification code entry with a countdown"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="User details panel with active subscriptions"><video src="media/explorations/user-details-panel.mp4" poster="media/explorations/user-details-panel-poster.webp" preload="none" muted loop playsinline aria-label="User details panel with active subscriptions"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Alert notifications in light and dark, with success and warning variants"><video src="media/explorations/alert-notifications.mp4" poster="media/explorations/alert-notifications-poster.webp" preload="none" muted loop playsinline aria-label="Alert notifications in light and dark, with success and warning variants"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Amount input with a currency picker"><video src="media/explorations/currency-amount-input.mp4" poster="media/explorations/currency-amount-input-poster.webp" preload="none" muted loop playsinline aria-label="Amount input with a currency picker"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Tanj: feature cards for design, thinking and writing"><video src="media/explorations/tanj-feature-cards.mp4" poster="media/explorations/tanj-feature-cards-poster.webp" preload="none" muted loop playsinline aria-label="Tanj: feature cards for design, thinking and writing"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="A toggle that reveals an email field when notifications are switched on"><video src="media/explorations/notification-toggle.mp4" poster="media/explorations/notification-toggle-poster.webp" preload="none" muted loop playsinline aria-label="A toggle that reveals an email field when notifications are switched on"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Clearline: FAQ accordion and call to action banner"><video src="media/explorations/clearline-faq.mp4" poster="media/explorations/clearline-faq-poster.webp" preload="none" muted loop playsinline aria-label="Clearline: FAQ accordion and call to action banner"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Clearline: step by step onboarding section"><video src="media/explorations/clearline-steps.mp4" poster="media/explorations/clearline-steps-poster.webp" preload="none" muted loop playsinline aria-label="Clearline: step by step onboarding section"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Tanj: landing page hero"><video src="media/explorations/tanj-landing-page.mp4" poster="media/explorations/tanj-landing-page-poster.webp" preload="none" muted loop playsinline aria-label="Tanj: landing page hero"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Workspace inbox empty state with sidebar"><video src="media/explorations/inbox-empty-state.mp4" poster="media/explorations/inbox-empty-state-poster.webp" preload="none" muted loop playsinline aria-label="Workspace inbox empty state with sidebar"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Colour picker dropdown button"><video src="media/explorations/colour-picker-toggle.mp4" poster="media/explorations/colour-picker-toggle-poster.webp" preload="none" muted loop playsinline aria-label="Colour picker dropdown button"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="video" aria-label="Boki: coming soon teaser"><video src="media/explorations/boki-coming-soon.mp4" poster="media/explorations/boki-coming-soon-poster.webp" preload="none" muted loop playsinline aria-label="Boki: coming soon teaser"></video></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2400" height="1933" src="media/explorations/weave-onboarding.webp" alt="Weave onboarding screen: get started with secure card payments" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2400" height="2043" src="media/explorations/weave-wallet.webp" alt="Weave wallet screen: take control of your financial management" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2316" height="1496" src="media/explorations/taasc-kanban-drag.webp" alt="Taasc kanban board with a task card being dragged between columns" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2400" height="1624" src="media/explorations/taasc-calendar.webp" alt="Taasc month calendar with a task being dragged to another day" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2000" height="1422" src="media/explorations/api-analytics-dashboard.webp" alt="API analytics dashboard with usage stats and a performance chart" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2288" height="1493" src="media/explorations/lonar-overview.webp" alt="Lönar overview: invoice totals and a client table" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2000" height="1154" src="media/explorations/lonar-client-details.webp" alt="Lönar client details drawer with address and generated invoices" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2316" height="1814" src="media/explorations/lonar-mobile-settings.webp" alt="Lönar mobile: Pro upgrade in settings beside the overview screen" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2316" height="1814" src="media/explorations/lonar-mobile-invoice.webp" alt="Lönar mobile: navigation menu beside an overdue invoice" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="1570" height="1252" src="media/explorations/lyfers-balance-breakdown.webp" alt="Lyfers account balance with a perk breakdown popover" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="1570" height="1252" src="media/explorations/lyfers-fund-wallet.webp" alt="Lyfers fund wallet modal beside transaction details" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="1570" height="1252" src="media/explorations/lyfers-perk-sheet.webp" alt="Lyfers Spotify perk bottom sheet with recent transactions" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="1570" height="1252" src="media/explorations/lyfers-card.webp" alt="Lyfers card screen with credits for each perk" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="1570" height="1252" src="media/explorations/lyfers-home.webp" alt="Lyfers home screen with account balance and perks" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2400" height="2145" src="media/explorations/banking-home.webp" alt="Banking app home with a balance in Norwegian kroner and an inflow chart" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2000" height="1701" src="media/explorations/list-property.webp" alt="List your property: a three step onboarding screen" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="1185" height="1593" src="media/explorations/pdf-upload.webp" alt="PDF upload card with drag and drop and upload progress" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2400" height="1690" src="media/explorations/frakt-empty-state.webp" alt="Frakt desktop app empty state: no zips found" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2336" height="2526" src="media/explorations/frakt-bento.webp" alt="Frakt feature grid in dark mode" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2316" height="1496" src="media/explorations/taasc-new-task.webp" alt="Taasc new task form with a schedule date picker" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="1650" height="1134" src="media/explorations/taasc-task-card.webp" alt="Taasc task card with status, tags and project" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2400" height="1350" src="media/explorations/boki-launch.webp" alt="Boki: built for content marketers and writers" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="1239" src="media/explorations/modal-set.webp" alt="Add to collection, payment details and user profile modals" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="1309" src="media/explorations/lonar-sign-in.webp" alt="Lönar sign in page beside a dashboard preview" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2160" height="1277" src="media/explorations/skaraa-stem-splitter.webp" alt="Skaraa audio stem splitter with a waveform for each track" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="1242" src="media/explorations/settings-desktop-mobile.webp" alt="Settings page on desktop and mobile" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="1451" src="media/explorations/filter-chips.webp" alt="Filter chips with flags, avatars and statuses" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="1208" src="media/explorations/perk-cards.webp" alt="Perk and spending summary cards" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="1229" src="media/explorations/transaction-feed.webp" alt="Transaction activity feed with a refund, payments and an invoice" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="990" src="media/explorations/tanj-banner.webp" alt="Tanj call to action banner in wide and tall formats" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="1289" src="media/explorations/accordions.webp" alt="Task category and pricing plan accordions" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2400" height="1350" src="media/explorations/auth-flows.webp" alt="Sign in error, verification code and sign in button states" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="1670" src="media/explorations/pricing-content-teams.webp" alt="Pricing page with free, pro and enterprise plans for content teams" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="1962" height="1045" src="media/explorations/clearline-pricing.webp" alt="Clearline pricing: Start Up, Growth and Enterprise plans" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="1024" height="512" src="media/explorations/context-menus.webp" alt="Context menus with a destructive action" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="1267" src="media/explorations/lonar-invoice-ready.webp" alt="Lönar: an invoice ready to download or send" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="2048" height="1045" src="media/explorations/otp-input.webp" alt="One time code input states: empty, typing, filled and error" loading="lazy" decoding="async" /></button></li>
+      <li class="explore-cell"><button class="explore-open" type="button" data-kind="img"><img width="1962" height="942" src="media/explorations/tanj-how-it-works.webp" alt="Tanj: turn chaos into clarity, from input to process to output" loading="lazy" decoding="async" /></button></li>
+    </ul>
+  </section>
+
+  <section class="link-section appear" style="--i:4">
+    <h2>writing</h2>
+    <a class="link-row" href="articles/vicariously">
+      <span class="row-head"><span class="row-name">Vicariously living through the main character</span><span class="row-meta">5 min read</span></span>
+    </a>
+  </section>
+
+<div class="player appear" style="--i:5">
+  <button class="player-tag" type="button" id="player">
+    <span class="vinyl" id="vinyl">
+      <img class="vinyl-art" id="vinylArt" alt="" hidden />
+      <span class="vinyl-hole"></span>
+    </span>
+    <span class="player-lines">
+      <span class="player-state" id="playerState">Last played</span>
+      <span class="player-track" hidden><strong id="trackTitle"></strong><span class="by"> by </span><strong id="trackArtist"></strong></span>
+    </span>
+  </button>
+</div>
+
+  <footer class="appear" style="--i:6">
+    <span>&copy; 2026 Shater M. Tsavsar</span>
+    <span class="clock"><span class="tz">Lagos, UTC+1</span> <time id="clock"></time></span>
+  </footer>
+
+</main>
+
+<script type="module" src="app.js"></script>
+<script src="explorations.js" defer></script>
+</body>
+</html>

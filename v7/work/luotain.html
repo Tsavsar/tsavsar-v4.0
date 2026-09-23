@@ -3,22 +3,38 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Luotain — Shater Tsavsar</title>
-<meta name="description" content="If I had a nickel for every one of my projects that starts with an L, I'd have two nickels. Which isn't a lot, but it's weird that it happened twice." />
+<!-- The page opts into cross-page transitions before anything else, so
+     the decision is made even if it first renders on a slow connection. -->
+<style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../styles.css" />
+<title>Luotain · Shater Tsavsar</title>
+<meta name="description" content="Luotain, designed and built solo: short links and QR codes that keep their own scan data and stay editable after they are printed." />
 <link rel="icon" type="image/png" href="../favicon.png" />
-<meta property="og:title" content="Luotain — Shater Tsavsar" />
-<meta property="og:description" content="If I had a nickel for every one of my projects that starts with an L, I'd have two nickels. Which isn't a lot, but it's weird that it happened twice." />
+<meta property="og:title" content="Luotain · Shater Tsavsar" />
+<meta property="og:description" content="Luotain, designed and built solo: short links and QR codes that keep their own scan data and stay editable after they are printed." />
 <meta property="og:type" content="article" />
+<link rel="canonical" href="https://www.shatermt.com/work/luotain" />
+<meta property="og:url" content="https://www.shatermt.com/work/luotain" />
+<meta property="og:image" content="https://www.shatermt.com/og/luotain.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Luotain · Shater Tsavsar" />
+<meta name="twitter:description" content="Luotain, designed and built solo: short links and QR codes that keep their own scan data and stay editable after they are printed." />
+<meta name="twitter:image" content="https://www.shatermt.com/og/luotain.png" />
 <script>
   try {
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
+  // Arriving through a view transition: the card and the hero it grows into
+  // have to be visible on the first frame, so they skip the entrance fade.
+  addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('vt-in');
+  });
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../styles.css" />
+<link rel="preload" as="image" href="../heroes/luotain.jpg" fetchpriority="high" />
 </head>
 <body>
 
@@ -48,15 +64,16 @@
     </svg>
   </div>
   <div class="nav-links">
-    <a href="../about.html">About me</a>
+    <a href="../about">About me</a>
     <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a>
     <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>
+    <a href="../resume">Resume</a>
     <a href="mailto:shatermt@gmail.com">Email</a>
   </div>
 </nav>
 
   <nav class="crumb appear" style="--i:1" aria-label="Breadcrumb">
-    <a href="../index.html">Home</a>
+    <a href="../">Home</a>
     <span aria-hidden="true">/</span>
     <span aria-current="page">Luotain</span>
   </nav>
@@ -68,104 +85,92 @@
   </header>
 
   <section class="study-head appear" style="--i:3">
-    <div class="study-hero card-luotain">
-      <img src="../heroes/luotain.jpg" alt="Luotain" />
+    <div class="study-hero study-hero-framed card-luotain">
+      <p class="hero-brand"><img src="../icons/luotain.svg" alt="" aria-hidden="true" /><span>Luotain</span></p>
+      <p class="hero-line">Short links and QR codes that remember every scan</p>
+      <img width="1200" height="975" class="hero-shot" decoding="sync" fetchpriority="high" src="../heroes/luotain.jpg" alt="Luotain analytics: clicks over time for two short links, split rather than summed." />
     </div>
   </section>
 
       <section class="study-section appear" style="--i:4">
-        <p class="study-label">Intro</p>
-        <div class="study-content">
-          <p>If I had a nickel for every one of my projects that starts with an L, I'd have two nickels. Which isn't a lot, but it's weird that it happened twice.</p>
-          <p>Anyway, short links and qr code sites are treated as internet waste, you've 100% used one of these types of sites at least once and I'm very sure you don't remember what it was called.</p>
-          <p>Of course you have the "bitly"s but we're not talking about those guys right now lol.</p>
-          <p>Anyway, it's called Luotain which is a Finnish noun meaning "probe" or "detector". I know I know, really cool name, thanks thanks.</p>
-        </div>
-      </section>
-      <section class="study-section appear" style="--i:5">
-        <p class="study-label">My role</p>
-        <div class="study-content">
-          <p>I worked on this end to end which was a lot but to list it all out;</p>
-          <ul>
-            <li>Product strategy and UX direction</li>
-            <li>Front end and back end engineering</li>
-            <li>Social media accounts management and creating designs</li>
-            <li>User research synthesis</li>
-            <li>Information architecture</li>
-            <li>Design systems</li>
-            <li>High-fidelity UI design</li>
-            <li>Interactive prototyping</li>
-            <li>Design-engineering</li>
-          </ul>
-        </div>
-      </section>
-      <section class="study-section appear" style="--i:6">
-        <p class="study-label">Problem</p>
+        <h2 class="study-label">Problem</h2>
         <div class="study-content">
           <p>You know those QR codes on restaurant tables. A place near me printed a few hundred of them for a new menu, then moved the menu to a different URL a month later, and every single card was dead. The code still scanned fine. It just went nowhere.</p>
           <p>That stuck with me because it's such an easy thing to fix and nobody does. Every shortener I looked at treats QR codes like an afterthought. You make a link, then there's a button buried somewhere that hands you a PNG, and that PNG has no analytics and no way to change where it goes. So if you've stuck the same code on a flyer, a window and a receipt, you've got no idea which one people are actually scanning.</p>
           <p>So that's what I built. Every link gets a code, the code has its own scan data, and you can change the destination whenever you want. Print it once, point it wherever.</p>
+          <p>It's called Luotain, a Finnish noun meaning "probe" or "detector". I know, I know, really cool name, thanks. And if I had a nickel for every one of my projects that starts with an L, I'd have two nickels. Which isn't a lot, but it's weird that it happened twice.</p>
         </div>
       </section>
-      <section class="study-section appear" style="--i:7">
-        <p class="study-label">Solution</p>
+      <section class="study-section appear" style="--i:5">
+        <h2 class="study-label">My role</h2>
+        <div class="study-content">
+          <p>All of it, on my own: the product, the design, the frontend and the backend, and the social accounts too. It's built on KernUI's tokens, with Next.js, Postgres through Prisma, an email-code sign-in I wrote myself, Resend for email, Polar for billing, and DNS verification for custom domains.</p>
+        </div>
+      </section>
+      <section class="study-section appear" style="--i:6">
+        <h2 class="study-label">Solution</h2>
         <div class="study-content">
           <h3 class="study-subhead">You can just use it</h3>
           <p>The homepage isn't a screenshot of the app, it's the app. Paste a link in, get a real short link back. Flip to the QR tab and you get a real code you can restyle and download. No signup, nothing.</p>
-          <figure class="study-figure" data-n="1"><video src="https://www.shatermt.com/assets/luotain/homepage.mov" autoplay muted loop playsinline></video></figure>
-          <p>I did that because explaining this product in a paragraph never worked. Ten seconds of using it does the job instantly, so I stopped writing copy and just put the thing on the page.</p>
+          <figure class="study-figure" data-n="1"><video src="../media/luotain/homepage.mp4" poster="../media/luotain/homepage-poster.webp" preload="none" muted loop playsinline aria-label="Luotain homepage demo"></video></figure>
           <p>The bit I'm actually pleased with is that the links follow you. If you make one on the homepage and then sign up in the same browser, it's already sitting in your account when you land, clicks and everything. Getting that wrong would have been rough. You try the product, you like it, you sign up, and the thing you just made is gone.</p>
           <h3 class="study-subhead">Making a link and making a code are the same screen</h3>
-          <figure class="study-figure" data-n="1"><video src="https://www.shatermt.com/assets/luotain/create-screen.mov" autoplay muted loop playsinline></video></figure>
+          <figure class="study-figure" data-n="1"><video src="../media/luotain/create-screen.mp4" poster="../media/luotain/create-screen-poster.webp" preload="none" muted loop playsinline aria-label="Creating a short link or QR code on one screen"></video></figure>
           <p>There's a toggle up top, Short link or QR code. It looks like it switches modes but it doesn't. Both do exactly the same thing, the toggle just decides where you end up afterwards.</p>
-          <p>I had it the other way at first, where the fields changed depending on what you picked, and it felt like two different tools sharing a screen. Nothing moves now.</p>
-          <p>The QR side does one extra thing. Most of the time a code is for something you already made, like a sticker for a menu you linked last week, so there's a picker for your existing links sitting right there.</p>
+          <p>I had it the other way at first, where the fields changed depending on what you picked, and it felt like two different tools sharing a screen. Worse, the toggle turned into a question you had to answer before you knew the answer. You'd pick Short link, fill it in, remember you actually wanted a code for the flyer, flip it, and half of what you'd typed moved or vanished. Now the toggle only decides where you land afterwards, so you can change your mind at any point and lose nothing. Nothing moves.</p>
         </div>
       </section>
-      <section class="study-section appear" style="--i:8">
-        <p class="study-label">Features</p>
+      <section class="study-section appear" style="--i:7">
+        <h2 class="study-label">Features</h2>
         <div class="study-content">
           <h3 class="study-subhead">The designer</h3>
-          <figure class="study-figure" data-n="1"><video src="https://www.shatermt.com/assets/luotain/qr-designer.mov" autoplay muted loop playsinline></video></figure>
+          <figure class="study-figure" data-n="1"><video src="../media/luotain/qr-designer.mp4" poster="../media/luotain/qr-designer-poster.webp" preload="none" muted loop playsinline aria-label="Designing a QR code with colours, patterns and a logo"></video></figure>
           <p>Colours, patterns, your logo in the middle. The corner squares get their own colour separately, which is the bit most people want, because you can brand those without touching the rest and breaking the scan.</p>
           <p>Tap the code and it opens bigger and tilts toward your cursor. It lags behind the pointer slightly rather than following it exactly, and honestly that lag is the whole effect. When I had it tracking perfectly it felt twitchy and cheap.</p>
-          <figure class="study-figure" data-n="1"><video src="https://www.shatermt.com/assets/luotain/qr-tilt.mov" autoplay muted loop playsinline></video></figure>
+          <figure class="study-figure" data-n="1"><video src="../media/luotain/qr-tilt.mp4" poster="../media/luotain/qr-tilt-poster.webp" preload="none" muted loop playsinline aria-label="Enlarged QR code tilting toward the cursor"></video></figure>
           <p>Downloads are PNG or SVG, and the PNG comes out at 1024 with a white background. Transparency sounds like the nicer option right up until somebody drops the code onto a dark card, it inverts, and no phone can read it.</p>
           <h3 class="study-subhead">Which one worked</h3>
           <p>Four hundred clicks doesn't tell you anything. What you want to know is which of your five placements got them. So nothing is summed, it's all split by source, country and device.</p>
-          <figure class="study-figure" data-n="1"><img src="https://www.shatermt.com/assets/luotain/shot-1806.png" alt="" loading="lazy" /></figure>
-          <p>The nice side effect is this works in places you can't put a script. Someone else's newsletter, a printed flyer, a DM. Analytics tags only work on pages you own, and a link works anywhere.</p>
+          <figure class="study-figure" data-n="1"><img width="1702" height="394" src="../media/luotain/overview-stats.webp" alt="The analytics overview with clicks, unique visitors and top country, filtered to two links." loading="lazy" /></figure>
           <h3 class="study-subhead">Comparing links side by side</h3>
-          <figure class="study-figure" data-n="1"><video src="https://www.shatermt.com/assets/luotain/compare-links.mov" autoplay muted loop playsinline></video></figure>
+          <figure class="study-figure" data-n="1"><video src="../media/luotain/compare-links.mp4" poster="../media/luotain/compare-links-poster.webp" preload="none" muted loop playsinline aria-label="Comparing clicks for selected links on the analytics chart"></video></figure>
           <p>This one's my favourite and it's easy to miss. On the clicks chart you can tap two or three links and it splits them out instead of showing you the total.</p>
-          <p>That's the whole point of the product really. If you've put the same thing on a flyer and in a newsletter, the number you want isn't 400 clicks, it's 240 from the flyer and 160 from the newsletter. Summing them throws away the only interesting part.</p>
           <p>The rows animate to their new positions when the order changes rather than jumping, which took longer than the comparison itself. When you toggle a filter and the ranking shifts, rows sliding to where they belong reads as the data updating. Rows teleporting reads as a bug.</p>
-          <h3 class="study-subhead">Bringing people in</h3>
-          <figure class="study-figure" data-n="1"><video src="https://www.shatermt.com/assets/luotain/invite-members.mov" autoplay muted loop playsinline></video></figure>
-          <p>You can invite people, and there are three roles. Owner, admin, member. Members can make links and read analytics, admins can also touch domains and billing, and there's one owner who can delete the whole workspace.</p>
-          <p>The bit I put effort into is the invite form. Most products make you invite one person, wait, then do it again. This one is a list you can keep adding rows to, each with its own email and role, because you're usually onboarding a team rather than a person.</p>
-          <p>Pressing enter on the last row adds another one, so you can invite five people without touching the mouse. Pending invites sit in the same list as actual members with their role showing, and you can cancel one if you got the email wrong.</p>
           <h3 class="study-subhead">Custom domains</h3>
-          <figure class="study-figure" data-n="1"><video src="https://www.shatermt.com/assets/luotain/add-domain.mov" autoplay muted loop playsinline></video></figure>
+          <figure class="study-figure" data-n="1"><video src="../media/luotain/add-domain.mp4" poster="../media/luotain/add-domain-poster.webp" preload="none" muted loop playsinline aria-label="Adding and verifying a custom domain"></video></figure>
           <p>This screen is boring and I'm weirdly proud of it. It has to teach DNS to someone who's never touched DNS, and get it right, because the record you need depends on the shape of your domain. go.yourbrand.com takes one kind, yourbrand.link takes another, and DNS flat out won't let you use the first kind at a root domain. So the page works out which you gave it and only shows you that one.</p>
           <p>It checks in the background while you're waiting and stops when you switch tabs. And when it fails it tells you what went wrong instead of just going red.</p>
         </div>
       </section>
 
-  <a class="study-next appear" style="--i:9" href="lonar.html">
+      <section class="study-section appear" style="--i:8">
+        <h2 class="study-label">Lessons</h2>
+        <div class="study-content">
+          <p>Letting people use it beats explaining it. I tried to describe Luotain in a paragraph more times than I'd like to admit, and none of them did what ten seconds with the real thing does. That was also the most expensive decision to build. Making a link before you have an account meant building an anonymous workspace and a way to claim it, so the link comes with you when you sign up. Worth it, but it's a lot of backend for one line in a design doc.</p>
+          <p>The boring screens carry as much of the product as the fun ones. The tilt is what people react to, but the DNS screen decides whether someone actually gets their domain working, and it's the one I'd least want to get wrong.</p>
+        </div>
+      </section>
+
+      <section class="study-section appear" style="--i:9">
+        <h2 class="study-label">Where it's at</h2>
+        <div class="study-content">
+          <p>Luotain is live, and it's early. There aren't numbers worth putting on a page yet, and I'd rather say that than dress up a small launch. What I'm watching is the thing the product exists for: whether people who make a link on the homepage come back after signing up and change where it points. If they do, the printed-code problem is solved. If they don't, it's just another shortener.</p>
+          <p>If I started again, I'd build the split analytics first. They're the reason Luotain exists, and they came last, after the create screen and the designer. Those are the parts people see first, but they're not the parts that make anyone stay.</p>
+        </div>
+      </section>
+
+  <a class="study-next appear" style="--i:10" href="costgraph">
     <span class="study-next-label">Next project</span>
-    <span class="study-next-name">Lönar</span>
+    <span class="study-next-name">CostGraph.ai</span>
   </a>
 
-  <section class="link-section appear" style="--i:10">
-    <h2>writing</h2>
-    <a class="link-row" href="https://www.shatermt.com/articles/vicariously">
-      <span class="row-head"><span class="row-name">Vicariously living through the main character</span><span class="row-meta">5 min read</span></span>
-    </a>
+  <section class="link-section connect appear" style="--i:11">
+    <h2>connect</h2>
+    <p>I’m always up for talking to thoughtful people about design systems, interfaces, and the code they turn into. Reach me at <a href="mailto:shatermt@gmail.com">shatermt@gmail.com</a>, or find me on <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a> and <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>.</p>
   </section>
 
 <div class="player appear" style="--i:8">
-  <button class="player-tag" type="button" id="player" aria-label="Open recently played">
+  <button class="player-tag" type="button" id="player">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -179,7 +184,7 @@
 
   <footer class="appear" style="--i:9">
     <span>&copy; 2026 Shater M. Tsavsar</span>
-    <span class="clock"><span class="tz">WAT</span> <time id="clock"></time></span>
+    <span class="clock"><span class="tz">Lagos, UTC+1</span> <time id="clock"></time></span>
   </footer>
 
 </main>

@@ -3,24 +3,37 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- The page opts into cross-page transitions before anything else, so
+     the decision is made even if it first renders on a slow connection. -->
+<style>@view-transition { navigation: auto; } @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }</style>
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="styles.css" />
 <title>About Shater Tsavsar</title>
-<meta name="description" content="Arsenal, the Knicks, chess, films and far too much music. The rest of Shater Tsavsar." />
+<meta name="description" content="Arsenal, the Knicks, chess, bass guitar, films and far too much music. The rest of Shater Tsavsar, product designer." />
 <link rel="icon" type="image/png" href="favicon.png" />
 <meta property="og:title" content="About Shater Tsavsar" />
-<meta property="og:description" content="Arsenal, the Knicks, chess, films and far too much music. The rest of Shater Tsavsar." />
+<meta property="og:description" content="Arsenal, the Knicks, chess, bass guitar, films and far too much music. The rest of Shater Tsavsar, product designer." />
 <meta property="og:type" content="profile" />
-<meta property="og:url" content="https://v7.shatermt.com/about.html" />
-<meta name="twitter:card" content="summary" />
+<link rel="canonical" href="https://www.shatermt.com/about" />
+<meta property="og:url" content="https://www.shatermt.com/about" />
+<meta property="og:image" content="https://www.shatermt.com/og/about.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="About Shater Tsavsar" />
+<meta name="twitter:description" content="Arsenal, the Knicks, chess, bass guitar, films and far too much music. The rest of Shater Tsavsar, product designer." />
+<meta name="twitter:image" content="https://www.shatermt.com/og/about.png" />
 <script>
   try {
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
+  // Arriving through a view transition: the card and the hero it grows into
+  // have to be visible on the first frame, so they skip the entrance fade.
+  addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('vt-in');
+  });
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -56,15 +69,16 @@
     </svg>
   </div>
   <div class="nav-links">
-    <a href="about.html">About me</a>
+    <a href="about">About me</a>
     <a href="https://x.com/Tsavsar_" target="_blank" rel="noopener">X</a>
     <a href="https://github.com/Tsavsar" target="_blank" rel="noopener">GitHub</a>
+    <a href="resume">Resume</a>
     <a href="mailto:shatermt@gmail.com">Email</a>
   </div>
 </nav>
 
   <nav class="crumb appear" style="--i:1" aria-label="Breadcrumb">
-    <a href="index.html">Home</a>
+    <a href="./">Home</a>
     <span aria-hidden="true">/</span>
     <span aria-current="page">About me</span>
   </nav>
@@ -72,32 +86,32 @@
   <section class="intro appear" style="--i:2">
     <p class="greeting">a bit more of me</p>
     <p>btw, go back and click on my picture on the homepage 👀</p>
-    <p>Asides the work I have going on, I’m also really invested in sports, supporting Arsenal FC is the longest running commitment in my life, 18 years and counting! Then in the Nba, I’m a New York Knicks fan. I play basketball and I also play chess.</p>
+    <p>Besides the work I have going on, I’m also really invested in sports. Supporting Arsenal FC is the longest running commitment in my life, 18 years and counting! Then in the NBA, I’m a New York Knicks fan. I play basketball and I also play chess.</p>
     <p>2026 has been crazy cause both teams won their leagues, what a time to be alive fr.</p>
   </section>
 
   <section class="collage-section appear" style="--i:3" aria-label="Photo collage">
     <div class="collage-outer">
       <div class="collage-canvas">
-      <div class="collage-item" data-x="-20" data-y="30" style="left:-20px;top:30px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/IMG_4892%201.png" width="207" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="40" data-y="-30" style="left:40px;top:-30px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/Vector.png" width="95" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="95" data-y="60" style="left:95px;top:60px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/Frame%202095587326.png" width="225" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="30" data-y="220" style="left:30px;top:220px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/IMG_7535%202.png" width="93" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="155" data-y="175" style="left:155px;top:175px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/Vector-2.png" width="61" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="140" data-y="100" style="left:140px;top:100px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/IMG_7648.png" width="184" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="260" data-y="-20" style="left:260px;top:-20px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/Vector-1.png" width="100" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="295" data-y="60" style="left:295px;top:60px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/image%20282.png" width="165" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="355" data-y="-10" style="left:355px;top:-10px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/Top%20Tracks%20Short%20Term%20from%20Receiptify%201.png" width="205" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="330" data-y="185" style="left:330px;top:185px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/Vector-3.png" width="142" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="260" data-y="255" style="left:260px;top:255px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/Vector-4.png" width="104" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="455" data-y="170" style="left:455px;top:170px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/IMG_9931.png" width="112" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="490" data-y="55" style="left:490px;top:55px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/IMG_3050.png" width="143" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="570" data-y="200" style="left:570px;top:200px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/IMG_6462.png" width="87" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="610" data-y="155" style="left:610px;top:155px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/New%20York%20Knicks%20Logo%201995%201.png" width="62" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="490" data-y="-20" style="left:490px;top:-20px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/Frame%202095586967.png" width="350" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="670" data-y="80" style="left:670px;top:80px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/EA%20FC%2026%20Card%20Saliba%201.png" width="152" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="700" data-y="-10" style="left:700px;top:-10px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/image%20283.png" width="136" alt="" draggable="false" /></div>
-      <div class="collage-item" data-x="735" data-y="175" style="left:735px;top:175px"><img class="collage-img" src="https://www.shatermt.com/assets/aboutme%20page/%F0%9F%87%B3%F0%9F%87%AC.png" width="126" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="-20" data-y="30" style="left:-20px;top:30px"><img class="collage-img" src="media/about/bass-guitar.webp" width="207" height="243" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="40" data-y="-30" style="left:40px;top:-30px"><img class="collage-img" src="media/about/batman-logo.webp" width="95" height="72" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="95" data-y="60" style="left:95px;top:60px"><img class="collage-img" src="media/about/polaroid-selfie.webp" width="225" height="239" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="30" data-y="220" style="left:30px;top:220px"><img class="collage-img" src="media/about/anime-luffy-boxing.webp" width="93" height="63" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="155" data-y="175" style="left:155px;top:175px"><img class="collage-img" src="media/about/crescent-logo.webp" width="61" height="63" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="140" data-y="100" style="left:140px;top:100px"><img class="collage-img" src="media/about/manga-he-laughed.webp" width="184" height="154" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="260" data-y="-20" style="left:260px;top:-20px"><img class="collage-img" src="media/about/figma-logo.webp" width="100" height="107" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="295" data-y="60" style="left:295px;top:60px"><img class="collage-img" src="media/about/holy-bible.webp" width="165" height="132" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="355" data-y="-10" style="left:355px;top:-10px"><img class="collage-img" src="media/about/receiptify-top-tracks.webp" width="205" height="267" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="330" data-y="185" style="left:330px;top:185px"><img class="collage-img" src="media/about/ornate-a-logo.webp" width="142" height="134" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="260" data-y="255" style="left:260px;top:255px"><img class="collage-img" src="media/about/chess-pawn.webp" width="104" height="122" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="455" data-y="170" style="left:455px;top:170px"><img class="collage-img" src="media/about/knicks-player-reaction.webp" width="112" height="73" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="490" data-y="55" style="left:490px;top:55px"><img class="collage-img" src="media/about/anime-zoro.webp" width="143" height="142" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="570" data-y="200" style="left:570px;top:200px"><img class="collage-img" src="media/about/book-its-kind-of-a-funny-story.webp" width="87" height="100" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="610" data-y="155" style="left:610px;top:155px"><img class="collage-img" src="media/about/knicks-logo.webp" width="62" height="62" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="490" data-y="-20" style="left:490px;top:-20px"><img class="collage-img" src="media/about/hugeicons-tweet.webp" width="350" height="177" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="670" data-y="80" style="left:670px;top:80px"><img class="collage-img" src="media/about/fc26-card-saliba.webp" width="152" height="172" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="700" data-y="-10" style="left:700px;top:-10px"><img class="collage-img" src="media/about/xbox-controller.webp" width="136" height="109" alt="" draggable="false" /></div>
+      <div class="collage-item" data-x="735" data-y="175" style="left:735px;top:175px"><img class="collage-img" src="media/about/flag-nigeria.webp" width="126" height="126" alt="" draggable="false" /></div>
       </div>
     </div>
     <p class="collage-hint">drag them around</p>
@@ -111,23 +125,23 @@
   <section class="strip-section appear" style="--i:5" aria-label="Films">
     <div class="movie-strip">
       <a class="movie" href="https://www.imdb.com/title/tt1022603/" target="_blank" rel="noopener">
-        <img src="https://www.shatermt.com/assets/aboutme%20page/image%209.png" alt="500 Days of Summer" loading="lazy" />
+        <img width="471" height="661" src="media/about/poster-500-days-of-summer.webp" alt="" loading="lazy" />
         <span class="movie-title">500 Days of Summer</span>
       </a>
       <a class="movie" href="https://www.imdb.com/title/tt0446029/" target="_blank" rel="noopener">
-        <img src="https://www.shatermt.com/assets/aboutme%20page/image%202.png" alt="Scott Pilgrim vs. the World" loading="lazy" />
+        <img width="471" height="661" src="media/about/poster-scott-pilgrim.webp" alt="" loading="lazy" />
         <span class="movie-title">Scott Pilgrim vs. the World</span>
       </a>
       <a class="movie" href="https://www.imdb.com/title/tt0804497/" target="_blank" rel="noopener">
-        <img src="https://www.shatermt.com/assets/aboutme%20page/image%203.png" alt="It's Kind of a Funny Story" loading="lazy" />
+        <img width="471" height="661" src="media/about/poster-its-kind-of-a-funny-story.webp" alt="" loading="lazy" />
         <span class="movie-title">It's Kind of a Funny Story</span>
       </a>
       <a class="movie" href="https://www.imdb.com/title/tt0361748/" target="_blank" rel="noopener">
-        <img src="https://www.shatermt.com/assets/aboutme%20page/image%201.png" alt="Inglourious Basterds" loading="lazy" />
+        <img width="471" height="661" src="media/about/poster-inglourious-basterds.webp" alt="" loading="lazy" />
         <span class="movie-title">Inglourious Basterds</span>
       </a>
       <a class="movie" href="https://www.imdb.com/title/tt3544112/" target="_blank" rel="noopener">
-        <img src="https://www.shatermt.com/assets/aboutme%20page/image%206.png" alt="Sing Street" loading="lazy" />
+        <img width="471" height="661" src="media/about/poster-sing-street.webp" alt="" loading="lazy" />
         <span class="movie-title">Sing Street</span>
       </a>
     </div>
@@ -135,27 +149,27 @@
 
   <section class="intro appear" style="--i:6">
     <h2 class="section-label">listening</h2>
-    <p>I passively write music, vocals here and there but mostly stuff around my bass guitar. I can go on and on about music and it’s impact y’know, read some of my articles on that to see where my head is about it all.</p>
-    <p>That said, I am very in love with music, it’s almost an obsession at this point, here are a few albums I’d 100% recommend you checkout at least once.</p>
+    <p>I passively write music, vocals here and there but mostly stuff around my bass guitar. I can go on and on about music and its impact y’know, read some of my articles on that to see where my head is about it all.</p>
+    <p>That said, I am very in love with music, it’s almost an obsession at this point, here are a few albums I’d 100% recommend you check out at least once.</p>
   </section>
 
   <section class="strip-section appear" style="--i:7" aria-label="Albums">
     <div class="album-grid">
-      <div class="album"><img src="https://www.shatermt.com/assets/aboutme%20page/image%202-1.png" alt="" loading="lazy" /></div>
-      <div class="album"><img src="https://www.shatermt.com/assets/aboutme%20page/image.png" alt="" loading="lazy" /></div>
-      <a class="album" href="https://open.spotify.com/album/4ULX5yNL7dqM24NMLcKaJK" target="_blank" rel="noopener"><img src="https://www.shatermt.com/assets/aboutme%20page/image-1.png" alt="" loading="lazy" /></a>
-      <a class="album" href="https://open.spotify.com/album/7f6xPqyaolTiziKf5R5Z0c" target="_blank" rel="noopener"><img src="https://www.shatermt.com/assets/aboutme%20page/image-2.png" alt="" loading="lazy" /></a>
-      <div class="album"><img src="https://www.shatermt.com/assets/aboutme%20page/image-3.png" alt="" loading="lazy" /></div>
-      <a class="album" href="https://open.spotify.com/album/3a3rCsGp8l3TLXzc56DFOX" target="_blank" rel="noopener"><img src="https://www.shatermt.com/assets/aboutme%20page/image-4.png" alt="" loading="lazy" /></a>
-      <a class="album" href="https://open.spotify.com/album/2MnMLbOWh6Gv0jEBkXfTHV" target="_blank" rel="noopener"><img src="https://www.shatermt.com/assets/aboutme%20page/image-5.png" alt="" loading="lazy" /></a>
-      <div class="album"><img src="https://www.shatermt.com/assets/aboutme%20page/image-6.png" alt="" loading="lazy" /></div>
-      <div class="album"><img src="https://www.shatermt.com/assets/aboutme%20page/image-7.png" alt="" loading="lazy" /></div>
-      <div class="album"><img src="https://www.shatermt.com/assets/aboutme%20page/image-8.png" alt="" loading="lazy" /></div>
+      <div class="album"><img width="471" height="470" src="media/about/album-red-desert.webp" alt="Album cover: a red-lit skeleton figure standing in a desert under a night sky" loading="lazy" /></div>
+      <a class="album" href="https://open.spotify.com/search/Sunlight%20Spacey%20Jane" target="_blank" rel="noopener"><img width="471" height="470" src="media/about/album-spacey-jane-sunlight.webp" alt="Sunlight by Spacey Jane" loading="lazy" /></a>
+      <a class="album" href="https://open.spotify.com/search/Lost%20Americana%20MGK" target="_blank" rel="noopener"><img width="471" height="470" src="media/about/album-lost-americana.webp" alt="Lost Americana by MGK" loading="lazy" /></a>
+      <a class="album" href="https://open.spotify.com/search/Love%20%26%20Compromise%20Kiana%20Led%C3%A9" target="_blank" rel="noopener"><img width="471" height="470" src="media/about/album-garden-portrait.webp" alt="Love &amp; Compromise by Kiana Ledé" loading="lazy" /></a>
+      <div class="album"><img width="471" height="470" src="media/about/album-boy.webp" alt="Album cover: the word BOY on a plain orange background" loading="lazy" /></div>
+      <a class="album" href="https://open.spotify.com/search/Wolfgang%20Amadeus%20Phoenix" target="_blank" rel="noopener"><img width="471" height="470" src="media/about/album-wolfgang-amadeus-phoenix.webp" alt="Wolfgang Amadeus Phoenix by Phoenix" loading="lazy" /></a>
+      <a class="album" href="https://open.spotify.com/search/Under%20Pressure%20Logic" target="_blank" rel="noopener"><img width="471" height="470" src="media/about/album-logic-under-pressure.webp" alt="Under Pressure by Logic" loading="lazy" /></a>
+      <div class="album"><img width="471" height="470" src="media/about/album-night-field.webp" alt="Album cover: a person crouched in a grassy field at dusk, holding a microphone cable" loading="lazy" /></div>
+      <div class="album"><img width="471" height="470" src="media/about/album-rooftop.webp" alt="Album cover: a small figure climbing the slope of a concrete building against a bright sky" loading="lazy" /></div>
+      <a class="album" href="https://open.spotify.com/search/Mandy%20%26%20The%20Jungle%20Cruel%20Santino" target="_blank" rel="noopener"><img width="471" height="470" src="media/about/album-mandy-and-the-jungle.webp" alt="Mandy &amp; The Jungle by Cruel Santino" loading="lazy" /></a>
     </div>
   </section>
 
 <div class="player appear" style="--i:7">
-  <button class="player-tag" type="button" id="player" aria-label="Open recently played">
+  <button class="player-tag" type="button" id="player">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -169,7 +183,7 @@
 
   <footer class="appear" style="--i:9">
     <span>© 2026 Shater M. Tsavsar</span>
-    <span class="clock"><span class="tz">WAT</span> <time id="clock"></time></span>
+    <span class="clock"><span class="tz">Lagos, UTC+1</span> <time id="clock"></time></span>
   </footer>
 
 </main>

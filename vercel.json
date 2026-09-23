@@ -1,5 +1,60 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "echo \"v7 is static, nothing to install\"",
+  "buildCommand": "echo \"v7 is static, nothing to build\"",
+  "outputDirectory": "v7",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/og-image.png",
+      "destination": "/og/home.png",
+      "permanent": true
+    },
+    {
+      "source": "/work",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/articles",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/work/yote-ui",
+      "destination": "/work/yote",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/media/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/og/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    }
   ]
 }
