@@ -481,28 +481,28 @@
     var BASE = 'https://www.shatermt.com/assets/aboutme%20page/';
     // w is the display width; nw/nh the natural size, so each box is the
     // right height before its image arrives. Each side fills top to bottom
-    // in this order; p is how much of it peeks in, r its tilt. phone marks
+    // in this order; p is how much of it peeks in, r its tilt. read marks
+    // the ones with text on them: sized for it, and lifted larger in hand. phone marks
     // the few kept on a phone, where the margins are a sliver.
     var SET = [
-      { f: 'Vector.png',                                          nw: 304, nh: 231,  w: 180, side: 'l', p: 0.55, r: -12, phone: 1 },
-      { f: 'New%20York%20Knicks%20Logo%201995%201.png',           nw: 249, nh: 249,  w: 128,  side: 'r', p: 0.5,  r: 9,   phone: 1 },
-      { f: 'Vector-1.png',                                        nw: 367, nh: 393,  w: 122,  side: 'l', p: 0.45, r: 8 },
-      { f: 'IMG_4892%201.png',                                    nw: 829, nh: 974,  w: 171, side: 'r', p: 0.5,  r: 14 },
-      { f: 'IMG_7535%202.png',                                    nw: 362, nh: 245,  w: 180, side: 'l', p: 0.5,  r: -6,  phone: 1 },
-      { f: 'Vector-2.png',                                        nw: 310, nh: 322,  w: 113,  side: 'r', p: 0.55, r: -10 },
-      { f: 'Vector-4.png',                                        nw: 350, nh: 411,  w: 102,  side: 'l', p: 0.6,  r: 6 },
-      { f: 'IMG_9931.png',                                        nw: 441, nh: 286,  w: 180, side: 'r', p: 0.45, r: 7 },
-      { f: 'image%20282.png',                                     nw: 417, nh: 334,  w: 151, side: 'l', p: 0.5,  r: -14 },
-      { f: '%F0%9F%87%B3%F0%9F%87%AC.png',                        nw: 506, nh: 506,  w: 139,  side: 'r', p: 0.55, r: -7,  phone: 1 },
-      { f: 'Frame%202095587326.png',                              nw: 700, nh: 744,  w: 139,  side: 'l', p: 0.45, r: 10 },
-      { f: 'IMG_7648.png',                                        nw: 718, nh: 601,  w: 160, side: 'r', p: 0.5,  r: 12 },
-      { f: 'image%20283.png',                                     nw: 545, nh: 437,  w: 157, side: 'l', p: 0.55, r: -9,  phone: 1 },
-      { f: 'Frame%202095586967.png',                              nw: 1069, nh: 540, w: 203, side: 'r', p: 0.4,  r: -5 },
-      { f: 'Vector-3.png',                                        nw: 420, nh: 395,  w: 116,  side: 'l', p: 0.5,  r: 11 },
-      { f: 'IMG_6462.png',                                        nw: 331, nh: 382,  w: 122,  side: 'r', p: 0.5,  r: -12 },
-      { f: 'IMG_3050.png',                                        nw: 552, nh: 550,  w: 139,  side: 'l', p: 0.5,  r: -8 },
-      { f: 'Top%20Tracks%20Short%20Term%20from%20Receiptify%201.png', nw: 818, nh: 1067, w: 130, side: 'l', p: 0.5, r: 7 },
-      { f: 'EA%20FC%2026%20Card%20Saliba%201.png',                nw: 608, nh: 690,  w: 180, side: 'r', p: 0.5,  r: -13, phone: 1 }
+      { f: 'Vector.png',                                              nw: 304, nh: 231, w: 109, side: 'l', p: 0.55, r: -12 },
+      { f: 'New%20York%20Knicks%20Logo%201995%201.png',               nw: 249, nh: 249, w: 95, side: 'r', p: 0.5, r: 9 },
+      { f: 'Vector-1.png',                                            nw: 367, nh: 393, w: 92, side: 'l', p: 0.45, r: 8 },
+      { f: 'IMG_4892%201.png',                                        nw: 829, nh: 974, w: 171, side: 'r', p: 0.5, r: 14, phone: 1 },
+      { f: 'IMG_7535%202.png',                                        nw: 362, nh: 245, w: 115, side: 'l', p: 0.5, r: -6 },
+      { f: 'Vector-4.png',                                            nw: 350, nh: 411, w: 88, side: 'l', p: 0.6, r: 6 },
+      { f: 'IMG_9931.png',                                            nw: 441, nh: 286, w: 118, side: 'r', p: 0.45, r: 7 },
+      { f: 'image%20282.png',                                         nw: 417, nh: 334, w: 151, side: 'l', p: 0.5, r: -14, phone: 1 },
+      { f: '%F0%9F%87%B3%F0%9F%87%AC.png',                            nw: 506, nh: 506, w: 139, side: 'r', p: 0.55, r: -7, phone: 1 },
+      { f: 'Frame%202095587326.png',                                  nw: 700, nh: 744, w: 170, side: 'l', p: 0.45, r: 10, phone: 1 },
+      { f: 'IMG_7648.png',                                            nw: 718, nh: 601, w: 104, side: 'r', p: 0.5, r: 12 },
+      { f: 'image%20283.png',                                         nw: 545, nh: 437, w: 106, side: 'l', p: 0.55, r: -9 },
+      { f: 'Frame%202095586967.png',                                  nw: 1069, nh: 540, w: 320, side: 'r', p: 0.8, r: -5, read: 1 },
+      { f: 'Vector-3.png',                                            nw: 420, nh: 395, w: 116, side: 'l', p: 0.5, r: 11, phone: 1 },
+      { f: 'IMG_6462.png',                                            nw: 331, nh: 382, w: 122, side: 'r', p: 0.5, r: -12 },
+      { f: 'IMG_3050.png',                                            nw: 552, nh: 550, w: 95, side: 'r', p: 0.5, r: -8 },
+      { f: 'Top%20Tracks%20Short%20Term%20from%20Receiptify%201.png', nw: 818, nh: 1067, w: 240, side: 'l', p: 0.8, r: 7, read: 1 },
+      { f: 'EA%20FC%2026%20Card%20Saliba%201.png',                    nw: 608, nh: 690, w: 180, side: 'r', p: 0.5, r: -13, phone: 1 }
     ];
 
     // The die-cut, drawn once per sticker on a canvas at the screen's real
@@ -698,7 +698,7 @@
       stickers.forEach(function (s) {
         if (s.el.hidden || !s.ready) return;
         // picked up it grows a touch; hovered, less so
-        var tSc = s.held ? 1.07 : (s.hover ? 1.03 : 1);
+        var tSc = s.held ? (s.cfg.read ? 1.2 : 1.07) : (s.hover ? 1.03 : 1);
         s.sc += (tSc - s.sc) * ease(70);
         // it swings with the drag, the way a held piece of paper does
         var tTilt = 0;
