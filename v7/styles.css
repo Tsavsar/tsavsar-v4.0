@@ -1725,10 +1725,10 @@ html.vt-in .cards-section.appear { animation: none; opacity: 1; }
 
 /* ======================================================================
    Work row
-   Five cards at 208px need 1,096px. Where that fits, the row centres and
-   everything is in view. Where it doesn't, a mouse gets two step buttons
-   beside the label, since the scrollbar is hidden and a wheel only scrolls
-   down; touch keeps the swipe.
+   The row starts on the text column at every width and runs off the right
+   edge. Two step buttons sit beside the label at every width, since the
+   scrollbar is hidden and a wheel only scrolls down; they grey out at
+   either end, and when a very wide screen fits all five.
    ====================================================================== */
 .cards-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .cards-head .cards-label { margin-bottom: 0; }
@@ -1748,7 +1748,4 @@ html.vt-in .cards-section.appear { animation: none; opacity: 1; }
 .cards-step:disabled { opacity: 0.28; cursor: default; }
 .cards { scroll-behavior: smooth; scroll-snap-type: x proximity; }
 .cards .card { scroll-snap-align: start; scroll-margin-inline-start: max(24px, calc(50vw - 270px)); }
-@media (min-width: 1180px) {
-  .cards { justify-content: center; padding-inline: 24px; }
-}
 @media (prefers-reduced-motion: reduce) { .cards { scroll-behavior: auto; } }

@@ -414,18 +414,16 @@
 
   /* ---- work row -------------------------------------------------------- */
   // The row scrolls sideways with its scrollbar hidden, which a trackpad or
-  // a finger finds and a mouse wheel doesn't. When it overflows on a device
-  // with a pointer, step buttons show and move one card at a time.
+  // a finger finds and a mouse wheel doesn't, so step buttons are always
+  // there and move one card at a time.
   (function () {
     var row = $('.cards');
     var nav = $('.cards-nav');
     if (!row || !nav) return;
     var steps = $$('.cards-step', nav);
-    var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    nav.hidden = false;
     function update() {
       var max = row.scrollWidth - row.clientWidth;
-      var over = max > 2;
-      nav.hidden = !(over && fine.matches);
       steps[0].disabled = row.scrollLeft <= 2;
       steps[1].disabled = row.scrollLeft >= max - 2;
     }
@@ -438,7 +436,6 @@
     });
     row.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
-    if (fine.addEventListener) fine.addEventListener('change', update);
     update();
   })();
 
