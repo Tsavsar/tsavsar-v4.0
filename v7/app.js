@@ -482,27 +482,26 @@
     // w is the display width; nw/nh the natural size, so each box is the
     // right height before its image arrives. Each side fills top to bottom
     // in this order; p is how much of it peeks in, r its tilt. read marks
-    // the ones with text on them: sized for it, and lifted larger in hand. phone marks
-    // the few kept on a phone, where the margins are a sliver.
+    // the ones with text on them: sized for it, and lifted larger in hand.
     var SET = [
       { f: 'Vector.png',                                              nw: 304, nh: 231, w: 109, side: 'l', p: 0.55, r: -12 },
       { f: 'New%20York%20Knicks%20Logo%201995%201.png',               nw: 249, nh: 249, w: 95, side: 'r', p: 0.5, r: 9 },
       { f: 'Vector-1.png',                                            nw: 367, nh: 393, w: 92, side: 'l', p: 0.45, r: 8 },
-      { f: 'IMG_4892%201.png',                                        nw: 829, nh: 974, w: 171, side: 'r', p: 0.5, r: 14, phone: 1 },
+      { f: 'IMG_4892%201.png',                                        nw: 829, nh: 974, w: 171, side: 'r', p: 0.5, r: 14 },
       { f: 'IMG_7535%202.png',                                        nw: 362, nh: 245, w: 115, side: 'l', p: 0.5, r: -6 },
       { f: 'Vector-4.png',                                            nw: 350, nh: 411, w: 88, side: 'l', p: 0.6, r: 6 },
       { f: 'IMG_9931.png',                                            nw: 441, nh: 286, w: 118, side: 'r', p: 0.45, r: 7 },
-      { f: 'image%20282.png',                                         nw: 417, nh: 334, w: 151, side: 'l', p: 0.5, r: -14, phone: 1 },
-      { f: '%F0%9F%87%B3%F0%9F%87%AC.png',                            nw: 506, nh: 506, w: 139, side: 'r', p: 0.55, r: -7, phone: 1 },
-      { f: 'Frame%202095587326.png',                                  nw: 700, nh: 744, w: 170, side: 'l', p: 0.45, r: 10, phone: 1 },
+      { f: 'image%20282.png',                                         nw: 417, nh: 334, w: 151, side: 'l', p: 0.5, r: -14 },
+      { f: '%F0%9F%87%B3%F0%9F%87%AC.png',                            nw: 506, nh: 506, w: 139, side: 'r', p: 0.55, r: -7 },
+      { f: 'Frame%202095587326.png',                                  nw: 700, nh: 744, w: 170, side: 'l', p: 0.45, r: 10 },
       { f: 'IMG_7648.png',                                            nw: 718, nh: 601, w: 104, side: 'r', p: 0.5, r: 12 },
       { f: 'image%20283.png',                                         nw: 545, nh: 437, w: 106, side: 'l', p: 0.55, r: -9 },
       { f: 'Frame%202095586967.png',                                  nw: 1069, nh: 540, w: 320, side: 'r', p: 0.8, r: -5, read: 1 },
-      { f: 'Vector-3.png',                                            nw: 420, nh: 395, w: 116, side: 'l', p: 0.5, r: 11, phone: 1 },
+      { f: 'Vector-3.png',                                            nw: 420, nh: 395, w: 116, side: 'l', p: 0.5, r: 11 },
       { f: 'IMG_6462.png',                                            nw: 331, nh: 382, w: 122, side: 'r', p: 0.5, r: -12 },
       { f: 'IMG_3050.png',                                            nw: 552, nh: 550, w: 95, side: 'r', p: 0.5, r: -8 },
       { f: 'Top%20Tracks%20Short%20Term%20from%20Receiptify%201.png', nw: 818, nh: 1067, w: 240, side: 'l', p: 0.8, r: 7, read: 1 },
-      { f: 'EA%20FC%2026%20Card%20Saliba%201.png',                    nw: 608, nh: 690, w: 180, side: 'r', p: 0.5, r: -13, phone: 1 }
+      { f: 'EA%20FC%2026%20Card%20Saliba%201.png',                    nw: 608, nh: 690, w: 180, side: 'r', p: 0.5, r: -13 }
     ];
 
     // The die-cut, drawn once per sticker on a canvas at the screen's real
@@ -526,6 +525,19 @@
       var art = sheet(), ac = art.getContext('2d');
       ac.imageSmoothingQuality = 'high';
       ac.drawImage(s.img, PAD * d, PAD * d, w * d, h * d);
+      // Several of these were exported with a soft drop shadow baked in.
+      // Left in, the stamping below grows that faint halo into a white blob
+      // and the grey lands on top of the border, so anything that faint
+      // goes first. Solid pixels keep their alpha; the band just above the
+      // cutoff fades in so real edges stay anti-aliased.
+      try {
+        var px = ac.getImageData(0, 0, cw, ch), dt = px.data;
+        for (var i = 3; i < dt.length; i += 4) {
+          var al = dt[i];
+          if (al < 160) dt[i] = al <= 100 ? 0 : Math.round((al - 100) * 160 / 60);
+        }
+        ac.putImageData(px, 0, 0);
+      } catch (err) { /* unreadable image: cut it as it is */ }
 
       var sil = sheet(), sc = sil.getContext('2d');
       [BORDER, BORDER / 2].forEach(function (r) {
@@ -583,8 +595,8 @@
       el.appendChild(cv);
       layer.appendChild(el);
       var img = new Image();
+      img.crossOrigin = 'anonymous';       // the host allows it; needed to read pixels
       img.decoding = 'async';
-      img.src = BASE + cfg.f;
       return { el: el, cv: cv, img: img, cfg: cfg, i: i, w: 0, h: 0, x: 0, y: 0, rot: cfg.r, tilt: 0, sc: 1,
                vx: 0, vy: 0, held: false, hover: false, moved: false, ready: false, samples: [], tf: '', cutAt: '' };
     });
@@ -598,12 +610,9 @@
 
     // How much of an untouched sticker shows: never more than half-ish of
     // it, and never enough to reach the text column. The cut border hangs
-    // PAD past the box, so it counts. On a phone the gutter is 24px, so a
-    // sticker is a sliver there until someone pulls it out.
+    // PAD past the box, so it counts.
     function anchor(s) {
-      var show = small
-        ? Math.max(6, gutter - PAD - 8)
-        : Math.max(22, Math.min(s.w * s.cfg.p, gutter - PAD - 20));
+      var show = Math.max(6, Math.min(s.w * s.cfg.p, gutter - PAD - 20));
       s.x = s.cfg.side === 'l' ? show - s.w : W - show;
     }
 
@@ -667,15 +676,21 @@
 
     function layout() {
       measure();
+      // None on a phone: the margins are a sliver and the page is the work.
+      // They aren't even fetched there.
+      if (resetBtn) resetBtn.hidden = small;
       stickers.forEach(function (s) {
-        s.el.hidden = small && !s.cfg.phone;
-        s.w = Math.round(s.cfg.w * (small ? 0.72 : 1));
+        s.el.hidden = small;
+        if (small) return;
+        if (!s.img.src) s.img.src = BASE + s.cfg.f;
+        s.w = s.cfg.w;
         s.h = Math.round(s.w * s.cfg.nh / s.cfg.nw);
         s.el.style.width = s.w + 'px';
         s.el.style.height = s.h + 'px';
         if (s.ready && s.cutAt !== s.w + 'x' + Math.min(2, window.devicePixelRatio || 1)) cut(s);
         if (s.moved) clamp(s); else anchor(s);
       });
+      if (small) return;
       place('l');
       place('r');
       stickers.forEach(render);
@@ -781,7 +796,7 @@
       var img = s.img;
       img.addEventListener('error', function () { el.remove(); s.el.hidden = true; });
       // Cut it and slide it in from the edge once there is something to see
-      (img.decode ? img.decode() : Promise.resolve()).catch(function () {}).then(function () {
+      img.addEventListener('load', function () {
         if (!img.naturalWidth) return;
         s.ready = true;
         cut(s);

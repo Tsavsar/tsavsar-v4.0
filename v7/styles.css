@@ -642,6 +642,8 @@ a.album:hover img { transform: translateY(-4px); }
 .audio-toggle svg, .sticker-reset svg { width: 16px; height: 16px; display: block; }
 /* Nothing to put back until something has moved */
 .sticker-reset:disabled { opacity: 0.22; cursor: default; }
+/* its display:grid would otherwise beat the hidden attribute on a phone */
+.sticker-reset[hidden] { display: none; }
 .audio-toggle .ico-on  { display: none; }
 .audio-toggle .ico-off { display: block; }
 .audio-toggle[aria-pressed="true"] .ico-on  { display: block; }
