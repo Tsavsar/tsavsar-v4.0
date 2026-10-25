@@ -12,7 +12,8 @@
 <link rel="stylesheet" href="yote-ui.css" />
 <title>Yöte · Shater Tsavsar</title>
 <meta name="description" content="Nine React form fields with one shared set of props, zero dependencies and 24KB. How Yöte was designed, with the fields live on the page." />
-<link rel="icon" type="image/png" href="../favicon.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="../favicon-64.png" />
+<link rel="apple-touch-icon" href="../apple-touch-icon.png" />
 <meta property="og:title" content="Yöte · Shater Tsavsar" />
 <meta property="og:description" content="Nine React form fields with one shared set of props, zero dependencies and 24KB. How Yöte was designed, with the fields live on the page." />
 <meta property="og:type" content="article" />
@@ -30,13 +31,24 @@
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
+  // Reserve the sound note's strip before first paint, so the page doesn't
+  // drop 32px when the bar arrives. app.js takes the class off again if
+  // the note isn't shown, and when it's closed.
+  try {
+    if (localStorage.getItem('soundNote3') !== 'seen' && localStorage.getItem('audio') !== 'on') document.documentElement.classList.add('note');
+  } catch (e) {}
+  // The entrance plays once per visit. Every later page in the tab starts
+  // settled instead of fading the same nav and signature in again.
+  try {
+    if (sessionStorage.getItem('entered')) document.documentElement.classList.add('no-enter'); else sessionStorage.setItem('entered', '1');
+  } catch (e) {}
   // Arriving through a view transition: the card and the hero it grows into
   // have to be visible on the first frame, so they skip the entrance fade.
   addEventListener('pagereveal', function (e) {
     if (e.viewTransition) document.documentElement.classList.add('vt-in');
   });
 </script>
-<link rel="preload" as="image" href="../media/yote/yote-field.webp" fetchpriority="high" />
+<link rel="preload" as="image" href="../media/yote/cover-form.webp" fetchpriority="high" />
 </head>
 <body>
 
@@ -57,10 +69,10 @@
 
 <nav class="nav appear">
   <div class="brand">
-    <button class="avatar-wrap" type="button" aria-label="View photo gallery">
-      <img class="avatar" src="../pfp.png" width="40" height="40" alt="Shater Tsavsar" />
-    </button>
-    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Signature" role="img">
+    <a class="avatar-wrap" href="/" aria-label="Shater Tsavsar, home">
+      <img class="avatar" src="../pfp-80.webp" srcset="../pfp-80.webp 2x, ../pfp-120.webp 3x" width="40" height="40" alt="Shater Tsavsar" />
+    </a>
+    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Shater Tsavsar" role="img">
       <path class="sig-path" d="M40.8613 34.142C49.863 29.7983 48.196 22.9486 43.0284 23.6169C36.4797 26.6814 34.11 32.2208 28.2756 52.3521C21.3577 67.7221 9.27205 71.3975 10.8558 65.5502C16.0772 58.2166 38.5275 44.4165 57.1143 40.1564C71.4502 36.8705 76.4511 37.3163 79.7017 34.142M75.8677 26.9582C75.0342 28.2947 72.031 27.2923 69.9473 28.8795C67.5558 29.5208 67.3991 30.0536 65.3658 31.469C63.8516 32.523 62.7962 34.0245 61.0316 34.5597C59.2338 35.105 59.0361 33.268 57.6143 33.8914C53.6136 35.6456 49.6129 37.901 47.6958 38.4857C46.6687 38.799 48.2793 36.2303 46.8624 35.8127C45.4454 35.395 40.4445 41.0752 39.6944 40.407C38.9442 39.7387 39.4443 38.4857 39.4443 38.4857M69.9473 28.8795C70.5308 27.4594 73.7006 25.3711 73.0338 24.4522C72.367 23.5334 71.3669 25.7888 70.45 27.6265C69.5332 29.4642 68.4654 33.9038 71.1168 34.6432C73.4955 35.3065 77.4021 31.469 78.322 30.0103"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" />
     </svg>
@@ -87,26 +99,26 @@
   </header>
 
   <section class="study-head appear" style="--i:3">
-   <div class="study-hero study-hero-framed card-yote">
+    <div class="study-hero study-hero-framed card-yote">
       <p class="hero-brand"><img src="../icons/yote.svg" alt="" aria-hidden="true" /><span>Yöte</span></p>
       <p class="hero-line">Form inputs for React, done properly</p>
-      <img width="1260" height="1060" class="hero-shot" decoding="sync" fetchpriority="high" src="../media/yote/yote-field.webp" alt="The Yöte digit input: state pills above a four-cell verification code field, with the copyable PinInput code underneath." />
-    </div>>
+      <img width="920" height="1080" class="hero-shot" decoding="sync" fetchpriority="high" src="../media/yote/cover-form.webp" alt="The Yöte verification code field with 4821 in its four cells, at the top of a column of Yöte fields." />
+    </div>
   </section>
 
       <section class="study-section appear" style="--i:4">
         <h2 class="study-label">Intro</h2>
         <div class="study-content">
           <p>Inputs are the part of a product everyone assumes is done. Then you paste a one-time code and nothing happens, or a field jumps half a pixel when it takes focus, or the error pushes the whole form down. None of that shows up in a screenshot. All of it shows up the first time somebody actually uses the form.</p>
-          <p>Radix, Base UI and Ark already own accessible headless primitives, and I wasn't going to compete with them. What none of them ship is the craft: the error transition, the focus ring timing, the way a digit lands in a cell. That's what Yöte is. Install it and the field already feels right.</p>
-          <p>The name is from the Finnish <em>syöte</em>, meaning input, and it's pronounced "yoat". It's Luotain's sister project, and its fields are sized to sit in the same 380px column Luotain's forms use. KernUI is where I learned to think in tokens, Luotain is where I built a whole product on them, and Yöte is the bit I pulled out so anyone can use it.</p>
+          <p>Radix, Base UI and Ark already own accessible headless primitives, and I wasn’t going to compete with them. What none of them ship is the craft: the error transition, the focus ring timing, the way a digit lands in a cell. That’s what Yöte is. Install it and the field already feels right.</p>
+          <p>The name is from the Finnish <em>syöte</em>, meaning input, and it’s pronounced “yoat”. It’s Luotain’s sister project, and its fields are sized to sit in the same 380px column Luotain’s forms use. KernUI is where I learned to think in tokens, Luotain is where I built a whole product on them, and Yöte is the bit I pulled out so anyone can use it.</p>
         </div>
       </section>
 
       <section class="study-section appear" style="--i:5">
         <h2 class="study-label">Try it</h2>
         <div class="study-content">
-          <p>These are the real components from the npm package, not recordings. They follow the site's theme toggle too.</p>
+          <p>These are the real components from the npm package, not recordings. They follow the site’s theme toggle too.</p>
           <div class="yote-stage" id="yoteStage">
             <div class="yote-slot" data-yote-demo="pin"></div>
             <div class="yote-slot" data-yote-demo="card"></div>
@@ -131,27 +143,27 @@
         <h2 class="study-label">Decisions</h2>
         <div class="study-content">
           <h3 class="study-subhead">One input, not one per cell</h3>
-          <p>The code field looks like four boxes, but there's one real <code>&lt;input&gt;</code> stretched invisibly across all of them. Most hand-rolled OTP fields render one input per cell, and that quietly breaks three things people rely on: pasting the code, <code>autocomplete="one-time-code"</code>, and the keyboard suggestion on iOS and Android that fills it straight from the SMS. The cells are just a drawing of the value. The hidden input also sits at 16px so iOS doesn't zoom the page when you tap it.</p>
+          <p>The code field looks like four boxes, but there’s one real <code>&lt;input&gt;</code> stretched invisibly across all of them. Most hand-rolled OTP fields render one input per cell, and that quietly breaks three things people rely on: pasting the code, <code>autocomplete="one-time-code"</code>, and the keyboard suggestion on iOS and Android that fills it straight from the SMS. The cells are just a drawing of the value. The hidden input also sits at 16px so iOS doesn’t zoom the page when you tap it.</p>
           <h3 class="study-subhead">Typed, not picked</h3>
-          <p>There's a date field but no calendar. Almost everyone knows their birthday faster than they can find it in a grid. You type the digits and the field puts the slashes in for you, and the same pattern drives the placeholder, the mask and the max length, so they can't drift apart.</p>
+          <p>There’s a date field but no calendar. Almost everyone knows their birthday faster than they can find it in a grid. You type the digits and the field puts the slashes in for you, and the same pattern drives the placeholder, the mask and the max length, so they can’t drift apart.</p>
           <h3 class="study-subhead">The card field regroups itself</h3>
           <p>Most cards are four groups of four, but Amex is 4-6-5. The field works out the brand from the first digits, changes the grouping, and swaps the mark as you type. There are two spaces between groups rather than one, because at 14px a single space was too tight to tell the groups apart at a glance.</p>
           <h3 class="study-subhead">Errors that replay</h3>
-          <p>If you submit the same wrong code twice, the error message is identical, so a normal component does nothing the second time and it looks like the button broke. There's an <code>errorKey</code> prop so the shake plays again on every failed attempt. Try it on the code field above.</p>
+          <p>If you submit the same wrong code twice, the error message is identical, so a normal component does nothing the second time and it looks like the button broke. There’s an <code>errorKey</code> prop so the shake plays again on every failed attempt. Try it on the code field above.</p>
           <h3 class="study-subhead">Motion</h3>
           <p>Everything runs on one ease-out curve, <code>cubic-bezier(0.23, 1, 0.32, 1)</code>, and short durations: 140ms for a digit landing, 160ms for borders and focus rings, 280ms for the error shake. These are fields you type into dozens of times a day, so anything longer starts to feel like waiting. Digits come in from 0.9 scale rather than 0, because nothing in the real world appears out of nowhere. With reduced motion turned on, the shake is gone and a digit just fades in.</p>
           <h3 class="study-subhead">Your classes win</h3>
-          <p>All of Yöte's CSS sits in a cascade layer, and unlayered CSS beats layered CSS whatever the specificity. So your Tailwind utility or your own class overrides mine with no <code>!important</code> and no specificity fight. It also meant a rule for me: single-class selectors only, so one utility is always enough to win.</p>
+          <p>All of Yöte’s CSS sits in a cascade layer, and unlayered CSS beats layered CSS whatever the specificity. So your Tailwind utility or your own class overrides mine with no <code>!important</code> and no specificity fight. It also meant a rule for me: single-class selectors only, so one utility is always enough to win.</p>
           <h3 class="study-subhead">The bug that cost a day</h3>
-          <p>The focus ring is built from other tokens, and a CSS variable resolves where it's declared rather than where it's used. I'd declared the ring only in the light theme, so the page baked a white ring into it and every dark container inherited that. The inputs were correct and the ring was wrong. Now every composed token is restated in every theme block, and the agent skill below checks for exactly this.</p>
+          <p>The focus ring is built from other tokens, and a CSS variable resolves where it’s declared rather than where it’s used. I’d declared the ring only in the light theme, so the page baked a white ring into it and every dark container inherited that. The inputs were correct and the ring was wrong. Now every composed token is restated in every theme block, and the agent skill below checks for exactly this.</p>
         </div>
       </section>
 
       <section class="study-section appear" style="--i:8">
         <h2 class="study-label">Scope</h2>
         <div class="study-content">
-          <p>Yöte does fields. It doesn't do form state or validation logic, or the things that sit on top of a field rather than in it. The library renders your error and never decides what one is. If a feature would need it to hold state, guess a locale, or decide whether something is correct, that's the line, and it's written in the README so there's something to point at when the temptation shows up.</p>
-          <p>That's also why it's 1.0 rather than a long 0.x. There's no roadmap waiting to reshape the API. A narrow library that's finished beats a broad one that's forty percent done.</p>
+          <p>Yöte does fields. It doesn’t do form state or validation logic, or the things that sit on top of a field rather than in it. The library renders your error and never decides what one is. If a feature would need it to hold state, guess a locale, or decide whether something is correct, that’s the line, and it’s written in the README so there’s something to point at when the temptation shows up.</p>
+          <p>That’s also why it’s 1.0 rather than a long 0.x. There’s no roadmap waiting to reshape the API. A narrow library that’s finished beats a broad one that’s forty percent done.</p>
         </div>
       </section>
 
@@ -164,9 +176,10 @@
       </section>
 
       <section class="study-section appear" style="--i:10">
-        <h2 class="study-label">Next</h2>
+        <h2 class="study-label">Where it’s at</h2>
         <div class="study-content">
-          <p>The claims above are checked by hand right now, which isn't good enough for a library that says every edge case is handled. Next is a test suite for the behaviour that matters most: paste and autofill on the code field, the card regrouping, and typed dates.</p>
+          <p>It went up on npm on 17 September. In its first week that’s 21 stars on GitHub and 85 installs, which is small and real, and I’d rather show that than a round number.</p>
+          <p>The claims above are checked by hand right now, which isn’t good enough for a library that says every edge case is handled. Next is a test suite for the behaviour that matters most: paste and autofill on the code field, the card regrouping, and typed dates.</p>
         </div>
       </section>
 
@@ -182,7 +195,7 @@
 
 
 <div class="player appear" style="--i:8">
-  <button class="player-tag" type="button" id="player">
+  <a class="player-tag" id="player" target="_blank" rel="noopener">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -191,7 +204,7 @@
       <span class="player-state" id="playerState">Last played</span>
       <span class="player-track" hidden><strong id="trackTitle"></strong><span class="by"> by </span><strong id="trackArtist"></strong></span>
     </span>
-  </button>
+  </a>
 </div>
 
   <footer class="appear" style="--i:9">

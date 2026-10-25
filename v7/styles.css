@@ -29,14 +29,17 @@ html[data-theme="light"] {
   --hover:       #f6f6f6;
   --rule:        rgba(0, 0, 0, 0.07);
 
-  /* type scale */
-  --font:    13.5px;
-  --lh:      21px;
-  --font-sm: 12px;
+  /* type scale. 15/24 is a reading size: at 13.5 the homepage ran to 85
+     characters a line, and the case studies had to override it to be read
+     at all. Small text is one step down, not three near-duplicates. */
+  --font:    15px;
+  --lh:      24px;
+  --font-sm: 13px;
 
-  /* Held at the old scale: cards and the nav links stay put */
-  --font-fixed:    12.5px;
-  --font-fixed-sm: 11px;
+  /* Text that sits inside a fixed box (the work cards) or a single row (the
+     nav), so it is sized for the box rather than following the body */
+  --font-fixed:    14px;
+  --font-fixed-sm: 13px;
 }
 html[data-theme="dark"] {
   --page:        #0e0e0e;
@@ -76,6 +79,9 @@ body {
   /* Theme swaps shouldn't strobe */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+/* Text blocks that end on a single word read as unfinished. pretty pulls a
+   second word down; browsers without it just wrap as before. */
+.intro p, .row-note, .card-desc, .study-content p { text-wrap: pretty; }
 
 ::selection { background: var(--text-strong); color: var(--page); }
 
@@ -169,12 +175,21 @@ img[height] { height: auto; }
   background: transparent;
   transition: background-color 0.2s ease;
 }
-.link-row:hover,
-.link-row:focus-visible { outline: none; }
-.link-row:hover .row-name,
-.link-row:focus-visible .row-name { color: var(--text-strong); }
-.link-row:hover .row-meta,
-.link-row:focus-visible .row-meta { color: var(--text); }
+/* The name was already the strongest colour, so hovering it changed nothing
+   but the small label beside it. It takes the underline links in the prose
+   use instead, faded in, and the keyboard gets a real ring. */
+.link-row:focus-visible { outline: 2px solid var(--text-strong); outline-offset: 2px; }
+a.link-row .row-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.18s ease;
+}
+a.link-row:hover .row-name,
+a.link-row:focus-visible .row-name { text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); }
+a.link-row:hover .row-meta,
+a.link-row:focus-visible .row-meta { color: var(--text); }
 .row-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -185,13 +200,28 @@ img[height] { height: auto; }
 .row-name {
   color: var(--text-strong);
   min-width: 0;
+  /* a name squeezed by its label wraps evenly, not one word on its own */
+  text-wrap: balance;
 }
 .row-meta {
   color: var(--text-muted);
   white-space: nowrap;
   transition: color 0.2s ease;
 }
-.link-row:hover .row-meta { color: var(--text); }
+
+/* Rows that leave the site say so, small and muted after the name. Screen
+   only: on paper the arrow means nothing. */
+@media screen {
+  .link-row[target="_blank"] .row-name::after,
+  a.cv-role[target="_blank"] .row-name::after,
+  a.study-pill[target="_blank"]::after {
+    content: "\2197";
+    color: var(--text-muted);
+    font-size: 0.85em;
+  }
+  .link-row[target="_blank"] .row-name::after,
+  a.cv-role[target="_blank"] .row-name::after { margin-left: 4px; }
+}
 
 /* ---- connect + footer -------------------------------------------------- */
 .connect { gap: 0; }
@@ -269,6 +299,14 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
   from { transform: translateY(8px); }
   to   { transform: none; }
 }
+/* The entrance plays once a visit. The head script sets no-enter on every
+   page after the first, so moving around the site doesn't replay the show.
+   The first-of-type intro is named on its own because its rise rule is more
+   specific than the plain .appear. */
+html.no-enter .appear,
+html.no-enter .intro.appear:first-of-type { animation: none; opacity: 1; transform: none; }
+/* and the signature is already written, from the first frame */
+html.no-enter .sig-path { stroke-dashoffset: 0; }
 
 /* ---- narrow ------------------------------------------------------------ */
 @media (max-width: 600px) {
@@ -292,7 +330,9 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
 }
 .brand { display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; }
 
-/* Ring, carried over from v4 */
+/* Ring, carried over from v4. Only the homepage's avatar opens anything (the
+   gallery), so only that button gets the ring and the pointer; everywhere
+   else the avatar is a plain link home. */
 .avatar-wrap {
   position: relative;
   flex-shrink: 0;
@@ -302,15 +342,16 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
   border: none;
   border-radius: 50%;
   background: transparent;
-  cursor: pointer;
   overflow: hidden;
   transition: background 0.2s ease;
 }
-.avatar-wrap:hover,
-.avatar-wrap:focus-visible {
+button.avatar-wrap { cursor: pointer; }
+button.avatar-wrap:hover,
+button.avatar-wrap:focus-visible {
   background: conic-gradient(from 135deg, #0F6DFF, #00C6FF, #0040FF, #006FFF, #0F6DFF);
   outline: none;
 }
+a.avatar-wrap:focus-visible { outline: 2px solid var(--text-strong); outline-offset: 2px; }
 /* Gap between ring and photo — picks up the page colour in either theme */
 .avatar-wrap::after {
   content: '';
@@ -322,8 +363,8 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
   opacity: 0;
   transition: opacity 0.2s ease;
 }
-.avatar-wrap:hover::after,
-.avatar-wrap:focus-visible::after { opacity: 1; }
+button.avatar-wrap:hover::after,
+button.avatar-wrap:focus-visible::after { opacity: 1; }
 
 .avatar-wrap:hover::before {
   animation: none;
@@ -365,6 +406,8 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
   color: var(--text-strong);
   outline: none;
 }
+/* the page you're on */
+.nav-links a[aria-current] { color: var(--text-strong); }
 
 /* ======================================================================
    Now playing
@@ -384,10 +427,14 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
   color: inherit;
   font: inherit;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
-.player-tag:hover,
+/* A link to the song once it has loaded; until then (or if it never does)
+   there's nowhere to go, so it doesn't act like there is */
+.player-tag:not([href]) { cursor: default; }
+.player-tag[href]:hover,
 .player-tag:focus-visible { background: var(--hover); outline: none; }
 
 .vinyl {
@@ -573,7 +620,11 @@ html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
   position: absolute;
   cursor: grab;
   will-change: transform;
-  touch-action: none;
+  /* The collage is most of a phone's screen, so a swipe across it has to
+     scroll. A drag only starts after a still long-press (app.js), and the
+     long-press mustn't open the image menu instead. */
+  touch-action: pan-x pan-y;
+  -webkit-touch-callout: none;
 }
 .collage-item.is-dragging { cursor: grabbing; }
 .collage-img {
@@ -622,8 +673,16 @@ a.album:hover img { transform: translateY(-4px); }
 
 @media (max-width: 600px) {
   .nav { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .nav-links { margin-left: -8px; }
+  /* Taller hit areas for a thumb, pulled back in by the negative margin so
+     the row sits where it did. No gap, so all five fit on one line at 320. */
+  .nav-links { margin-left: -8px; gap: 0; }
+  .nav-links a { padding: 12px 8px; margin-block: -6px; }
   .collage-canvas { height: 380px; }
+}
+/* At 320 the five links come to 291px against 280. Less padding would take
+   X under 24px wide, so the type steps down instead, on these screens only. */
+@media (max-width: 359px) {
+  .nav-links a { font-size: var(--font-sm); }
 }
 
 
@@ -639,10 +698,13 @@ a.album:hover img { transform: translateY(-4px); }
   font: inherit;
   letter-spacing: inherit;
   text-align: left;
-  cursor: pointer;
   transition: color 0.15s ease;
 }
-.greeting:hover, .greeting:focus-visible { color: var(--text-strong); outline: none; }
+/* Only the homepage's greeting is a button. On about and 404 the same style
+   is the page's heading, and it shouldn't look like it does anything. */
+h1.greeting { font: inherit; margin: 0; }
+button.greeting { cursor: pointer; }
+button.greeting:hover, button.greeting:focus-visible { color: var(--text-strong); outline: none; }
 .greeting-text {
   display: inline-block;
   transition: opacity 0.18s ease, transform 0.18s ease;
@@ -662,6 +724,14 @@ a.album:hover img { transform: translateY(-4px); }
   gap: 4px;
 }
 .chrome .theme-toggle { position: static; top: auto; right: auto; }
+/* Below 764px the column runs under the cluster (three buttons on the
+   homepage, two elsewhere), and fixed, the icons sat on the copy as it
+   scrolled past. There they stay at the top of the page and scroll away
+   with the nav; body is the positioned box, so the note's offset still
+   lands them under it. */
+@media (max-width: 764px) {
+  .chrome { position: absolute; }
+}
 
 .audio-toggle,
 .sticker-reset {
@@ -837,7 +907,7 @@ a.album:hover img { transform: translateY(-4px); }
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.45;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 160px 160px;
@@ -872,44 +942,44 @@ a.album:hover img { transform: translateY(-4px); }
 }
 
 .card-costgraph {
-  --vg: 0.16;
+  --vg: 0.08;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.68 0.148 292 / 0.3), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.52 0.276 292 / 0.7), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.72 0.136 230 / 0.66), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.7 0.157 248) 0%, oklch(0.57 0.221 260) 50%, oklch(0.32 0.19 276) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.86 0.07 237.9 / 0.06), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.472 0.17 263.9 / 0.55), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.372 0.17 269.9 / 0.6), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.463 0.17 267.9) 0%, oklch(0.472 0.17 263.9) 64%, oklch(0.61 0.17 259.9) 88%, oklch(0.66 0.17 255.9) 100%);
 }
 .card-luotain {
-  --vg: 0.36;
+  --vg: 0.08;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.86 0.09 72 / 0.3), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.79 0.161 72 / 0.7), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.59 0.225 18 / 0.66), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.67 0.208 32) 0%, oklch(0.7 0.191 44) 50%, oklch(0.5 0.112 60) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.86 0.07 66 / 0.06), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.479 0.143 40 / 0.55), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.379 0.129 34 / 0.6), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.47 0.153 36) 0%, oklch(0.479 0.143 40) 64%, oklch(0.694 0.17 44) 88%, oklch(0.744 0.16 48) 100%);
 }
 .card-yote {
-  --vg: 0.3;
+  --vg: 0.08;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.78 0.022 286 / 0.34), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.56 0.03 286 / 0.7), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.42 0.028 240 / 0.66), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.54 0.026 262) 0%, oklch(0.39 0.022 268) 52%, oklch(0.25 0.016 274) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.86 0.01 236 / 0.06), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.5 0.13 258 / 0.55), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.26 0.004 258 / 0.6), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.31 0.004 258) 0%, oklch(0.32 0.006 258) 64%, oklch(0.463 0.014 254) 88%, oklch(0.58 0.02 254) 100%);
 }
 .card-lonar {
-  --vg: 0.2;
+  --vg: 0.08;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.75 0.134 358 / 0.3), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.65 0.251 358 / 0.7), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.64 0.191 40 / 0.66), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.66 0.225 8) 0%, oklch(0.63 0.24 20) 50%, oklch(0.44 0.143 36) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.86 0.07 21.7 / 0.06), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.487 0.17 355.7 / 0.55), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.387 0.153 349.7 / 0.6), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.475 0.17 351.7) 0%, oklch(0.487 0.17 355.7) 64%, oklch(0.627 0.17 359.7) 88%, oklch(0.677 0.17 3.7) 100%);
 }
 .card-kernui {
-  --vg: 0.16;
+  --vg: 0.08;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.76 0.158 319 / 0.3), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.64 0.293 319 / 0.7), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.52 0.214 261 / 0.66), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.52 0.258 277) 0%, oklch(0.51 0.276 289) 50%, oklch(0.38 0.188 305) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.86 0.07 49 / 0.06), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.528 0.17 27 / 0.55), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.26 0.004 24 / 0.6), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.31 0.004 24) 0%, oklch(0.32 0.006 24) 64%, oklch(0.434 0.096 27) 88%, oklch(0.528 0.17 27) 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1013,21 +1083,25 @@ a.album:hover img { transform: translateY(-4px); }
 .card-lonar     { --a1: l1-a; --a2: l2-c; --a3: l3-b; --d1: 37s; --d2: 23s; --d3: 29s; --o1: -8s;  --o2: -26s; --o3: -3s;  }
 .card-kernui    { --a1: l1-c; --a2: l2-b; --a3: l3-a; --d1: 24s; --d2: 39s; --d3: 46s; --o1: -18s; --o2: -11s; --o3: -31s; }
 
-/* With the lights free to wander into the lower half, the text can no
-   longer sit on the body's bottom stop alone. This vignette is what it sits
-   on instead: it fades in from 58% and reaches 0.72 at the floor, which
-   holds white above 4.5:1 even against the brightest a light can push the
-   bottom of a card. */
+/* The drift repaints every frame on the main thread, so it only runs where
+   someone can see it: never with the row scrolled away (app.js sets is-off),
+   and not on touch screens, where it was most of a phone's idle work. */
+.cards.is-off .card { animation-play-state: paused; }
+@media (hover: none) {
+  .card { animation-play-state: paused; }
+}
+
+/* The lights are free to wander anywhere on the card, so the text can't
+   rely on the gradient's own stops to stay readable. This is the layer it
+   sits on instead: a local scrim, as dark as each card's --vg says. It runs
+   from the top down, under the mark, name and line, and is drawn below in
+   "Cards with product". */
 .card::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: linear-gradient(to top,
-    rgba(0, 0, 0, var(--vg, 0.34)) 0%,
-    rgba(0, 0, 0, calc(var(--vg, 0.34) * 0.47)) 28%,
-    transparent 62%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1268,11 +1342,19 @@ body.has-note .sound-note { transform: none; }
 .sound-note-x:hover, .sound-note-x:focus-visible { opacity: 1; outline: none; }
 .sound-note-x svg { width: 10px; height: 10px; display: block; }
 
-/* The page and the fixed toggles come down with it */
-body { transition: background-color 0.3s ease, color 0.3s ease,
-                   padding-top 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+/* The page and the toggles sit below it. The head script decides before the
+   first paint whether the note will show (html.note), so its 32px are
+   there from the first frame and only the bar itself slides in: nothing on
+   the page moves on arrival. body.has-note, which app.js adds once the bar
+   exists, holds the same space. Closing it is something the visitor did,
+   so that direction animates: the space eases shut as the bar leaves. */
+html.note body,
 body.has-note { padding-top: 32px; }
+body:not(.has-note) { transition: background-color 0.3s ease, color 0.3s ease,
+                                  padding-top 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 .chrome, .theme-toggle { transition: top 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+html.note .chrome,
+html.note .theme-toggle,
 body.has-note .chrome,
 body.has-note .theme-toggle { top: calc(max(20px, env(safe-area-inset-top, 0px)) + 32px); }
 
@@ -1283,7 +1365,7 @@ body.has-note .theme-toggle { top: calc(max(20px, env(safe-area-inset-top, 0px))
   .sound-note { padding: 0 40px 0 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sound-note, body, .chrome, .theme-toggle { transition: none; }
+  .sound-note, body, body:not(.has-note), .chrome, .theme-toggle { transition: none; }
 }
 
 /* ======================================================================
@@ -1330,6 +1412,11 @@ body { position: relative; }
   display: block;
   max-width: none;
   pointer-events: none;
+}
+/* On touch, a vertical swipe that starts on a sticker scrolls the page; the
+   sticker only picks up once the finger moves sideways (app.js) */
+@media (pointer: coarse) {
+  .sticker { touch-action: pan-y; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1383,6 +1470,16 @@ html[data-theme="dark"] .yote-stage {
   --yote-bg-surface: #1c1c1c;
   --yote-popover-bg: #1c1c1c;
 }
+/* iOS zooms the page into any field under 16px when it takes focus. Yöte
+   already lifts the password and phone fields on touch; these are the text
+   fields it misses. A stopgap until it ships in yote-ui and is re-copied.
+   The country search lives in a popover portalled to body, outside the
+   stage, so it is reached through its panel. */
+@media (pointer: coarse) {
+  .yote-stage .yote-input-control,
+  .yote-stage .yote-ta-input,
+  .yote-pop-panel .yote-pop-search-input { font-size: 16px; letter-spacing: 0.32px; }
+}
 @media (max-width: 600px) {
   .yote-stage { padding: 24px 16px; gap: 26px; }
 }
@@ -1435,26 +1532,16 @@ html[data-theme="dark"] .yote-stage {
 }
 .explore-open:hover img,
 .explore-open:hover video { transform: scale(1.02); }
+/* Nearly every tile is baked on white, and in dark theme the grid became a
+   wall of bright holes. Each one sits on a thin dark mat with a hairline
+   instead, so the white reads as a stage that was put there. The button
+   clips the hover zoom so it stays inside the mat. */
+html[data-theme="dark"] .explore-cell { padding: 6px; box-shadow: inset 0 0 0 1px var(--rule); }
+html[data-theme="dark"] .explore-open { overflow: hidden; border-radius: 2px; }
 
-/* Shimmer until the tile's image (or a video's poster) arrives. Only once
-   the script is there to take it away again. */
-.explore-grid.is-enhanced .explore-cell::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(90deg, transparent 0%,
-    color-mix(in srgb, var(--page) 55%, transparent) 50%, transparent 100%);
-  background-size: 200% 100%;
-  animation: explore-shimmer 1.4s infinite;
-  transition: opacity 0.3s ease;
-}
-.explore-grid.is-enhanced .explore-cell.is-loaded::before { opacity: 0; animation: none; }
-@keyframes explore-shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position:  200% 0; }
-}
+/* No loading shimmer: the tiles are lazy, so the ones below the fold never
+   loaded and kept it running for good. The cell's own grey is the
+   placeholder. */
 
 @media (max-width: 680px) {
   .explore-grid { grid-template-columns: minmax(0, 1fr); }
@@ -1484,7 +1571,6 @@ html[data-theme="dark"] .yote-stage {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .explore-grid.is-enhanced .explore-cell::before { animation: none; }
   .explore-open img, .explore-open video { transition: none; }
 }
 
@@ -1521,14 +1607,15 @@ html[data-theme="dark"] .yote-stage {
 /* ======================================================================
    Earlier work
    A role row with one line under it. The note sits on the row's text
-   column, and a row with nowhere to go (Volla) keeps its colour still.
+   column. A row with nowhere to go (the degree) is set in body text, so it
+   doesn't pass for a link beside the ones that are.
    ====================================================================== */
 .row-note {
   color: var(--text);
   margin: -2px 0 10px;
 }
 .row-note:last-child { margin-bottom: 0; }
-.link-row-static .row-name { color: var(--text-strong); }
+.link-row-static .row-name { color: var(--text); }
 
 /* ======================================================================
    Resume
@@ -1567,6 +1654,13 @@ a.cv-role:hover .row-name { box-shadow: inset 0 -1px 0 0 currentColor; }
   html, html[data-theme="dark"] {
     --page: #fff; --text-strong: #111; --text: #3a3a3a; --text-muted: #6b6b6b; --rule: rgba(0,0,0,.12);
     color-scheme: light;
+  }
+  /* The PDF was set at the old type scale; held there so the screen's larger
+     type doesn't reflow resume.pdf. [data-theme] so it outranks the
+     :root, [data-theme="light"] tokens above. */
+  html, html[data-theme] {
+    --font: 13.5px; --lh: 21px; --font-sm: 12px;
+    --font-fixed: 12.5px; --font-fixed-sm: 11px;
   }
   body { background: #fff; font-size: 9pt; line-height: 1.4; transition: none; }
   .chrome, .nav, .crumb, .player, footer, .stickers, .sound-note, .cv-download, .gallery { display: none !important; }
@@ -1611,20 +1705,55 @@ a.cv-role:hover .row-name { box-shadow: inset 0 -1px 0 0 currentColor; }
 /* No object-fit here. The card is portrait and the hero is wide, and
    cover-scaling either one while the box changes shape makes the zoom rise
    and fall mid-flight, which reads as a shake. At their own aspect, pinned
-   top and clipped by the pair, both scale in one direction only. */
+   top and clipped by the pair, both scale in one direction only.
+   No radius on the pair either: each snapshot carries its own corners, so
+   the square card grows into the rounded hero and back without the cards
+   all rounding off the moment one is clicked. */
 ::view-transition-image-pair(work-luotain),
 ::view-transition-image-pair(work-costgraph),
 ::view-transition-image-pair(work-yote),
 ::view-transition-image-pair(work-lonar),
 ::view-transition-image-pair(work-kernui) {
   overflow: hidden;          /* the taller snapshot is cut at the box, not spilled */
-  border-radius: 10px;
 }
-::view-transition-old(root),
-::view-transition-new(root) { animation-duration: 0.24s; }
+/* Card to hero: the card's snapshot is held at its own size and gone in a
+   blink. Left to scale with the box, its 14px name swelled to about 36px
+   over the product shot. Only on the way in, where the old snapshot is the
+   card (the new page has the hero); on the way back the old one is the
+   hero, which shrinks into the card as it is. */
+:root:has(.study-hero)::view-transition-old(work-luotain),
+:root:has(.study-hero)::view-transition-old(work-costgraph),
+:root:has(.study-hero)::view-transition-old(work-yote),
+:root:has(.study-hero)::view-transition-old(work-lonar),
+:root:has(.study-hero)::view-transition-old(work-kernui) {
+  inline-size: auto;
+  block-size: auto;
+  animation: vt-out 0.12s ease-out both;
+}
+@keyframes vt-out { to { opacity: 0; } }
+/* and on the way back the card is the new snapshot, so it is held at its
+   own size there: the hero shrinks onto it rather than the card's text
+   starting out swollen and shrinking with the box */
+:root:has(.cards)::view-transition-new(work-luotain),
+:root:has(.cards)::view-transition-new(work-costgraph),
+:root:has(.cards)::view-transition-new(work-yote),
+:root:has(.cards)::view-transition-new(work-lonar),
+:root:has(.cards)::view-transition-new(work-kernui) {
+  inline-size: auto;
+  block-size: auto;
+}
+
+/* The page itself hands over rather than double-exposing: the old one is
+   mostly gone before the new one starts, so the two sets of text never sit
+   on top of each other at half strength. */
+::view-transition-old(root) { animation-duration: 0.12s; }
+::view-transition-new(root) { animation-duration: 0.2s; animation-delay: 0.06s; animation-fill-mode: both; }
 
 html.vt-in .study-head.appear,
 html.vt-in .cards-section.appear { animation: none; opacity: 1; }
+/* The nav is the same on both pages, so it holds still instead of dipping
+   out and fading back in under the transition */
+html.vt-in .nav.appear { animation: none; opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
@@ -1698,15 +1827,6 @@ html.vt-in .cards-section.appear { animation: none; opacity: 1; }
 }
 
 /* ======================================================================
-   Case-study reading size
-   The site's 13.5px works for a homepage of short lines; a 1,000-word case
-   study read on a phone needs more. Labels, pills and captions stay small.
-   ====================================================================== */
-.study-content { font-size: 15px; line-height: 24px; }
-.study-content .study-subhead { font-size: inherit; line-height: inherit; }
-.study-lede { font-size: 15px; line-height: 23px; }
-
-/* ======================================================================
    Work row
    The row starts on the text column at every width and runs off the right
    edge. Two step buttons sit beside the label at every width, since the
@@ -1732,3 +1852,92 @@ html.vt-in .cards-section.appear { animation: none; opacity: 1; }
 .cards { scroll-behavior: smooth; scroll-snap-type: x proximity; }
 .cards .card { scroll-snap-align: start; scroll-margin-inline-start: max(24px, calc(50vw - 270px)); }
 @media (prefers-reduced-motion: reduce) { .cards { scroll-behavior: auto; } }
+/* Around iPad portrait, three cards ended flush with the screen edge and the
+   row read as complete. A slightly narrower card lets the fourth show. */
+@media (min-width: 740px) and (max-width: 860px) {
+  .cards .card { width: 190px; }
+}
+
+/* ======================================================================
+   Cards with product
+   Each card is its case study's cover in miniature: the mark, the name and
+   one line at the top, and the product rising off the bottom edge, so the
+   card and the cover it grows into are the same object. The scrim moves to
+   the top with the text; the shot sits above the grain.
+   ====================================================================== */
+.card { justify-content: flex-start; }
+.card-body { margin-top: 12px; }
+.card::before {
+  background: linear-gradient(to bottom,
+    rgba(0, 0, 0, calc(var(--vg, 0.34) * 0.9)) 0%,
+    rgba(0, 0, 0, calc(var(--vg, 0.34) * 0.35)) 38%,
+    transparent 62%);
+}
+.card-shot {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 0;
+  width: 82%;
+  height: auto;
+  border-radius: 6px 6px 0 0;
+  background: #fff;
+  box-shadow: 0 12px 30px -10px rgb(0 0 0 / 0.5), 0 0 0 1px rgb(255 255 255 / 0.14);
+  transform: translate(-50%, 22%);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.card:hover .card-shot { transform: translate(-50%, 16%); }
+@media (prefers-reduced-motion: reduce) { .card-shot { transition: none; } }
+
+/* Each exploration says what it is, one line under the tile */
+.explore-grid { row-gap: 16px; }
+.explore-item { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.explore-caption {
+  color: var(--text);
+  font-size: var(--font-sm);
+  line-height: 1.4;
+  padding-inline: 2px;
+}
+
+/* ======================================================================
+   Product shots, cropped to the corner
+   The dashboard is shown larger than the frame and anchored at the left,
+   so it runs off the right edge and the bottom: what's left in view is the
+   top-left, where the product's structure reads (nav, title, first row).
+   ====================================================================== */
+.study-hero-framed .hero-shot {
+  align-self: flex-start;
+  width: var(--shot-w, 118%);
+  max-width: none;
+  margin-left: 10%;
+  border-radius: 10px 0 0 0;
+}
+.card-shot {
+  /* every shot starts on the same line under the text, whatever its height */
+  top: 61%;
+  bottom: auto;
+  left: 14%;
+  width: var(--card-shot-w, 118%);
+  border-radius: 6px 0 0 0;
+  transform: none;
+}
+.card:hover .card-shot { transform: translateY(-5px); }
+@media (max-width: 600px) {
+  .study-hero-framed .hero-shot { margin-left: 8%; }
+}
+
+/* How much of each product fits in the corner depends on how dense its
+   screen is, so each one is scaled on its own: the aim is the same
+   on-screen size for type across all five, not the same box */
+.card-luotain   { --shot-w: 112%; --card-shot-w: 118%; }
+.card-lonar     { --shot-w: 118%; --card-shot-w: 118%; }
+.card-yote      { --shot-w: 90%; --card-shot-w: 112%; }
+.card-costgraph { --shot-w: 200%; --card-shot-w: 250%; }
+.card-kernui    { --shot-w: 180%; --card-shot-w: 230%; }
+
+/* Square corners on the work cards */
+.cards .card { border-radius: 0; }
+
+/* Ink cards (Yöte, KernUI) keep an edge on the dark page */
+html[data-theme="dark"] .cards .card { box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06); }

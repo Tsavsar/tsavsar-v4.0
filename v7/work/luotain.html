@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="../styles.css" />
 <title>Luotain · Shater Tsavsar</title>
 <meta name="description" content="Luotain, designed and built solo: short links and QR codes that keep their own scan data and stay editable after they are printed." />
-<link rel="icon" type="image/png" href="../favicon.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="../favicon-64.png" />
+<link rel="apple-touch-icon" href="../apple-touch-icon.png" />
 <meta property="og:title" content="Luotain · Shater Tsavsar" />
 <meta property="og:description" content="Luotain, designed and built solo: short links and QR codes that keep their own scan data and stay editable after they are printed." />
 <meta property="og:type" content="article" />
@@ -29,13 +30,24 @@
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
+  // Reserve the sound note's strip before first paint, so the page doesn't
+  // drop 32px when the bar arrives. app.js takes the class off again if
+  // the note isn't shown, and when it's closed.
+  try {
+    if (localStorage.getItem('soundNote3') !== 'seen' && localStorage.getItem('audio') !== 'on') document.documentElement.classList.add('note');
+  } catch (e) {}
+  // The entrance plays once per visit. Every later page in the tab starts
+  // settled instead of fading the same nav and signature in again.
+  try {
+    if (sessionStorage.getItem('entered')) document.documentElement.classList.add('no-enter'); else sessionStorage.setItem('entered', '1');
+  } catch (e) {}
   // Arriving through a view transition: the card and the hero it grows into
   // have to be visible on the first frame, so they skip the entrance fade.
   addEventListener('pagereveal', function (e) {
     if (e.viewTransition) document.documentElement.classList.add('vt-in');
   });
 </script>
-<link rel="preload" as="image" href="../heroes/luotain.jpg" fetchpriority="high" />
+<link rel="preload" as="image" href="../media/luotain/cover-4.webp" fetchpriority="high" />
 </head>
 <body>
 
@@ -56,10 +68,10 @@
 
 <nav class="nav appear">
   <div class="brand">
-    <button class="avatar-wrap" type="button" aria-label="View photo gallery">
-      <img class="avatar" src="../pfp.png" width="40" height="40" alt="Shater Tsavsar" />
-    </button>
-    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Signature" role="img">
+    <a class="avatar-wrap" href="/" aria-label="Shater Tsavsar, home">
+      <img class="avatar" src="../pfp-80.webp" srcset="../pfp-80.webp 2x, ../pfp-120.webp 3x" width="40" height="40" alt="Shater Tsavsar" />
+    </a>
+    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Shater Tsavsar" role="img">
       <path class="sig-path" d="M40.8613 34.142C49.863 29.7983 48.196 22.9486 43.0284 23.6169C36.4797 26.6814 34.11 32.2208 28.2756 52.3521C21.3577 67.7221 9.27205 71.3975 10.8558 65.5502C16.0772 58.2166 38.5275 44.4165 57.1143 40.1564C71.4502 36.8705 76.4511 37.3163 79.7017 34.142M75.8677 26.9582C75.0342 28.2947 72.031 27.2923 69.9473 28.8795C67.5558 29.5208 67.3991 30.0536 65.3658 31.469C63.8516 32.523 62.7962 34.0245 61.0316 34.5597C59.2338 35.105 59.0361 33.268 57.6143 33.8914C53.6136 35.6456 49.6129 37.901 47.6958 38.4857C46.6687 38.799 48.2793 36.2303 46.8624 35.8127C45.4454 35.395 40.4445 41.0752 39.6944 40.407C38.9442 39.7387 39.4443 38.4857 39.4443 38.4857M69.9473 28.8795C70.5308 27.4594 73.7006 25.3711 73.0338 24.4522C72.367 23.5334 71.3669 25.7888 70.45 27.6265C69.5332 29.4642 68.4654 33.9038 71.1168 34.6432C73.4955 35.3065 77.4021 31.469 78.322 30.0103"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" />
     </svg>
@@ -81,7 +93,7 @@
 
   <header class="study-title appear" style="--i:2">
     <h1>Luotain</h1>
-    <p class="study-lede">Link shortening with QR code analytics. Every code tracks its own scans, and stays editable after it's printed.</p>
+    <p class="study-lede">Link shortening with QR code analytics. Every code tracks its own scans, and stays editable after it’s printed.</p>
     <div class="study-pills"><a class="study-pill" href="https://luotain.app" target="_blank" rel="noopener"><span class="study-pill-mark"><img src="../icons/luotain.svg" alt="" aria-hidden="true" /></span><span>luotain.app</span></a><span class="study-pill">Solo, end to end</span><span class="study-pill">2026</span></div>
   </header>
 
@@ -89,7 +101,7 @@
     <div class="study-hero study-hero-framed card-luotain">
       <p class="hero-brand"><img src="../icons/luotain.svg" alt="" aria-hidden="true" /><span>Luotain</span></p>
       <p class="hero-line">Short links and QR codes that remember every scan</p>
-      <img width="1200" height="975" class="hero-shot" decoding="sync" fetchpriority="high" src="../heroes/luotain.jpg" alt="Luotain analytics: clicks over time for two short links, split rather than summed." />
+      <img width="870" height="780" class="hero-shot" decoding="sync" fetchpriority="high" src="../media/luotain/cover-4.webp" alt="Luotain analytics: clicks over time for two short links, split rather than summed." />
     </div>
   </section>
 
@@ -97,28 +109,28 @@
         <h2 class="study-label">Problem</h2>
         <div class="study-content">
           <p>You know those QR codes on restaurant tables. A place near me printed a few hundred of them for a new menu, then moved the menu to a different URL a month later, and every single card was dead. The code still scanned fine. It just went nowhere.</p>
-          <p>That stuck with me because it's such an easy thing to fix and nobody does. Every shortener I looked at treats QR codes like an afterthought. You make a link, then there's a button buried somewhere that hands you a PNG, and that PNG has no analytics and no way to change where it goes. So if you've stuck the same code on a flyer, a window and a receipt, you've got no idea which one people are actually scanning.</p>
-          <p>So that's what I built. Every link gets a code, the code has its own scan data, and you can change the destination whenever you want. Print it once, point it wherever.</p>
-          <p>It's called Luotain, a Finnish noun meaning "probe" or "detector". I know, I know, really cool name, thanks. And if I had a nickel for every one of my projects that starts with an L, I'd have two nickels. Which isn't a lot, but it's weird that it happened twice.</p>
+          <p>That stuck with me because it’s such an easy thing to fix and nobody does. Every shortener I looked at treats QR codes like an afterthought. You make a link, then there’s a button buried somewhere that hands you a PNG, and that PNG has no analytics and no way to change where it goes. So if you’ve stuck the same code on a flyer, a window and a receipt, you’ve got no idea which one people are actually scanning.</p>
+          <p>So that’s what I built. Every link gets a code, the code has its own scan data, and you can change the destination whenever you want. Print it once, point it wherever.</p>
+          <p>It’s called Luotain, a Finnish noun meaning “probe” or “detector”. I know, I know, really cool name, thanks. And if I had a nickel for every one of my projects that starts with an L, I’d have two nickels. Which isn’t a lot, but it’s weird that it happened twice.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:5">
         <h2 class="study-label">My role</h2>
         <div class="study-content">
-          <p>All of it, on my own: the product, the design, the frontend and the backend, and the social accounts too. It's built on KernUI's tokens, with Next.js, Postgres through Prisma, an email-code sign-in I wrote myself, Resend for email, Polar for billing, and DNS verification for custom domains.</p>
+          <p>All of it, on my own: the product, the design, the frontend and the backend, and the social accounts too. It’s built on KernUI’s tokens, with Next.js, Postgres through Prisma, an email-code sign-in I wrote myself, Resend for email, Polar for billing, and DNS verification for custom domains.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:6">
         <h2 class="study-label">Solution</h2>
         <div class="study-content">
           <h3 class="study-subhead">You can just use it</h3>
-          <p>The homepage isn't a screenshot of the app, it's the app. Paste a link in, get a real short link back. Flip to the QR tab and you get a real code you can restyle and download. No signup, nothing.</p>
+          <p>The homepage isn’t a screenshot of the app, it’s the app. Paste a link in, get a real short link back. Flip to the QR tab and you get a real code you can restyle and download. No signup, nothing.</p>
           <figure class="study-figure" data-n="1"><video src="../media/luotain/homepage.mp4" poster="../media/luotain/homepage-poster.webp" preload="none" muted loop playsinline aria-label="Luotain homepage demo"></video></figure>
-          <p>The bit I'm actually pleased with is that the links follow you. If you make one on the homepage and then sign up in the same browser, it's already sitting in your account when you land, clicks and everything. Getting that wrong would have been rough. You try the product, you like it, you sign up, and the thing you just made is gone.</p>
+          <p>The bit I’m actually pleased with is that the links follow you. If you make one on the homepage and then sign up in the same browser, it’s already sitting in your account when you land, clicks and everything. Getting that wrong would have been rough. You try the product, you like it, you sign up, and the thing you just made is gone.</p>
           <h3 class="study-subhead">Making a link and making a code are the same screen</h3>
           <figure class="study-figure" data-n="1"><video src="../media/luotain/create-screen.mp4" poster="../media/luotain/create-screen-poster.webp" preload="none" muted loop playsinline aria-label="Creating a short link or QR code on one screen"></video></figure>
-          <p>There's a toggle up top, Short link or QR code. It looks like it switches modes but it doesn't. Both do exactly the same thing, the toggle just decides where you end up afterwards.</p>
-          <p>I had it the other way at first, where the fields changed depending on what you picked, and it felt like two different tools sharing a screen. Worse, the toggle turned into a question you had to answer before you knew the answer. You'd pick Short link, fill it in, remember you actually wanted a code for the flyer, flip it, and half of what you'd typed moved or vanished. Now the toggle only decides where you land afterwards, so you can change your mind at any point and lose nothing. Nothing moves.</p>
+          <p>There’s a toggle up top, Short link or QR code. It looks like it switches modes but it doesn’t. Both do exactly the same thing, the toggle just decides where you end up afterwards.</p>
+          <p>I had it the other way at first, where the fields changed depending on what you picked, and it felt like two different tools sharing a screen. Worse, the toggle turned into a question you had to answer before you knew the answer. You’d pick Short link, fill it in, remember you actually wanted a code for the flyer, flip it, and half of what you’d typed moved or vanished. Now the toggle only decides where you land afterwards, so you can change your mind at any point and lose nothing. Nothing moves.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:7">
@@ -131,32 +143,32 @@
           <figure class="study-figure" data-n="1"><video src="../media/luotain/qr-tilt.mp4" poster="../media/luotain/qr-tilt-poster.webp" preload="none" muted loop playsinline aria-label="Enlarged QR code tilting toward the cursor"></video></figure>
           <p>Downloads are PNG or SVG, and the PNG comes out at 1024 with a white background. Transparency sounds like the nicer option right up until somebody drops the code onto a dark card, it inverts, and no phone can read it.</p>
           <h3 class="study-subhead">Which one worked</h3>
-          <p>Four hundred clicks doesn't tell you anything. What you want to know is which of your five placements got them. So nothing is summed, it's all split by source, country and device.</p>
-          <figure class="study-figure" data-n="1"><img width="1702" height="394" src="../media/luotain/overview-stats.webp" alt="The analytics overview with clicks, unique visitors and top country, filtered to two links." loading="lazy" /></figure>
+          <p>Four hundred clicks doesn’t tell you anything. What you want to know is which of your five placements got them. So nothing is summed, it’s all split by source, country and device.</p>
+          <figure class="study-figure study-figure-tall" data-n="1"><img width="1702" height="394" src="../media/luotain/overview-stats.webp" alt="The analytics overview with clicks, unique visitors and top country, filtered to two links." loading="lazy" /></figure>
           <h3 class="study-subhead">Comparing links side by side</h3>
           <figure class="study-figure" data-n="1"><video src="../media/luotain/compare-links.mp4" poster="../media/luotain/compare-links-poster.webp" preload="none" muted loop playsinline aria-label="Comparing clicks for selected links on the analytics chart"></video></figure>
-          <p>This one's my favourite and it's easy to miss. On the clicks chart you can tap two or three links and it splits them out instead of showing you the total.</p>
+          <p>This one’s my favourite and it’s easy to miss. On the clicks chart you can tap two or three links and it splits them out instead of showing you the total.</p>
           <p>The rows animate to their new positions when the order changes rather than jumping, which took longer than the comparison itself. When you toggle a filter and the ranking shifts, rows sliding to where they belong reads as the data updating. Rows teleporting reads as a bug.</p>
           <h3 class="study-subhead">Custom domains</h3>
           <figure class="study-figure" data-n="1"><video src="../media/luotain/add-domain.mp4" poster="../media/luotain/add-domain-poster.webp" preload="none" muted loop playsinline aria-label="Adding and verifying a custom domain"></video></figure>
-          <p>This screen is boring and I'm weirdly proud of it. It has to teach DNS to someone who's never touched DNS, and get it right, because the record you need depends on the shape of your domain. go.yourbrand.com takes one kind, yourbrand.link takes another, and DNS flat out won't let you use the first kind at a root domain. So the page works out which you gave it and only shows you that one.</p>
-          <p>It checks in the background while you're waiting and stops when you switch tabs. And when it fails it tells you what went wrong instead of just going red.</p>
+          <p>This screen is boring and I’m weirdly proud of it. It has to teach DNS to someone who’s never touched DNS, and get it right, because the record you need depends on the shape of your domain. go.yourbrand.com takes one kind, yourbrand.link takes another, and DNS flat out won’t let you use the first kind at a root domain. So the page works out which you gave it and only shows you that one.</p>
+          <p>It checks in the background while you’re waiting and stops when you switch tabs. And when it fails it tells you what went wrong instead of just going red.</p>
         </div>
       </section>
 
       <section class="study-section appear" style="--i:8">
         <h2 class="study-label">Lessons</h2>
         <div class="study-content">
-          <p>Letting people use it beats explaining it. I tried to describe Luotain in a paragraph more times than I'd like to admit, and none of them did what ten seconds with the real thing does. That was also the most expensive decision to build. Making a link before you have an account meant building an anonymous workspace and a way to claim it, so the link comes with you when you sign up. Worth it, but it's a lot of backend for one line in a design doc.</p>
-          <p>The boring screens carry as much of the product as the fun ones. The tilt is what people react to, but the DNS screen decides whether someone actually gets their domain working, and it's the one I'd least want to get wrong.</p>
+          <p>Letting people use it beats explaining it. I tried to describe Luotain in a paragraph more times than I’d like to admit, and none of them did what ten seconds with the real thing does. That was also the most expensive decision to build. Making a link before you have an account meant building an anonymous workspace and a way to claim it, so the link comes with you when you sign up. Worth it, but it’s a lot of backend for one line in a design doc.</p>
+          <p>The boring screens carry as much of the product as the fun ones. The tilt is what people react to, but the DNS screen decides whether someone actually gets their domain working, and it’s the one I’d least want to get wrong.</p>
         </div>
       </section>
 
       <section class="study-section appear" style="--i:9">
-        <h2 class="study-label">Where it's at</h2>
+        <h2 class="study-label">Where it’s at</h2>
         <div class="study-content">
-          <p>Luotain is live, and it's early. There aren't numbers worth putting on a page yet, and I'd rather say that than dress up a small launch. What I'm watching is the thing the product exists for: whether people who make a link on the homepage come back after signing up and change where it points. If they do, the printed-code problem is solved. If they don't, it's just another shortener.</p>
-          <p>If I started again, I'd build the split analytics first. They're the reason Luotain exists, and they came last, after the create screen and the designer. Those are the parts people see first, but they're not the parts that make anyone stay.</p>
+          <p>Luotain is live, and it’s early. There aren’t numbers worth putting on a page yet, and I’d rather say that than dress up a small launch. What I’m watching is the thing the product exists for: whether people who make a link on the homepage come back after signing up and change where it points. If they do, the printed-code problem is solved. If they don’t, it’s just another shortener.</p>
+          <p>If I started again, I’d build the split analytics first. They’re the reason Luotain exists, and they came last, after the create screen and the designer. Those are the parts people see first, but they’re not the parts that make anyone stay.</p>
         </div>
       </section>
 
@@ -171,7 +183,7 @@
   </section>
 
 <div class="player appear" style="--i:8">
-  <button class="player-tag" type="button" id="player">
+  <a class="player-tag" id="player" target="_blank" rel="noopener">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -180,7 +192,7 @@
       <span class="player-state" id="playerState">Last played</span>
       <span class="player-track" hidden><strong id="trackTitle"></strong><span class="by"> by </span><strong id="trackArtist"></strong></span>
     </span>
-  </button>
+  </a>
 </div>
 
   <footer class="appear" style="--i:9">

@@ -1,7 +1,9 @@
-/* Playground page only: loading shimmer and the lightbox for the grid.
-   The grid itself is plain HTML, so it all still shows without this file.
-   Grid videos are left to app.js, which plays video[preload="none"] as
-   they scroll into view. */
+/* Playground page only: the lightbox for the grid. The grid itself is
+   plain HTML, so it all still shows without this file. Tiles wait on their
+   plain var(--hover) ground while they load, with no shimmer: on lazy tiles
+   below the fold it ran for as long as the page was open. Grid videos are
+   left to app.js, which plays video[preload="none"] as they scroll into
+   view. */
 (function () {
   'use strict';
 
@@ -11,27 +13,6 @@
   var grid = $('.explore-grid');
   if (!grid) return;
   var opens = $$('.explore-open', grid);
-
-  /* ---- loading shimmer ------------------------------------------------- */
-  // Only switched on once there's script to switch it off again.
-  grid.classList.add('is-enhanced');
-  opens.forEach(function (btn) {
-    var cell = btn.parentNode;
-    var done = function () { cell.classList.add('is-loaded'); };
-    var img = $('img', btn);
-    var vid = $('video', btn);
-    if (img) {
-      if (img.complete && img.naturalWidth) done();
-      else { img.addEventListener('load', done); img.addEventListener('error', done); }
-    } else if (vid) {
-      // With preload="none" the poster is the only thing that loads up front
-      var probe = new Image();
-      probe.onload = probe.onerror = done;
-      probe.src = vid.getAttribute('poster');
-    } else {
-      done();
-    }
-  });
 
   /* ---- lightbox -------------------------------------------------------- */
   // Steps through everything in grid order, images and videos alike.

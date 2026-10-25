@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="styles.css" />
 <title>Shater Tsavsar, product designer</title>
 <meta name="description" content="Product designer at CostGraph.ai. I design products as systems of reusable parts, then write the frontend they become." />
-<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <meta property="og:title" content="Shater Tsavsar, product designer" />
 <meta property="og:description" content="Product designer at CostGraph.ai. I design products as systems of reusable parts, then write the frontend they become." />
 <meta property="og:type" content="website" />
@@ -29,6 +30,17 @@
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
+  // Reserve the sound note's strip before first paint, so the page doesn't
+  // drop 32px when the bar arrives. app.js takes the class off again if
+  // the note isn't shown, and when it's closed.
+  try {
+    if (localStorage.getItem('soundNote3') !== 'seen' && localStorage.getItem('audio') !== 'on') document.documentElement.classList.add('note');
+  } catch (e) {}
+  // The entrance plays once per visit. Every later page in the tab starts
+  // settled instead of fading the same nav and signature in again.
+  try {
+    if (sessionStorage.getItem('entered')) document.documentElement.classList.add('no-enter'); else sessionStorage.setItem('entered', '1');
+  } catch (e) {}
   // Arriving through a view transition: the card and the hero it grows into
   // have to be visible on the first frame, so they skip the entrance fade.
   addEventListener('pagereveal', function (e) {
@@ -36,11 +48,11 @@
   });
 </script>
 <!-- the case study heroes, so each card has its image ready to grow into -->
-<link rel="prefetch" as="image" href="heroes/luotain.jpg" />
+<link rel="prefetch" as="image" href="media/luotain/cover-4.webp" />
 <link rel="prefetch" as="image" href="media/costgraph/dashboard.webp" />
-<link rel="prefetch" as="image" href="media/yote/yote-field.webp" />
-<link rel="prefetch" as="image" href="media/lonar/cover.webp" />
-<link rel="prefetch" as="image" href="media/kernui/kernui-demo-poster.webp" />
+<link rel="prefetch" as="image" href="media/yote/cover-form.webp" />
+<link rel="prefetch" as="image" href="media/lonar/cover-2.webp" />
+<link rel="prefetch" as="image" href="media/kernui/cover-table.webp" />
 
 </head>
 <body>
@@ -71,9 +83,9 @@
 <nav class="nav appear">
   <div class="brand">
     <button class="avatar-wrap" type="button" aria-label="View photo gallery">
-      <img class="avatar" src="pfp.png" width="40" height="40" alt="Shater Tsavsar" />
+      <img class="avatar" src="pfp-80.webp" srcset="pfp-80.webp 2x, pfp-120.webp 3x" width="40" height="40" alt="Shater Tsavsar" />
     </button>
-    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Signature" role="img">
+    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Shater Tsavsar" role="img">
       <path class="sig-path" d="M40.8613 34.142C49.863 29.7983 48.196 22.9486 43.0284 23.6169C36.4797 26.6814 34.11 32.2208 28.2756 52.3521C21.3577 67.7221 9.27205 71.3975 10.8558 65.5502C16.0772 58.2166 38.5275 44.4165 57.1143 40.1564C71.4502 36.8705 76.4511 37.3163 79.7017 34.142M75.8677 26.9582C75.0342 28.2947 72.031 27.2923 69.9473 28.8795C67.5558 29.5208 67.3991 30.0536 65.3658 31.469C63.8516 32.523 62.7962 34.0245 61.0316 34.5597C59.2338 35.105 59.0361 33.268 57.6143 33.8914C53.6136 35.6456 49.6129 37.901 47.6958 38.4857C46.6687 38.799 48.2793 36.2303 46.8624 35.8127C45.4454 35.395 40.4445 41.0752 39.6944 40.407C38.9442 39.7387 39.4443 38.4857 39.4443 38.4857M69.9473 28.8795C70.5308 27.4594 73.7006 25.3711 73.0338 24.4522C72.367 23.5334 71.3669 25.7888 70.45 27.6265C69.5332 29.4642 68.4654 33.9038 71.1168 34.6432C73.4955 35.3065 77.4021 31.469 78.322 30.0103"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" />
     </svg>
@@ -90,6 +102,7 @@
   <div class="gallery" id="gallery" aria-hidden="true"><div class="gallery-track" id="galleryTrack"></div></div>
 
   <section class="intro appear" style="--i:1">
+    <h1 class="sr-only">Shater Tsavsar, product designer</h1>
     <button class="greeting" id="greeting" type="button"><span class="greeting-text" id="greetingText" lang="en">good morning</span><span class="sr-only"> (say it in another language)</span></button>
     <p>I’m Shater, a product designer at <a href="https://costgraph.ai" target="_blank" rel="noopener">CostGraph.ai</a>, where I lead design on the team building it. I set the direction and look after the design system, down to the React those designs turn into.</p>
     <p>The best way to describe myself is a <em>“Systemic Native”</em>. Everything I do is grounded in some sort of system, and that shows up in the work whether I’m in Figma or in the codebase.</p>
@@ -154,7 +167,7 @@
 
   <section class="link-section appear" style="--i:4">
     <h2>explorations</h2>
-    <a class="link-row" href="explorations"><span class="row-head"><span class="row-name">Prototypes</span><span class="row-meta">ongoing</span></span></a>
+    <a class="link-row" href="explorations"><span class="row-head"><span class="row-name">Design explorations</span><span class="row-meta">ongoing</span></span></a>
     <a class="link-row" href="work/fundify"><span class="row-head"><span class="row-name">Fundify</span><span class="row-meta">concept app</span></span></a>
     <a class="link-row" href="https://wherewillemilgo.site" target="_blank" rel="noopener"><span class="row-head"><span class="row-name">Where will Emil go?</span><span class="row-meta">tribute, prediction market</span></span></a>
     <a class="link-row" href="https://tanj.framer.website/" target="_blank" rel="noopener"><span class="row-head"><span class="row-name">Tanj</span><span class="row-meta">AI writing, landing site</span></span></a>
@@ -163,7 +176,7 @@
 
   <section class="link-section appear" style="--i:5">
     <h2>writing</h2>
-    <a class="link-row" href="articles/vicariously"><span class="row-head"><span class="row-name">Vicariously living through the main character</span><span class="row-meta">5 min read</span></span></a>
+    <a class="link-row" href="articles/vicariously"><span class="row-head"><span class="row-name">Vicariously living through the main character</span><span class="row-meta">4 min read</span></span></a>
   </section>
 
   <section class="link-section connect appear" style="--i:6">
@@ -172,7 +185,7 @@
   </section>
 
 <div class="player appear" style="--i:7">
-  <button class="player-tag" type="button" id="player">
+  <a class="player-tag" id="player" target="_blank" rel="noopener">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -181,7 +194,7 @@
       <span class="player-state" id="playerState">Last played</span>
       <span class="player-track" hidden><strong id="trackTitle"></strong><span class="by"> by </span><strong id="trackArtist"></strong></span>
     </span>
-  </button>
+  </a>
 </div>
 
   <footer class="appear" style="--i:8">

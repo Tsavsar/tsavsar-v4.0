@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="../styles.css" />
 <title>KernUI · Shater Tsavsar</title>
 <meta name="description" content="KernUI, a design system of 3,000+ components and 1,600+ icons on one token system, designed and sold solo." />
-<link rel="icon" type="image/png" href="../favicon.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="../favicon-64.png" />
+<link rel="apple-touch-icon" href="../apple-touch-icon.png" />
 <meta property="og:title" content="KernUI · Shater Tsavsar" />
 <meta property="og:description" content="KernUI, a design system of 3,000+ components and 1,600+ icons on one token system, designed and sold solo." />
 <meta property="og:type" content="article" />
@@ -29,13 +30,24 @@
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
+  // Reserve the sound note's strip before first paint, so the page doesn't
+  // drop 32px when the bar arrives. app.js takes the class off again if
+  // the note isn't shown, and when it's closed.
+  try {
+    if (localStorage.getItem('soundNote3') !== 'seen' && localStorage.getItem('audio') !== 'on') document.documentElement.classList.add('note');
+  } catch (e) {}
+  // The entrance plays once per visit. Every later page in the tab starts
+  // settled instead of fading the same nav and signature in again.
+  try {
+    if (sessionStorage.getItem('entered')) document.documentElement.classList.add('no-enter'); else sessionStorage.setItem('entered', '1');
+  } catch (e) {}
   // Arriving through a view transition: the card and the hero it grows into
   // have to be visible on the first frame, so they skip the entrance fade.
   addEventListener('pagereveal', function (e) {
     if (e.viewTransition) document.documentElement.classList.add('vt-in');
   });
 </script>
-<link rel="preload" as="image" href="../media/kernui/kernui-demo-poster.webp" fetchpriority="high" />
+<link rel="preload" as="image" href="../media/kernui/cover-table.webp" fetchpriority="high" />
 </head>
 <body>
 
@@ -56,10 +68,10 @@
 
 <nav class="nav appear">
   <div class="brand">
-    <button class="avatar-wrap" type="button" aria-label="View photo gallery">
-      <img class="avatar" src="../pfp.png" width="40" height="40" alt="Shater Tsavsar" />
-    </button>
-    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Signature" role="img">
+    <a class="avatar-wrap" href="/" aria-label="Shater Tsavsar, home">
+      <img class="avatar" src="../pfp-80.webp" srcset="../pfp-80.webp 2x, ../pfp-120.webp 3x" width="40" height="40" alt="Shater Tsavsar" />
+    </a>
+    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Shater Tsavsar" role="img">
       <path class="sig-path" d="M40.8613 34.142C49.863 29.7983 48.196 22.9486 43.0284 23.6169C36.4797 26.6814 34.11 32.2208 28.2756 52.3521C21.3577 67.7221 9.27205 71.3975 10.8558 65.5502C16.0772 58.2166 38.5275 44.4165 57.1143 40.1564C71.4502 36.8705 76.4511 37.3163 79.7017 34.142M75.8677 26.9582C75.0342 28.2947 72.031 27.2923 69.9473 28.8795C67.5558 29.5208 67.3991 30.0536 65.3658 31.469C63.8516 32.523 62.7962 34.0245 61.0316 34.5597C59.2338 35.105 59.0361 33.268 57.6143 33.8914C53.6136 35.6456 49.6129 37.901 47.6958 38.4857C46.6687 38.799 48.2793 36.2303 46.8624 35.8127C45.4454 35.395 40.4445 41.0752 39.6944 40.407C38.9442 39.7387 39.4443 38.4857 39.4443 38.4857M69.9473 28.8795C70.5308 27.4594 73.7006 25.3711 73.0338 24.4522C72.367 23.5334 71.3669 25.7888 70.45 27.6265C69.5332 29.4642 68.4654 33.9038 71.1168 34.6432C73.4955 35.3065 77.4021 31.469 78.322 30.0103"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" />
     </svg>
@@ -89,14 +101,14 @@
     <div class="study-hero study-hero-framed card-kernui">
       <p class="hero-brand"><img src="../icons/kernui.svg" alt="" aria-hidden="true" /><span>KernUI</span></p>
       <p class="hero-line">3,000+ components on one token system</p>
-      <img width="1276" height="720" class="hero-shot" decoding="sync" fetchpriority="high" src="../media/kernui/kernui-demo-poster.webp" alt="KernUI components: a command palette with recent items and actions beside a payment details panel with saved cards." />
+      <img width="1100" height="500" class="hero-shot" decoding="sync" fetchpriority="high" src="../media/kernui/cover-table.webp" alt="A KernUI data table of employees, each row with an avatar, name, email, job title and start date." />
     </div>
   </section>
 
       <section class="study-section appear" style="--i:4">
         <h2 class="study-label">Intro</h2>
         <div class="study-content">
-          <p>Most design systems get abandoned. It's not that teams don't want one. It's that they end up too brittle to change, too generic to fit a real product, or too expensive to keep alive.</p>
+          <p>Most design systems get abandoned. It’s not that teams don’t want one. It’s that they end up too brittle to change, too generic to fit a real product, or too expensive to keep alive.</p>
           <p>KernUI is my answer to that: a production UI kit for product teams, with 3,000+ components, 1,600+ icons, light and dark themes, and one token system underneath all of it. Flexible enough to take on a brand, and structured enough to hand off cleanly.</p>
         </div>
       </section>
@@ -110,18 +122,18 @@
       <section class="study-section appear" style="--i:6">
         <h2 class="study-label">Problem</h2>
         <div class="study-content">
-          <p>Teams lose hours rebuilding the same buttons, form fields and navigation on every project. The problem isn't effort, it's repetition, and every new project resets the clock.</p>
-          <p>Existing kits tend to fail one of two ways. Too generic, and every interface looks the same. Too rigid, and you can't bend it to fit a real product. Either way the handoff breaks, because the kit only speaks one of design or code.</p>
+          <p>Teams lose hours rebuilding the same buttons, form fields and navigation on every project. The problem isn’t effort, it’s repetition, and every new project resets the clock.</p>
+          <p>Existing kits tend to fail one of two ways. Too generic, and every interface looks the same. Too rigid, and you can’t bend it to fit a real product. Either way the handoff breaks, because the kit only speaks one of design or code.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:7">
         <h2 class="study-label">System</h2>
         <div class="study-content">
           <h3 class="study-subhead">Tokens first</h3>
-          <p>Colour, spacing, type and radius are all variables, never hard-coded values. That's what makes theming free: switching from light to dark swaps the variables, and not a single component has to be touched.</p>
+          <p>Colour, spacing, type and radius are all variables, never hard-coded values. That’s what makes theming free: switching from light to dark swaps the variables, and not a single component has to be touched.</p>
           <figure class="study-figure" data-n="2"><img width="320" height="170" src="../media/kernui/feature-1.svg" alt="A light and dark mode toggle over a half-lit moon." loading="lazy" /><img width="320" height="170" src="../media/kernui/feature-5.svg" alt="The type scale panel, showing Regular 400 weight at display size." loading="lazy" /></figure>
           <h3 class="study-subhead">Built in layers</h3>
-          <p>Atoms like buttons, inputs and badges make up molecules like cards, modals and nav bars, and those make up templates. Every state is designed (default, hover, focus, error, disabled), so there's nothing left for a developer to guess, and the same state logic runs through every component.</p>
+          <p>Atoms like buttons, inputs and badges make up molecules like cards, modals and nav bars, and those make up templates. Every state is designed (default, hover, focus, error, disabled), so there’s nothing left for a developer to guess, and the same state logic runs through every component.</p>
           <figure class="study-figure" data-n="2"><img width="320" height="170" src="../media/kernui/feature-4.svg" alt="List items with avatar, label, badge and checkbox in selected, default, disabled and error states." loading="lazy" /><img width="320" height="170" src="../media/kernui/feature-6.svg" alt="A payment method picker with saved Visa and Mastercard cards and PayPal, Cash App and Apple Pay options." loading="lazy" /></figure>
           <h3 class="study-subhead">Icons</h3>
           <p>1,600+ icons, sorted by category. Every one sits on the same 24px grid, comes in two weights, and exports as both SVG and a ready-made component.</p>
@@ -135,21 +147,21 @@
         <h2 class="study-label">Pricing</h2>
         <div class="study-content">
           <p>There are three tiers. Free has the palette, type, icons, and the logo and flag sets. Startup, at $99, unlocks the full variable system, the pre-built components and ongoing updates. Enterprise is custom, with dedicated support, team training and bespoke design work.</p>
-          <p>Free was a deliberate choice. Giving the palette and icons away meant people could live with the system before paying for it, and the ones who upgraded were the ones who'd hit the edges of what free covers.</p>
+          <p>Free was a deliberate choice. Giving the palette and icons away meant people could live with the system before paying for it, and the ones who upgraded were the ones who’d hit the edges of what free covers.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:9">
         <h2 class="study-label">Impact</h2>
         <div class="study-content">
           <p>1,200+ designers and developers use KernUI. The feedback that comes up most is that it cuts the back-and-forth between design and development, so teams spend less time arguing about spacing and more time shipping.</p>
-          <p>It's also the foundation the rest of my work is built on. Luotain runs on its tokens, and Yöte's inputs came out of that product.</p>
+          <p>It’s also the foundation the rest of my work is built on. Luotain runs on its tokens, and Yöte’s inputs came out of that product.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:10">
         <h2 class="study-label">Lessons</h2>
         <div class="study-content">
           <p>Documentation is half the product. A component without usage guidance gets misused or ignored, and the time I spent on docs paid itself back in fewer support questions.</p>
-          <p>A design system is never finished. The ones that get abandoned are usually the ones that tried to be complete before launch. KernUI shipped incomplete and grew from what people actually asked for, and that's still the right call.</p>
+          <p>A design system is never finished. The ones that get abandoned are usually the ones that tried to be complete before launch. KernUI shipped incomplete and grew from what people actually asked for, and that’s still the right call.</p>
         </div>
       </section>
 
@@ -164,7 +176,7 @@
   </section>
 
 <div class="player appear" style="--i:8">
-  <button class="player-tag" type="button" id="player">
+  <a class="player-tag" id="player" target="_blank" rel="noopener">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -173,7 +185,7 @@
       <span class="player-state" id="playerState">Last played</span>
       <span class="player-track" hidden><strong id="trackTitle"></strong><span class="by"> by </span><strong id="trackArtist"></strong></span>
     </span>
-  </button>
+  </a>
 </div>
 
   <footer class="appear" style="--i:9">

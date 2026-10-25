@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="../styles.css" />
 <title>Vicariously living through the main character · Shater Tsavsar</title>
 <meta name="description" content="I was watching 500 Days of Summer when I decided to write this. You should probably watch it, alongside some of the other movies mentioned here." />
-<link rel="icon" type="image/png" href="../favicon.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="../favicon-64.png" />
+<link rel="apple-touch-icon" href="../apple-touch-icon.png" />
 <meta property="og:title" content="Vicariously living through the main character · Shater Tsavsar" />
 <meta property="og:description" content="I was watching 500 Days of Summer when I decided to write this. You should probably watch it, alongside some of the other movies mentioned here." />
 <meta property="og:type" content="article" />
@@ -28,6 +29,17 @@
   try {
     var t = localStorage.getItem('theme');
     if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch (e) {}
+  // Reserve the sound note's strip before first paint, so the page doesn't
+  // drop 32px when the bar arrives. app.js takes the class off again if
+  // the note isn't shown, and when it's closed.
+  try {
+    if (localStorage.getItem('soundNote3') !== 'seen' && localStorage.getItem('audio') !== 'on') document.documentElement.classList.add('note');
+  } catch (e) {}
+  // The entrance plays once per visit. Every later page in the tab starts
+  // settled instead of fading the same nav and signature in again.
+  try {
+    if (sessionStorage.getItem('entered')) document.documentElement.classList.add('no-enter'); else sessionStorage.setItem('entered', '1');
   } catch (e) {}
   // Arriving through a view transition: the card and the hero it grows into
   // have to be visible on the first frame, so they skip the entrance fade.
@@ -61,10 +73,10 @@
 
 <nav class="nav appear">
   <div class="brand">
-    <button class="avatar-wrap" type="button" aria-label="View photo gallery">
-      <img class="avatar" src="../pfp.png" width="40" height="40" alt="Shater Tsavsar" />
-    </button>
-    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Signature" role="img">
+    <a class="avatar-wrap" href="/" aria-label="Shater Tsavsar, home">
+      <img class="avatar" src="../pfp-80.webp" srcset="../pfp-80.webp 2x, ../pfp-120.webp 3x" width="40" height="40" alt="Shater Tsavsar" />
+    </a>
+    <svg class="sig" viewBox="0 0 90 90" fill="none" aria-label="Shater Tsavsar" role="img">
       <path class="sig-path" d="M40.8613 34.142C49.863 29.7983 48.196 22.9486 43.0284 23.6169C36.4797 26.6814 34.11 32.2208 28.2756 52.3521C21.3577 67.7221 9.27205 71.3975 10.8558 65.5502C16.0772 58.2166 38.5275 44.4165 57.1143 40.1564C71.4502 36.8705 76.4511 37.3163 79.7017 34.142M75.8677 26.9582C75.0342 28.2947 72.031 27.2923 69.9473 28.8795C67.5558 29.5208 67.3991 30.0536 65.3658 31.469C63.8516 32.523 62.7962 34.0245 61.0316 34.5597C59.2338 35.105 59.0361 33.268 57.6143 33.8914C53.6136 35.6456 49.6129 37.901 47.6958 38.4857C46.6687 38.799 48.2793 36.2303 46.8624 35.8127C45.4454 35.395 40.4445 41.0752 39.6944 40.407C38.9442 39.7387 39.4443 38.4857 39.4443 38.4857M69.9473 28.8795C70.5308 27.4594 73.7006 25.3711 73.0338 24.4522C72.367 23.5334 71.3669 25.7888 70.45 27.6265C69.5332 29.4642 68.4654 33.9038 71.1168 34.6432C73.4955 35.3065 77.4021 31.469 78.322 30.0103"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" />
     </svg>
@@ -81,12 +93,12 @@
   <nav class="crumb appear" style="--i:1" aria-label="Breadcrumb">
     <a href="../">Home</a>
     <span aria-hidden="true">/</span>
-    <span aria-current="page">Writing</span>
+    <span aria-current="page">Vicariously</span>
   </nav>
 
   <header class="study-title appear" style="--i:2">
     <h1>Vicariously living through the main character</h1>
-    <div class="study-pills"><span class="study-pill">5 minute read</span><span class="study-pill">2026</span></div>
+    <div class="study-pills"><span class="study-pill">4 minute read</span><span class="study-pill">2026</span></div>
   </header>
 
   <section class="study-head appear" style="--i:3">
@@ -102,30 +114,30 @@
   <article class="study-section appear" style="--i:4">
     <div class="study-content">
       <p>I was watching 500 Days of Summer when I decided to write this. You should probably watch it, alongside some of the other movies mentioned here.</p>
-      <p>I've always been curious why certain movies become people's favourites. Not from a critical standpoint, but from a personal one. Sometimes a movie connects with you because a character feels real enough to exist outside the screen.</p>
-      <p>With a movies like (500) days of Summer, Nick and Norah's infinite playlist, Scott Pilgrim vs. the World and so on, there's a character that feels real enough to connect with beyond just the cinematic world they live in. That's where the title comes from, Vicariously living through the main character.</p>
-      <p>This might sound stupid cause yeah you are the main character in your story but are you really living the plot you want to? I loved Project Hail Mary, but I'm not going to space, it's too far, literally space is too far, but also the idea is too far removed from my life that I can't put myself in Grace's shoes. On the other hand of the spectrum we have Scott Pilgrim vs. the World, the story feels like it would play out the same if I substituted myself with Scott, more or less I guess, but it's a character that I see myself being, in a plot I see myself playing out.</p>
-      <p>And this is where the attachment to certain movies comes in, it becomes a form of escapism, might not be the healthiest but I believe it gives something that would be harder to find in other places which is Perspective, I get to see a possible outcome in a situation I could find myself in, it's like an analogy, Grace in Project Hail Mary and Nick in Nick and Norah's Infinite playlist had to make the same choice they're both initially cynical and deeply insecure men who choose to step out of their comfort zones, embrace unexpected partnerships, and ultimately prioritise saving a friend over their own personal safety.</p>
-      <p>Crazy as it might sound, not crazy at all if you've been following the dialogue, I'm far more attached to the choice Nick made than Grace's choice.</p>
-      <p>We can subconsciously end up building ourselves out based on the characters we've been exposed to. I wasn't into playing the bass guitar when I was younger, I played acoustic, and my farthest memory of the bass is from Scott Pilgrim, same for The Smiths, prior to seeing (500) days of Summer, The Cure before I saw Sing Street and so on. We as human beings are so impressionable we don't even realise it, almost everything we do or have done was influenced by some form of connection or lack of connection in the past.</p>
-      <p>When I first watched It's Kind Of A Funny Story, I was through the roof, I read the book first but in every scene I could see myself in Craig, the decisions he made, both good or bad all felt very "Me" y'know? It doesn't even have to be a happy go lucky movie right, another movie, HER, Theodore although being an extreme was another instance of "I can see myself making these decisions" and in this case you get to learn consequences through another person's actions.</p>
-      <p>Safe to say when I'm asked "What's your favourite movie?" It's hard to pick between what was just a fun watch vs what actually spoke to me more on a deep level, there's room for both, people usually feel you have to pick one of the two. I think you can love a movie for being a fun-no-lessons-learnt experience as well as loving another for being a deep black and white think piece about the political and economic state of the world right now.</p>
-      <p>It doesn't take anything away from us to acknowledge it, you don't instantly lose cool points or become less interesting, we are meant to be impressionable that's the whole point of the human experience.</p>
-      <p>I guess all I'm trying to say here is movies like these make us feel better when they're closer to home, we get to live out plots, learn from experiences, and express ourselves without having to actually live those moments ourselves.</p>
-      <p>Ending off with this, there will always be a huge factor to consider when comparing yourself to any image of yourself, you exist outside of fiction, and maybe that's what matters most and maybe that's why these movies stay with us.</p>
-      <p>Not because we wanted to literally become those characters, but because for two hours they helped us understand parts of ourselves we didn't fully know how to explain yet.</p>
+      <p>I’ve always been curious why certain movies become people’s favourites. Not from a critical standpoint, but from a personal one. Sometimes a movie connects with you because a character feels real enough to exist outside the screen.</p>
+      <p>With movies like 500 Days of Summer, Nick and Norah’s Infinite Playlist, Scott Pilgrim vs. the World and so on, there’s a character that feels real enough to connect with beyond just the cinematic world they live in. That’s where the title comes from, Vicariously living through the main character.</p>
+      <p>This might sound stupid cause yeah you are the main character in your story but are you really living the plot you want to? I loved Project Hail Mary, but I’m not going to space, it’s too far, literally space is too far, but also the idea is too far removed from my life that I can’t put myself in Grace’s shoes. On the other hand of the spectrum we have Scott Pilgrim vs. the World, the story feels like it would play out the same if I substituted myself with Scott, more or less I guess, but it’s a character that I see myself being, in a plot I see myself playing out.</p>
+      <p>And this is where the attachment to certain movies comes in, it becomes a form of escapism, might not be the healthiest but I believe it gives something that would be harder to find in other places which is perspective, I get to see a possible outcome in a situation I could find myself in, it’s like an analogy, Grace in Project Hail Mary and Nick in Nick and Norah’s Infinite Playlist had to make the same choice they’re both initially cynical and deeply insecure men who choose to step out of their comfort zones, embrace unexpected partnerships, and ultimately prioritise saving a friend over their own personal safety.</p>
+      <p>Crazy as it might sound, not crazy at all if you’ve been following the dialogue, I’m far more attached to the choice Nick made than Grace’s choice.</p>
+      <p>We can subconsciously end up building ourselves out based on the characters we’ve been exposed to. I wasn’t into playing the bass guitar when I was younger, I played acoustic, and my farthest memory of the bass is from Scott Pilgrim, same for The Smiths, prior to seeing 500 Days of Summer, The Cure before I saw Sing Street and so on. We as human beings are so impressionable we don’t even realise it, almost everything we do or have done was influenced by some form of connection or lack of connection in the past.</p>
+      <p>When I first watched It’s Kind of a Funny Story, I was through the roof, I read the book first but in every scene I could see myself in Craig, the decisions he made, both good or bad all felt very “Me” y’know? It doesn’t even have to be a happy go lucky movie right, another movie, Her, Theodore although being an extreme was another instance of “I can see myself making these decisions” and in this case you get to learn consequences through another person’s actions.</p>
+      <p>Safe to say when I’m asked “What’s your favourite movie?” It’s hard to pick between what was just a fun watch vs what actually spoke to me more on a deep level, there’s room for both, people usually feel you have to pick one of the two. I think you can love a movie for being a fun-no-lessons-learnt experience as well as loving another for being a deep black and white think piece about the political and economic state of the world right now.</p>
+      <p>It doesn’t take anything away from us to acknowledge it, you don’t instantly lose cool points or become less interesting, we are meant to be impressionable that’s the whole point of the human experience.</p>
+      <p>I guess all I’m trying to say here is movies like these make us feel better when they’re closer to home, we get to live out plots, learn from experiences, and express ourselves without having to actually live those moments ourselves.</p>
+      <p>Ending off with this, there will always be a huge factor to consider when comparing yourself to any image of yourself, you exist outside of fiction, and maybe that’s what matters most and maybe that’s why these movies stay with us.</p>
+      <p>Not because we wanted to literally become those characters, but because for two hours they helped us understand parts of ourselves we didn’t fully know how to explain yet.</p>
     </div>
   </article>
 
   <section class="link-section appear" style="--i:5">
-    <h2>playground</h2>
+    <h2>explorations</h2>
     <a class="link-row" href="../explorations">
       <span class="row-head"><span class="row-name">Design explorations</span><span class="row-meta">ongoing</span></span>
     </a>
   </section>
 
 <div class="player appear" style="--i:6">
-  <button class="player-tag" type="button" id="player">
+  <a class="player-tag" id="player" target="_blank" rel="noopener">
     <span class="vinyl" id="vinyl">
       <img class="vinyl-art" id="vinylArt" alt="" hidden />
       <span class="vinyl-hole"></span>
@@ -134,7 +146,7 @@
       <span class="player-state" id="playerState">Last played</span>
       <span class="player-track" hidden><strong id="trackTitle"></strong><span class="by"> by </span><strong id="trackArtist"></strong></span>
     </span>
-  </button>
+  </a>
 </div>
 
   <footer class="appear" style="--i:7">
