@@ -32,14 +32,14 @@ html[data-theme="light"] {
   /* type scale. 15/24 is a reading size: at 13.5 the homepage ran to 85
      characters a line, and the case studies had to override it to be read
      at all. Small text is one step down, not three near-duplicates. */
-  --font:    15px;
-  --lh:      24px;
-  --font-sm: 13px;
+  --font:    13.5px;
+  --lh:      21px;
+  --font-sm: 12px;
 
   /* Text that sits inside a fixed box (the work cards) or a single row (the
      nav), so it is sized for the box rather than following the body */
-  --font-fixed:    14px;
-  --font-fixed-sm: 13px;
+  --font-fixed:    12.5px;
+  --font-fixed-sm: 11px;
 }
 html[data-theme="dark"] {
   --page:        #0e0e0e;
@@ -886,7 +886,7 @@ button.greeting:hover, button.greeting:focus-visible { color: var(--text-strong)
   position: relative;
   flex-shrink: 0;
   width: 208px;
-  aspect-ratio: 5 / 6;
+  aspect-ratio: 2 / 3;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
@@ -950,12 +950,12 @@ button.greeting:hover, button.greeting:focus-visible { color: var(--text-strong)
     linear-gradient(in oklch 165deg, oklch(0.463 0.17 267.9) 0%, oklch(0.472 0.17 263.9) 64%, oklch(0.61 0.17 259.9) 88%, oklch(0.66 0.17 255.9) 100%);
 }
 .card-luotain {
-  --vg: 0.08;
+  --vg: 0.1;
   background:
-    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.86 0.07 66 / 0.06), transparent 64%),
-    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.479 0.143 40 / 0.55), transparent 60%),
-    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.379 0.129 34 / 0.6), transparent 58%),
-    linear-gradient(in oklch 165deg, oklch(0.47 0.153 36) 0%, oklch(0.479 0.143 40) 64%, oklch(0.694 0.17 44) 88%, oklch(0.744 0.16 48) 100%);
+    radial-gradient(ellipse 66% 32% at var(--l3x) var(--l3y), oklch(0.86 0.1 70 / 0.1), transparent 64%),
+    radial-gradient(ellipse 96% 52% at var(--l1x) var(--l1y), oklch(0.62 0.21 46 / 0.6), transparent 60%),
+    radial-gradient(ellipse 88% 48% at var(--l2x) var(--l2y), oklch(0.52 0.2 36 / 0.55), transparent 58%),
+    linear-gradient(in oklch 165deg, oklch(0.575 0.205 40) 0%, oklch(0.6 0.21 44) 64%, oklch(0.68 0.2 47) 88%, oklch(0.72 0.18 50) 100%);
 }
 .card-yote {
   --vg: 0.08;
@@ -1936,8 +1936,28 @@ html.vt-in .nav.appear { animation: none; opacity: 1; }
 .card-costgraph { --shot-w: 200%; --card-shot-w: 250%; }
 .card-kernui    { --shot-w: 180%; --card-shot-w: 230%; }
 
+/* ======================================================================
+   Case-study reading size
+   The site's 13.5px works for a homepage of short lines; a 1,000-word case
+   study read on a phone needs more. Labels, pills and captions stay small.
+   ====================================================================== */
+.study-content { font-size: 15px; line-height: 24px; }
+.study-content .study-subhead { font-size: inherit; line-height: inherit; }
+.study-lede { font-size: 15px; line-height: 23px; }
+
 /* Square corners on the work cards */
 .cards .card { border-radius: 0; }
 
 /* Ink cards (Yöte, KernUI) keep an edge on the dark page */
 html[data-theme="dark"] .cards .card { box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06); }
+
+/* card-field.js draws each project's mark as drifting points, under the
+   grain and above the gradient */
+.card-field {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
