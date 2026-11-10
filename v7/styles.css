@@ -333,9 +333,9 @@ html.no-enter .sig-path { stroke-dashoffset: 0; }
 /* "tap me!", once, over the homepage photo (app.js). Made of what the
    site's chips are made of (the study pills: the hover grey, 8px corners,
    small strong text, no outline) so it reads as part of the page, with a
-   tail of the same grey down to the photo. Only the face is a wink: Comic
-   Sans. It rises from its tail with a light spring, drifts a pixel while
-   it's up, and fades away. */
+   tail of the same grey down to the photo, in the page's own type. It
+   rises from its tail with a light spring, drifts a pixel while it's up,
+   and fades away. */
 .tap-bubble {
   position: absolute;
   left: 14px;
@@ -345,9 +345,6 @@ html.no-enter .sig-path { stroke-dashoffset: 0; }
   border-radius: 8px;
   background: var(--hover);
   color: var(--text-strong);
-  /* Comic Sans where it's installed (Mac, Windows); iOS has Chalkboard SE,
-     the nearest it ships; anything else gets its own handwriting face */
-  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Comic Neue", cursive;
   font-size: var(--font-sm);
   line-height: 1.4;
   white-space: nowrap;
