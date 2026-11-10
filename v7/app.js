@@ -288,6 +288,58 @@
     }
   }
 
+  /* ---- project rail ---------------------------------------------------- */
+  // On a project page the rail lists its sections, from the h2s, so the
+  // page can be read as a document: where you are, what's left, jump to
+  // any part. The one you're reading is marked as you scroll.
+  (function () {
+    var toc = $('.rail-toc');
+    if (!toc) return;
+    var sections = $$('.study-section').filter(function (s) { return $('.study-label', s); });
+    if (!sections.length) return;
+    var slug = function (t) {
+      return t.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    };
+    var links = sections.map(function (s) {
+      var name = $('.study-label', s).textContent.trim();
+      if (!s.id) s.id = slug(name);
+      var a = document.createElement('a');
+      a.href = '#' + s.id;
+      a.textContent = name;
+      toc.appendChild(a);
+      return a;
+    });
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    links.forEach(function (a, i) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        sections[i].scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + sections[i].id);
+      });
+    });
+
+    // The current section: the last one whose top has passed a line a third
+    // of the way down the window. At the very bottom, the last one, even if
+    // it's too short to ever reach that line.
+    var current = -1, ticking = false;
+    var spy = function () {
+      ticking = false;
+      var line = window.innerHeight / 3, at = -1;
+      sections.forEach(function (s, i) { if (s.getBoundingClientRect().top <= line) at = i; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) at = sections.length - 1;
+      if (at === current) return;
+      current = at;
+      links.forEach(function (a, i) {
+        if (i === at) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(spy); }
+    }, { passive: true });
+    window.addEventListener('resize', spy);
+    spy();
+  })();
+
   /* ---- gallery --------------------------------------------------------- */
   // Clicking the avatar opens an inline strip under the nav, pushing the page
   // down. Clicking a photo in the strip opens it larger.
