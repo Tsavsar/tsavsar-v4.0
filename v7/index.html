@@ -41,6 +41,14 @@
   try {
     if (sessionStorage.getItem('entered')) document.documentElement.classList.add('no-enter'); else sessionStorage.setItem('entered', '1');
   } catch (e) {}
+  // fx.js playground: images form from particles. Off with reduced
+  // motion. The timeout is a safety net in case fx.js never runs.
+  try {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('fx');
+      setTimeout(function () { document.documentElement.classList.add('fx-ready'); }, 2500);
+    }
+  } catch (e) {}
   // Arriving through a view transition: the card and the hero it grows into
   // have to be visible on the first frame, so they skip the entrance fade.
   addEventListener('pagereveal', function (e) {
@@ -118,18 +126,18 @@
       </div>
     </div>
     <div class="cards">
-      <a class="card card-luotain" href="work/luotain">
-        <span class="card-mark"><img src="icons/luotain.svg" alt="" aria-hidden="true" /></span>
-        <span class="card-body">
-          <span class="card-name">Luotain</span>
-          <span class="card-desc">Designed, built and shipped solo. A link and its QR code are one object, with their own scan data.</span>
-        </span>
-      </a>
       <a class="card card-costgraph" href="work/costgraph">
         <span class="card-mark"><img src="icons/costgraph.svg" alt="" aria-hidden="true" /></span>
         <span class="card-body">
           <span class="card-name">CostGraph.ai</span>
           <span class="card-desc">Design direction, the design system and the product UI, built from zero with the team.</span>
+        </span>
+      </a>
+      <a class="card card-luotain" href="work/luotain">
+        <span class="card-mark"><img src="icons/luotain.svg" alt="" aria-hidden="true" /></span>
+        <span class="card-body">
+          <span class="card-name">Luotain</span>
+          <span class="card-desc">Designed, built and shipped solo. A link and its QR code are one object, with their own scan data.</span>
         </span>
       </a>
       <a class="card card-yote" href="work/yote">
@@ -197,12 +205,18 @@
   </a>
 </div>
 
+  <!-- where the stickers lie in a heap; app.js lays them on it -->
+  <div class="sticker-pile" aria-hidden="true"></div>
+
   <footer class="appear" style="--i:8">
     <span>© 2026 Shater M. Tsavsar</span>
     <span class="clock"><span class="tz">Lagos, UTC+1</span> <time id="clock"></time></span>
   </footer>
 
 </main>
+
+<!-- fx.js playground: before first paint, so images never flash in first -->
+<script src="/fx.js"></script>
 
 <script type="module" src="app.js"></script>
 <script type="module" src="card-field.js"></script>

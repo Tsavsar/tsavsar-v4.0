@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var TZ         = 'Africa/Lagos';
+  var TZ        = 'Africa/Lagos';
   var SPOTIFY    = 'https://spotify-api-lilac.vercel.app/api/now-playing';
   var ASSET_BASE = '/media/gallery/';
   var root = document.documentElement;
@@ -341,6 +341,49 @@
     });
   }
 
+  /* ---- "tap me" -------------------------------------------------------- */
+  // Nothing says the photo opens a gallery, so once, a comic speech bubble
+  // says so: it pops up a moment after the page has settled, stays about
+  // five seconds, and pops away. Once per browser, and never again after
+  // the photo has been tapped. ?tap brings it back, for looking at it.
+  (function () {
+    if (!avatarBtn) return;
+    var KEY = 'tapMe1';
+    var forced = /[?&]tap(=|&|$)/.test(location.search);
+    var seen = false;
+    try { seen = localStorage.getItem(KEY) === 'seen'; } catch (e) {}
+    if (seen && !forced) return;
+    var mark = function () { try { localStorage.setItem(KEY, 'seen'); } catch (e) {} };
+
+    var bubble = document.createElement('span');
+    bubble.className = 'tap-bubble';
+    bubble.setAttribute('aria-hidden', 'true');   // the button already says what it does
+    bubble.textContent = 'tap me!';
+
+    var stay = 0, gone = false;
+    var hide = function () {
+      if (gone) return;
+      gone = true;
+      clearTimeout(stay);
+      if (!bubble.parentNode) return;
+      bubble.classList.add('is-out');
+      setTimeout(function () { if (bubble.parentNode) bubble.parentNode.removeChild(bubble); }, 240);
+    };
+    // after the entrance on a first page; sooner on a later one
+    var wait = setTimeout(function () {
+      if (gone) return;
+      mark();
+      avatarBtn.insertAdjacentElement('afterend', bubble);
+      stay = setTimeout(hide, 5000);
+    }, entered ? 700 : 1500);
+
+    avatarBtn.addEventListener('click', function () {
+      clearTimeout(wait);
+      mark();
+      hide();
+    });
+  })();
+
   /* ---- lightbox -------------------------------------------------------- */
   function lightbox(startAt) {
     var idx = startAt, box = null;
@@ -547,11 +590,36 @@
       }
     }
 
+    // Until the first answer lands, Skullet draws the player's skeleton:
+    // a sample of it, laid out unseen and traced into bones, so nothing
+    // moves when the real one replaces it. If the answer beats the library
+    // here, there's no skeleton at all.
+    var box = tag.parentNode, reveal = null, settled = false;
+    import('./vendor/skullet.js').then(function (S) {
+      if (settled) return;
+      var sample = tag.cloneNode(true);
+      $$('[id]', sample).concat(sample).forEach(function (el) { el.removeAttribute('id'); });
+      var art0 = $('.vinyl-art', sample);
+      if (art0) art0.parentNode.removeChild(art0);
+      $('.player-track', sample).hidden = false;
+      var names = $$('.player-track strong', sample);
+      names[0].textContent = 'A song with a name';
+      names[1].textContent = 'Its artist';
+      box.removeChild(tag);
+      reveal = new S.Reveal(box, { id: 'now-playing', label: 'Loading what I last played' });
+      reveal.load(sample);
+    }).catch(function () {});
+    function settle() {
+      if (settled) return;
+      settled = true;
+      if (reveal) reveal.show(tag);
+    }
+
     function poll() {
       fetch(SPOTIFY)
         .then(function (r) { return r.json(); })
-        .then(paint)
-        .catch(function () { /* endpoint down, leave the last good state */ });
+        .then(function (d) { paint(d); settle(); })
+        .catch(function () { settle(); /* endpoint down, leave the last good state */ });
     }
     poll();
     setInterval(poll, 10000);
@@ -657,38 +725,51 @@
     window.addEventListener('mouseup', end);
   }
   /* ---- stickers -------------------------------------------------------- */
-  // Stickers peek in from the far edges and can be peeled off and dropped
-  // anywhere on the page. Untouched ones stay pinned to their edge as the
-  // window changes; once moved, a sticker stays where it was put.
+  // Stickers lie in a heap at the foot of the page, above the footer, and
+  // can be peeled off it and dropped anywhere on the page. Untouched ones
+  // keep their place in the heap as the window changes; once moved, a
+  // sticker stays where it was put.
   (function () {
     var layer = $('.stickers');
-    if (!layer) return;
+    var pile = $('.sticker-pile');
+    if (!layer || !pile) return;
 
     var BASE = '/media/about/';
-    // w is the display width; nw/nh the natural size, so each box is the
-    // right height before its image arrives. Each side fills top to bottom
-    // in this order; p is how much of it peeks in, r its tilt. read marks
-    // the ones with text on them: sized for it, and lifted larger in hand.
+    // The heap is the about page's collage, laid out the same: x, y and w
+    // are where each sits on its 880px board and how wide, and the order is
+    // the stacking order, last on top. nw/nh are the natural size, so each
+    // box is the right height before its image arrives. r is its tilt, kept
+    // small: a heap, not a scatter. read marks the ones with text on them,
+    // lifted larger in hand.
     var SET = [
-      { f: 'batman-logo.webp',                                        nw: 304, nh: 231, w: 109, side: 'l', p: 0.55, r: -12 },
-      { f: 'knicks-logo.webp',                                        nw: 249, nh: 249, w: 95, side: 'r', p: 0.5, r: 9 },
-      { f: 'figma-logo.webp',                                         nw: 367, nh: 393, w: 92, side: 'l', p: 0.45, r: 8, own: 1 },
-      { f: 'bass-guitar.webp',                                        nw: 829, nh: 974, w: 171, side: 'r', p: 0.5, r: 14 },
-      { f: 'anime-luffy-boxing.webp',                                 nw: 362, nh: 245, w: 115, side: 'l', p: 0.5, r: -6 },
-      { f: 'chess-pawn.webp',                                         nw: 350, nh: 411, w: 88, side: 'l', p: 0.6, r: 6, own: 1 },
-      { f: 'knicks-player-reaction.webp',                             nw: 441, nh: 286, w: 118, side: 'r', p: 0.45, r: 7 },
-      { f: 'holy-bible.webp',                                         nw: 417, nh: 334, w: 151, side: 'l', p: 0.5, r: -14 },
-      { f: 'flag-nigeria.webp',                                       nw: 506, nh: 506, w: 139, side: 'r', p: 0.55, r: -7 },
-      { f: 'polaroid-selfie.webp',                                    nw: 700, nh: 744, w: 170, side: 'l', p: 0.45, r: 10 },
-      { f: 'manga-he-laughed.webp',                                   nw: 718, nh: 601, w: 104, side: 'r', p: 0.5, r: 12 },
-      { f: 'xbox-controller.webp',                                    nw: 545, nh: 437, w: 106, side: 'l', p: 0.55, r: -9 },
-      { f: 'hugeicons-tweet.webp',                                    nw: 1069, nh: 540, w: 320, side: 'r', p: 0.8, r: -5, read: 1 },
-      { f: 'ornate-a-logo.webp',                                      nw: 420, nh: 395, w: 116, side: 'l', p: 0.5, r: 11, own: 1 },
-      { f: 'book-its-kind-of-a-funny-story.webp',                     nw: 331, nh: 382, w: 122, side: 'r', p: 0.5, r: -12 },
-      { f: 'anime-zoro.webp',                                         nw: 552, nh: 550, w: 95, side: 'r', p: 0.5, r: -8 },
-      { f: 'receiptify-top-tracks.webp',                              nw: 818, nh: 1067, w: 240, side: 'l', p: 0.8, r: 7, read: 1 },
-      { f: 'fc26-card-saliba.webp',                                   nw: 608, nh: 690, w: 180, side: 'r', p: 0.5, r: -13 }
+      { f: 'bass-guitar.webp',                    nw: 829,  nh: 974,  x: -20, y: 30,  w: 207, r: 7 },
+      { f: 'batman-logo.webp',                    nw: 304,  nh: 231,  x: 40,  y: -30, w: 95,  r: -6 },
+      { f: 'polaroid-selfie.webp',                nw: 700,  nh: 744,  x: 95,  y: 60,  w: 225, r: 5 },
+      { f: 'anime-luffy-boxing.webp',             nw: 362,  nh: 245,  x: 30,  y: 220, w: 93,  r: -3 },
+      { f: 'manga-he-laughed.webp',               nw: 718,  nh: 601,  x: 140, y: 100, w: 184, r: 6 },
+      { f: 'figma-logo.webp',                     nw: 367,  nh: 393,  x: 260, y: -20, w: 100, r: 4, own: 1 },
+      { f: 'holy-bible.webp',                     nw: 417,  nh: 334,  x: 295, y: 60,  w: 165, r: -7 },
+      { f: 'receiptify-top-tracks.webp',          nw: 818,  nh: 1067, x: 355, y: -10, w: 205, r: 3, read: 1 },
+      { f: 'ornate-a-logo.webp',                  nw: 420,  nh: 395,  x: 330, y: 185, w: 142, r: 5, own: 1 },
+      { f: 'chess-pawn.webp',                     nw: 350,  nh: 411,  x: 260, y: 255, w: 104, r: 3, own: 1 },
+      { f: 'knicks-player-reaction.webp',         nw: 441,  nh: 286,  x: 455, y: 170, w: 112, r: 4 },
+      { f: 'anime-zoro.webp',                     nw: 552,  nh: 550,  x: 490, y: 55,  w: 143, r: -4 },
+      { f: 'book-its-kind-of-a-funny-story.webp', nw: 331,  nh: 382,  x: 570, y: 200, w: 87,  r: -6 },
+      { f: 'knicks-logo.webp',                    nw: 249,  nh: 249,  x: 610, y: 155, w: 62,  r: 5 },
+      { f: 'hugeicons-tweet.webp',                nw: 1069, nh: 540,  x: 490, y: -20, w: 350, r: -3, read: 1 },
+      { f: 'fc26-card-saliba.webp',               nw: 608,  nh: 690,  x: 670, y: 80,  w: 152, r: -6 },
+      { f: 'xbox-controller.webp',                nw: 545,  nh: 437,  x: 700, y: -10, w: 136, r: -5 },
+      { f: 'flag-nigeria.webp',                   nw: 506,  nh: 506,  x: 735, y: 175, w: 126, r: -4 }
     ];
+    // The board the heap covers, from its pieces, plus a little for the
+    // tilts and the cut border
+    var BOX = SET.reduce(function (b, c) {
+      var h = c.w * c.nh / c.nw;
+      return { l: Math.min(b.l, c.x), t: Math.min(b.t, c.y), r: Math.max(b.r, c.x + c.w), b: Math.max(b.b, c.y + h) };
+    }, { l: Infinity, t: Infinity, r: -Infinity, b: -Infinity });
+    var EDGE = 16;
+    BOX.w = BOX.r - BOX.l + EDGE * 2;
+    BOX.h = BOX.b - BOX.t + EDGE * 2;
 
     // The die-cut, drawn once per sticker on a canvas at the screen's real
     // pixel density rather than through an SVG filter, which some browsers
@@ -767,8 +848,7 @@
     }
 
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var content = $('.content');
-    var W = 0, H = 0, gutter = 0, small = false, z = SET.length, raf = 0, last = 0;
+    var W = 0, H = 0, k = 1, z = SET.length, raf = 0, last = 0;
 
     var tf = function (x, y, r, sc) {
       return 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' +
@@ -796,72 +876,24 @@
                vx: 0, vy: 0, down: null, held: false, hover: false, moved: false, ready: false, samples: [], tf: '', cutAt: '' };
     });
 
+    // The heap is as wide as the board, centred on the window, and shrinks
+    // to fit a narrower one. On a phone it's allowed to hang off both
+    // sides a little rather than shrink to crumbs: half size is the least.
+    // The pile element holds its height in the page, so the footer sits
+    // under it and nothing else is covered.
     function measure() {
       W = layer.clientWidth;
+      k = clampN((W - 32) / BOX.w, 0.5, 1);
+      pile.style.height = Math.round(BOX.h * k) + 'px';
       H = layer.clientHeight;
-      gutter = (W - (content ? content.getBoundingClientRect().width : 540)) / 2;
-      small = W < 640;
     }
 
-    // How much of an untouched sticker shows: never more than half-ish of
-    // it, and never enough to reach the text column. The cut border hangs
-    // PAD past the box, so it counts.
+    // Where an untouched sticker lies in the heap
     function anchor(s) {
-      var show = Math.max(6, Math.min(s.w * s.cfg.p, gutter - PAD - 20));
-      s.x = s.cfg.side === 'l' ? show - s.w : W - show;
-    }
-
-    // The card row runs past the column to the right edge, so a sticker
-    // pinned there would sit on the cards. Find the bands of page height
-    // that reach into a margin, per side.
-    function bands(side) {
-      var col = content ? content.getBoundingClientRect() : { left: gutter, right: W - gutter };
-      var out = [];
-      $$('.cards').forEach(function (row) {
-        var t = Infinity, b = -Infinity, l = Infinity, r = -Infinity;
-        $$('.card', row).forEach(function (c) {
-          var q = c.getBoundingClientRect();
-          t = Math.min(t, q.top); b = Math.max(b, q.bottom);
-          l = Math.min(l, q.left); r = Math.max(r, q.right);
-        });
-        if (t === Infinity) return;
-        if (side === 'l' ? l < col.left - 4 : r > col.right + 4) {
-          out.push([t + window.scrollY - 24, b + window.scrollY + 24]);
-        }
-      });
-      return out.sort(function (p, q) { return p[0] - q[0]; });
-    }
-
-    // Down each side, spread evenly over whatever height is free: the page
-    // minus the bands something else already occupies. With this many,
-    // neighbours overlap a little, which is how stickers go on anyway.
-    function place(side) {
-      var list = stickers.filter(function (s) {
-        return !s.el.hidden && !s.moved && s.cfg.side === side;
-      });
-      if (!list.length) return;
-      // the right side starts below the fixed toggles
-      var spans = [[side === 'r' ? 116 : 56, H - 16]];
-      bands(side).forEach(function (b) {
-        var next = [];
-        spans.forEach(function (sp) {
-          if (b[1] <= sp[0] || b[0] >= sp[1]) { next.push(sp); return; }
-          if (b[0] > sp[0]) next.push([sp[0], b[0]]);
-          if (b[1] < sp[1]) next.push([b[1], sp[1]]);
-        });
-        spans = next;
-      });
-      spans = spans.filter(function (sp) { return sp[1] - sp[0] > 60; });
-      var total = spans.reduce(function (n, sp) { return n + sp[1] - sp[0]; }, 0);
-      list.forEach(function (s, k) {
-        var d = (k + 0.5) / list.length * total, j = 0;
-        while (j < spans.length - 1 && d > spans[j][1] - spans[j][0]) {
-          d -= spans[j][1] - spans[j][0];
-          j++;
-        }
-        var sp = spans[j];
-        s.y = Math.round(clampN(sp[0] + d - s.h / 2, sp[0], Math.max(sp[0], sp[1] - s.h)));
-      });
+      var top = pile.getBoundingClientRect().top - layer.getBoundingClientRect().top;
+      var left = (W - BOX.w * k) / 2;
+      s.x = Math.round(left + (s.cfg.x - BOX.l + EDGE) * k);
+      s.y = Math.round(top + (s.cfg.y - BOX.t + EDGE) * k);
     }
 
     function render(s) {
@@ -871,23 +903,16 @@
 
     function layout() {
       measure();
-      // None on a phone: the margins are a sliver and the page is the work.
-      // They aren't even fetched there.
       markMoved();
       stickers.forEach(function (s) {
-        s.el.hidden = small;
-        if (small) return;
         if (!s.img.src) s.img.src = BASE + s.cfg.f;
-        s.w = s.cfg.w;
+        s.w = Math.round(s.cfg.w * k);
         s.h = Math.round(s.w * s.cfg.nh / s.cfg.nw);
         s.el.style.width = s.w + 'px';
         s.el.style.height = s.h + 'px';
         if (s.ready && s.cutAt !== s.w + 'x' + Math.min(2, window.devicePixelRatio || 1)) cut(s);
         if (s.moved) clamp(s); else anchor(s);
       });
-      if (small) return;
-      place('l');
-      place('r');
       stickers.forEach(render);
     }
 
@@ -1027,24 +1052,46 @@
 
       var img = s.img;
       img.addEventListener('error', function () { el.remove(); s.el.hidden = true; });
-      // Cut it and slide it in from the edge once there is something to see.
-      // Only on the first page of a visit: coming back, they're already up.
+      // Cut it once there's something to see. If the heap is still waiting
+      // to be tossed (below), it waits unseen.
       img.addEventListener('load', function () {
         if (!img.naturalWidth) return;
         s.ready = true;
         cut(s);
         render(s);
-        if (reduce || entered || s.el.hidden) return;
-        var out = s.cfg.side === 'l' ? -(s.x + s.w + 24) : (W - s.x + 24);
-        var swing = s.cfg.side === 'l' ? -16 : 16;
-        el.style.pointerEvents = 'none';
-        var done = function () { el.style.pointerEvents = ''; };
-        el.animate(
-          [{ transform: tf(s.x + out, s.y, s.rot + swing, 1) }, { transform: s.tf }],
-          { duration: 900, delay: 300 + s.i * 55, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' }
-        ).finished.then(done, done);
+        if (tossed === false) el.style.opacity = '0';
+        else if (tossed === true) toss(s, 0);
       });
     });
+
+    // The first time the heap comes into view on a visit, the stickers are
+    // tossed onto it one after another, bottom of the stack first: each
+    // drops in from a little above, turning as it lands. Coming back to
+    // the page in the same visit, they're already lying there.
+    // tossed: null (no toss this visit), false (waiting), true (done)
+    var tossed = reduce || entered || !window.IntersectionObserver ? null : false;
+    function toss(s, delay) {
+      var el = s.el;
+      el.style.opacity = '';
+      el.style.pointerEvents = 'none';
+      var done = function () { el.style.pointerEvents = ''; };
+      var turn = s.cfg.r < 0 ? 10 : -10;
+      el.animate(
+        [{ transform: tf(s.x, s.y - 48 * k, s.rot + turn, 1.08), opacity: 0 },
+         { opacity: 1, offset: 0.35 },
+         { transform: s.tf, opacity: 1 }],
+        { duration: 620, delay: delay, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' }
+      ).finished.then(done, done);
+    }
+    if (tossed === false) {
+      var seen = new IntersectionObserver(function (entries) {
+        if (!entries.some(function (e) { return e.isIntersecting; })) return;
+        seen.disconnect();
+        tossed = true;
+        stickers.forEach(function (s) { if (s.ready) toss(s, 80 + s.i * 50); });
+      }, { threshold: 0.25 });
+      seen.observe(pile);
+    }
 
     // Reset lives with the other page controls, and only while there's
     // something to put back: it joins them the first time a sticker moves,
@@ -1054,7 +1101,7 @@
     var resetBtn = null, homing = false;
     var markMoved = function () {
       if (homing || !chrome) return;           // reset() hides it once the spin is done
-      var any = !small && stickers.some(function (s) { return s.moved; });
+      var any = stickers.some(function (s) { return s.moved; });
       if (!resetBtn) {
         if (!any) return;
         resetBtn = document.createElement('button');

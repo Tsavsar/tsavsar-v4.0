@@ -42,6 +42,14 @@
   try {
     if (sessionStorage.getItem('entered')) document.documentElement.classList.add('no-enter'); else sessionStorage.setItem('entered', '1');
   } catch (e) {}
+  // fx.js playground: images form from particles. Off with reduced
+  // motion. The timeout is a safety net in case fx.js never runs.
+  try {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('fx');
+      setTimeout(function () { document.documentElement.classList.add('fx-ready'); }, 2500);
+    }
+  } catch (e) {}
   // Arriving through a view transition: the card and the hero it grows into
   // have to be visible on the first frame, so they skip the entrance fade.
   addEventListener('pagereveal', function (e) {
@@ -213,6 +221,9 @@
   </footer>
 
 </main>
+
+<!-- fx.js playground: before first paint, so images never flash in first -->
+<script src="/fx.js"></script>
 
 <script type="module" src="../app.js"></script>
 <script>
