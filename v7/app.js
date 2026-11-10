@@ -396,7 +396,7 @@
   /* ---- "tap me" -------------------------------------------------------- */
   // Nothing says the photo opens a gallery, so once, a comic speech bubble
   // says so: it pops up a moment after the page has settled, stays about
-  // five seconds, and pops away. Once per browser, and never again after
+  // eight seconds, and pops away. Once per browser, and never again after
   // the photo has been tapped. ?tap brings it back, for looking at it.
   (function () {
     if (!avatarBtn) return;
@@ -426,7 +426,7 @@
       if (gone) return;
       mark();
       avatarBtn.insertAdjacentElement('afterend', bubble);
-      stay = setTimeout(hide, 5000);
+      stay = setTimeout(hide, 8000);
     }, entered ? 700 : 1500);
 
     avatarBtn.addEventListener('click', function () {
