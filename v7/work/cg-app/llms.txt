@@ -1,0 +1,212 @@
+# CostGraph
+
+> CostGraph finds and cuts cloud and Kubernetes waste. It turns raw spend,
+> utilization, and real provider pricing into clear cost visibility, concrete
+> rightsizing recommendations, and automatic anomaly detection across
+> Kubernetes clusters and cloud virtual machines - with GraphAI, a
+> natural-language assistant that answers cost questions from your own data.
+
+CostGraph is a FinOps and cloud cost optimization platform for engineering,
+platform, and FinOps teams. It connects to your Kubernetes clusters and cloud
+accounts, attributes spend down to namespace, workload, node, pod, persistent
+volume, and individual virtual machine, benchmarks it against a maintained
+multi-cloud pricing catalog, and shows exactly where you are overpaying. Every
+recommendation is concrete and tied to a dollar figure, and cost anomalies are
+detected continuously and explained in plain language.
+
+## What CostGraph does
+
+- Cost visibility: spend broken down by cluster, namespace, workload, node, pod,
+  persistent volume, and VM, including idle and unallocated cost so Kubernetes
+  namespace costs sum to the real node bill.
+- Rightsizing recommendations: concrete resize actions for workloads, nodes, and
+  VMs, each tied to an estimated monthly saving.
+- Anomaly detection: continuous, multi-signal detection of cost spikes, drops,
+  step changes, new costly resources, and unit-price changes, with explanations.
+- Real provider pricing: a maintained multi-cloud pricing catalog drives
+  benchmarks and recommendations instead of list-price guesses.
+- GraphAI assistant: ask cost and Kubernetes questions in natural language and
+  get answers grounded in your own data, each linked to the exact dashboard page.
+
+## Who it is for
+
+- Platform and infrastructure engineers reducing Kubernetes and compute spend.
+- FinOps practitioners attributing and forecasting cloud cost.
+- Engineering leaders who want waste surfaced and quantified, not buried.
+
+## Key pages
+
+<!-- BEGIN GENERATED ROUTES -->
+- [Home](https://app.costgraph.ai/): CostGraph home.
+- [Authentication callback](https://app.costgraph.ai/auth/callback): Completes sign-in after authentication.
+- [AutoPilot](https://app.costgraph.ai/autopilot): What AutoPilot manages, its settings, history and savings.
+- [Complete your profile](https://app.costgraph.ai/complete-profile): Finish setting up your CostGraph profile.
+- [Compute](https://app.costgraph.ai/compute): All compute resources across clusters and clouds.
+- [Clusters](https://app.costgraph.ai/compute/clusters): All Kubernetes clusters with cost and efficiency.
+- [Cluster detail](https://app.costgraph.ai/compute/clusters/:clusterId): Cost, nodes, workloads and recommendations for one cluster.
+- [Cluster GPUs](https://app.costgraph.ai/compute/clusters/:clusterId/gpus): Accelerators in one cluster with utilization and cost.
+- [Cluster metrics](https://app.costgraph.ai/compute/clusters/:clusterId/metrics): Resource usage metrics for one cluster.
+- [Cluster CPU metrics](https://app.costgraph.ai/compute/clusters/:clusterId/metrics/cpu): CPU usage metrics for one cluster.
+- [Cluster disk metrics](https://app.costgraph.ai/compute/clusters/:clusterId/metrics/disk): Disk usage metrics for one cluster.
+- [Cluster memory metrics](https://app.costgraph.ai/compute/clusters/:clusterId/metrics/memory): Memory usage metrics for one cluster.
+- [Cluster network metrics](https://app.costgraph.ai/compute/clusters/:clusterId/metrics/network): Network usage metrics for one cluster.
+- [Cluster metrics overview](https://app.costgraph.ai/compute/clusters/:clusterId/metrics/overview): Overview of resource usage metrics for one cluster.
+- [Cluster persistent volume metrics](https://app.costgraph.ai/compute/clusters/:clusterId/metrics/pv): Persistent volume usage metrics for one cluster.
+- [Cluster nodes](https://app.costgraph.ai/compute/clusters/:clusterId/nodes): Nodes in one cluster with cost and utilization.
+- [Node detail](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId): Metrics, containers and recommendations for one node.
+- [Node containers](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId/containers): Containers running on one node.
+- [Node metrics](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId/metrics): Resource usage metrics for one node.
+- [Node CPU metrics](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId/metrics/cpu): CPU usage metrics for one node.
+- [Node disk metrics](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId/metrics/disk): Disk usage metrics for one node.
+- [Node GPU metrics](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId/metrics/gpu): Accelerator usage metrics for one node.
+- [Node memory metrics](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId/metrics/memory): Memory usage metrics for one node.
+- [Node network metrics](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId/metrics/network): Network usage metrics for one node.
+- [Node metrics overview](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId/metrics/overview): Overview of resource usage metrics for one node.
+- [Node overview](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId/overview): Cost and efficiency overview for one node.
+- [Node insights](https://app.costgraph.ai/compute/clusters/:clusterId/nodes/:nodeId/recommendations): Every insight on one node and the pods, containers, workloads and volumes on it, with its rightsizing recommendation.
+- [Cluster overview](https://app.costgraph.ai/compute/clusters/:clusterId/overview): Cost and efficiency overview for one cluster.
+- [Cluster persistent volumes](https://app.costgraph.ai/compute/clusters/:clusterId/persistent-volumes): Persistent volumes in one cluster.
+- [Persistent volume detail](https://app.costgraph.ai/compute/clusters/:clusterId/persistent-volumes/:pvId): Capacity, usage and cost for one persistent volume.
+- [Persistent volume details](https://app.costgraph.ai/compute/clusters/:clusterId/persistent-volumes/:pvId/details): Configuration and metadata for one persistent volume.
+- [Persistent volume metrics](https://app.costgraph.ai/compute/clusters/:clusterId/persistent-volumes/:pvId/metrics): Usage metrics for one persistent volume.
+- [Persistent volume consumers](https://app.costgraph.ai/compute/clusters/:clusterId/persistent-volumes/:pvId/metrics/containers): Workloads consuming one persistent volume.
+- [Persistent volume disk metrics](https://app.costgraph.ai/compute/clusters/:clusterId/persistent-volumes/:pvId/metrics/disk): Disk usage and IOPS metrics for one persistent volume.
+- [Persistent volume metrics overview](https://app.costgraph.ai/compute/clusters/:clusterId/persistent-volumes/:pvId/metrics/overview): Storage, IOPS and throughput for one persistent volume.
+- [Cluster workloads](https://app.costgraph.ai/compute/clusters/:clusterId/workloads): Workloads in one cluster with cost and utilization.
+- [Container detail](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName): Usage, metrics and cost for one container.
+- [Container details](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/details): Configuration and metadata for one container.
+- [Container metrics](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics): Usage metrics for one container.
+- [Container CPU metrics](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/cpu): CPU usage metrics for one container.
+- [Container disk metrics](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/disk): Disk usage metrics for one container.
+- [Container gateway metrics](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/gateway): Model-serving metrics for one container.
+- [Container GPU metrics](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/gpu): Accelerator usage metrics for one container.
+- [Container health](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/health): Out-of-memory kills, restarts, throttling, memory used of limit, contention and readiness for one container.
+- [Container memory metrics](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/memory): Memory usage metrics for one container.
+- [Container metrics](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/overview): Overview of usage metrics for one container.
+- [Container usage](https://app.costgraph.ai/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/usage): CPU, memory and accelerator usage for one container.
+- [Connect a cluster](https://app.costgraph.ai/compute/clusters/new): Connect a new Kubernetes cluster to CostGraph.
+- [Virtual machines](https://app.costgraph.ai/compute/virtual-machines): All cloud virtual machines with cost and utilization.
+- [Virtual machine detail](https://app.costgraph.ai/compute/virtual-machines/:vmId): Cost, metrics and recommendations for one VM.
+- [Virtual machine containers](https://app.costgraph.ai/compute/virtual-machines/:vmId/containers): Containers running on one virtual machine.
+- [Virtual machine container detail](https://app.costgraph.ai/compute/virtual-machines/:vmId/containers/:containerId): Usage, metrics and cost for one virtual machine container.
+- [Virtual machine GPUs](https://app.costgraph.ai/compute/virtual-machines/:vmId/gpus): Accelerators attached to one virtual machine, with utilization and cost.
+- [Virtual machine metrics](https://app.costgraph.ai/compute/virtual-machines/:vmId/metrics): Resource usage metrics for one virtual machine.
+- [Virtual machine CPU metrics](https://app.costgraph.ai/compute/virtual-machines/:vmId/metrics/cpu): CPU usage metrics for one virtual machine.
+- [Virtual machine disk metrics](https://app.costgraph.ai/compute/virtual-machines/:vmId/metrics/disk): Disk usage metrics for one virtual machine.
+- [Virtual machine GPU metrics](https://app.costgraph.ai/compute/virtual-machines/:vmId/metrics/gpu): Accelerator usage metrics for one virtual machine.
+- [Virtual machine memory metrics](https://app.costgraph.ai/compute/virtual-machines/:vmId/metrics/memory): Memory usage metrics for one virtual machine.
+- [Virtual machine network metrics](https://app.costgraph.ai/compute/virtual-machines/:vmId/metrics/network): Network usage metrics for one virtual machine.
+- [Virtual machine metrics overview](https://app.costgraph.ai/compute/virtual-machines/:vmId/metrics/overview): Overview of resource usage metrics for one virtual machine.
+- [Virtual machine overview](https://app.costgraph.ai/compute/virtual-machines/:vmId/overview): Cost and efficiency overview for one virtual machine.
+- [Virtual machine recommendations](https://app.costgraph.ai/compute/virtual-machines/:vmId/recommendations): Every insight on one virtual machine and its disks and containers, with its rightsizing recommendation.
+- [Connect a VM](https://app.costgraph.ai/compute/virtual-machines/new): Connect a new virtual machine to CostGraph.
+- [Context](https://app.costgraph.ai/context): Everything you run and pay for, how it connects, and what each part costs.
+- [Create an account](https://app.costgraph.ai/create-account): Create a new CostGraph account.
+- [Cost](https://app.costgraph.ai/dashboard): Standardized cost across your clusters and cloud accounts.
+- [Provider](https://app.costgraph.ai/dashboard/providers/:provider): Cost, usage, commitments and anomalies for one provider.
+- [Provider accounts](https://app.costgraph.ai/dashboard/providers/:provider/accounts): Spend by account or project for one provider.
+- [Provider insights](https://app.costgraph.ai/dashboard/providers/:provider/anomalies): Active anomalies and savings recommendations for one provider.
+- [Provider CI](https://app.costgraph.ai/dashboard/providers/:provider/ci): CI spend and minutes by pull request author, pull request and workflow for one provider.
+- [Provider commitments](https://app.costgraph.ai/dashboard/providers/:provider/commitments): Commitment discount coverage for one provider.
+- [Provider overview](https://app.costgraph.ai/dashboard/providers/:provider/overview): Spend, daily trend and top services for one provider.
+- [Provider recommendations](https://app.costgraph.ai/dashboard/providers/:provider/recommendations): Savings recommendations from one provider, now listed under Insights.
+- [Provider unit economics](https://app.costgraph.ai/dashboard/providers/:provider/unit-economics): Spend per account or tag value for one provider.
+- [Provider usage](https://app.costgraph.ai/dashboard/providers/:provider/usage): Usage, seats, tokens and CI minutes for one provider.
+- [Reset password](https://app.costgraph.ai/forgot-password): Reset the password for your CostGraph account.
+- [Get started](https://app.costgraph.ai/get-started): Connect your first cluster or cloud account.
+- [GPUs](https://app.costgraph.ai/gpus): Every accelerator, where it runs, how much of it is used, and what it costs.
+- [GPU detail](https://app.costgraph.ai/gpus/:gpuUuid): Utilization, partitions and projected cost for one accelerator.
+- [Accelerator metrics](https://app.costgraph.ai/gpus/:gpuUuid/metrics): Metrics for the machine one GPU runs on.
+- [GPU CPU metrics](https://app.costgraph.ai/gpus/:gpuUuid/metrics/cpu): CPU metrics for the machine one GPU runs on.
+- [GPU disk metrics](https://app.costgraph.ai/gpus/:gpuUuid/metrics/disk): Disk metrics for the machine one GPU runs on.
+- [GPU memory metrics](https://app.costgraph.ai/gpus/:gpuUuid/metrics/memory): Memory metrics for the machine one GPU runs on.
+- [GPU network metrics](https://app.costgraph.ai/gpus/:gpuUuid/metrics/network): Network metrics for the machine one GPU runs on.
+- [GPU overview metrics](https://app.costgraph.ai/gpus/:gpuUuid/metrics/overview): Overview of the machine metrics behind one GPU.
+- [GPU overview](https://app.costgraph.ai/gpus/:gpuUuid/overview): Model, placement, cost and verdict for one accelerator.
+- [GPU usage](https://app.costgraph.ai/gpus/:gpuUuid/usage): Every accelerator measurement summarised over its observed, 7d and 30d windows.
+- [GraphAI](https://app.costgraph.ai/graph-ai): Ask cost and Kubernetes questions in natural language.
+- [GraphAI conversation](https://app.costgraph.ai/graph-ai/:id): A single GraphAI conversation thread.
+- [Shared GraphAI conversation](https://app.costgraph.ai/graph-ai/share/:shareId): A shared read-only GraphAI conversation.
+- [Insights](https://app.costgraph.ai/insights): Savings, anomalies, and efficiency across your accounts.
+- [Anomaly detail](https://app.costgraph.ai/insights/:id): Investigation view for a single cost anomaly.
+- [Integrations](https://app.costgraph.ai/integrations): Connect third-party services and cloud accounts.
+- [Integration connections](https://app.costgraph.ai/integrations/:provider): The connections for one integration, with their ids.
+- [Integration sign-in callback](https://app.costgraph.ai/integrations/oauth/callback): Finishes connecting an integration after you approve access at the provider.
+- [Slack](https://app.costgraph.ai/integrations/slack): Ask CostGraph questions in Slack and manage connected workspaces.
+- [Accept invitation](https://app.costgraph.ai/invite/accept): Accept an invitation to join an organization.
+- [Attach marketplace purchase](https://app.costgraph.ai/marketplace/link): Attach a cloud marketplace purchase to your organization.
+- [Network](https://app.costgraph.ai/network): Traffic and transfer cost between your workloads.
+- [Network endpoint](https://app.costgraph.ai/network/endpoint/:endpointId): Traffic, peers and transfer cost for one network endpoint.
+- [Authorize application](https://app.costgraph.ai/oauth/authorize): Grant an application access to CostGraph.
+- [Connect your integrations](https://app.costgraph.ai/onboarding): Pick the cloud accounts and tools CostGraph should read cost data from.
+- [Reports](https://app.costgraph.ai/reports): Dashboards generated from a prompt.
+- [Report](https://app.costgraph.ai/reports/:reportId): A saved report, editable through conversation.
+- [New report](https://app.costgraph.ai/reports/new): Describe a dashboard and GraphAI builds it.
+- [Settings](https://app.costgraph.ai/settings): Account, organization and tenant settings.
+- [API keys settings](https://app.costgraph.ai/settings/account/api-keys): Create and manage API keys for machine access.
+- [Billing settings](https://app.costgraph.ai/settings/account/billing): Manage your plan and billing.
+- [Connected apps settings](https://app.costgraph.ai/settings/account/connected-apps): Review and revoke applications authorized to access CostGraph on your behalf.
+- [Customisation settings](https://app.costgraph.ai/settings/account/customisation): Customise your account appearance and preferences.
+- [Integrations](https://app.costgraph.ai/settings/account/integrations): Connect third-party services like PlanetScale.
+- [Notification settings](https://app.costgraph.ai/settings/account/notifications): Manage your notification preferences.
+- [OAuth clients settings](https://app.costgraph.ai/settings/account/oauth-clients): Register applications that sign people in with CostGraph.
+- [Profile settings](https://app.costgraph.ai/settings/account/profile): Manage your personal profile.
+- [Security settings](https://app.costgraph.ai/settings/account/security): Manage your password and account security.
+- [Audit log](https://app.costgraph.ai/settings/organization/audit-log): Who signed in, changed or exported what in your organization.
+- [Organization danger zone](https://app.costgraph.ai/settings/organization/danger-zone): Destructive actions for your organization.
+- [Organization members](https://app.costgraph.ai/settings/organization/members): Manage members of your organization.
+- [Alert destinations](https://app.costgraph.ai/settings/organization/notifications): Send cost alerts to Slack, webhooks, Microsoft Teams, PagerDuty and email lists.
+- [Prices](https://app.costgraph.ai/settings/organization/prices): Prices your organization has published and how they compare with public providers.
+- [Single sign-on settings](https://app.costgraph.ai/settings/organization/sso): Verify your domains and sign people in through your identity provider.
+- [Tenant customisation](https://app.costgraph.ai/settings/tenants/customisation): Customise the appearance and preferences for this tenant.
+- [Tenant danger zone](https://app.costgraph.ai/settings/tenants/danger-zone): Destructive actions for this tenant.
+- [Tenant members](https://app.costgraph.ai/settings/tenants/members): Manage members of this tenant.
+- [Muted anomalies](https://app.costgraph.ai/settings/tenants/muted-anomalies): Anomalies muted for this tenant.
+- [Virtual tags settings](https://app.costgraph.ai/settings/tenants/virtual-tags): Define the tag keys that decide who pays for what.
+- [Sign in](https://app.costgraph.ai/sign-in): Sign in to CostGraph.
+- [Slack sign-in callback](https://app.costgraph.ai/slack/callback/:flow): Finishes connecting Slack after you approve CostGraph on Slack.
+- [Connect Slack](https://app.costgraph.ai/slack/link): Connect your Slack account to CostGraph.
+- [AI dashboard](https://app.costgraph.ai/spec-ai): Dev-only: ask a question, render the dashboard GraphAI returns.
+- [Single sign-on](https://app.costgraph.ai/sso): Sign in to CostGraph with your organization’s identity provider.
+- [Verification sent](https://app.costgraph.ai/verification-sent): A verification email has been sent to your inbox.
+- [Verify email](https://app.costgraph.ai/verify-email): Verify your email address to finish signing up.
+- [Virtual tag](https://app.costgraph.ai/virtual-tags/:key): Spend, rules, budgets and shared splits for one virtual tag key or value.
+- [Workflows](https://app.costgraph.ai/workflows): Goals the agent works toward, with approvals and estimated savings.
+- [Edit workflow goal](https://app.costgraph.ai/workflows/goals/:goalId/edit): Change a workflow goal. Saving creates a new version for future runs.
+- [New workflow goal](https://app.costgraph.ai/workflows/new): Give the agent a goal, the tools it may use, and when it must ask first.
+- [Workflow runs](https://app.costgraph.ai/workflows/runs): Every workflow run, with status, timing, and estimated savings found.
+- [Workflow run](https://app.costgraph.ai/workflows/runs/:runId): One workflow run: its current state, plan, messages, and approvals.
+- [Workflow connected tools](https://app.costgraph.ai/workflows/tools): Tools the Workflows agent can use, the goals using each one, and their status.
+<!-- END GENERATED ROUTES -->
+
+## Product
+
+- [CostGraph](https://costgraph.ai): product overview and positioning.
+- [Website llms.txt](https://costgraph.ai/llms.txt): every page on the
+  CostGraph website.
+- [Pricing](https://costgraph.ai/pricing): plans and pricing, priced on what
+  you run.
+- [Integrations](https://costgraph.ai/integrations): every cloud, Kubernetes,
+  AI and SaaS provider CostGraph reads cost from.
+- [Use cases](https://costgraph.ai/use-cases): CostGraph for CI, and CostGraph
+  compared with OpenCost.
+- [Customers](https://costgraph.ai/customers): customer stories.
+- [Changelog](https://costgraph.ai/changelog): product releases.
+- [Blog](https://costgraph.ai/blog): articles on cloud and Kubernetes cost.
+- [Security](https://costgraph.ai/security): security and data handling.
+- [Dashboard](https://app.costgraph.ai): the application (sign-in required).
+- [Get started](https://app.costgraph.ai/get-started): connect your first
+  cluster or cloud account.
+- [GraphAI assistant](https://app.costgraph.ai/graph-ai): ask cost and
+  Kubernetes questions in natural language.
+
+## Docs
+
+- [Documentation](https://docs.costgraph.ai): setup, core concepts, and guides.
+- [MCP server](https://docs.costgraph.ai/costgraph/mcp/install): connect an AI
+  assistant to CostGraph over MCP.
+
+## Optional
+
+- [Sign in](https://app.costgraph.ai/sign-in)
+- [Create an account](https://app.costgraph.ai/create-account)

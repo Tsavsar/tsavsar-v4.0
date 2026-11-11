@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="A three-state traffic light finite state machine cycling Red, Green, and Yellow, with an emergency transition back to Red">
+  <defs>
+    <style>
+      .bg { fill: #0e0e0e; }
+      .frame { fill: #141414; stroke: #282828; stroke-width: 1; }
+      .micro { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 12px; letter-spacing: 2.4px; fill: #6b6b6b; text-transform: uppercase; font-weight: 500; }
+      .micro-dim { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: #4a4a4a; text-transform: uppercase; font-weight: 500; }
+      .node { fill: #161616; stroke: #282828; stroke-width: 1; }
+      .node-active { fill: #161616; stroke: rgba(255,99,99,0.55); stroke-width: 1.5; }
+      .state-label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 17px; font-weight: 600; fill: #d8d8d8; }
+      .edge { stroke: #3a3a3a; stroke-width: 1.5; fill: none; }
+      .edge-active { stroke: rgba(255,99,99,0.5); stroke-width: 1.5; fill: none; }
+      .edge-label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: #565656; text-transform: uppercase; font-weight: 500; }
+      .emergency-label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: rgba(255,99,99,0.85); text-transform: uppercase; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="900" />
+  <rect class="frame" x="60" y="60" width="1480" height="780" rx="14" />
+
+  <!-- Corner micro-labels -->
+  <text class="micro" x="100" y="110">Baseline &#183; State Machines</text>
+  <text class="micro-dim" x="1500" y="110" text-anchor="end">FSM &#183; Zero-Downtime Migration</text>
+  <text class="micro-dim" x="100" y="800">case Red: Timer Expired &#8594; Green</text>
+  <text class="micro-dim" x="1500" y="800" text-anchor="end">3 states &#183; timer-driven transitions</text>
+
+  <!-- RED node (current state) -->
+  <rect class="node-active" x="700" y="170" width="200" height="100" rx="16" />
+  <circle cx="738" cy="220" r="15" fill="none" stroke="rgba(255,99,99,0.35)" stroke-width="1.5" />
+  <circle cx="738" cy="220" r="9" fill="rgba(255,99,99,0.95)" />
+  <text class="state-label" x="765" y="226">RED</text>
+
+  <!-- GREEN node -->
+  <rect class="node" x="1050" y="520" width="200" height="100" rx="16" />
+  <circle cx="1088" cy="570" r="9" fill="rgba(110,220,150,0.85)" />
+  <text class="state-label" x="1115" y="576">GREEN</text>
+
+  <!-- YELLOW node -->
+  <rect class="node" x="350" y="520" width="200" height="100" rx="16" />
+  <circle cx="388" cy="570" r="9" fill="rgba(255,196,74,0.9)" />
+  <text class="state-label" x="415" y="576">YELLOW</text>
+
+  <!-- Cycle edges: Red -> Green -> Yellow -> Red (drawn after nodes so arrowheads sit on top) -->
+  <path class="edge-active" d="M 885 258 C 990 320 1060 420 1108 508" />
+  <path class="edge" d="M 1050 570 C 900 610 700 610 550 570" />
+  <path class="edge" d="M 492 508 C 540 420 610 320 715 258" />
+
+  <!-- Arrowheads -->
+  <polygon points="0,-7 14,0 0,7" fill="rgba(255,99,99,0.65)" transform="translate(1108,508) rotate(54)" />
+  <polygon points="0,-7 14,0 0,7" fill="#6a6a6a" transform="translate(550,570) rotate(180)" />
+  <polygon points="0,-7 14,0 0,7" fill="#6a6a6a" transform="translate(715,258) rotate(-54)" />
+
+  <!-- Edge labels -->
+  <text class="edge-label" x="1030" y="380" text-anchor="middle" transform="rotate(54 1030 380)">Timer Expired</text>
+  <text class="edge-label" x="800" y="610" text-anchor="middle">Timer Expired</text>
+  <text class="edge-label" x="570" y="380" text-anchor="middle" transform="rotate(-54 570 380)">Timer Expired</text>
+
+  <!-- Emergency transition: any state forces Red -->
+  <path d="M 800 470 L 800 285" stroke="rgba(255,99,99,0.4)" stroke-width="1.5" stroke-dasharray="4 5" fill="none" />
+  <polygon points="0,-6 12,0 0,6" fill="rgba(255,99,99,0.55)" transform="translate(800,285) rotate(-90)" />
+  <circle cx="800" cy="470" r="4" fill="rgba(255,99,99,0.6)" />
+  <text class="emergency-label" x="800" y="450" text-anchor="middle">Emergency</text>
+</svg>

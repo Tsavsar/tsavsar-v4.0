@@ -41,16 +41,7 @@ html[data-theme="light"] {
   --font-fixed:    12.5px;
   --font-fixed-sm: 11px;
 }
-html[data-theme="dark"] {
-  --page:        #0e0e0e;
-  --text-strong: #ffffff;
-  --text:        #b0b0b0;
-  --text-muted:  #7c7c7c;  /* 4.62:1 on #0e0e0e — AA at 14px */
-  --hover:       #171717;
-  --rule:        rgba(255, 255, 255, 0.07);
-}
 
-html[data-theme="dark"]  { color-scheme: dark; }
 html[data-theme="light"] { color-scheme: light; }
 
 /* ---- base -------------------------------------------------------------- */
@@ -129,7 +120,6 @@ img[height] { height: auto; }
   vertical-align: -0.12em;
 }
 /* white in dark, the way the work cards wear the same marks */
-html[data-theme="dark"] .intro-mark img { filter: brightness(0) invert(1); }
 .intro em {
   font-style: normal;
   color: var(--text-strong);
@@ -250,39 +240,6 @@ footer {
 .clock { white-space: nowrap; }
 .clock .tz { margin-right: 6px; }
 #clock { font-variant-numeric: tabular-nums; }
-
-/* ---- theme toggle ------------------------------------------------------ */
-.theme-toggle {
-  position: fixed;
-  top: max(20px, env(safe-area-inset-top, 0px));
-  right: max(20px, env(safe-area-inset-right, 0px));
-  z-index: 10;
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  border: none;
-  background: none;
-  color: var(--text-muted);
-  opacity: 0.55;
-  cursor: pointer;
-  transition: opacity 0.2s ease, color 0.2s ease, transform 0.14s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.theme-toggle:hover,
-.theme-toggle:focus-visible {
-  opacity: 1;
-  color: var(--text-strong);
-  outline: none;
-}
-.theme-toggle:active { transform: scale(0.92); }
-.theme-toggle svg {
-  width: 16px;
-  height: 16px;
-  display: block;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-html[data-theme="dark"] .theme-toggle svg { transform: rotate(180deg); }
 
 /* ---- entrance ---------------------------------------------------------- */
 .appear {
@@ -784,7 +741,6 @@ button.greeting:hover, button.greeting:focus-visible { color: var(--text-strong)
   align-items: center;
   gap: 4px;
 }
-.chrome .theme-toggle { position: static; top: auto; right: auto; }
 /* Below 764px the column runs under the cluster (three buttons on the
    homepage, two elsewhere), and fixed, the icons sat on the copy as it
    scrolled past. There they stay at the top of the page and scroll away
@@ -1505,11 +1461,9 @@ html.note body,
 body.has-note { padding-top: 32px; }
 body:not(.has-note) { transition: background-color 0.3s ease, color 0.3s ease,
                                   padding-top 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-.chrome, .theme-toggle { transition: top 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.chrome { transition: top 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 html.note .chrome,
-html.note .theme-toggle,
-body.has-note .chrome,
-body.has-note .theme-toggle { top: calc(max(20px, env(safe-area-inset-top, 0px)) + 32px); }
+body.has-note .chrome { top: calc(max(20px, env(safe-area-inset-top, 0px)) + 32px); }
 
 @media (max-width: 560px) {
   /* The speaker is still up there; on a phone the sentence is the part
@@ -1518,7 +1472,7 @@ body.has-note .theme-toggle { top: calc(max(20px, env(safe-area-inset-top, 0px))
   .sound-note { padding: 0 40px 0 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sound-note, body, body:not(.has-note), .chrome, .theme-toggle { transition: none; }
+  .sound-note, body, body:not(.has-note), .chrome { transition: none; }
 }
 
 /* ======================================================================
@@ -1629,10 +1583,6 @@ body { position: relative; }
   --yote-focus-error: 0 0 0 2px var(--yote-bg-default), 0 0 0 4px var(--yote-error-faint);
   font-size: 14px;
 }
-html[data-theme="dark"] .yote-stage {
-  --yote-bg-surface: #1c1c1c;
-  --yote-popover-bg: #1c1c1c;
-}
 /* iOS zooms the page into any field under 16px when it takes focus. Yöte
    already lifts the password and phone fields on touch; these are the text
    fields it misses. A stopgap until it ships in yote-ui and is re-copied.
@@ -1699,8 +1649,6 @@ html[data-theme="dark"] .yote-stage {
    wall of bright holes. Each one sits on a thin dark mat with a hairline
    instead, so the white reads as a stage that was put there. The button
    clips the hover zoom so it stays inside the mat. */
-html[data-theme="dark"] .explore-cell { padding: 6px; box-shadow: inset 0 0 0 1px var(--rule); }
-html[data-theme="dark"] .explore-open { overflow: hidden; border-radius: 2px; }
 
 /* No loading shimmer: the tiles are lazy, so the ones below the fold never
    loaded and kept it running for good. The cell's own grey is the
@@ -1814,7 +1762,7 @@ a.cv-role:hover .row-name { box-shadow: inset 0 -1px 0 0 currentColor; }
 
 @media print {
   @page { size: A4; margin: 13mm 16mm; }
-  html, html[data-theme="dark"] {
+  html, html[data-theme="light"] {
     --page: #fff; --text-strong: #111; --text: #3a3a3a; --text-muted: #6b6b6b; --rule: rgba(0,0,0,.12);
     color-scheme: light;
   }
@@ -2112,7 +2060,6 @@ html.vt-in .nav.appear { animation: none; opacity: 1; }
 .cards .card { border-radius: 0; }
 
 /* Ink cards (Yöte, KernUI) keep an edge on the dark page */
-html[data-theme="dark"] .cards .card { box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06); }
 
 /* card-field.js draws each project's mark as drifting points, under the
    grain and above the gradient */
@@ -2130,7 +2077,7 @@ html[data-theme="dark"] .cards .card { box-shadow: inset 0 0 0 1px rgb(255 255 2
    ====================================================================== */
 /* Images wait, unseen, to be formed. Before fx.js has looked at them all
    of them do, bar the small marks it leaves alone. */
-html.fx:not(.fx-ready) .content img:not(:is(.nav, .cards, .vinyl, .player, .collage, .gallery, .lb, .study-pill, .hero-brand) img):not(html.vt-in .study-hero img),
+html.fx:not(.fx-ready) .content img:not(:is(.nav, .cards, .vinyl, .player, .collage, .gallery, .lb, .study-pill, .hero-brand, .cg-hero) img):not(html.vt-in .study-hero img),
 .content img.fx-wait { opacity: 0; }
 .content img.fx-done { transition: opacity 0.34s ease-out; }
 .fx-canvas {
@@ -2147,7 +2094,544 @@ html.fx:not(.fx-ready) .content img:not(:is(.nav, .cards, .vinyl, .player, .coll
   --skullet-highlight: rgba(255, 255, 255, 0.7);
   --skullet-radius: 4px;
 }
-html[data-theme="dark"] {
-  --skullet-base: rgba(255, 255, 255, 0.07);
-  --skullet-highlight: rgba(255, 255, 255, 0.07);
+
+/* ======================================================================
+   CostGraph hero
+   The OG frame from the CostGraph Figma file (7990:520844), rebuilt as
+   markup at its own 1200 x 630 and scaled to whatever width the column
+   gives it, so every value below is the Figma value in Figma pixels.
+   tan(atan2(a, b)) is a / b as a plain number, which is what scale wants.
+   It's the product's own light palette in both themes, like the other
+   product shots on the site.
+   ====================================================================== */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(fonts/geist-latin.woff2) format('woff2');
 }
+@font-face {
+  font-family: 'Funnel Display';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url(fonts/funnel-display-latin.woff2) format('woff2');
+}
+
+.study-hero.cg-hero {
+  --cg-w: 1200px;   /* design width shown */
+  --cg-x: 0px;      /* where the crop starts */
+  display: block;
+  padding: 0;
+  aspect-ratio: 1200 / 630;
+  background: #fff;
+  container-type: inline-size;
+  animation: none;
+}
+/* the hairline sits over the stage, so the white frame reads on a white page */
+.cg-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--rule);
+  pointer-events: none;
+}
+.cg-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1200px;
+  height: 630px;
+  overflow: hidden;
+  transform-origin: 0 0;
+  transform: scale(tan(atan2(100cqw, var(--cg-w)))) translateX(calc(var(--cg-x) * -1));
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  color: #090a0b;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+.cg-hero .cg-stage img {
+  display: block;
+  width: auto;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
+  box-shadow: none;
+  object-fit: fill;
+}
+.cg-stage p { margin: 0; }
+
+/* left: the wordmark and the line */
+.cg-logo { position: absolute; left: 80.36px; top: 185.72px; }
+.cg-copy {
+  position: absolute;
+  left: 74px;
+  top: 249px;
+  width: 621px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.cg-title {
+  width: 533px;
+  font-family: 'Funnel Display', 'Inter', sans-serif;
+  font-size: 58px;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -0.58px;
+  color: #090a0b;
+}
+.cg-sub {
+  width: 500px;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.24px;
+  color: #4d5561;
+}
+
+/* right: the card on its blue panel, cut off by the frame */
+.cg-panel {
+  position: absolute;
+  left: 660px;
+  top: 0;
+  padding: 50px;
+  background: #2e7cfa;
+}
+.cg-card {
+  width: 490px;
+  height: 900px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+  background: #fff;
+}
+.cg-card-title {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0.28px;
+  color: #252a31;
+}
+.cg-spend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: -17px;     /* the title's 20px gap, not the card's 37px */
+  padding: 16px 0;
+}
+.cg-eyebrow {
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #4d5561;
+}
+.cg-total {
+  font-family: 'Funnel Display', 'Inter', sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  font-variant-numeric: tabular-nums;
+}
+.cg-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.12px;
+  color: #9ba3b0;
+}
+.cg-delta { display: flex; align-items: center; gap: 2px; color: #14c874; }
+.cg-arrow { width: 12px; height: 12px; display: grid; place-items: center; }
+
+.cg-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: -37px;     /* it sits straight under the total */
+}
+.cg-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.28px;
+  color: #4d5561;
+}
+.cg-row span { flex: 1; }
+.cg-row b { font-weight: 500; color: #252a31; }
+.cg-row i, .cg-tag i { width: 8px; height: 8px; border-radius: 25px; flex: none; }
+
+/* one colour per category, wherever it shows up */
+[data-k="volume"]     { --k: #47c2ff; }
+[data-k="model"]      { --k: #14c874; }
+[data-k="unassigned"] { --k: #ff6a04; }
+[data-k="bucket"]     { --k: #fd82e1; }
+[data-k="role"]       { --k: #2e7cfa; }
+.cg-row i { background: var(--k); }
+.cg-tag i { background: var(--k); }
+/* The product's own overflow chip: the series that don't fit one line sit
+   behind it, so the row ends at its right edge */
+.cg-more { margin-left: auto; padding: 5px 10px; border-color: transparent; background: #f5f6f8; }
+
+.cg-chart {
+  position: relative;
+  flex: none;
+  height: 208px;
+  overflow: clip;
+}
+.cg-ticks { width: 426px; display: flex; flex-direction: column; gap: 14px; }
+.cg-tick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.12px;
+  color: #9ba3b0;
+}
+.cg-tick span { width: 36px; }
+.cg-tick i { flex: 1; height: 0.75px; background: #f3f4f6; }
+.cg-cols {
+  position: absolute;
+  left: 50px;
+  top: 0;
+  width: 375px;
+  height: 208px;
+  display: flex;
+  gap: 32px;
+  align-items: flex-end;
+}
+.cg-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.12px;
+  color: #9ba3b0;
+}
+.cg-col span { white-space: nowrap; }
+.cg-col .cg-ghost { opacity: 0; }
+.cg-stack {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* each day stands on the axis at its own height */
+  gap: 2px;
+}
+.cg-stack i {
+  flex: 1 0 0;
+  min-height: 1px;
+  border-radius: 3px;
+  background: var(--k);
+}
+/* --h is the segment's spend at the Figma scale ($1.5K per 34px); the axis
+   is $3K per 30px so the whole bar fits above the crop. Each segment gives
+   back its share of the gaps, so a bar's top sits on its day's total. */
+.cg-stack i[style] { flex: none; height: calc(var(--h) * 0.4412px - 1.6px); }
+
+.cg-viewing {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.12px;
+  color: #9ba3b0;
+}
+.cg-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px 5px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 11px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.28px;
+  color: #4d5561;
+}
+
+/* ---- motion -----------------------------------------------------------
+   The columns rise out of the axis one after another, the way the
+   product's charts draw in, while the totals count up beside them. The
+   class goes on from costgraph-hero.js; without it everything is simply
+   there. */
+.cg-hero.cg-armed .cg-stack { transform: translateY(440px); }
+.cg-hero.cg-play .cg-stack {
+  transform: none;
+  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--c) * 80ms);
+}
+.cg-hero.cg-armed .cg-delta { opacity: 0; transform: translateY(3px); }
+.cg-hero.cg-play .cg-delta {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.4s ease-out 0.9s, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.9s;
+}
+
+/* Hovering a category greys out the rest, as it does in the app */
+.cg-row, .cg-stack i, .cg-tag { transition: opacity 0.15s ease-out; }
+.cg-hero[data-hl="volume"]     :is(.cg-row, .cg-stack i, .cg-tag[data-k]):not([data-k="volume"]),
+.cg-hero[data-hl="model"]      :is(.cg-row, .cg-stack i, .cg-tag[data-k]):not([data-k="model"]),
+.cg-hero[data-hl="unassigned"] :is(.cg-row, .cg-stack i, .cg-tag[data-k]):not([data-k="unassigned"]),
+.cg-hero[data-hl="bucket"]     :is(.cg-row, .cg-stack i, .cg-tag[data-k]):not([data-k="bucket"]),
+.cg-hero[data-hl="role"]       :is(.cg-row, .cg-stack i, .cg-tag[data-k]):not([data-k="role"]) { opacity: 0.2; }
+@media (hover: hover) {
+  .cg-hero .cg-row, .cg-hero .cg-stack i, .cg-hero .cg-tag { cursor: default; }
+}
+
+/* On a phone the whole frame would put the legend at 4px, so the crop
+   moves onto the card and the column's own title does the naming */
+@media (max-width: 600px) {
+  .study-hero.cg-hero { --cg-w: 600px; --cg-x: 600px; aspect-ratio: 600 / 630; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-hero.cg-armed .cg-stack,
+  .cg-hero.cg-armed .cg-delta { transform: none; opacity: 1; transition: none; }
+}
+
+/* ======================================================================
+   CostGraph sandboxes
+   A live stage for one real component: the frame is the component's own
+   page (work/cg-demos), the stage is the platform it stands on, and the
+   bar underneath names it and replays it. Heights are per demo, from the
+   figure's --h and --h-sm, because a menu and a chart need different room.
+   ====================================================================== */
+.cg-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin: 6px 0;
+}
+.cg-demo-stage {
+  position: relative;
+  height: var(--h, 360px);
+  border-radius: 10px;
+  background: var(--hover);
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+.cg-demo-stage iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  color-scheme: normal;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+.cg-demo.is-ready iframe { opacity: 1; }
+
+.cg-demo-bar {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: var(--font-sm);
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+.cg-demo-title { color: var(--text-strong); font-weight: 500; }
+.cg-demo-src {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 11px;
+}
+.cg-demo-replay {
+  margin-left: auto;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px 3px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--hover);
+  color: var(--text-strong);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s ease-out;
+}
+.cg-demo-replay svg { width: 12px; height: 12px; transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+@media (hover: hover) {
+  .cg-demo-replay:hover { background: color-mix(in srgb, var(--hover) 68%, var(--text-muted)); }
+  .cg-demo-replay:hover svg { transform: rotate(-120deg); }
+}
+.cg-demo-replay:active { transform: scale(0.97); }
+
+/* How it's built: two to four notes from the code, under the stage */
+.cg-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 2px 0 6px;
+  padding: 0 0 0 14px;
+  border-left: 1px solid var(--rule);
+  list-style: none;
+  font-size: var(--font-sm);
+  line-height: 1.5;
+  color: var(--text);
+}
+.cg-notes code { font-size: 11px; }
+
+/* The span a release covers, beside its heading in the column */
+.cg-when { color: var(--text-muted); font-size: var(--font-sm); margin-top: -6px; }
+
+@media (max-width: 600px) {
+  .cg-demo-stage { height: var(--h-sm, var(--h, 360px)); }
+  .cg-demo-src { display: none; }
+}
+
+/* ---- the real app, at desktop size ------------------------------------
+   App demos break out of the text column (they need the room), centred on
+   it and stopping short of the pinned section rail. The app inside is
+   always 1440 x 900, the size it was designed at, and only scaled: a
+   reflowed dashboard isn't the dashboard. */
+.cg-demo-wide {
+  --wide: min(960px, calc(100vw - 48px));
+  width: var(--wide);
+  margin-left: calc((100% - var(--wide)) / 2);
+}
+@media (min-width: 1080px) {
+  .cg-demo-wide { --wide: min(960px, calc(100vw - 536px)); }
+}
+.cg-demo[data-app], .cg-demo[data-site] {
+  --app-h: 900;
+  container-type: inline-size;
+}
+.cg-demo[data-app] .cg-demo-stage, .cg-demo[data-site] .cg-demo-stage {
+  height: calc(var(--ch, var(--app-h)) / var(--cw, var(--dw, 1440)) * 100cqw);
+  background: var(--page);
+  transition: height 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.cg-demo-stage iframe.cg-app-frame {
+  inset: auto;
+  top: 0;
+  left: 0;
+  width: 1440px;
+  height: 900px;
+  transform-origin: 0 0;
+  transform: scale(tan(atan2(100cqw, calc(var(--cw, var(--dw, 1440)) * 1px)))) translate(calc(var(--cx, 0) * -1px), calc(var(--cy, 0) * -1px));
+}
+
+/* 1x / quarter speed, beside Replay */
+.cg-demo-speed {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 7px;
+  background: var(--hover);
+}
+.cg-demo-speed button {
+  padding: 1px 7px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: color 0.15s ease-out, background-color 0.15s ease-out;
+}
+.cg-demo-speed button[aria-pressed="true"] {
+  background: var(--page);
+  color: var(--text-strong);
+  box-shadow: 0 0 0 1px var(--rule);
+}
+.cg-demo-replay { margin-left: 0; }
+.cg-demo-bar .cg-demo-title { margin-right: auto; }
+/* The edge sits over the frame, so a white app still reads as a screen on
+   a white page */
+.cg-demo-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--rule);
+  pointer-events: none;
+}
+.cg-demo[data-app] .cg-demo-stage, .cg-demo[data-site] .cg-demo-stage { border-radius: 12px; }
+/* Component demos shown at a fixed design size (the website's 1440 wide
+   bands): the stage keeps the design's proportions */
+.cg-demo-fixed { container-type: inline-size; }
+.cg-demo-fixed .cg-demo-stage { height: calc(var(--app-h) / 1440 * 100cqw); }
+
+/* The CostGraph study reads without the rule beside its section titles */
+.content:has(.cg-hero) .study-label::after { content: none; }
+
+/* ---- the CostGraph study's rhythm ---------------------------------------
+   Distances in tiers, so the page groups itself. Tight inside a pair (a
+   heading and its text, a stage and its caption): 6 and 12. A step between
+   the parts of one feature (text, stage, notes): 20 and 16. A clear break
+   before the next feature: 48. Sections further apart again: 72. */
+.study-content:has(.cg-demo) > .study-subhead { margin-top: 38px; }
+.study-content:has(.cg-demo) > .study-subhead + p { margin-top: -4px; }
+.study-content .cg-demo { margin-top: 10px; margin-bottom: 0; gap: 12px; }
+.study-content .cg-notes {
+  gap: 8px;
+  margin: 6px 0 0;
+  padding-left: 14px;
+}
+.content:has(.cg-hero) > .study-section + .study-section { margin-top: 36px; }
+
+/* Speed and Replay are one row of controls: the same 24px height, centred
+   on each other rather than on their text's baseline (the replay icon has
+   none, which dropped the button below the toggle), same outer radius */
+.cg-demo-bar { align-items: center; }
+.cg-demo-speed { box-sizing: border-box; height: 24px; }
+.cg-demo-speed button { display: inline-flex; align-items: center; padding: 0 7px; }
+.cg-demo-replay { box-sizing: border-box; height: 24px; padding: 0 9px 0 7px; border-radius: 7px; }
+
+/* The CostGraph containers keep a very light edge, about half the weight of
+   the page's own rules. It's drawn over the frame, so a white app still has
+   a boundary on a white page. */
+html[data-theme="light"] { --cg-edge: rgba(0, 0, 0, 0.04); }
+.cg-hero::after, .cg-demo-stage::after { content: ''; box-shadow: inset 0 0 0 1px var(--cg-edge, rgba(0, 0, 0, 0.04)); }
+.cg-demo-stage { box-shadow: none; }
+
+/* The rhythm does most of the grouping; the edge is only a light hint. A
+   demo stands apart from the prose (28px above it), its caption sits 14px
+   under the stage, closer than the notes under it, and features and
+   sections get plenty of room: 64px between features, 80px between
+   sections. */
+.study-content .cg-demo { margin-top: 18px; gap: 14px; }
+.study-content:has(.cg-demo) > .study-subhead { margin-top: 54px; }
+.content:has(.cg-hero) > .study-section + .study-section { margin-top: 44px; }
+
+/* A demo fades in once it has drawn (costgraph-demos.js waits for that),
+   and out quicker on Replay before it starts again */
+.cg-demo-stage iframe { transition: opacity 0.18s cubic-bezier(0.4, 0, 1, 1); }
+.cg-demo.is-ready .cg-demo-stage iframe { transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .cg-demo-stage iframe, .cg-demo.is-ready .cg-demo-stage iframe { transition: none; }
+}
+
+
+/* The rail with its parts (data-parts): each section's sub-headings sit
+   indented under it, sections a little apart so each reads as a group. The
+   section you're in and the part you're reading are both marked. A part
+   jumped to lands level with the top of the rail. */
+.rail-toc a.rail-section { margin-top: 8px; }
+.rail-toc a.rail-part { padding-left: 12px; }
+.study-subhead { scroll-margin-top: 88px; }

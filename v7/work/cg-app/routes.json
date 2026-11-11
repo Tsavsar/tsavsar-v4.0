@@ -1,0 +1,1610 @@
+{
+  "version": 1,
+  "generatedFrom": "costgraph-web-v2",
+  "baseUrl": "https://app.costgraph.ai",
+  "routes": [
+    {
+      "id": "home",
+      "pattern": "/",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Home",
+      "description": "CostGraph home.",
+      "contexts": []
+    },
+    {
+      "id": "auth-callback",
+      "pattern": "/auth/callback",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Authentication callback",
+      "description": "Completes sign-in after authentication.",
+      "contexts": []
+    },
+    {
+      "id": "autopilot",
+      "pattern": "/autopilot",
+      "params": [],
+      "resourceType": "autopilot",
+      "title": "AutoPilot",
+      "description": "What AutoPilot manages, its settings, history and savings.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "autopilot"
+    },
+    {
+      "id": "complete-profile",
+      "pattern": "/complete-profile",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Complete your profile",
+      "description": "Finish setting up your CostGraph profile.",
+      "contexts": []
+    },
+    {
+      "id": "compute",
+      "pattern": "/compute",
+      "params": [],
+      "resourceType": "compute",
+      "title": "Compute",
+      "description": "All compute resources across clusters and clouds.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "virtual-machine"
+    },
+    {
+      "id": "compute-clusters",
+      "pattern": "/compute/clusters",
+      "params": [],
+      "resourceType": "k8s_cluster",
+      "title": "Clusters",
+      "description": "All Kubernetes clusters with cost and efficiency.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "cluster"
+    },
+    {
+      "id": "k8s-cluster",
+      "pattern": "/compute/clusters/:clusterId",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster detail",
+      "description": "Cost, nodes, workloads and recommendations for one cluster.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-gpus",
+      "pattern": "/compute/clusters/:clusterId/gpus",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster GPUs",
+      "description": "Accelerators in one cluster with utilization and cost.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-metrics",
+      "pattern": "/compute/clusters/:clusterId/metrics",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster metrics",
+      "description": "Resource usage metrics for one cluster.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-metrics-cpu",
+      "pattern": "/compute/clusters/:clusterId/metrics/cpu",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster CPU metrics",
+      "description": "CPU usage metrics for one cluster.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-metrics-disk",
+      "pattern": "/compute/clusters/:clusterId/metrics/disk",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster disk metrics",
+      "description": "Disk usage metrics for one cluster.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-metrics-memory",
+      "pattern": "/compute/clusters/:clusterId/metrics/memory",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster memory metrics",
+      "description": "Memory usage metrics for one cluster.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-metrics-network",
+      "pattern": "/compute/clusters/:clusterId/metrics/network",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster network metrics",
+      "description": "Network usage metrics for one cluster.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-metrics-overview",
+      "pattern": "/compute/clusters/:clusterId/metrics/overview",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster metrics overview",
+      "description": "Overview of resource usage metrics for one cluster.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-metrics-pv",
+      "pattern": "/compute/clusters/:clusterId/metrics/pv",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster persistent volume metrics",
+      "description": "Persistent volume usage metrics for one cluster.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes",
+      "pattern": "/compute/clusters/:clusterId/nodes",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster nodes",
+      "description": "Nodes in one cluster with cost and utilization.",
+      "contexts": []
+    },
+    {
+      "id": "k8s-node",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node detail",
+      "description": "Metrics, containers and recommendations for one node.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes-nodeId-containers",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId/containers",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node containers",
+      "description": "Containers running on one node.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes-nodeId-metrics",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId/metrics",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node metrics",
+      "description": "Resource usage metrics for one node.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes-nodeId-metrics-cpu",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId/metrics/cpu",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node CPU metrics",
+      "description": "CPU usage metrics for one node.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes-nodeId-metrics-disk",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId/metrics/disk",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node disk metrics",
+      "description": "Disk usage metrics for one node.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes-nodeId-metrics-gpu",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId/metrics/gpu",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node GPU metrics",
+      "description": "Accelerator usage metrics for one node.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes-nodeId-metrics-memory",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId/metrics/memory",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node memory metrics",
+      "description": "Memory usage metrics for one node.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes-nodeId-metrics-network",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId/metrics/network",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node network metrics",
+      "description": "Network usage metrics for one node.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes-nodeId-metrics-overview",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId/metrics/overview",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node metrics overview",
+      "description": "Overview of resource usage metrics for one node.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes-nodeId-overview",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId/overview",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node overview",
+      "description": "Cost and efficiency overview for one node.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-nodes-nodeId-recommendations",
+      "pattern": "/compute/clusters/:clusterId/nodes/:nodeId/recommendations",
+      "params": [
+        "clusterId",
+        "nodeId"
+      ],
+      "resourceType": "k8s_node",
+      "title": "Node insights",
+      "description": "Every insight on one node and the pods, containers, workloads and volumes on it, with its rightsizing recommendation.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-overview",
+      "pattern": "/compute/clusters/:clusterId/overview",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster overview",
+      "description": "Cost and efficiency overview for one cluster.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-persistent-volumes",
+      "pattern": "/compute/clusters/:clusterId/persistent-volumes",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster persistent volumes",
+      "description": "Persistent volumes in one cluster.",
+      "contexts": []
+    },
+    {
+      "id": "k8s-persistent-volume",
+      "pattern": "/compute/clusters/:clusterId/persistent-volumes/:pvId",
+      "params": [
+        "clusterId",
+        "pvId"
+      ],
+      "resourceType": "k8s_persistent_volume",
+      "title": "Persistent volume detail",
+      "description": "Capacity, usage and cost for one persistent volume.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-persistent-volumes-pvId-details",
+      "pattern": "/compute/clusters/:clusterId/persistent-volumes/:pvId/details",
+      "params": [
+        "clusterId",
+        "pvId"
+      ],
+      "resourceType": "k8s_persistent_volume",
+      "title": "Persistent volume details",
+      "description": "Configuration and metadata for one persistent volume.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-persistent-volumes-pvId-metrics",
+      "pattern": "/compute/clusters/:clusterId/persistent-volumes/:pvId/metrics",
+      "params": [
+        "clusterId",
+        "pvId"
+      ],
+      "resourceType": "k8s_persistent_volume",
+      "title": "Persistent volume metrics",
+      "description": "Usage metrics for one persistent volume.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-persistent-volumes-pvId-metrics-containers",
+      "pattern": "/compute/clusters/:clusterId/persistent-volumes/:pvId/metrics/containers",
+      "params": [
+        "clusterId",
+        "pvId"
+      ],
+      "resourceType": "k8s_persistent_volume",
+      "title": "Persistent volume consumers",
+      "description": "Workloads consuming one persistent volume.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-persistent-volumes-pvId-metrics-disk",
+      "pattern": "/compute/clusters/:clusterId/persistent-volumes/:pvId/metrics/disk",
+      "params": [
+        "clusterId",
+        "pvId"
+      ],
+      "resourceType": "k8s_persistent_volume",
+      "title": "Persistent volume disk metrics",
+      "description": "Disk usage and IOPS metrics for one persistent volume.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-persistent-volumes-pvId-metrics-overview",
+      "pattern": "/compute/clusters/:clusterId/persistent-volumes/:pvId/metrics/overview",
+      "params": [
+        "clusterId",
+        "pvId"
+      ],
+      "resourceType": "k8s_persistent_volume",
+      "title": "Persistent volume metrics overview",
+      "description": "Storage, IOPS and throughput for one persistent volume.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads",
+      "pattern": "/compute/clusters/:clusterId/workloads",
+      "params": [
+        "clusterId"
+      ],
+      "resourceType": "k8s_cluster",
+      "title": "Cluster workloads",
+      "description": "Workloads in one cluster with cost and utilization.",
+      "contexts": []
+    },
+    {
+      "id": "k8s-container",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container detail",
+      "description": "Usage, metrics and cost for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads-resourceId-containers-containerName-details",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/details",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container details",
+      "description": "Configuration and metadata for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads-resourceId-containers-containerName-metrics",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container metrics",
+      "description": "Usage metrics for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads-resourceId-containers-containerName-metrics-cpu",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/cpu",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container CPU metrics",
+      "description": "CPU usage metrics for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads-resourceId-containers-containerName-metrics-disk",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/disk",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container disk metrics",
+      "description": "Disk usage metrics for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads-resourceId-containers-containerName-metrics-gateway",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/gateway",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container gateway metrics",
+      "description": "Model-serving metrics for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads-resourceId-containers-containerName-metrics-gpu",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/gpu",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container GPU metrics",
+      "description": "Accelerator usage metrics for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads-resourceId-containers-containerName-metrics-health",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/health",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container health",
+      "description": "Out-of-memory kills, restarts, throttling, memory used of limit, contention and readiness for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads-resourceId-containers-containerName-metrics-memory",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/memory",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container memory metrics",
+      "description": "Memory usage metrics for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads-resourceId-containers-containerName-metrics-overview",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/metrics/overview",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container metrics",
+      "description": "Overview of usage metrics for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-clusterId-workloads-resourceId-containers-containerName-usage",
+      "pattern": "/compute/clusters/:clusterId/workloads/:resourceId/containers/:containerName/usage",
+      "params": [
+        "clusterId",
+        "resourceId",
+        "containerName"
+      ],
+      "resourceType": "k8s_container",
+      "title": "Container usage",
+      "description": "CPU, memory and accelerator usage for one container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-clusters-new",
+      "pattern": "/compute/clusters/new",
+      "params": [],
+      "resourceType": "k8s_cluster",
+      "title": "Connect a cluster",
+      "description": "Connect a new Kubernetes cluster to CostGraph.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "cluster"
+    },
+    {
+      "id": "compute-virtual-machines",
+      "pattern": "/compute/virtual-machines",
+      "params": [],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machines",
+      "description": "All cloud virtual machines with cost and utilization.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "virtual-machine"
+    },
+    {
+      "id": "virtual-machine",
+      "pattern": "/compute/virtual-machines/:vmId",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine detail",
+      "description": "Cost, metrics and recommendations for one VM.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-containers",
+      "pattern": "/compute/virtual-machines/:vmId/containers",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "vm_container",
+      "title": "Virtual machine containers",
+      "description": "Containers running on one virtual machine.",
+      "contexts": []
+    },
+    {
+      "id": "vm-container",
+      "pattern": "/compute/virtual-machines/:vmId/containers/:containerId",
+      "params": [
+        "vmId",
+        "containerId"
+      ],
+      "resourceType": "vm_container",
+      "title": "Virtual machine container detail",
+      "description": "Usage, metrics and cost for one virtual machine container.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-gpus",
+      "pattern": "/compute/virtual-machines/:vmId/gpus",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine GPUs",
+      "description": "Accelerators attached to one virtual machine, with utilization and cost.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-metrics",
+      "pattern": "/compute/virtual-machines/:vmId/metrics",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine metrics",
+      "description": "Resource usage metrics for one virtual machine.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-metrics-cpu",
+      "pattern": "/compute/virtual-machines/:vmId/metrics/cpu",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine CPU metrics",
+      "description": "CPU usage metrics for one virtual machine.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-metrics-disk",
+      "pattern": "/compute/virtual-machines/:vmId/metrics/disk",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine disk metrics",
+      "description": "Disk usage metrics for one virtual machine.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-metrics-gpu",
+      "pattern": "/compute/virtual-machines/:vmId/metrics/gpu",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine GPU metrics",
+      "description": "Accelerator usage metrics for one virtual machine.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-metrics-memory",
+      "pattern": "/compute/virtual-machines/:vmId/metrics/memory",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine memory metrics",
+      "description": "Memory usage metrics for one virtual machine.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-metrics-network",
+      "pattern": "/compute/virtual-machines/:vmId/metrics/network",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine network metrics",
+      "description": "Network usage metrics for one virtual machine.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-metrics-overview",
+      "pattern": "/compute/virtual-machines/:vmId/metrics/overview",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine metrics overview",
+      "description": "Overview of resource usage metrics for one virtual machine.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-overview",
+      "pattern": "/compute/virtual-machines/:vmId/overview",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine overview",
+      "description": "Cost and efficiency overview for one virtual machine.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-vmId-recommendations",
+      "pattern": "/compute/virtual-machines/:vmId/recommendations",
+      "params": [
+        "vmId"
+      ],
+      "resourceType": "virtual_machine",
+      "title": "Virtual machine recommendations",
+      "description": "Every insight on one virtual machine and its disks and containers, with its rightsizing recommendation.",
+      "contexts": []
+    },
+    {
+      "id": "compute-virtual-machines-new",
+      "pattern": "/compute/virtual-machines/new",
+      "params": [],
+      "resourceType": "virtual_machine",
+      "title": "Connect a VM",
+      "description": "Connect a new virtual machine to CostGraph.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "virtual-machine"
+    },
+    {
+      "id": "context",
+      "pattern": "/context",
+      "params": [],
+      "resourceType": "context_entity",
+      "title": "Context",
+      "description": "Everything you run and pay for, how it connects, and what each part costs.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "context"
+    },
+    {
+      "id": "create-account",
+      "pattern": "/create-account",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Create an account",
+      "description": "Create a new CostGraph account.",
+      "contexts": []
+    },
+    {
+      "id": "dashboard",
+      "pattern": "/dashboard",
+      "params": [],
+      "resourceType": "dashboard",
+      "title": "Cost",
+      "description": "Standardized cost across your clusters and cloud accounts.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "dashboard"
+    },
+    {
+      "id": "dashboard-providers-provider",
+      "pattern": "/dashboard/providers/:provider",
+      "params": [
+        "provider"
+      ],
+      "resourceType": "cost_provider",
+      "title": "Provider",
+      "description": "Cost, usage, commitments and anomalies for one provider.",
+      "contexts": []
+    },
+    {
+      "id": "dashboard-providers-provider-accounts",
+      "pattern": "/dashboard/providers/:provider/accounts",
+      "params": [
+        "provider"
+      ],
+      "resourceType": "cost_provider",
+      "title": "Provider accounts",
+      "description": "Spend by account or project for one provider.",
+      "contexts": []
+    },
+    {
+      "id": "dashboard-providers-provider-anomalies",
+      "pattern": "/dashboard/providers/:provider/anomalies",
+      "params": [
+        "provider"
+      ],
+      "resourceType": "cost_provider",
+      "title": "Provider insights",
+      "description": "Active anomalies and savings recommendations for one provider.",
+      "contexts": []
+    },
+    {
+      "id": "dashboard-providers-provider-ci",
+      "pattern": "/dashboard/providers/:provider/ci",
+      "params": [
+        "provider"
+      ],
+      "resourceType": "cost_provider",
+      "title": "Provider CI",
+      "description": "CI spend and minutes by pull request author, pull request and workflow for one provider.",
+      "contexts": []
+    },
+    {
+      "id": "dashboard-providers-provider-commitments",
+      "pattern": "/dashboard/providers/:provider/commitments",
+      "params": [
+        "provider"
+      ],
+      "resourceType": "cost_provider",
+      "title": "Provider commitments",
+      "description": "Commitment discount coverage for one provider.",
+      "contexts": []
+    },
+    {
+      "id": "dashboard-providers-provider-overview",
+      "pattern": "/dashboard/providers/:provider/overview",
+      "params": [
+        "provider"
+      ],
+      "resourceType": "cost_provider",
+      "title": "Provider overview",
+      "description": "Spend, daily trend and top services for one provider.",
+      "contexts": []
+    },
+    {
+      "id": "dashboard-providers-provider-recommendations",
+      "pattern": "/dashboard/providers/:provider/recommendations",
+      "params": [
+        "provider"
+      ],
+      "resourceType": "cost_provider",
+      "title": "Provider recommendations",
+      "description": "Savings recommendations from one provider, now listed under Insights.",
+      "contexts": []
+    },
+    {
+      "id": "dashboard-providers-provider-unit-economics",
+      "pattern": "/dashboard/providers/:provider/unit-economics",
+      "params": [
+        "provider"
+      ],
+      "resourceType": "cost_provider",
+      "title": "Provider unit economics",
+      "description": "Spend per account or tag value for one provider.",
+      "contexts": []
+    },
+    {
+      "id": "dashboard-providers-provider-usage",
+      "pattern": "/dashboard/providers/:provider/usage",
+      "params": [
+        "provider"
+      ],
+      "resourceType": "cost_provider",
+      "title": "Provider usage",
+      "description": "Usage, seats, tokens and CI minutes for one provider.",
+      "contexts": []
+    },
+    {
+      "id": "forgot-password",
+      "pattern": "/forgot-password",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Reset password",
+      "description": "Reset the password for your CostGraph account.",
+      "contexts": []
+    },
+    {
+      "id": "get-started",
+      "pattern": "/get-started",
+      "params": [],
+      "resourceType": "onboarding",
+      "title": "Get started",
+      "description": "Connect your first cluster or cloud account.",
+      "contexts": [
+        "sidebar"
+      ],
+      "icon": "rocket"
+    },
+    {
+      "id": "gpus",
+      "pattern": "/gpus",
+      "params": [],
+      "resourceType": "gpu",
+      "title": "GPUs",
+      "description": "Every accelerator, where it runs, how much of it is used, and what it costs.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "gpu"
+    },
+    {
+      "id": "gpus-gpuUuid",
+      "pattern": "/gpus/:gpuUuid",
+      "params": [
+        "gpuUuid"
+      ],
+      "resourceType": "gpu",
+      "title": "GPU detail",
+      "description": "Utilization, partitions and projected cost for one accelerator.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "gpu"
+    },
+    {
+      "id": "gpus-gpuUuid-metrics",
+      "pattern": "/gpus/:gpuUuid/metrics",
+      "params": [
+        "gpuUuid"
+      ],
+      "resourceType": "gpu",
+      "title": "Accelerator metrics",
+      "description": "Metrics for the machine one GPU runs on.",
+      "contexts": []
+    },
+    {
+      "id": "gpus-gpuUuid-metrics-cpu",
+      "pattern": "/gpus/:gpuUuid/metrics/cpu",
+      "params": [
+        "gpuUuid"
+      ],
+      "resourceType": "gpu",
+      "title": "GPU CPU metrics",
+      "description": "CPU metrics for the machine one GPU runs on.",
+      "contexts": []
+    },
+    {
+      "id": "gpus-gpuUuid-metrics-disk",
+      "pattern": "/gpus/:gpuUuid/metrics/disk",
+      "params": [
+        "gpuUuid"
+      ],
+      "resourceType": "gpu",
+      "title": "GPU disk metrics",
+      "description": "Disk metrics for the machine one GPU runs on.",
+      "contexts": []
+    },
+    {
+      "id": "gpus-gpuUuid-metrics-memory",
+      "pattern": "/gpus/:gpuUuid/metrics/memory",
+      "params": [
+        "gpuUuid"
+      ],
+      "resourceType": "gpu",
+      "title": "GPU memory metrics",
+      "description": "Memory metrics for the machine one GPU runs on.",
+      "contexts": []
+    },
+    {
+      "id": "gpus-gpuUuid-metrics-network",
+      "pattern": "/gpus/:gpuUuid/metrics/network",
+      "params": [
+        "gpuUuid"
+      ],
+      "resourceType": "gpu",
+      "title": "GPU network metrics",
+      "description": "Network metrics for the machine one GPU runs on.",
+      "contexts": []
+    },
+    {
+      "id": "gpus-gpuUuid-metrics-overview",
+      "pattern": "/gpus/:gpuUuid/metrics/overview",
+      "params": [
+        "gpuUuid"
+      ],
+      "resourceType": "gpu",
+      "title": "GPU overview metrics",
+      "description": "Overview of the machine metrics behind one GPU.",
+      "contexts": []
+    },
+    {
+      "id": "gpus-gpuUuid-overview",
+      "pattern": "/gpus/:gpuUuid/overview",
+      "params": [
+        "gpuUuid"
+      ],
+      "resourceType": "gpu",
+      "title": "GPU overview",
+      "description": "Model, placement, cost and verdict for one accelerator.",
+      "contexts": []
+    },
+    {
+      "id": "gpus-gpuUuid-usage",
+      "pattern": "/gpus/:gpuUuid/usage",
+      "params": [
+        "gpuUuid"
+      ],
+      "resourceType": "gpu",
+      "title": "GPU usage",
+      "description": "Every accelerator measurement summarised over its observed, 7d and 30d windows.",
+      "contexts": []
+    },
+    {
+      "id": "graph-ai",
+      "pattern": "/graph-ai",
+      "params": [],
+      "resourceType": "graph_ai",
+      "title": "GraphAI",
+      "description": "Ask cost and Kubernetes questions in natural language.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "chat"
+    },
+    {
+      "id": "graph-ai-id",
+      "pattern": "/graph-ai/:id",
+      "params": [
+        "id"
+      ],
+      "resourceType": "graph_ai",
+      "title": "GraphAI conversation",
+      "description": "A single GraphAI conversation thread.",
+      "contexts": []
+    },
+    {
+      "id": "graph-ai-share-shareId",
+      "pattern": "/graph-ai/share/:shareId",
+      "params": [
+        "shareId"
+      ],
+      "resourceType": "graph_ai",
+      "title": "Shared GraphAI conversation",
+      "description": "A shared read-only GraphAI conversation.",
+      "contexts": []
+    },
+    {
+      "id": "insights",
+      "pattern": "/insights",
+      "params": [],
+      "resourceType": "insights",
+      "title": "Insights",
+      "description": "Savings, anomalies, and efficiency across your accounts.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "insight"
+    },
+    {
+      "id": "anomaly",
+      "pattern": "/insights/:id",
+      "params": [
+        "id"
+      ],
+      "resourceType": "anomaly",
+      "title": "Anomaly detail",
+      "description": "Investigation view for a single cost anomaly.",
+      "contexts": []
+    },
+    {
+      "id": "integrations",
+      "pattern": "/integrations",
+      "params": [],
+      "resourceType": "integrations",
+      "title": "Integrations",
+      "description": "Connect third-party services and cloud accounts.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "integrations"
+    },
+    {
+      "id": "integrations-provider",
+      "pattern": "/integrations/:provider",
+      "params": [
+        "provider"
+      ],
+      "resourceType": "integrations",
+      "title": "Integration connections",
+      "description": "The connections for one integration, with their ids.",
+      "contexts": []
+    },
+    {
+      "id": "integrations-oauth-callback",
+      "pattern": "/integrations/oauth/callback",
+      "params": [],
+      "resourceType": "integrations",
+      "title": "Integration sign-in callback",
+      "description": "Finishes connecting an integration after you approve access at the provider.",
+      "contexts": []
+    },
+    {
+      "id": "integrations-slack",
+      "pattern": "/integrations/slack",
+      "params": [],
+      "resourceType": "integrations",
+      "title": "Slack",
+      "description": "Ask CostGraph questions in Slack and manage connected workspaces.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "integrations"
+    },
+    {
+      "id": "invite-accept",
+      "pattern": "/invite/accept",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Accept invitation",
+      "description": "Accept an invitation to join an organization.",
+      "contexts": []
+    },
+    {
+      "id": "marketplace-link",
+      "pattern": "/marketplace/link",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Attach marketplace purchase",
+      "description": "Attach a cloud marketplace purchase to your organization.",
+      "contexts": []
+    },
+    {
+      "id": "network",
+      "pattern": "/network",
+      "params": [],
+      "resourceType": "network",
+      "title": "Network",
+      "description": "Traffic and transfer cost between your workloads.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "network"
+    },
+    {
+      "id": "network-endpoint-endpointId",
+      "pattern": "/network/endpoint/:endpointId",
+      "params": [
+        "endpointId"
+      ],
+      "resourceType": "network_endpoint",
+      "title": "Network endpoint",
+      "description": "Traffic, peers and transfer cost for one network endpoint.",
+      "contexts": []
+    },
+    {
+      "id": "oauth-authorize",
+      "pattern": "/oauth/authorize",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Authorize application",
+      "description": "Grant an application access to CostGraph.",
+      "contexts": []
+    },
+    {
+      "id": "onboarding",
+      "pattern": "/onboarding",
+      "params": [],
+      "resourceType": "onboarding",
+      "title": "Connect your integrations",
+      "description": "Pick the cloud accounts and tools CostGraph should read cost data from.",
+      "contexts": []
+    },
+    {
+      "id": "reports",
+      "pattern": "/reports",
+      "params": [],
+      "resourceType": "reports",
+      "title": "Reports",
+      "description": "Dashboards generated from a prompt.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "report"
+    },
+    {
+      "id": "reports-reportId",
+      "pattern": "/reports/:reportId",
+      "params": [
+        "reportId"
+      ],
+      "resourceType": "reports",
+      "title": "Report",
+      "description": "A saved report, editable through conversation.",
+      "contexts": []
+    },
+    {
+      "id": "reports-new",
+      "pattern": "/reports/new",
+      "params": [],
+      "resourceType": "reports",
+      "title": "New report",
+      "description": "Describe a dashboard and GraphAI builds it.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "report"
+    },
+    {
+      "id": "settings",
+      "pattern": "/settings",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Settings",
+      "description": "Account, organization and tenant settings.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-account-api-keys",
+      "pattern": "/settings/account/api-keys",
+      "params": [],
+      "resourceType": "settings",
+      "title": "API keys settings",
+      "description": "Create and manage API keys for machine access.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "key"
+    },
+    {
+      "id": "billing-settings",
+      "pattern": "/settings/account/billing",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Billing settings",
+      "description": "Manage your plan and billing.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-account-connected-apps",
+      "pattern": "/settings/account/connected-apps",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Connected apps settings",
+      "description": "Review and revoke applications authorized to access CostGraph on your behalf.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "key"
+    },
+    {
+      "id": "settings-account-customisation",
+      "pattern": "/settings/account/customisation",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Customisation settings",
+      "description": "Customise your account appearance and preferences.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-account-integrations",
+      "pattern": "/settings/account/integrations",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Integrations",
+      "description": "Connect third-party services like PlanetScale.",
+      "contexts": []
+    },
+    {
+      "id": "settings-account-notifications",
+      "pattern": "/settings/account/notifications",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Notification settings",
+      "description": "Manage your notification preferences.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-account-oauth-clients",
+      "pattern": "/settings/account/oauth-clients",
+      "params": [],
+      "resourceType": "settings",
+      "title": "OAuth clients settings",
+      "description": "Register applications that sign people in with CostGraph.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "key"
+    },
+    {
+      "id": "settings-account-profile",
+      "pattern": "/settings/account/profile",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Profile settings",
+      "description": "Manage your personal profile.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "profile"
+    },
+    {
+      "id": "settings-account-security",
+      "pattern": "/settings/account/security",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Security settings",
+      "description": "Manage your password and account security.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-organization-audit-log",
+      "pattern": "/settings/organization/audit-log",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Audit log",
+      "description": "Who signed in, changed or exported what in your organization.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-organization-danger-zone",
+      "pattern": "/settings/organization/danger-zone",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Organization danger zone",
+      "description": "Destructive actions for your organization.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-organization-members",
+      "pattern": "/settings/organization/members",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Organization members",
+      "description": "Manage members of your organization.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "users"
+    },
+    {
+      "id": "settings-organization-notifications",
+      "pattern": "/settings/organization/notifications",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Alert destinations",
+      "description": "Send cost alerts to Slack, webhooks, Microsoft Teams, PagerDuty and email lists.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-organization-prices",
+      "pattern": "/settings/organization/prices",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Prices",
+      "description": "Prices your organization has published and how they compare with public providers.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-organization-sso",
+      "pattern": "/settings/organization/sso",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Single sign-on settings",
+      "description": "Verify your domains and sign people in through your identity provider.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-tenants-customisation",
+      "pattern": "/settings/tenants/customisation",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Tenant customisation",
+      "description": "Customise the appearance and preferences for this tenant.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-tenants-danger-zone",
+      "pattern": "/settings/tenants/danger-zone",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Tenant danger zone",
+      "description": "Destructive actions for this tenant.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "settings-tenants-members",
+      "pattern": "/settings/tenants/members",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Tenant members",
+      "description": "Manage members of this tenant.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "users"
+    },
+    {
+      "id": "settings-tenants-muted-anomalies",
+      "pattern": "/settings/tenants/muted-anomalies",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Muted anomalies",
+      "description": "Anomalies muted for this tenant.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "virtual-tags-settings",
+      "pattern": "/settings/tenants/virtual-tags",
+      "params": [],
+      "resourceType": "settings",
+      "title": "Virtual tags settings",
+      "description": "Define the tag keys that decide who pays for what.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "tag"
+    },
+    {
+      "id": "sign-in",
+      "pattern": "/sign-in",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Sign in",
+      "description": "Sign in to CostGraph.",
+      "contexts": []
+    },
+    {
+      "id": "slack-callback-flow",
+      "pattern": "/slack/callback/:flow",
+      "params": [
+        "flow"
+      ],
+      "resourceType": "integrations",
+      "title": "Slack sign-in callback",
+      "description": "Finishes connecting Slack after you approve CostGraph on Slack.",
+      "contexts": []
+    },
+    {
+      "id": "slack-link",
+      "pattern": "/slack/link",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Connect Slack",
+      "description": "Connect your Slack account to CostGraph.",
+      "contexts": []
+    },
+    {
+      "id": "spec-ai",
+      "pattern": "/spec-ai",
+      "params": [],
+      "resourceType": "dashboard",
+      "title": "AI dashboard",
+      "description": "Dev-only: ask a question, render the dashboard GraphAI returns.",
+      "contexts": []
+    },
+    {
+      "id": "sso",
+      "pattern": "/sso",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Single sign-on",
+      "description": "Sign in to CostGraph with your organization’s identity provider.",
+      "contexts": []
+    },
+    {
+      "id": "verification-sent",
+      "pattern": "/verification-sent",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Verification sent",
+      "description": "A verification email has been sent to your inbox.",
+      "contexts": []
+    },
+    {
+      "id": "verify-email",
+      "pattern": "/verify-email",
+      "params": [],
+      "resourceType": "auth",
+      "title": "Verify email",
+      "description": "Verify your email address to finish signing up.",
+      "contexts": []
+    },
+    {
+      "id": "virtual-tags-key",
+      "pattern": "/virtual-tags/:key",
+      "params": [
+        "key"
+      ],
+      "resourceType": "virtual_tag",
+      "title": "Virtual tag",
+      "description": "Spend, rules, budgets and shared splits for one virtual tag key or value.",
+      "contexts": []
+    },
+    {
+      "id": "workflows",
+      "pattern": "/workflows",
+      "params": [],
+      "resourceType": "workflows",
+      "title": "Workflows",
+      "description": "Goals the agent works toward, with approvals and estimated savings.",
+      "contexts": [
+        "sidebar",
+        "search"
+      ],
+      "icon": "workflow"
+    },
+    {
+      "id": "workflows-goals-goalId-edit",
+      "pattern": "/workflows/goals/:goalId/edit",
+      "params": [
+        "goalId"
+      ],
+      "resourceType": "workflow_goal",
+      "title": "Edit workflow goal",
+      "description": "Change a workflow goal. Saving creates a new version for future runs.",
+      "contexts": []
+    },
+    {
+      "id": "workflow-new",
+      "pattern": "/workflows/new",
+      "params": [],
+      "resourceType": "workflows",
+      "title": "New workflow goal",
+      "description": "Give the agent a goal, the tools it may use, and when it must ask first.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "workflow"
+    },
+    {
+      "id": "workflows-runs",
+      "pattern": "/workflows/runs",
+      "params": [],
+      "resourceType": "workflow_runs",
+      "title": "Workflow runs",
+      "description": "Every workflow run, with status, timing, and estimated savings found.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "workflow"
+    },
+    {
+      "id": "workflow-run",
+      "pattern": "/workflows/runs/:runId",
+      "params": [
+        "runId"
+      ],
+      "resourceType": "workflow_run",
+      "title": "Workflow run",
+      "description": "One workflow run: its current state, plan, messages, and approvals.",
+      "contexts": []
+    },
+    {
+      "id": "workflows-tools",
+      "pattern": "/workflows/tools",
+      "params": [],
+      "resourceType": "workflow_tools",
+      "title": "Workflow connected tools",
+      "description": "Tools the Workflows agent can use, the goals using each one, and their status.",
+      "contexts": [
+        "search"
+      ],
+      "icon": "workflow"
+    }
+  ]
+}

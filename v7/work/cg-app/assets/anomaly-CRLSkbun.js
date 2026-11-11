@@ -1,0 +1,1 @@
+var o=Object.defineProperty;var a=(t,e)=>o(t,"name",{value:e,configurable:!0});const n=["cost","efficiency","reliability","waste","data_quality","governance"];function s(t){return n.find(e=>e===t)??null}a(s,"toAnomalyCategory");const i=["alert","ok","info"],c=["severity","status","category","resource_type","provider"];export{c as A,i as a,s as t};

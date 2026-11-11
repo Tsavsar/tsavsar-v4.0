@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <script src="__local/backend.js"></script>
+    <script src="__local/routes.js"></script>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/png" href="/work/cg-app/favicon.png" />
+        <link rel="shortcut icon" href="/work/cg-app/favicon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CostGraph</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="preload"
+            as="style"
+            href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400&display=swap"
+        />
+        <meta name="description" content="The AI that finds, explains and fixes cloud waste" />
+        <meta name="apple-mobile-web-app-title" content="CostGraph" />
+        <meta name="theme-color" content="#ffffff" />
+        <script>
+            (function () {
+                let resolvedTheme = 'light';
+
+                try {
+                    if (localStorage.getItem('color_theme') === 'dark') {
+                        resolvedTheme = 'dark';
+                    }
+                } catch (error) {}
+
+                document.documentElement.dataset.theme = resolvedTheme;
+                document.documentElement.style.colorScheme = resolvedTheme;
+
+                if (resolvedTheme === 'dark') {
+                    document
+                        .querySelector('meta[name="theme-color"]')
+                        ?.setAttribute('content', '#090a0b');
+                }
+            })();
+        </script>
+        <style>
+            html,
+            body {
+                background: #ffffff;
+            }
+
+            html[data-theme='dark'],
+            html[data-theme='dark'] body {
+                background: #090a0b;
+            }
+        </style>
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://app.costgraph.ai/" />
+        <meta property="og:title" content="CostGraph" />
+        <meta
+            property="og:description"
+            content="The AI that finds, explains and fixes cloud waste"
+        />
+        <meta property="og:image" content="/work/cg-app/logo.png" />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://app.costgraph.ai/" />
+        <meta property="twitter:title" content="CostGraph" />
+        <meta
+            property="twitter:description"
+            content="The AI that finds, explains and fixes cloud waste"
+        />
+        <meta property="twitter:image" content="/logo.png" />
+      <script type="module" crossorigin src="/work/cg-app/assets/index-Bw72oE1q.js"></script>
+      <link rel="modulepreload" crossorigin href="/work/cg-app/assets/bootstrap-CfN_5IOU.js">
+      <link rel="modulepreload" crossorigin href="/work/cg-app/assets/pending-signup-YYy19LjN.js">
+      <link rel="modulepreload" crossorigin href="/work/cg-app/assets/auth-store-Bfa0CG2w.js">
+      <link rel="modulepreload" crossorigin href="/work/cg-app/assets/query-client-CS9FfTIn.js">
+      <link rel="preload" as="style" crossorigin href="/work/cg-app/assets/bootstrap-CiU8cGEi.css">
+    </head>
+
+    <body>
+        <div id="root"></div>
+    </body>
+</html>

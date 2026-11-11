@@ -119,7 +119,7 @@
   // double up. It runs after their own listeners, so switching audio back on
   // is itself audible. Anything not named here makes no sound at all.
   document.addEventListener('click', function (e) {
-    if (e.target.closest('.theme-toggle, .audio-toggle, .sticker-reset')) return click('toggle');
+    if (e.target.closest('.audio-toggle, .sticker-reset')) return click('toggle');
     // Only the real buttons: about's greeting is a heading, and away from the
     // homepage the avatar is a link home, which sounds like one below
     if (e.target.closest('#greeting, button.avatar-wrap')) return click('press');
@@ -181,16 +181,6 @@
       close();
     });
   })();
-
-  /* ---- theme ----------------------------------------------------------- */
-  var toggle = $('.theme-toggle');
-  if (toggle) {
-    toggle.addEventListener('click', function () {
-      var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      root.dataset.theme = next;
-      try { localStorage.setItem('theme', next); } catch (e) {}
-    });
-  }
 
   /* ---- greeting + clock ------------------------------------------------ */
   // Both read Shater's hour in Lagos, not the visitor's.
@@ -300,37 +290,58 @@
     var slug = function (t) {
       return t.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     };
-    var links = sections.map(function (s) {
-      var name = $('.study-label', s).textContent.trim();
-      if (!s.id) s.id = slug(name);
-      var a = document.createElement('a');
-      a.href = '#' + s.id;
-      a.textContent = name;
-      toc.appendChild(a);
-      return a;
-    });
     var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    links.forEach(function (a, i) {
+    var link = function (target, name, cls) {
+      if (!target.id) {
+        var id = slug(name);
+        while (document.getElementById(id)) id += '-part';
+        target.id = id;
+      }
+      var a = document.createElement('a');
+      a.href = '#' + target.id;
+      a.textContent = name;
+      if (cls) a.className = cls;
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        sections[i].scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
-        history.replaceState(null, '', '#' + sections[i].id);
+        target.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + target.id);
       });
+      toc.appendChild(a);
+      return a;
+    };
+    // A page can ask for its parts as well (data-parts on the rail): each
+    // section's sub-headings, listed under it, so the rail maps the page
+    var withParts = toc.hasAttribute('data-parts');
+    var parts = [];
+    var links = sections.map(function (s, i) {
+      var a = link(s, $('.study-label', s).textContent.trim(), withParts && i ? 'rail-section' : '');
+      parts[i] = withParts ? $$('.study-subhead', s).map(function (h) {
+        return { head: h, a: link(h, h.textContent.trim(), 'rail-part') };
+      }) : [];
+      return a;
     });
 
     // The current section: the last one whose top has passed a line a third
     // of the way down the window. At the very bottom, the last one, even if
-    // it's too short to ever reach that line.
-    var current = -1, ticking = false;
+    // it's too short to ever reach that line. Within it, the part being read
+    // the same way.
+    var current = '', ticking = false;
     var spy = function () {
       ticking = false;
-      var line = window.innerHeight / 3, at = -1;
+      var line = window.innerHeight / 3, at = -1, part = -1;
       sections.forEach(function (s, i) { if (s.getBoundingClientRect().top <= line) at = i; });
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) at = sections.length - 1;
-      if (at === current) return;
-      current = at;
+      if (at >= 0) parts[at].forEach(function (p, j) { if (p.head.getBoundingClientRect().top <= line) part = j; });
+      var key = at + ':' + part;
+      if (key === current) return;
+      current = key;
       links.forEach(function (a, i) {
         if (i === at) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+      parts.forEach(function (list, i) {
+        list.forEach(function (p, j) {
+          if (i === at && j === part) p.a.setAttribute('aria-current', 'true'); else p.a.removeAttribute('aria-current');
+        });
       });
     };
     window.addEventListener('scroll', function () {

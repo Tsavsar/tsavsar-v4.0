@@ -1,0 +1,1 @@
+const e={healthy:{label:"Healthy",dotClassName:"bg-success-base"},warning:{label:"Warning",dotClassName:"bg-accent-1-base"},degraded:{label:"Degraded",dotClassName:"bg-accent-1-base"},disconnected:{label:"Disconnected",dotClassName:"bg-error-base"},offline:{label:"Offline",dotClassName:"bg-error-base"},unknown:{label:"Unknown",dotClassName:"bg-text-soft"}};export{e as R};

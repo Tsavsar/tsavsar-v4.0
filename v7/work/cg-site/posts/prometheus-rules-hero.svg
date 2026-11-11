@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Prometheus rules — a horizontal ruler with a rising timeseries crossing an alert threshold">
+  <defs>
+    <style>
+      .bg { fill: #0e0e0e; }
+      .frame { fill: #141414; stroke: #282828; stroke-width: 1; }
+      .micro { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 12px; letter-spacing: 2.4px; fill: #6b6b6b; text-transform: uppercase; font-weight: 500; }
+      .micro-dim { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: #4a4a4a; text-transform: uppercase; font-weight: 500; }
+      .tick-label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #5a5a5a; font-weight: 400; }
+      .pin-label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: rgba(253,136,58,0.95); text-transform: uppercase; font-weight: 600; }
+      .axis-label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: rgba(163,198,255,0.6); text-transform: uppercase; font-weight: 500; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="900" />
+  <rect class="frame" x="60" y="60" width="1480" height="780" rx="14" />
+
+  <!-- Corner micro-labels -->
+  <text class="micro" x="100" y="110">Prometheus · Rules</text>
+  <text class="micro-dim" x="1500" y="110" text-anchor="end">Recording · Alerting</text>
+  <text class="micro-dim" x="100" y="800">rate(http_requests_total[5m])</text>
+  <text class="micro-dim" x="1500" y="800" text-anchor="end">for · 2m · severity=page</text>
+
+  <!-- Faint upper sparkline (violet, low opacity) -->
+  <path d="M 140 320 L 240 308 L 340 332 L 440 296 L 540 330 L 640 286 L 740 318 L 840 300 L 940 332 L 1040 292 L 1140 322 L 1240 304 L 1340 326 L 1440 308 L 1460 314"
+        stroke="rgba(168,146,246,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round" />
+
+  <!-- Threshold line (dashed, royal blue, faint) -->
+  <line x1="140" y1="380" x2="1460" y2="380" stroke="rgba(163,198,255,0.45)" stroke-width="1.5" stroke-dasharray="6 6" />
+  <text class="axis-label" x="148" y="372">Threshold</text>
+
+  <!-- Primary timeseries (blue, brighter) — rises and crosses threshold near tick 11 -->
+  <path d="M 140 478 L 234 462 L 329 470 L 423 448 L 517 452 L 611 432 L 706 428 L 800 420 L 894 408 L 989 396 L 1083 390 L 1177 380 L 1271 360 L 1366 348 L 1460 330"
+        stroke="rgba(83,148,253,0.9)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Ruler baseline -->
+  <line x1="140" y1="500" x2="1460" y2="500" stroke="#4a4a4a" stroke-width="1.5" />
+
+  <!-- Major ticks (0..14) downward from baseline -->
+  <g stroke="#5a5a5a" stroke-width="1.5">
+    <line x1="140"  y1="500" x2="140"  y2="528" />
+    <line x1="234"  y1="500" x2="234"  y2="528" />
+    <line x1="329"  y1="500" x2="329"  y2="528" />
+    <line x1="423"  y1="500" x2="423"  y2="528" />
+    <line x1="517"  y1="500" x2="517"  y2="528" />
+    <line x1="611"  y1="500" x2="611"  y2="528" />
+    <line x1="706"  y1="500" x2="706"  y2="528" />
+    <line x1="800"  y1="500" x2="800"  y2="528" />
+    <line x1="894"  y1="500" x2="894"  y2="528" />
+    <line x1="989"  y1="500" x2="989"  y2="528" />
+    <line x1="1083" y1="500" x2="1083" y2="528" />
+    <line x1="1177" y1="500" x2="1177" y2="528" />
+    <line x1="1271" y1="500" x2="1271" y2="528" />
+    <line x1="1366" y1="500" x2="1366" y2="528" />
+    <line x1="1460" y1="500" x2="1460" y2="528" />
+  </g>
+
+  <!-- Tall ticks at 0, 5, 10 -->
+  <g stroke="#7a7a7a" stroke-width="2">
+    <line x1="140"  y1="500" x2="140"  y2="540" />
+    <line x1="611"  y1="500" x2="611"  y2="540" />
+    <line x1="1083" y1="500" x2="1083" y2="540" />
+  </g>
+
+  <!-- Minor ticks halfway between integers -->
+  <g stroke="#3a3a3a" stroke-width="1">
+    <line x1="187"  y1="500" x2="187"  y2="514" />
+    <line x1="282"  y1="500" x2="282"  y2="514" />
+    <line x1="376"  y1="500" x2="376"  y2="514" />
+    <line x1="470"  y1="500" x2="470"  y2="514" />
+    <line x1="564"  y1="500" x2="564"  y2="514" />
+    <line x1="659"  y1="500" x2="659"  y2="514" />
+    <line x1="753"  y1="500" x2="753"  y2="514" />
+    <line x1="847"  y1="500" x2="847"  y2="514" />
+    <line x1="941"  y1="500" x2="941"  y2="514" />
+    <line x1="1036" y1="500" x2="1036" y2="514" />
+    <line x1="1130" y1="500" x2="1130" y2="514" />
+    <line x1="1224" y1="500" x2="1224" y2="514" />
+    <line x1="1318" y1="500" x2="1318" y2="514" />
+    <line x1="1413" y1="500" x2="1413" y2="514" />
+  </g>
+
+  <!-- Numeric labels under tall ticks -->
+  <text class="tick-label" x="140"  y="566" text-anchor="middle">0</text>
+  <text class="tick-label" x="611"  y="566" text-anchor="middle">5</text>
+  <text class="tick-label" x="1083" y="566" text-anchor="middle">10</text>
+  <text class="tick-label" x="1460" y="566" text-anchor="middle">14</text>
+
+  <!-- Firing pin (orange) where the timeseries crosses the threshold (~ tick 11) -->
+  <circle cx="1177" cy="380" r="6" fill="rgba(253,136,58,0.95)" />
+  <circle cx="1177" cy="380" r="12" fill="none" stroke="rgba(253,136,58,0.35)" stroke-width="1" />
+  <line x1="1177" y1="392" x2="1177" y2="438" stroke="rgba(253,136,58,0.55)" stroke-width="1" stroke-dasharray="2 3" />
+  <text class="pin-label" x="1177" y="458" text-anchor="middle">Firing</text>
+</svg>

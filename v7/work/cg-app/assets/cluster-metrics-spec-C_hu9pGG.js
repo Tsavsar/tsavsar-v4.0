@@ -1,0 +1,1 @@
+var a=Object.defineProperty;var t=(r,i)=>a(r,"name",{value:i,configurable:!0});import{V as c}from"./vm-metrics-spec-EKi2TktW.js";const s=c.filter(r=>r.id!=="gpu");function d(r){return r==="pv"?"pv":s.find(i=>i.id===r)?.id??"overview"}t(d,"clusterMetricsTab");function u(r){return s.find(i=>i.id===r)?.cards??[]}t(u,"clusterMetricsTabCards");export{s as C,u as a,d as c};

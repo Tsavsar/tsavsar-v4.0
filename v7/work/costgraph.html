@@ -10,11 +10,11 @@
 <link rel="preconnect" href="https://spotify-api-lilac.vercel.app" crossorigin />
 <link rel="stylesheet" href="../styles.css" />
 <title>CostGraph.ai · Shater Tsavsar</title>
-<meta name="description" content="How I lead design at CostGraph.ai: the design system, GraphAI and the UI that tells platform teams what to fix first." />
+<meta name="description" content="CostGraph puts cloud, Kubernetes, AI and SaaS spend in one place and tells you what to fix first. How I design and build it, release by release, with live demos of the real components." />
 <link rel="icon" type="image/png" sizes="64x64" href="../favicon-64.png" />
 <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
 <meta property="og:title" content="CostGraph.ai · Shater Tsavsar" />
-<meta property="og:description" content="How I lead design at CostGraph.ai: the design system, GraphAI and the UI that tells platform teams what to fix first." />
+<meta property="og:description" content="CostGraph puts cloud, Kubernetes, AI and SaaS spend in one place and tells you what to fix first. How I design and build it, release by release, with live demos of the real components." />
 <meta property="og:type" content="article" />
 <link rel="canonical" href="https://www.shatermt.com/work/costgraph" />
 <meta property="og:url" content="https://www.shatermt.com/work/costgraph" />
@@ -23,13 +23,9 @@
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="CostGraph.ai · Shater Tsavsar" />
-<meta name="twitter:description" content="How I lead design at CostGraph.ai: the design system, GraphAI and the UI that tells platform teams what to fix first." />
+<meta name="twitter:description" content="CostGraph puts cloud, Kubernetes, AI and SaaS spend in one place and tells you what to fix first. How I design and build it, release by release, with live demos of the real components." />
 <meta name="twitter:image" content="https://www.shatermt.com/og/costgraph.png" />
 <script>
-  try {
-    var t = localStorage.getItem('theme');
-    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
-  } catch (e) {}
   // Reserve the sound note's strip before first paint, so the page doesn't
   // drop 32px when the bar arrives. app.js takes the class off again if
   // the note isn't shown, and when it's closed.
@@ -55,7 +51,8 @@
     if (e.viewTransition) document.documentElement.classList.add('vt-in');
   });
 </script>
-<link rel="preload" as="image" href="../media/costgraph/dashboard.webp" fetchpriority="high" />
+<link rel="preload" href="/fonts/funnel-display-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
 </head>
 <body>
 
@@ -63,12 +60,6 @@
 <button class="audio-toggle" type="button" aria-label="Enable audio" aria-pressed="false">
   <svg class="ico-on" viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><path d="M11.35,1.567c-.4-.219-.889-.203-1.273,.044l-5.295,3.389H2.25c-1.241,0-2.25,1.009-2.25,2.25v3.5c0,1.241,1.009,2.25,2.25,2.25h2.531l5.295,3.389c.205,.131,.439,.198,.675,.198,.206,0,.412-.051,.599-.153,.401-.219,.65-.64,.65-1.097V2.664c0-.457-.249-.877-.65-1.097Z"/><path d="M14.444,7.056c-.293-.293-.769-.293-1.061,0-.293,.293-.293,.768,0,1.061,.236,.236,.366,.55,.366,.884s-.13,.647-.366,.884c-.293,.292-.293,.768,0,1.061,.146,.146,.338,.22,.53,.22s.384-.073,.53-.22c.52-.519,.806-1.209,.806-1.944s-.286-1.425-.806-1.944Z"/><path d="M15.329,5.111c-.293,.293-.293,.768,0,1.061,1.56,1.56,1.56,4.098,0,5.657-.293,.293-.293,.768,0,1.061,.146,.146,.338,.22,.53,.22s.384-.073,.53-.22c1.039-1.039,1.611-2.42,1.611-3.889s-.572-2.851-1.611-3.889c-.293-.293-.768-.293-1.061,0Z"/></g></svg>
   <svg class="ico-off" viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><path d="M14.35,1.567c-.4-.219-.889-.203-1.273,.044l-5.295,3.389h-3.531c-1.241,0-2.25,1.009-2.25,2.25v3.5c0,1.241,1.009,2.25,2.25,2.25h3.531l5.295,3.389c.205,.131,.439,.198,.675,.198,.206,0,.412-.051,.599-.153,.401-.219,.65-.64,.65-1.097V2.664c0-.457-.249-.877-.65-1.097Z"/></g></svg>
-</button>
-<button class="theme-toggle" type="button" aria-label="Switch colour theme">
-  <svg viewBox="0 0 16 16" aria-hidden="true">
-    <circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.3" />
-    <path d="M8 1.6 A6.4 6.4 0 0 1 8 14.4 Z" fill="currentColor" />
-  </svg>
 </button>
 </div>
 
@@ -78,67 +69,230 @@
      app.js from the h2s), pinned to the left beside the column -->
 <aside class="rail appear" aria-label="Project">
   <a class="rail-back" href="/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 7.5 2.5 10.5l3 3M2.5 10.5H10a3.5 3.5 0 0 0 0-7H8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Index</a>
-  <nav class="rail-toc" aria-label="Sections"></nav>
+  <nav class="rail-toc" aria-label="Sections" data-parts></nav>
 </aside>
 
   <header class="study-title appear" style="--i:2">
     <h1>CostGraph.ai</h1>
-    <p class="study-lede">Teams lose track of what they’re spending on Kubernetes and VMs. CostGraph shows that spend and tells you what to fix first.</p>
+    <p class="study-lede">Your cloud bill, explained. CostGraph finds the waste in your cloud, Kubernetes and AI spend, and helps you fix it.</p>
     <div class="study-pills"><a class="study-pill" href="https://costgraph.ai" target="_blank" rel="noopener"><span class="study-pill-mark"><img src="../icons/costgraph.svg" alt="" aria-hidden="true" /></span><span>costgraph.ai</span></a><span class="study-pill">Product designer</span><span class="study-pill">2025 to now</span></div>
   </header>
 
   <section class="study-head appear" style="--i:3">
-    <div class="study-hero study-hero-framed card-costgraph">
-      <p class="hero-brand"><img src="../icons/costgraph.svg" alt="" aria-hidden="true" /><span>CostGraph</span></p>
-      <p class="hero-line">Cloud savings you can act on</p>
-      <img width="2000" height="1166" class="hero-shot" decoding="sync" fetchpriority="high" src="../media/costgraph/dashboard.webp" alt="The CostGraph infrastructure overview: total spend, possible savings, active anomalies and cluster efficiency above cost by provider and a table of Kubernetes clusters." />
+    <div class="study-hero cg-hero card-costgraph">
+      <!-- Built from the CostGraph OG frame in Figma (7990:520844) at its
+           1200 x 630 size and scaled to the column, so the chart is real
+           markup that can move, not a picture of one -->
+      <div class="cg-stage" role="img" aria-label="CostGraph: Find, Explain and Fix cloud waste. Beside it, the All resources card: $412,800.00 spent this month, split across volumes, models, unassigned, buckets and assumed roles, above a stacked bar chart of daily spend.">
+        <img class="cg-logo" src="../media/costgraph/hero/logo.svg" alt="" />
+        <div class="cg-copy">
+          <p class="cg-title">Find, Explain and Fix cloud waste</p>
+          <p class="cg-sub">Your cloud bill, explained. GraphAI finds the waste and helps fix it.</p>
+        </div>
+        <div class="cg-panel">
+          <div class="cg-card">
+            <p class="cg-card-title">All resources</p>
+            <div class="cg-spend">
+              <p class="cg-eyebrow">Total Spend · MTD</p>
+              <p class="cg-total" data-count="412800.00">$412,800.00</p>
+              <div class="cg-meta"><span>Month to date</span><span class="cg-delta"><span class="cg-arrow"><img src="../media/costgraph/hero/arrow-up.svg" alt="" /></span>14.2%</span></div>
+            </div>
+            <div class="cg-legend"><div class="cg-row" data-k="volume"><i></i><span>Volume:</span><b data-count="140352.00">$140,352.00</b></div><div class="cg-row" data-k="model"><i></i><span>Model:</span><b data-count="90816.00">$90,816.00</b></div><div class="cg-row" data-k="unassigned"><i></i><span>Unassigned:</span><b data-count="86688.00">$86,688.00</b></div><div class="cg-row" data-k="bucket"><i></i><span>Bucket:</span><b data-count="61920.00">$61,920.00</b></div><div class="cg-row" data-k="role"><i></i><span>Assumed role:</span><b data-count="33024.00">$33,024.00</b></div></div>
+            <div class="cg-chart">
+              <div class="cg-ticks"><div class="cg-tick"><span>$18K</span><i></i></div><div class="cg-tick"><span>$15K</span><i></i></div><div class="cg-tick"><span>$12K</span><i></i></div><div class="cg-tick"><span>$9K</span><i></i></div><div class="cg-tick"><span>$6K</span><i></i></div><div class="cg-tick"><span>$3K</span><i></i></div><div class="cg-tick"><span>$0</span><i></i></div></div>
+              <div class="cg-cols">
+            <div class="cg-col" style="--c:0"><div class="cg-stack"><i data-k="volume" style="--h:99"></i><i data-k="model" style="--h:72"></i><i data-k="unassigned" style="--h:66"></i><i data-k="bucket" style="--h:53"></i><i data-k="role" style="--h:23"></i></div><span>Jun 21</span></div>
+            <div class="cg-col" style="--c:1"><div class="cg-stack"><i data-k="volume" style="--h:141"></i><i data-k="model" style="--h:75"></i><i data-k="unassigned" style="--h:82"></i><i data-k="bucket" style="--h:47"></i><i data-k="role" style="--h:28"></i></div><span class="cg-ghost">Jun 22</span></div>
+            <div class="cg-col" style="--c:2"><div class="cg-stack"><i data-k="volume" style="--h:101"></i><i data-k="model" style="--h:72"></i><i data-k="unassigned" style="--h:57"></i><i data-k="bucket" style="--h:47"></i><i data-k="role" style="--h:22"></i></div><span>Jun 23</span></div>
+            <div class="cg-col" style="--c:3"><div class="cg-stack"><i data-k="volume" style="--h:126"></i><i data-k="model" style="--h:74"></i><i data-k="unassigned" style="--h:78"></i><i data-k="bucket" style="--h:48"></i><i data-k="role" style="--h:26"></i></div><span class="cg-ghost">Jun 24</span></div>
+            <div class="cg-col" style="--c:4"><div class="cg-stack"><i data-k="volume" style="--h:142"></i><i data-k="model" style="--h:81"></i><i data-k="unassigned" style="--h:77"></i><i data-k="bucket" style="--h:57"></i><i data-k="role" style="--h:29"></i></div><span class="cg-ghost">Jun 25</span></div>
+            <div class="cg-col" style="--c:5"><div class="cg-stack"><i data-k="volume" style="--h:107"></i><i data-k="model" style="--h:76"></i><i data-k="unassigned" style="--h:69"></i><i data-k="bucket" style="--h:52"></i><i data-k="role" style="--h:25"></i></div><span>Jun 26</span></div>
+              </div>
+            </div>
+            <div class="cg-viewing"><span>Viewing:</span><span class="cg-tag" data-k="volume"><i></i>Volume<img src="../media/costgraph/hero/close.svg" alt="" /></span><span class="cg-tag" data-k="model"><i></i>Model<img src="../media/costgraph/hero/close.svg" alt="" /></span><span class="cg-tag cg-more">Show more</span></div>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- Hold the chart down before first paint, so it rises instead of
+         jumping. costgraph-hero.js lets it go. -->
+    <script>
+      try {
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.currentScript.previousElementSibling.classList.add('cg-armed');
+      } catch (e) {}
+    </script>
   </section>
 
       <section class="study-section appear" style="--i:4">
-        <h2 class="study-label">Intro</h2>
+        <h2 class="study-label">CostGraph</h2>
         <div class="study-content">
-          <p>If you run Kubernetes, you already have every metric you could ever want. What you don’t have is an answer to “what do I fix first?”, and that’s the one question CostGraph exists to answer.</p>
-          <p>We started with interviews. DevOps and platform engineers told us what their tools got wrong, what they actually looked at, and what they skipped past every single time. Those conversations shaped the product more than any competitor audit did, and most of them came down to the same thing: they didn’t need more charts, they needed to know which number to act on.</p>
+          <p>CostGraph shows a team what their cloud, Kubernetes and AI spend is made of, and what to fix first. Everything on this page is the real product, running with made-up data, so the best way to see what it does is to use it below, or <a href="https://costgraph.ai" target="_blank" rel="noopener">try it free</a>.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:5">
-        <h2 class="study-label">My role</h2>
+        <h2 class="study-label">My part</h2>
         <div class="study-content">
-          <p>I joined in 2025 and lead design on the team building CostGraph. I set the direction and look after the design system, from the tokens in Figma to the React those designs turn into, which I write.</p>
-          <p>I work fast and early in code. Claude and v0 get me through layout and flow ideas quickly, then I prototype against real backend exports rather than placeholder data, and Figma comes last, for refining what already survived real numbers. When the data is real you stop designing for states that never happen and start designing for the ones that do.</p>
+          <p>I lead design at CostGraph. I set the direction, look after the design system, <code>@costgraph/ui</code>, and write the React those designs turn into, on the dashboard and the website alike.</p>
+          <p>A lot of what’s worth showing isn’t a screen, it’s how a screen behaves, so this page goes release by release with the product running in it. Each demo plays on its own; click into it and it’s yours.</p>
         </div>
       </section>
       <section class="study-section appear" style="--i:6">
-        <h2 class="study-label">Design system</h2>
+        <h2 class="study-label">Getting teams in</h2>
         <div class="study-content">
-          <p>Dense technical screens go wrong when every visual decision gets made on the spot. So the system came first: tokens, components and motion rules, designed as primitives that extend and combine instead of getting rebuilt per screen. It ships as its own package, <code>@costgraph/ui</code>, and the app imports it like any other dependency.</p>
-          <p>Colour carries meaning and nothing else. A warning, an inefficiency and a healthy resource each have their own treatment, and nothing gets a colour just to look nice, so when something on the screen is orange it’s because you should look at it.</p>
-          <h3 class="study-subhead">One axis for anything you provision</h3>
-          <p>The clearest example is how we show whether something is the right size. Every persistent volume, VM and node has the same question behind it: you paid for this much, you’re using this much, and we think you need this much. So instead of three separate numbers there’s one track. It runs from zero to what you provisioned, green fills to our recommendation, and orange fills to what you actually use, with a tick on each.</p>
-          <p>Because that question is the same for any provisioned resource, the slider lives in the shared package rather than on one page. Its labels drop to a second row when they’d collide, which turns out to be the normal case, since the recommendation is worked out from usage and the two usually sit close together.</p>
-          <figure class="study-figure study-figure-tall" data-n="1"><img width="1000" height="530" src="../media/costgraph/usage-slider-storage.webp" alt="A storage card: 500 GiB provisioned, 118 GiB used and 160 GiB recommended on one track, with a Downsize storage badge and the monthly cost dropping from $40.00 to $12.80." loading="lazy" /></figure>
-          <p>The screens on this page are the real components, rendered with made-up clusters and costs.</p>
+          <p class="cg-when">May to Oct 2026</p>
+          <p>A cost tool is worth nothing until it can see your clusters, and connecting one means a Helm chart, an agent and a wait. This release was about making that first half hour feel short, and then making sure nobody lost their place in it.</p>
+          <h3 class="study-subhead">Onboarding</h3>
+          <p>Signing up asks for one thing, your email. The link we send signs you straight in, and only then does CostGraph ask who you are, beside a preview of the dashboard you’re about to get. Your name and your org write themselves into it as you type, and two tracks along the bottom fill as the profile and the password come together.</p>
+          <figure class="cg-demo cg-demo-wide" data-app="onboarding" data-route="/complete-profile">
+            <div class="cg-demo-stage"></div>
+            <figcaption class="cg-demo-bar"><span class="cg-demo-title">Complete your profile, then welcome</span><div class="cg-demo-speed" role="group" aria-label="Speed"><button type="button" data-rate="1" aria-pressed="true">1×</button><button type="button" data-rate="0.25" aria-pressed="false">¼×</button></div><button class="cg-demo-replay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.8 8a5.2 5.2 0 1 0 1.6-3.75M2.6 2.2v2.4H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button></figcaption>
+          </figure>
+          <ul class="cg-notes">
+            <li>One field to sign up. The app makes a temporary password for you and keeps it encrypted with a key the page itself can’t read back, and the profile step swaps it for yours. Nobody has to invent a password before they’ve seen the product.</li>
+            <li>The preview is the dashboard’s real layout drawn in skeleton, so the first screen after sign-up already looks familiar. Your name and org arrive through a scramble rather than popping in whole.</li>
+            <li>Each track fills with a <code>scaleX</code> over 500ms, ease-out, and its end nodes change colour over 300ms. They meet at the logo when the form is ready to send.</li>
+            <li>On Continue the preview drops into place, <code>translate(-436px, 371px) scale(0.6736)</code> over 800ms on <code>cubic-bezier(0.77, 0, 0.175, 1)</code>, and confetti fires from both corners. Then a choice: the guided walk-through, or straight in.</li>
+          </ul>
+          <h3 class="study-subhead">Get started</h3>
+          <p>The guide is a list of what’s left, and every item on it is a door. Connecting a cluster is the one that matters most, so it’s four short steps: name it, run one command, wait while CostGraph listens for it, and it’s in. By the time you’re back on the guide, the tick is already there.</p>
+          <figure class="cg-demo cg-demo-wide" data-app="get-started" data-stage data-size="1360x860" data-route="/get-started">
+            <div class="cg-demo-stage"></div>
+            <figcaption class="cg-demo-bar"><span class="cg-demo-title">Connect a cluster from the guide</span><div class="cg-demo-speed" role="group" aria-label="Speed"><button type="button" data-rate="1" aria-pressed="true">1×</button><button type="button" data-rate="0.25" aria-pressed="false">¼×</button></div><button class="cg-demo-replay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.8 8a5.2 5.2 0 1 0 1.6-3.75M2.6 2.2v2.4H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button></figcaption>
+          </figure>
+          <ul class="cg-notes">
+            <li>The guide is built from what’s true, not from boxes someone ticked. Each task is done when the data says so: a cluster exists, a report exists, a teammate has been invited.</li>
+            <li>The name is checked against your other clusters as you type, after a short pause, so a clash shows up before you’ve installed anything under it.</li>
+            <li>The Helm command arrives already holding the cluster’s name and an install key minted and named for it, so it can be pasted as it is.</li>
+            <li>While it waits, the flow polls for the operator and walks a live checklist. The moment the cluster reports in, the guide’s data is refreshed, which is why the tick is waiting when you get back.</li>
+          </ul>
+          <h3 class="study-subhead">The guide that follows you</h3>
+          <p>Setup isn’t one sitting, so the guide doesn’t stay on its page. Everywhere else it’s a small card in the corner that ticks things off as you do them, and the Get started item in the sidebar carries a ring of how far you are. Minimise the card and the ring comes with it.</p>
+          <figure class="cg-demo cg-demo-wide" data-app="guide" data-stage data-size="860x560" data-route="/integrations">
+            <div class="cg-demo-stage"></div>
+            <figcaption class="cg-demo-bar"><span class="cg-demo-title">The setup guide, on every page</span><div class="cg-demo-speed" role="group" aria-label="Speed"><button type="button" data-rate="1" aria-pressed="true">1×</button><button type="button" data-rate="0.25" aria-pressed="false">¼×</button></div><button class="cg-demo-replay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.8 8a5.2 5.2 0 1 0 1.6-3.75M2.6 2.2v2.4H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button></figcaption>
+          </figure>
+          <ul class="cg-notes">
+            <li>One source, three places. The page, the floating card and the sidebar ring all read the same hook, so they can never disagree about where you are.</li>
+            <li>The ring is three arcs, one per stage, each filling over 300ms. It shows the stage you’re on, not only the ones you’ve finished, so day one already has something lit.</li>
+            <li>The card opens on the stage you’re on and moves with you when one completes. It steps aside on Get started, where the full guide already is, and can be minimised or dismissed.</li>
+            <li>It arrives by rising 8px and fading in over 200ms, and stays put as you move between pages, because it lives in the layout rather than on any one page.</li>
+          </ul>
+          <h3 class="study-subhead">Support</h3>
+          <p>Support opens where you are, from the sidebar, so the page you have a question about stays on screen while you ask it. Answers arrive in the same card. When a conversation needs more room, it opens fully as a panel beside the page instead of covering it.</p>
+          <figure class="cg-demo cg-demo-wide" data-app="support" data-stage data-size="1240x780" data-route="/get-started">
+            <div class="cg-demo-stage"></div>
+            <figcaption class="cg-demo-bar"><span class="cg-demo-title">Ask, get an answer, open it fully</span><div class="cg-demo-speed" role="group" aria-label="Speed"><button type="button" data-rate="1" aria-pressed="true">1×</button><button type="button" data-rate="0.25" aria-pressed="false">¼×</button></div><button class="cg-demo-replay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.8 8a5.2 5.2 0 1 0 1.6-3.75M2.6 2.2v2.4H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button></figcaption>
+          </figure>
+          <ul class="cg-notes">
+            <li>The card is measured from the button that opened it, not placed at a fixed spot, so it follows the sidebar when that collapses. Drag it by its header and it stays where you leave it.</li>
+            <li>It grows out of the button that opened it: from 60% scale, anchored at its bottom-left corner above the button, over 260ms on a drawer curve, and goes back in over 160ms, because exits should be faster than entrances.</li>
+            <li>Messages arrive in bursts, so they enter with transitions rather than keyframes: a transition picks up from wherever it is when the next one lands, a keyframe would start again from zero.</li>
+            <li>Dragging and resizing write straight to the card while your pointer is down and commit once you let go, instead of re-rendering the whole conversation on every move. Replies are checked every 4 seconds while it’s open, every 30 while it’s closed.</li>
+          </ul>
         </div>
       </section>
       <section class="study-section appear" style="--i:7">
-        <h2 class="study-label">GraphAI</h2>
+        <h2 class="study-label">Reading the money</h2>
         <div class="study-content">
-          <p>GraphAI is our LLM tool for cost analysis. Most AI features in products live on their own page: you go there, ask something, and come back without the context you were asking about. The hard part here was showing what the agent is actually doing without burying the simple version of the screen under it.</p>
-          <p>On a wide screen the panel docks beside the page and pushes the content over rather than covering it, so the thing your question is about stays on screen while you ask. Below 1024px there isn’t room for both, so it falls back to an overlay.</p>
-          <figure class="study-figure study-figure-tall" data-n="1"><img width="1200" height="810" src="../media/costgraph/graphai-docked.webp" alt="GraphAI docked beside a cluster overview: asked why prod-api spend jumped, it answers with the cause, a link pill to the cluster overview and a chart of daily spend, last week against this week." loading="lazy" /></figure>
-          <p>When an answer mentions a page in the product, the link comes back as a pill that takes you straight there, so an answer is somewhere you can go rather than just text you have to trust. And small numbers stay readable. A chart that says $0 for something costing $0.0012 an hour is lying to you, so every GraphAI chart keeps two significant digits past the leading zeros.</p>
+          <p class="cg-when">Oct to Nov 2026</p>
+          <p>Once the data is in, the job is reading it. Every chart is read the same way: rest on a day to read it, click to keep it, switch a series off to see the rest at their own scale. Learn it once and it works everywhere.</p>
+          <h3 class="study-subhead">Budgets</h3>
+          <p>A budget answers one question: will we stay inside it? So each one is spend so far, the budget spread across the month, and where the month is heading, on one chart. Fold them down and the list becomes a status board; drag the one that matters to the top.</p>
+          <figure class="cg-demo cg-demo-wide" data-app="budgets" data-stage data-size="1200x760" data-crop="248,96,952,664" data-route="/dashboard?tab=budgets">
+            <div class="cg-demo-stage"></div>
+            <figcaption class="cg-demo-bar"><span class="cg-demo-title">Read a month, then reorder the list</span><div class="cg-demo-speed" role="group" aria-label="Speed"><button type="button" data-rate="1" aria-pressed="true">1×</button><button type="button" data-rate="0.25" aria-pressed="false">¼×</button></div><button class="cg-demo-replay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.8 8a5.2 5.2 0 1 0 1.6-3.75M2.6 2.2v2.4H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button></figcaption>
+          </figure>
+          <ul class="cg-notes">
+            <li>The forecast series is empty except for the last real day and the month’s end, and the chart joins the gap with a dashed line. A forecast shouldn’t pretend to know the days in between.</li>
+            <li>Only the forecast’s final value gets a dot, 6px, so the eye lands on where the month ends up rather than on thirty markers.</li>
+            <li>Folded, a budget keeps its three numbers: spent, percent used and forecast. Its chart and series only load when it’s open.</li>
+            <li>Reordering waits for 4px of movement before it counts as a drag, so a click on the handle stays a click. It works from the keyboard too, and the order is kept per workspace.</li>
+          </ul>
+          <h3 class="study-subhead">Provider pages</h3>
+          <p>Each cloud gets its own page, and its first chart is the month by service. The spike is the thing to find: rest on it to read the day, click to keep it open, and switch off the biggest service to see the rest at their own scale.</p>
+          <figure class="cg-demo cg-demo-wide" data-app="provider" data-stage data-size="1200x780" data-crop="264,154,920,622" data-route="/dashboard/providers/aws/overview">
+            <div class="cg-demo-stage"></div>
+            <figcaption class="cg-demo-bar"><span class="cg-demo-title">A month of AWS, by service</span><div class="cg-demo-speed" role="group" aria-label="Speed"><button type="button" data-rate="1" aria-pressed="true">1×</button><button type="button" data-rate="0.25" aria-pressed="false">¼×</button></div><button class="cg-demo-replay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.8 8a5.2 5.2 0 1 0 1.6-3.75M2.6 2.2v2.4H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button></figcaption>
+          </figure>
+          <ul class="cg-notes">
+            <li>The tooltip sorts each day’s services by spend, so when Data Transfer spikes it jumps up the list rather than staying in its usual place. It caps at twelve rows.</li>
+            <li>Every chart sits in the shared chart card, which brings one animation preset with it: 320ms, ease-out, and none at all with reduced motion.</li>
+            <li>The gaps between stacked segments are borders painted in the card’s own background colour, read from the theme as it changes, so the bars stay separated in light and dark.</li>
+            <li>Colours are ranked by total spend, so the biggest service always takes the first colour, whatever order the data arrives in.</li>
+          </ul>
+          <h3 class="study-subhead">Hover to isolate</h3>
+          <p>A machine’s cost split across CPU, memory, storage and GPU is four numbers fighting for one bar. Hover a segment or its row in the legend and everything else steps back, so the one you asked about is the only one left talking. It works the same on what’s using the machine.</p>
+          <figure class="cg-demo cg-demo-wide" data-app="highlight" data-stage data-size="1360x760" data-crop="260,108,1088,572" data-route="/compute/virtual-machines/vm-ml-01">
+            <div class="cg-demo-stage"></div>
+            <figcaption class="cg-demo-bar"><span class="cg-demo-title">A GPU machine, by cost and by load</span><div class="cg-demo-speed" role="group" aria-label="Speed"><button type="button" data-rate="1" aria-pressed="true">1×</button><button type="button" data-rate="0.25" aria-pressed="false">¼×</button></div><button class="cg-demo-replay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.8 8a5.2 5.2 0 1 0 1.6-3.75M2.6 2.2v2.4H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button></figcaption>
+          </figure>
+          <ul class="cg-notes">
+            <li>One active key per card, shared by the bar and its legend. Hover either and every other item drops to 40% and greyscale.</li>
+            <li>It fades only opacity and filter, over 150ms, which is cheap enough to follow the pointer without lag.</li>
+            <li>Segments answer focus as well as the pointer, so the same highlight works from the keyboard.</li>
+            <li>It shipped to every split bar in the app at once: cost, load drivers, the context inspector and network.</li>
+          </ul>
         </div>
       </section>
       <section class="study-section appear" style="--i:8">
-        <h2 class="study-label">Lessons</h2>
+        <h2 class="study-label">The website</h2>
         <div class="study-content">
-          <p>Clarity beats volume. Infrastructure teams can already see everything, so every screen I add has to earn its place by making the next decision easier, not by showing more.</p>
-          <p>Designing against real schemas changed how I decide things. The product got better the moment I stopped designing for the data I imagined and started designing for the data we actually had.</p>
+          <p class="cg-when">Oct 2026 to now</p>
+          <p>The website shares the app’s packages, so the brand and the product are built from the same parts. These are the pieces I’m proudest of as engineering.</p>
+          <h3 class="study-subhead">The ASCII world</h3>
+          <p>The brand’s map of the world is drawn in characters, and it’s alive: it counts up when it arrives, drifts, lifts under your cursor and ripples where you click. This is the band that closes the website, where it runs at its liveliest.</p>
+          <figure class="cg-demo cg-demo-wide cg-demo-fixed" data-demo="site-final-cta" data-size="1440x458">
+            <div class="cg-demo-stage"></div>
+            <figcaption class="cg-demo-bar"><span class="cg-demo-title">Put your bill to work</span><button class="cg-demo-replay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.8 8a5.2 5.2 0 1 0 1.6-3.75M2.6 2.2v2.4H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button></figcaption>
+          </figure>
+          <ul class="cg-notes">
+            <li>One canvas, drawn by hand. Glyphs that turn blue are collected and drawn in a second pass, so the fill colour only changes for those cells.</li>
+            <li>It redraws at full rate only while something is happening: the count-up, a ripple, the cursor’s trail. Idle, it drops to a frame every 80ms, and off screen it stops.</li>
+            <li>The headline and buttons sit in dead zones that every effect fades out around, so the art never runs through the words. The canvas ignores the pointer and listens on the window, so it reacts to you through the copy.</li>
+            <li>This band is tuned livelier than the rest of the site: a wider drift, a tap of its own every 1.1 seconds, and dollar and pound signs blinking in among the densest glyphs.</li>
+          </ul>
+          <h3 class="study-subhead">Mega menu</h3>
+          <p>The website’s menu is one panel, not three. Move between Features, Resources and Integrations and it reshapes itself around what’s next, with the content sliding in from the side you moved towards, so it reads as one place you’re looking through rather than three that open and close.</p>
+          <figure class="cg-demo cg-demo-wide" data-site="menu" data-stage data-size="1280x640" data-crop="140,0,1000,560" data-route="/">
+            <div class="cg-demo-stage"></div>
+            <figcaption class="cg-demo-bar"><span class="cg-demo-title">The menu on costgraph.ai</span><div class="cg-demo-speed" role="group" aria-label="Speed"><button type="button" data-rate="1" aria-pressed="true">1×</button><button type="button" data-rate="0.25" aria-pressed="false">¼×</button></div><button class="cg-demo-replay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.8 8a5.2 5.2 0 1 0 1.6-3.75M2.6 2.2v2.4H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button></figcaption>
+          </figure>
+          <ul class="cg-notes">
+            <li>Nothing is measured by hand. The menu library publishes the panel’s size as CSS variables, and the panel moves width and height together over 300ms on <code>cubic-bezier(0.22, 1, 0.36, 1)</code>.</li>
+            <li>The direction you moved decides the slide: new content enters from that side while the old leaves a third of its width the other way.</li>
+            <li>Hovering opens a menu, so the click that usually follows a hover is ignored rather than closing what just opened.</li>
+            <li>Inside each panel the rows rise in one after another, at 30ms apiece after a 40ms pause, in CSS alone.</li>
+          </ul>
+          <h3 class="study-subhead">The blog’s bookmark</h3>
+          <p>Long posts get a small pill at the bottom of the screen that keeps your place: which section you’re in, and how far through the post you are. Rest on it and it opens into the post’s contents, with what you’ve read ticked off; pick a section and it takes you there. Scroll the post yourself to see it keep up.</p>
+          <figure class="cg-demo cg-demo-wide" data-site="blog" data-stage data-scroll data-size="1100x640" data-crop="40,0,1020,640" data-route="/blog/node-rightsizing">
+            <div class="cg-demo-stage"></div>
+            <figcaption class="cg-demo-bar"><span class="cg-demo-title">“In this post” on a CostGraph article</span><div class="cg-demo-speed" role="group" aria-label="Speed"><button type="button" data-rate="1" aria-pressed="true">1×</button><button type="button" data-rate="0.25" aria-pressed="false">¼×</button></div><button class="cg-demo-replay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.8 8a5.2 5.2 0 1 0 1.6-3.75M2.6 2.2v2.4H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button></figcaption>
+          </figure>
+          <ul class="cg-notes">
+            <li>The pill and the contents card are one element. Only its corners, padding and background animate between the two, over 300ms on <code>cubic-bezier(0.22, 1, 0.36, 1)</code>.</li>
+            <li>The list opens by animating <code>grid-template-rows</code> from 0fr to 1fr: a height-auto animation with nothing measured.</li>
+            <li>Progress is how far a line 30% down the screen has travelled through the post, and the ring follows it over 200ms. Any scroll closes the card, so it never sits over what you’re reading.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="study-section appear" style="--i:9">
+        <h2 class="study-label">Takeaways</h2>
+        <div class="study-content">
+          <p>Nearly everything on this page is about the first hour. A cost tool can’t show you anything until it can see your cloud, so each of these releases was really working on one thing: getting a team from signing up to looking at their own spend with as little as possible in the way.</p>
+          <p>Mostly that meant taking steps out rather than explaining them. Signing up asks for an email and nothing else, and the password waits until you’ve seen the product. The Helm command arrives already holding the cluster’s name and its key. The guide ticks itself off from what’s actually connected, so nobody has to tell it what they’ve done.</p>
+          <p>Where a step couldn’t go, the work was making sure it never cost anyone their place. The guide follows you from page to page, support opens beside the page you have a question about, and connecting a cluster brings you back to a guide that’s already ticked. Setup is rarely one sitting, so the product doesn’t assume it is.</p>
+          <p>What I’d carry into the next thing: count setup in the steps a person has to take, not the screens they’re shown, and let the product do the remembering.</p>
+        </div>
+      </section>
+      <section class="study-section appear" style="--i:10">
+        <h2 class="study-label">Try it</h2>
+        <div class="study-content">
+          <p>Everything above ships in CostGraph today. If you run Kubernetes or a cloud bill you can’t explain, <a href="https://costgraph.ai" target="_blank" rel="noopener">start free at costgraph.ai</a>, or read what changed lately in the <a href="https://costgraph.ai/changelog" target="_blank" rel="noopener">changelog</a>.</p>
         </div>
       </section>
 
-  <a class="study-next appear" style="--i:9" href="yote">
+  <a class="study-next appear" style="--i:10" href="yote">
     <span class="study-next-label">Next project</span>
     <span class="study-next-name">Yöte</span>
   </a>
@@ -172,5 +326,7 @@
 <script src="/fx.js"></script>
 
 <script type="module" src="../app.js"></script>
+<script type="module" src="costgraph-hero.js"></script>
+<script type="module" src="costgraph-demos.js"></script>
 </body>
 </html>

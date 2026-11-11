@@ -1,0 +1,1 @@
+import{r as s,j as n,bd as o}from"./index-DsR1DLZc.js";function p({children:r}){const a=s.Children.toArray(r).filter(t=>s.isValidElement(t)).map((t,e)=>({value:`faq-${e}`,title:t.props.question,content:t.props.children}));return n.jsx(o,{items:a,className:"cg-faq my-8"})}function m(r){return null}export{p as F,m as a};

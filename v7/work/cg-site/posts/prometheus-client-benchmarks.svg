@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-label="remote-write benchmarks on Apple M3 Pro">
+  <defs>
+    <style>
+      .bg { fill: #0e0e0e; }
+      .frame { fill: #141414; stroke: #282828; stroke-width: 1; }
+      .title { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 12px; letter-spacing: 2.4px; fill: #6b6b6b; text-transform: uppercase; font-weight: 500; }
+      .group { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: #4a4a4a; text-transform: uppercase; font-weight: 500; }
+      .label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #b3b3b3; text-anchor: end; font-weight: 400; }
+      .value { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 12px; fill: #888; font-weight: 500; }
+      .divider { stroke: #1e1e1e; stroke-width: 1; }
+      .stat-num { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 60px; font-weight: 600; fill: rgba(163,198,255,0.95); letter-spacing: -1.5px; }
+      .stat-unit { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: #6b6b6b; text-transform: uppercase; font-weight: 500; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="520" />
+
+  <!-- Bar chart frame -->
+  <rect class="frame" x="40" y="40" width="780" height="440" rx="10" />
+  <text class="title" x="72" y="78">Latency · ns/op · Apple M3 Pro · lower is better</text>
+
+  <!-- Row 1: ClientOnly Streaming 64KB — 596 ns -->
+  <text class="label" x="320" y="146">ClientOnly Streaming 64KB</text>
+  <rect x="336" y="128" width="8" height="28" rx="3" fill="rgba(163,198,255,0.85)" />
+  <text class="value" x="354" y="146">596 ns</text>
+
+  <line class="divider" x1="336" y1="180" x2="790" y2="180" />
+
+  <!-- Row 2: Encode 100 Counters — 24,228 ns -->
+  <text class="label" x="320" y="220">Encode 100 Counters</text>
+  <rect x="336" y="202" width="268" height="28" rx="3" fill="rgba(168,146,246,0.65)" />
+  <text class="value" x="614" y="220">24,228 ns</text>
+
+  <line class="divider" x1="336" y1="254" x2="790" y2="254" />
+
+  <!-- Row 3: Forward Streaming 64KB — 41,080 ns -->
+  <text class="label" x="320" y="294">Forward Streaming 64KB</text>
+  <rect x="336" y="276" width="454" height="28" rx="3" fill="rgba(83,148,253,0.75)" />
+  <text class="value" x="800" y="294" text-anchor="end">41,080 ns</text>
+
+  <line class="divider" x1="336" y1="328" x2="790" y2="328" />
+
+  <!-- Row 4: Push Small Batch — 47,476 ns -->
+  <text class="label" x="320" y="368">Push Small Batch</text>
+  <rect x="336" y="350" width="454" height="28" rx="3" fill="rgba(253,136,58,0.55)" />
+  <text class="value" x="800" y="368" text-anchor="end">47,476 ns</text>
+
+  <!-- Legend -->
+  <g transform="translate(336, 430)">
+    <rect width="8" height="8" rx="2" fill="rgba(163,198,255,0.85)" />
+    <text x="14" y="8" class="group">Client</text>
+    <rect x="80" width="8" height="8" rx="2" fill="rgba(168,146,246,0.65)" />
+    <text x="94" y="8" class="group">Encode</text>
+    <rect x="180" width="8" height="8" rx="2" fill="rgba(83,148,253,0.75)" />
+    <text x="194" y="8" class="group">Forward</text>
+    <rect x="288" width="8" height="8" rx="2" fill="rgba(253,136,58,0.55)" />
+    <text x="302" y="8" class="group">Push</text>
+  </g>
+
+  <!-- Headline stat frame -->
+  <rect class="frame" x="840" y="40" width="320" height="440" rx="10" />
+  <text class="title" x="872" y="78">Throughput · Client-only</text>
+
+  <g transform="translate(1000, 240)" text-anchor="middle">
+    <text class="stat-num" y="0">110</text>
+    <text class="stat-unit" y="32">GB / sec</text>
+  </g>
+
+  <text class="group" x="1000" y="380" text-anchor="middle">64 KB streaming push</text>
+  <text class="group" x="1000" y="402" text-anchor="middle">12 allocs · 1,704 B / op</text>
+</svg>
