@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>inis.run</title>
+  <style>
+    .mark { fill: #e05a17; }
+    
+  </style>
+  <rect class="mark" x="4" y="4" width="24" height="24"/>
+</svg>

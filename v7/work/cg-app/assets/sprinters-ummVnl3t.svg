@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1"
+     style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+     viewBox="-140 -140 10280 10280">
+    <style type="text/css">
+		polygon{stroke-width:275;stroke-linejoin:round;stroke:hsl(247, 15%, 23%)}
+	</style>
+    
+    <polygon fill="hsl(197, 100%, 38%)"
+             points="5000,5000 5000,10000 670,7500 670,2500"/>
+    
+    <polygon fill="hsl(197, 92%, 28%)"
+             points="5000,0 9330,2500 5000,5000 670,2500"/>
+    
+    <polygon fill="hsl(197, 84%, 23%)"
+             points="5000,5000 9330,2500 9330,7500 5000,10000"/>
+    
+    <polygon fill="hsl(45, 92%, 52%)"
+             points="3500,2500 3500,7500 7830,5000"/>
+</svg>

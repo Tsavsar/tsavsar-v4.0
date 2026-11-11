@@ -1,0 +1,56 @@
+# CostGraph
+
+> CostGraph finds and cuts cloud and Kubernetes waste. It turns raw spend,
+> utilization, and real provider pricing into clear cost visibility, concrete
+> rightsizing recommendations, and automatic anomaly detection across
+> Kubernetes clusters, cloud virtual machines, AI and SaaS providers - with
+> GraphAI, a natural-language assistant that answers cost questions from your
+> own data.
+
+This is the CostGraph website: what the product does, what it costs, which
+providers it reads, and how teams use it. The application itself lives at
+https://app.costgraph.ai and has its own llms.txt.
+
+## Pages
+
+<!-- BEGIN GENERATED ROUTES -->
+- [CostGraph](https://costgraph.ai/): Cloud, Kubernetes, AI and SaaS cost in one place, with GraphAI and agents that answer from your own bills.
+- [Brand assets](https://costgraph.ai/assets): CostGraph logos and brand files.
+- [Blog](https://costgraph.ai/blog): Articles on cloud, Kubernetes and AI cost.
+- [Changelog](https://costgraph.ai/changelog): Product releases and what changed in each.
+- [Customers](https://costgraph.ai/customers): How teams use CostGraph to see, attribute and act on what they spend.
+- [Revyl](https://costgraph.ai/customers/revyl): How Revyl tracks AI and infrastructure spend with the CostGraph agent.
+- [Data Archival and Removal Policy](https://costgraph.ai/data-removal-policy): How CostGraph removes data, and how to ask us to delete it.
+- [Data Retention Policy](https://costgraph.ai/data-retention-policy): How long CostGraph keeps each kind of data.
+- [Data Storage Policy](https://costgraph.ai/data-storage-policy): Where CostGraph stores the data you connect, and how it is kept.
+- [Integrations](https://costgraph.ai/integrations): Every cloud, Kubernetes, AI and SaaS provider CostGraph reads cost from.
+- [Pricing](https://costgraph.ai/pricing): Plans and pricing, priced on what you run and never on what you save.
+- [Privacy Policy](https://costgraph.ai/privacy-policy): How CostGraph collects, uses and protects personal information.
+- [Security](https://costgraph.ai/security): How CostGraph protects your account, your connections and your data.
+- [Terms of Use](https://costgraph.ai/terms-of-use): The terms that apply when you use CostGraph and its services.
+- [Use cases](https://costgraph.ai/use-cases): How teams put CostGraph to work, and how it compares with the tools they already run.
+- [CostGraph for CI](https://costgraph.ai/use-cases/ci): See what each pull request will cost before it merges, priced from real provider rates.
+- [CostGraph vs OpenCost](https://costgraph.ai/use-cases/opencost): How CostGraph compares with OpenCost, and how to replace it without breaking existing clients.
+<!-- END GENERATED ROUTES -->
+
+## Product
+
+- [Dashboard](https://app.costgraph.ai): the application (sign-in required).
+- [Dashboard llms.txt](https://app.costgraph.ai/llms.txt): every page in the
+  application.
+- [Get started](https://app.costgraph.ai/get-started): connect your first
+  cluster or cloud account.
+
+## Docs
+
+- [Documentation](https://docs.costgraph.ai): setup, core concepts, and guides.
+- [MCP server](https://docs.costgraph.ai/costgraph/mcp/install): connect an AI
+  assistant to CostGraph over MCP.
+- [Trust Center](https://trust.costgraph.ai): compliance reports and
+  subprocessors.
+
+## Optional
+
+- [Sign in](https://app.costgraph.ai/sign-in)
+- [Create an account](https://app.costgraph.ai/create-account)
+- [Book a demo](https://cal.com/team/costgraph-team/chat-with-the-costgraph-team)

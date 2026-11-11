@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="'JetBrains Mono','SF Mono','Fira Code',ui-monospace,monospace">
+  <!-- canvas -->
+  <rect x="0" y="0" width="1600" height="900" fill="#0e0e0e"/>
+
+  <!-- panel divider -->
+  <line x1="812" y1="0" x2="812" y2="900" stroke="#1c1c1c" stroke-width="1"/>
+
+  <!-- ===================== LEFT PANEL: ownership overlay ===================== -->
+  <!-- framed card -->
+  <rect x="92" y="150" width="620" height="600" rx="12" fill="#141414" stroke="#282828" stroke-width="1.5"/>
+  <text x="676" y="200" text-anchor="end" font-size="14" letter-spacing="3" fill="#4a4a4a">OWNERSHIP · WHO OWNS WHAT</text>
+  <line x1="128" y1="224" x2="676" y2="224" stroke="#242424" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Row 1: eks-prod -> platform -->
+  <text x="128" y="297" font-size="21" fill="#c9c9c9">eks-prod</text>
+  <g transform="translate(392,272)">
+    <rect width="126" height="36" rx="7" fill="#3ab8ff" fill-opacity="0.16" stroke="#3ab8ff" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="63" y="24" text-anchor="middle" font-size="15" fill="#9ad4ff">platform</text>
+  </g>
+
+  <!-- Row 2: gpu-a100 -> ml -->
+  <text x="128" y="393" font-size="21" fill="#c9c9c9">gpu-a100 ×8</text>
+  <g transform="translate(392,368)">
+    <rect width="72" height="36" rx="7" fill="#b388ff" fill-opacity="0.16" stroke="#b388ff" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="36" y="24" text-anchor="middle" font-size="15" fill="#cdb4ff">ml</text>
+  </g>
+
+  <!-- Row 3: rds-payments -> payments -->
+  <text x="128" y="489" font-size="21" fill="#c9c9c9">rds-payments</text>
+  <g transform="translate(392,464)">
+    <rect width="132" height="36" rx="7" fill="#ff8a80" fill-opacity="0.16" stroke="#ff8a80" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="66" y="24" text-anchor="middle" font-size="15" fill="#ffaba3">payments</text>
+  </g>
+
+  <!-- Row 4: redis-cache -> platform + payments (shared) -->
+  <text x="128" y="585" font-size="21" fill="#c9c9c9">redis-cache</text>
+  <g transform="translate(392,560)">
+    <rect width="118" height="36" rx="7" fill="#3ab8ff" fill-opacity="0.16" stroke="#3ab8ff" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="59" y="24" text-anchor="middle" font-size="15" fill="#9ad4ff">platform</text>
+  </g>
+  <g transform="translate(518,560)">
+    <rect width="126" height="36" rx="7" fill="#ff8a80" fill-opacity="0.16" stroke="#ff8a80" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="63" y="24" text-anchor="middle" font-size="15" fill="#ffaba3">payments</text>
+  </g>
+
+  <!-- Row 5: k8s-cluster-1 -> all three (contested) -->
+  <text x="128" y="681" font-size="21" fill="#efefef">k8s-cluster-1</text>
+  <g transform="translate(392,656)">
+    <rect width="96" height="36" rx="7" fill="#3ab8ff" fill-opacity="0.16" stroke="#3ab8ff" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="48" y="24" text-anchor="middle" font-size="15" fill="#9ad4ff">platform</text>
+  </g>
+  <g transform="translate(496,656)">
+    <rect width="60" height="36" rx="7" fill="#b388ff" fill-opacity="0.16" stroke="#b388ff" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="30" y="24" text-anchor="middle" font-size="15" fill="#cdb4ff">ml</text>
+  </g>
+  <g transform="translate(564,656)">
+    <rect width="112" height="36" rx="7" fill="#ff8a80" fill-opacity="0.16" stroke="#ff8a80" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="56" y="24" text-anchor="middle" font-size="15" fill="#ffaba3">payments</text>
+  </g>
+
+  <!-- ===================== RIGHT PANEL: title ===================== -->
+  <text x="872" y="352" font-size="15" letter-spacing="4" fill="#6f6f6f">PRODUCT · VIRTUAL TAGS</text>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif">
+    <text x="872" y="452" font-size="58" font-weight="600" fill="#efefef" letter-spacing="-0.5">CostGraph launches</text>
+    <!-- highlighter band behind "virtual tags", echoing the in-body Highlight component -->
+    <rect x="864" y="500" width="306" height="30" fill="#facc15" fill-opacity="0.34"/>
+    <text x="872" y="524" font-size="58" font-weight="600" fill="#efefef" letter-spacing="-0.5">virtual tags</text>
+  </g>
+
+  <rect x="872" y="574" width="44" height="3" fill="#3ab8ff"/>
+
+  <text x="872" y="628" font-size="19" fill="#8a8a8a" font-family="-apple-system, system-ui, sans-serif">Tag and audit your infrastructure without the hours.</text>
+</svg>

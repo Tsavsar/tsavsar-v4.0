@@ -1,0 +1,1 @@
+var i=Object.defineProperty;var e=(s,t)=>i(s,"name",{value:t,configurable:!0});const n={resourceType:"k8s_persistent_volume",title:"Persistent volume disk metrics",description:"Disk usage and IOPS metrics for one persistent volume."};function o(){return null}e(o,"PvMetricsDiskPage");export{o as default,n as linkMeta};

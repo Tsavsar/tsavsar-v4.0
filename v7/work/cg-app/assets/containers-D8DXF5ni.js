@@ -1,0 +1,1 @@
+var n=Object.defineProperty;var e=(s,t)=>n(s,"name",{value:t,configurable:!0});const r={resourceType:"k8s_persistent_volume",title:"Persistent volume consumers",description:"Workloads consuming one persistent volume."};function i(){return null}e(i,"PvMetricsContainersPage");export{i as default,r as linkMeta};

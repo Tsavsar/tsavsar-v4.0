@@ -1,0 +1,8 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(2.000 3.000)">
+<g id="Group">
+<path id="Vector" d="M4 1H6V13H4C2.344 13 1 11.656 1 10V4C1 2.344 2.344 1 4 1Z" fill="currentColor"/>
+<path id="Vector_2" d="M12 1H4C2.34315 1 1 2.34315 1 4V10C1 11.6569 2.34315 13 4 13H12C13.6569 13 15 11.6569 15 10V4C15 2.34315 13.6569 1 12 1Z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,1 @@
+var n=Object.defineProperty;var t=(a,e)=>n(a,"name",{value:e,configurable:!0});import{a as o,e as u}from"./index-BYoNuWGC.js";const g=10,m=t(a=>{const e=a===void 0?"page":a,[r]=o(e,u);if(r==null)return 0;const s=Math.trunc(r);return s>0?s-1:0},"usePageSearchParam");export{g as D,m as u};

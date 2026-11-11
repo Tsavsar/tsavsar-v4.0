@@ -1,0 +1,1 @@
+var r=Object.defineProperty;var e=(t,o)=>r(t,"name",{value:o,configurable:!0});import{M as a}from"./index-Bw72oE1q.js";function i(t,o){const s=a(t,o?.in);return s.setDate(1),s.setHours(0,0,0,0),s}e(i,"startOfMonth");export{i as s};

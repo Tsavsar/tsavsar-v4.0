@@ -1,0 +1,1 @@
+var s=Object.defineProperty;var o=(e,t)=>s(e,"name",{value:t,configurable:!0});import{c as r,j as a,O as c}from"./index-Bw72oE1q.js";function i(){const e=r.c(1);let t;return e[0]===Symbol.for("react.memo_cache_sentinel")?(t=a.jsx(c,{}),e[0]=t):t=e[0],t}o(i,"ReportsLayout");export{i as default};

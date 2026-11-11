@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Kubernetes cost optimization: ten bars showing requested capacity versus actual usage, alongside a falling cost line">
+  <defs>
+    <style>
+      .bg { fill: #0e0e0e; }
+      .frame { fill: #141414; stroke: #282828; stroke-width: 1; }
+      .micro { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 12px; letter-spacing: 2.4px; fill: #6b6b6b; text-transform: uppercase; font-weight: 500; }
+      .micro-dim { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: #4a4a4a; text-transform: uppercase; font-weight: 500; }
+      .tick-label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #5a5a5a; font-weight: 400; }
+      .pin-label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: rgba(253,136,58,0.95); text-transform: uppercase; font-weight: 600; }
+      .axis-label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: rgba(163,198,255,0.6); text-transform: uppercase; font-weight: 500; }
+      .requested { fill: none; stroke: rgba(168,146,246,0.35); stroke-width: 1.5; }
+      .used { fill: rgba(163,198,255,0.85); }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="900" />
+  <rect class="frame" x="60" y="60" width="1480" height="780" rx="14" />
+
+  <!-- Corner micro-labels -->
+  <text class="micro" x="100" y="110">Kubernetes · Cost Optimization</text>
+  <text class="micro-dim" x="1500" y="110" text-anchor="end">10 Tools · 2027</text>
+  <text class="micro-dim" x="100" y="800">requested vs used</text>
+  <text class="micro-dim" x="1500" y="800" text-anchor="end">namespace · workload · team</text>
+
+  <!-- Baseline -->
+  <line x1="140" y1="680" x2="1460" y2="680" stroke="#282828" stroke-width="1" />
+
+  <!-- Ten bar pairs: tall outlined bars are requested capacity, short filled bars are actual usage -->
+  <!-- bar width 56, gap 76, start x 160 -->
+  <g>
+    <rect class="requested" x="160" y="300" width="56" height="380" rx="4" />
+    <rect class="used"      x="176" y="596" width="24" height="84"  rx="3" />
+
+    <rect class="requested" x="292" y="340" width="56" height="340" rx="4" />
+    <rect class="used"      x="308" y="576" width="24" height="104" rx="3" />
+
+    <rect class="requested" x="424" y="260" width="56" height="420" rx="4" />
+    <rect class="used"      x="440" y="610" width="24" height="70"  rx="3" />
+
+    <rect class="requested" x="556" y="380" width="56" height="300" rx="4" />
+    <rect class="used"      x="572" y="564" width="24" height="116" rx="3" />
+
+    <rect class="requested" x="688" y="320" width="56" height="360" rx="4" />
+    <rect class="used"      x="704" y="588" width="24" height="92"  rx="3" />
+
+    <rect class="requested" x="820" y="360" width="56" height="320" rx="4" />
+    <rect class="used"      x="836" y="556" width="24" height="124" rx="3" />
+
+    <rect class="requested" x="952" y="410" width="56" height="270" rx="4" />
+    <rect class="used"      x="968" y="548" width="24" height="132" rx="3" />
+
+    <rect class="requested" x="1084" y="440" width="56" height="240" rx="4" />
+    <rect class="used"      x="1100" y="536" width="24" height="144" rx="3" />
+
+    <rect class="requested" x="1216" y="470" width="56" height="210" rx="4" />
+    <rect class="used"      x="1232" y="528" width="24" height="152" rx="3" />
+
+    <rect class="requested" x="1348" y="500" width="56" height="180" rx="4" />
+    <rect class="used"      x="1364" y="520" width="24" height="160" rx="3" />
+  </g>
+
+  <!-- Cost line: steps down as requests get rightsized toward usage -->
+  <path d="M 160 250 L 292 292 L 424 236 L 556 340 L 688 296 L 820 330 L 952 378 L 1084 412 L 1216 446 L 1404 478"
+        stroke="rgba(253,136,58,0.9)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="1404" cy="478" r="5" fill="rgba(253,136,58,0.95)" />
+  <text class="pin-label" x="1404" y="452" text-anchor="end">Spend · Rightsized</text>
+
+  <!-- Legend -->
+  <g>
+    <rect class="requested" x="140" y="152" width="18" height="12" rx="2" />
+    <text class="axis-label" x="168" y="162">Requested</text>
+    <rect class="used" x="286" y="152" width="18" height="12" rx="2" />
+    <text class="axis-label" x="314" y="162">Used</text>
+  </g>
+</svg>

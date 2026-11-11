@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="A wall of fading dashboard tiles giving way to a single prompt bar">
+  <defs>
+    <style>
+      .bg { fill: #0e0e0e; }
+      .frame { fill: #141414; stroke: #282828; stroke-width: 1; }
+      .micro { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 12px; letter-spacing: 2.4px; fill: #6b6b6b; text-transform: uppercase; font-weight: 500; }
+      .micro-dim { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: #4a4a4a; text-transform: uppercase; font-weight: 500; }
+      .pin-label { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 11px; letter-spacing: 1.6px; fill: rgba(253,136,58,0.95); text-transform: uppercase; font-weight: 600; }
+      .prompt-text { font-family: 'Geist', system-ui, -apple-system, sans-serif; font-size: 22px; fill: #b8b8b8; font-weight: 400; }
+      .tile { fill: #161616; stroke: #262626; stroke-width: 1; }
+      .tile-line { stroke: rgba(168,146,246,0.28); stroke-width: 1.5; fill: none; }
+      .tile-bar { fill: rgba(163,198,255,0.22); }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="900" />
+  <rect class="frame" x="60" y="60" width="1480" height="780" rx="14" />
+
+  <!-- Corner micro-labels -->
+  <text class="micro" x="100" y="110">Interfaces · After Dashboards</text>
+  <text class="micro-dim" x="1500" y="110" text-anchor="end">On Demand · 2026</text>
+  <text class="micro-dim" x="100" y="800">three dashboards a day</text>
+  <text class="micro-dim" x="1500" y="800" text-anchor="end">data · where you need it</text>
+
+  <!-- Fading grid of dashboard tiles (each row dimmer than the last) -->
+  <g opacity="0.85">
+    <rect class="tile" x="140" y="150" width="320" height="150" rx="8" />
+    <path class="tile-line" d="M 165 260 L 225 235 L 285 250 L 345 215 L 405 230 L 435 220" />
+    <rect class="tile" x="490" y="150" width="320" height="150" rx="8" />
+    <rect class="tile-bar" x="520" y="230" width="34" height="45" rx="3" />
+    <rect class="tile-bar" x="570" y="205" width="34" height="70" rx="3" />
+    <rect class="tile-bar" x="620" y="245" width="34" height="30" rx="3" />
+    <rect class="tile-bar" x="670" y="190" width="34" height="85" rx="3" />
+    <rect class="tile-bar" x="720" y="220" width="34" height="55" rx="3" />
+    <rect class="tile" x="840" y="150" width="320" height="150" rx="8" />
+    <path class="tile-line" d="M 865 240 L 925 255 L 985 225 L 1045 245 L 1105 210 L 1135 225" />
+    <rect class="tile" x="1190" y="150" width="270" height="150" rx="8" />
+    <rect class="tile-bar" x="1215" y="200" width="220" height="12" rx="3" />
+    <rect class="tile-bar" x="1215" y="228" width="160" height="12" rx="3" />
+    <rect class="tile-bar" x="1215" y="256" width="190" height="12" rx="3" />
+  </g>
+
+  <g opacity="0.45">
+    <rect class="tile" x="140" y="330" width="320" height="150" rx="8" />
+    <rect class="tile-bar" x="170" y="410" width="34" height="45" rx="3" />
+    <rect class="tile-bar" x="220" y="390" width="34" height="65" rx="3" />
+    <rect class="tile-bar" x="270" y="425" width="34" height="30" rx="3" />
+    <rect class="tile" x="490" y="330" width="320" height="150" rx="8" />
+    <path class="tile-line" d="M 515 440 L 575 415 L 635 430 L 695 400 L 755 420 L 785 405" />
+    <rect class="tile" x="840" y="330" width="320" height="150" rx="8" />
+    <rect class="tile-bar" x="865" y="380" width="270" height="12" rx="3" />
+    <rect class="tile-bar" x="865" y="408" width="200" height="12" rx="3" />
+    <rect class="tile" x="1190" y="330" width="270" height="150" rx="8" />
+    <path class="tile-line" d="M 1215 430 L 1265 410 L 1315 425 L 1365 395 L 1435 415" />
+  </g>
+
+  <g opacity="0.18">
+    <rect class="tile" x="140" y="510" width="320" height="120" rx="8" />
+    <rect class="tile" x="490" y="510" width="320" height="120" rx="8" />
+    <rect class="tile" x="840" y="510" width="320" height="120" rx="8" />
+    <rect class="tile" x="1190" y="510" width="270" height="120" rx="8" />
+  </g>
+
+  <!-- The prompt bar that replaces them -->
+  <g>
+    <rect x="320" y="672" width="960" height="76" rx="38" fill="#181818" stroke="rgba(253,136,58,0.55)" stroke-width="1.5" />
+    <text class="prompt-text" x="368" y="719">What did checkout cost us this week?</text>
+    <circle cx="1232" cy="710" r="22" fill="rgba(253,136,58,0.9)" />
+    <path d="M 1224 710 L 1240 710 M 1234 703 L 1241 710 L 1234 717" stroke="#0e0e0e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <text class="pin-label" x="800" y="660" text-anchor="middle">Ask · Instead of Opening a Tab</text>
+</svg>

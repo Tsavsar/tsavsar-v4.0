@@ -1,0 +1,1 @@
+import{b5 as s,p as e,b6 as o,j as i}from"./index-DsR1DLZc.js";const g="";function u(){return e}function a(){return!1}function c(){return!0}function p(){return s.useSyncExternalStore(u,a,c)}function x(n){const{script:t}=n,{nonce:r}=o();return p()?i.jsx("script",{nonce:r,dangerouslySetInnerHTML:{__html:t},suppressHydrationWarning:!0}):null}export{x as P,g as s,p as u};

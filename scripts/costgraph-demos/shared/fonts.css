@@ -1,0 +1,9 @@
+/* The CostGraph faces, served from the portfolio's own /fonts */
+@font-face { font-family: 'Geist'; font-weight: 100 900; font-display: swap; src: url(/fonts/geist-latin.woff2) format('woff2'); }
+@font-face { font-family: 'Funnel Display'; font-weight: 300 800; font-display: swap; src: url(/fonts/funnel-display-latin.woff2) format('woff2'); }
+@font-face { font-family: 'Geist Mono'; font-weight: 100 900; font-display: swap; src: url(/fonts/geist-mono-latin.woff2) format('woff2'); }
+
+/* The stage behind the demo belongs to the case study page, not the demo */
+html, body { background: transparent !important; min-height: 0; }
+body { margin: 0; overflow: hidden; }
+#root { min-height: 100vh; }

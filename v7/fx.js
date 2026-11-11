@@ -17,7 +17,7 @@ let arrived = false;
 try { arrived = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (_) {}
 
 /* ---- images form out of particles ------------------------------------ */
-const IMG_SKIP = '.nav, .cards, .vinyl, .player, .collage, .gallery, .lb, .study-pill, .hero-brand';
+const IMG_SKIP = '.nav, .cards, .vinyl, .player, .collage, .gallery, .lb, .study-pill, .hero-brand, .cg-hero';
 
 function wants(img) {
   if (img.closest(IMG_SKIP)) return false;

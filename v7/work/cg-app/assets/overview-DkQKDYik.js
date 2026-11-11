@@ -1,0 +1,1 @@
+var o=Object.defineProperty;var e=(t,r)=>o(t,"name",{value:r,configurable:!0});const i={resourceType:"k8s_persistent_volume",title:"Persistent volume metrics overview",description:"Storage, IOPS and throughput for one persistent volume."};function n(){return null}e(n,"PvMetricsOverviewPage");export{n as default,i as linkMeta};

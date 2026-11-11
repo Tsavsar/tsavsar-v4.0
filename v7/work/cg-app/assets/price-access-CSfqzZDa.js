@@ -1,0 +1,1 @@
+var n=Object.defineProperty;var e=(r,o)=>n(r,"name",{value:o,configurable:!0});import{u as s}from"./auth-store-Bfa0CG2w.js";const a=e(()=>{const r=s(t);return r==="admin"||r==="org_owner"},"useCanAssignPrices");function t(r){return r.user?.role}e(t,"_temp");export{a as u};

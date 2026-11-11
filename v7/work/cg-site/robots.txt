@@ -1,0 +1,6 @@
+# AI crawlers (GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, etc.) are welcome.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://costgraph.ai/sitemap.xml

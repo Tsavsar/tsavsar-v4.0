@@ -1,0 +1,13 @@
+{
+    "client_id": "https://costgraph.ai/oauth/cli-client.json",
+    "client_name": "CostGraph CLI",
+    "client_uri": "https://costgraph.ai",
+    "logo_uri": "https://costgraph.ai/logo.png",
+    "tos_uri": "https://costgraph.ai/terms-of-use",
+    "policy_uri": "https://costgraph.ai/privacy-policy",
+    "redirect_uris": ["http://localhost/callback", "http://127.0.0.1/callback"],
+    "grant_types": ["authorization_code", "refresh_token"],
+    "response_types": ["code"],
+    "token_endpoint_auth_method": "none",
+    "application_type": "native"
+}
