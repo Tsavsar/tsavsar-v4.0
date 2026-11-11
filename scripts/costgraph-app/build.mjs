@@ -39,6 +39,8 @@ function patch(file, edits) {
 mkdirSync(join(dash, 'public/__local'), { recursive: true })
 cpSync(join(here, 'local'), join(dash, 'public/__local'), { recursive: true })
 cpSync(join(here, 'portfolio'), join(dash, 'src/__portfolio'), { recursive: true })
+// the cursor the walkthroughs click with, shared with the other demos
+cpSync(join(here, '../shared/cursor.js'), join(dash, 'src/__portfolio/cursor.js'))
 
 // 2. The fake backend loads before anything else on the page
 patch('index.html', [[

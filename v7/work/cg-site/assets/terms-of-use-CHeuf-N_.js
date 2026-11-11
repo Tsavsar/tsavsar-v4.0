@@ -1,0 +1,1 @@
+import{j as t}from"./index-DO1J06vb.js";import{L as s}from"./legal-document-DB9vJOzR.js";import"./trust-page-C08uCuaa.js";const e={title:"Terms of Use",description:"The terms that apply when you use CostGraph and its services."};function m(){return t.jsx(s,{path:"/terms-of-use",title:e.title,summary:e.description,document:"terms-of-use"})}export{m as default,e as linkMeta};

@@ -1,5 +1,8 @@
-// The website walkthroughs: what a visitor would do, through the real site.
-// The first real pointer or key press ends the script.
+// The website walkthroughs: what a visitor would do, through the real site,
+// with a visible cursor doing the pointing (cursor.js, shared with the other
+// demos). The first real pointer or key press ends the script.
+import { createCursor } from './cursor.js';
+
 const params = new URLSearchParams(location.search);
 const demo = params.get('demo') ?? '';
 let rate = Number(params.get('speed')) > 0 ? Number(params.get('speed')) : 1;
@@ -13,7 +16,13 @@ addEventListener('message', e => {
     rate = e.data.rate;
     document.getAnimations().forEach(a => (a.playbackRate = rate));
 });
-['pointerdown', 'keydown'].forEach(t => addEventListener(t, e => { if (e.isTrusted) cancelled = true; }, true));
+['pointerdown', 'keydown'].forEach(t =>
+    addEventListener(t, e => {
+        if (!e.isTrusted) return;
+        cancelled = true;
+        pointer.leave();
+    }, true)
+);
 
 class Cancelled extends Error {}
 // While the visitor's pointer rests on the demo the script holds still, so
@@ -31,10 +40,12 @@ const wait = async (ms: number) => {
         await new Promise(r => setTimeout(r, step));
         // moved over it, or resting on it since before the frame loaded
         const over = hovering || document.documentElement.matches(':hover');
+        pointer.hold(over);
         if (!over) left -= step;
     }
     if (cancelled) throw new Cancelled();
 };
+const pointer = createCursor({ wait, rate: () => rate });
 async function find<T extends Element = HTMLElement>(test: () => T | null | undefined, timeout = 10000): Promise<T> {
     const start = performance.now();
     for (;;) {
@@ -49,16 +60,8 @@ const $ = <T extends Element = HTMLElement>(sel: string) => document.querySelect
 const byText = <T extends Element = HTMLElement>(sel: string, text: string) =>
     [...document.querySelectorAll<T>(sel)].find(el => el.textContent?.trim() === text) ?? null;
 
-function hoverOn(el: Element) {
-    const r = el.getBoundingClientRect();
-    const o = { bubbles: true, view: window, pointerType: 'mouse', clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, relatedTarget: document.body };
-    el.dispatchEvent(new PointerEvent('pointerover', o));
-    el.dispatchEvent(new PointerEvent('pointerenter', { ...o, bubbles: false }));
-    el.dispatchEvent(new PointerEvent('pointermove', o));
-    el.dispatchEvent(new MouseEvent('mouseover', o));
-    el.dispatchEvent(new MouseEvent('mouseenter', { ...o, bubbles: false }));
-    el.dispatchEvent(new MouseEvent('mousemove', o));
-}
+/** The cursor arriving on an element and resting there */
+const hoverOn = (el: Element) => pointer.hoverOn(el);
 function hoverOff(el: Element) {
     const o = { bubbles: true, view: window, pointerType: 'mouse', relatedTarget: document.body };
     el.dispatchEvent(new PointerEvent('pointerout', o));
@@ -66,14 +69,8 @@ function hoverOff(el: Element) {
     el.dispatchEvent(new MouseEvent('mouseout', o));
     el.dispatchEvent(new MouseEvent('mouseleave', { ...o, bubbles: false }));
 }
-function press(el: Element) {
-    const o = { bubbles: true, cancelable: true, view: window, button: 0, pointerType: 'mouse' };
-    el.dispatchEvent(new PointerEvent('pointerdown', o));
-    el.dispatchEvent(new MouseEvent('mousedown', o));
-    el.dispatchEvent(new PointerEvent('pointerup', o));
-    el.dispatchEvent(new MouseEvent('mouseup', o));
-    (el as HTMLElement).click();
-}
+/** The cursor goes to it, rests a beat, and presses it */
+const press = (el: Element) => pointer.press(el);
 /** Scrolls the page the way a reader would: in an eased glide */
 async function glideTo(y: number, ms: number) {
     const from = scrollY;
@@ -81,7 +78,9 @@ async function glideTo(y: number, ms: number) {
     for (let i = 1; i <= steps; i++) {
         const t = i / steps;
         const e = t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
-        scrollTo(0, from + (y - from) * e);
+        // instant: the glide is its own easing, and the site's smooth
+        // scroll-behavior would chase every step with another
+        scrollTo({ top: from + (y - from) * e, behavior: 'instant' });
         await wait(ms / steps);
     }
 }
@@ -97,13 +96,13 @@ const scripts: Record<string, () => Promise<void>> = {
         await wait(1500);
         const ticks = await find(() => { const b = [...document.querySelectorAll('nav[aria-label="Releases by date"] button, nav[aria-label="Releases by date"] a')]; return b.length > 6 ? b : null; });
         for (const i of [5, 6, 7, 8]) {
-            hoverOn(ticks[i]);
+            await hoverOn(ticks[i]);
             await wait(850);
             hoverOff(ticks[i]);
         }
-        hoverOn(ticks[8]);
+        await hoverOn(ticks[8]);
         await wait(500);
-        press(ticks[8]);
+        await press(ticks[8]);
         await wait(2600);
         hoverOff(ticks[8]);
         await glideTo(0, 2000);
@@ -119,11 +118,12 @@ const scripts: Record<string, () => Promise<void>> = {
         await glideTo(yOf(heads[2]) + 80, 2200);
         await wait(1300);
         const pill = await find(() => $('nav[aria-label="In this post"]'));
-        hoverOn(pill);
-        hoverOn(pill.firstElementChild ?? pill);
+        await hoverOn(pill.firstElementChild ?? pill);
+        pill.dispatchEvent(new PointerEvent('pointerover', { bubbles: true, view: window, pointerType: 'mouse' }));
+        pill.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, view: window }));
         await wait(2400);
         const target = [...pill.querySelectorAll('a, button')].find(a => a.textContent?.trim() === 'What we run in production');
-        if (target) press(target);
+        if (target) await press(target);
         await wait(2600);
         hoverOff(pill.firstElementChild ?? pill);
         hoverOff(pill);
@@ -135,7 +135,7 @@ const scripts: Record<string, () => Promise<void>> = {
         await wait(1600);
         const open = async (name: string, ms: number) => {
             const t = await find(() => byText('button', name));
-            hoverOn(t);
+            await hoverOn(t);
             await wait(ms);
             return t;
         };
@@ -152,5 +152,12 @@ const scripts: Record<string, () => Promise<void>> = {
 export function start() {
     const script = scripts[demo];
     if (!script || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    script().catch(e => { if (!(e instanceof Cancelled)) console.warn(e); });
+    script()
+        // done: the hand comes off, and the result is left clear
+        .then(() => wait(900))
+        .then(() => pointer.leave())
+        .catch(e => {
+            pointer.leave();
+            if (!(e instanceof Cancelled)) console.warn(e);
+        });
 }

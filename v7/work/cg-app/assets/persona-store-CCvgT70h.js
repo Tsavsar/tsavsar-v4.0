@@ -1,1 +1,0 @@
-var o=Object.defineProperty;var r=(a,e)=>o(a,"name",{value:e,configurable:!0});import{P as t,Q as n,T as p,a4 as i}from"./index-Bw72oE1q.js";const g=t()(n((a,e)=>({persona:i,setPersona:r(s=>{e().persona!==s&&a({persona:s})},"setPersona")}),{name:"graph_ai_persona",storage:p(()=>localStorage),partialize:r(a=>({persona:a.persona}),"partialize")}));export{g as u};

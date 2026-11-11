@@ -1,0 +1,1 @@
+var r=Object.defineProperty;var n=(t,e)=>r(t,"name",{value:e,configurable:!0});import{M as a}from"./index-D6U2DrAI.js";function i(t,e){const o=a(t,e?.in);return o.setHours(23,59,59,999),o}n(i,"endOfDay");export{i as e};
