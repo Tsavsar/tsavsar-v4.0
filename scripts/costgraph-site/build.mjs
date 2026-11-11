@@ -28,7 +28,8 @@ mkdirSync(join(site, 'public/__local'), { recursive: true })
 cpSync(join(here, 'local'), join(site, 'public/__local'), { recursive: true })
 cpSync(join(here, 'portfolio'), join(site, 'src/__portfolio'), { recursive: true })
 
-patch('index.html', '__local/guard.js', '<head>', '<head>\n    <script src="__local/guard.js"></script>')
+// absolute: the live site serves this folder without its trailing slash
+patch('index.html', '__local/guard.js', '<head>', '<head>\n    <script src="/work/cg-site/__local/guard.js"></script>')
 patch('src/main.tsx', '__portfolio/router', "import { BrowserRouter } from 'react-router-dom';", "import { DemoRouter as BrowserRouter } from './__portfolio/router';")
 patch('src/main.tsx', '__portfolio/driver', "const root = document.getElementById('root');", "void import('./__portfolio/driver').then(m => m.start());\n\nconst root = document.getElementById('root');")
 
