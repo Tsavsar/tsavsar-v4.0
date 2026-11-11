@@ -125,7 +125,6 @@ function load(fig) {
     const [w, h] = size(fig);
     frame.style.width = `${w}px`;
     frame.style.height = `${h}px`;
-    frame.allow = 'clipboard-write';
   }
   frame.addEventListener('load', () => {
     shown(frame).then(() => fig.classList.add('is-ready'));

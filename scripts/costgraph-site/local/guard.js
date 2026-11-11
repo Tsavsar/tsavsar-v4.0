@@ -27,6 +27,13 @@
     return realFetch(url.href, init);
   };
   navigator.sendBeacon = () => true;
+
+  // Copy buttons say they copied, and nothing reaches the visitor's
+  // clipboard: not the walkthrough's presses, not their own clicks
+  const quiet = { writeText: () => Promise.resolve(), write: () => Promise.resolve(), readText: () => Promise.resolve(''), read: () => Promise.resolve([]), addEventListener() {}, removeEventListener() {} };
+  try { Object.defineProperty(Navigator.prototype, 'clipboard', { configurable: true, get: () => quiet }); } catch (e) {}
+  const exec = Document.prototype.execCommand;
+  Document.prototype.execCommand = function (cmd, ...rest) { return /^(copy|cut)$/i.test(cmd) ? true : exec.call(this, cmd, ...rest); };
   const xopen = XMLHttpRequest.prototype.open;
   XMLHttpRequest.prototype.open = function (m, u, ...rest) {
     if (new URL(u, location.href).origin !== location.origin) u = 'about:blank';
