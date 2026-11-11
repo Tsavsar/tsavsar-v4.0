@@ -44,7 +44,8 @@ cpSync(join(here, 'portfolio'), join(dash, 'src/__portfolio'), { recursive: true
 patch('index.html', [[
   '__local/backend.js',
   '<head>',
-  '<head>\n    <script src="__local/backend.js"></script>\n    <script src="__local/routes.js"></script>',
+  // absolute: the live site serves this folder without its trailing slash
+  '<head>\n    <script src="/work/cg-app/__local/backend.js"></script>\n    <script src="/work/cg-app/__local/routes.js"></script>',
 ]])
 // 3. A memory router, so each frame opens on its own screen
 patch('src/bootstrap.tsx', [
