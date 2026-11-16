@@ -1,8 +1,11 @@
 // The scripted walkthroughs. Each one does what a person would do, through
-// the real interface: focus, type, pick, press. The first real pointer or
-// key press ends the script and the visitor carries on by hand.
+// the real interface: point, type, pick, press, with a visible cursor doing
+// the pointing (cursor.js, shared with the other demos). The first real
+// pointer or key press ends the script and the visitor carries on by hand.
 
 import { queryClient } from '@/lib/query-client';
+
+import { createCursor } from './cursor.js';
 
 let rate = 1;
 let cancelled = false;
@@ -28,7 +31,11 @@ addEventListener('message', e => {
 
 /* ---- hand over the moment the visitor acts ---------------------------- */
 ['pointerdown', 'keydown'].forEach(t =>
-    addEventListener(t, e => { if (e.isTrusted) cancelled = true; }, true)
+    addEventListener(t, e => {
+        if (!e.isTrusted) return;
+        cancelled = true;
+        pointer.leave();
+    }, true)
 );
 
 class Cancelled extends Error {}
@@ -47,10 +54,12 @@ const wait = async (ms: number) => {
         await new Promise(r => setTimeout(r, step));
         // moved over it, or resting on it since before the frame loaded
         const over = hovering || document.documentElement.matches(':hover');
+        pointer.hold(over);
         if (!over) left -= step;
     }
     if (cancelled) throw new Cancelled();
 };
+const pointer = createCursor({ wait, rate: () => rate });
 
 async function find<T extends Element = HTMLElement>(test: () => T | null | undefined, timeout = 8000): Promise<T> {
     const start = performance.now();
@@ -66,20 +75,12 @@ const $ = <T extends Element = HTMLElement>(sel: string) => document.querySelect
 const byText = (sel: string, text: string) =>
     [...document.querySelectorAll<HTMLElement>(sel)].find(el => el.textContent?.trim() === text) ?? null;
 
-function press(el: Element) {
-    const o = { bubbles: true, cancelable: true, view: window, button: 0, pointerType: 'mouse' };
-    el.dispatchEvent(new PointerEvent('pointerdown', o));
-    el.dispatchEvent(new MouseEvent('mousedown', o));
-    // focus without scrolling: a frame that scrolls itself into view drags
-    // the whole case study along with it
-    (el as HTMLElement).focus?.({ preventScroll: true });
-    el.dispatchEvent(new PointerEvent('pointerup', o));
-    el.dispatchEvent(new MouseEvent('mouseup', o));
-    (el as HTMLElement).click();
-}
+/** The cursor goes to it, rests a beat, and presses it */
+const press = (el: Element) => pointer.press(el);
 
 /** Types like a person: a character at a time, with a little unevenness */
 async function type(el: HTMLInputElement | HTMLTextAreaElement, text: string, perChar = 70) {
+    await pointer.into(el);
     el.focus({ preventScroll: true });
     const proto = el instanceof HTMLTextAreaElement ? HTMLTextAreaElement : HTMLInputElement;
     const set = Object.getOwnPropertyDescriptor(proto.prototype, 'value')!.set!;
@@ -115,7 +116,15 @@ const guideCard = () =>
 function overChart(el: Element, fx: number, fy: number) {
     const r = el.getBoundingClientRect();
     const target = el.querySelector('canvas') ?? el;
-    target.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, view: window, clientX: r.left + r.width * fx, clientY: r.top + r.height * fy }));
+    const x = r.left + r.width * fx;
+    const y = r.top + r.height * fy;
+    pointer.pointTo(x, y, target);
+    target.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, view: window, clientX: x, clientY: y }));
+}
+/** The cursor travels onto a chart before it reads along it */
+async function toChart(el: Element, fx: number, fy: number) {
+    const r = el.getBoundingClientRect();
+    await pointer.moveTo(r.left + r.width * fx, r.top + r.height * fy);
 }
 function offChart(el: Element) {
     const target = el.querySelector('canvas') ?? el;
@@ -123,6 +132,7 @@ function offChart(el: Element) {
 }
 /** Sweeps a resting mouse across a chart, the way someone reads it */
 async function sweep(el: Element, from: number, to: number, ms: number, fy = 0.55) {
+    await toChart(el, from, fy);
     const steps = Math.max(2, Math.round(ms / 40));
     for (let i = 0; i <= steps; i++) {
         const t = i / steps;
@@ -137,29 +147,32 @@ async function drag(handle: Element, dy: number, ms = 900) {
     const x = r.left + r.width / 2;
     const y0 = r.top + r.height / 2;
     const o = { bubbles: true, cancelable: true, view: window, button: 0, buttons: 1, pointerId: 1, isPrimary: true, pointerType: 'mouse' };
+    // over the grip, the open hand; held, the closed one
+    await pointer.moveTo(x, y0);
+    pointer.setShape('open');
+    await wait(220);
+    pointer.down();
+    pointer.setShape('grab');
     handle.dispatchEvent(new PointerEvent('pointerdown', { ...o, clientX: x, clientY: y0 }));
     const steps = Math.round(ms / 30);
     for (let i = 1; i <= steps; i++) {
         const t = i / steps;
         const eased = 1 - (1 - t) ** 3;
+        pointer.pointTo(x, y0 + dy * eased);
         document.dispatchEvent(new PointerEvent('pointermove', { ...o, clientX: x, clientY: y0 + dy * eased }));
         await wait(ms / steps);
     }
     await wait(250);
     document.dispatchEvent(new PointerEvent('pointerup', { ...o, buttons: 0, clientX: x, clientY: y0 + dy }));
+    pointer.up();
+    pointer.setShape('open');
 }
 const sectionOf = (name: string) =>
     [...document.querySelectorAll('section')].find(s => s.querySelector('h2, h3')?.textContent?.trim() === name) ?? null;
 
 
-/** A resting pointer arriving on, and leaving, an element */
-function hoverOn(el: Element) {
-    const o = { bubbles: true, view: window, pointerType: 'mouse', relatedTarget: document.body };
-    el.dispatchEvent(new PointerEvent('pointerover', o));
-    el.dispatchEvent(new PointerEvent('pointerenter', { ...o, bubbles: false }));
-    el.dispatchEvent(new MouseEvent('mouseover', o));
-    el.dispatchEvent(new MouseEvent('mouseenter', { ...o, bubbles: false }));
-}
+/** The cursor arriving on, and leaving, an element */
+const hoverOn = (el: Element) => pointer.hoverOn(el);
 function hoverOff(el: Element) {
     const o = { bubbles: true, view: window, pointerType: 'mouse', relatedTarget: document.body };
     el.dispatchEvent(new PointerEvent('pointerout', o));
@@ -172,18 +185,23 @@ const legendRow = (near: Element, label: string) => {
     return [...card.querySelectorAll('li')].find(li => li.textContent?.trim().startsWith(label)) ?? null;
 };
 /** A click on a chart at a fraction of its width and height */
-function clickChart(el: Element, fx: number, fy: number) {
+async function clickChart(el: Element, fx: number, fy: number) {
     const r = el.getBoundingClientRect();
     const target = el.querySelector('canvas') ?? el;
     const o = { bubbles: true, cancelable: true, view: window, button: 0, clientX: r.left + r.width * fx, clientY: r.top + r.height * fy };
     const p = { ...o, pointerId: 1, pointerType: 'mouse', isPrimary: true };
+    await pointer.moveTo(o.clientX, o.clientY);
     target.dispatchEvent(new PointerEvent('pointermove', p));
     target.dispatchEvent(new MouseEvent('mousemove', o));
+    await wait(140);
+    pointer.down();
     target.dispatchEvent(new PointerEvent('pointerdown', p));
     target.dispatchEvent(new MouseEvent('mousedown', o));
+    await wait(90);
     target.dispatchEvent(new PointerEvent('pointerup', p));
     target.dispatchEvent(new MouseEvent('mouseup', o));
     target.dispatchEvent(new MouseEvent('click', o));
+    pointer.up();
 }
 
 
@@ -203,24 +221,24 @@ const scripts: Record<string, () => Promise<void>> = {
     async highlight() {
         const gpu = await find(() => $('button[aria-label^="GPU:"]'));
         await wait(1800);
-        hoverOn(gpu);
+        await hoverOn(gpu);
         await wait(2400);
         hoverOff(gpu);
         await wait(500);
         const memory = await find(() => legendRow(gpu, 'Memory'));
-        hoverOn(memory);
+        await hoverOn(memory);
         await wait(2000);
         hoverOff(memory);
         await wait(700);
         const triton = await find(() => $('button[aria-label^="triton-server:"]'));
         scrollWithin(triton);
         await wait(1400);
-        hoverOn(triton);
+        await hoverOn(triton);
         await wait(2300);
         hoverOff(triton);
         await wait(500);
         const workers = await find(() => legendRow(triton, 'python (batch workers)'));
-        hoverOn(workers);
+        await hoverOn(workers);
         await wait(2200);
         hoverOff(workers);
     },
@@ -238,20 +256,21 @@ const scripts: Record<string, () => Promise<void>> = {
             return tip?.innerText.split('\n')[0]?.trim() ?? '';
         };
         let spike = 0.7;
+        await toChart(chart, 0.04, 0.5);
         for (let fx = 0.04; fx < 0.98; fx += 0.0125) {
             overChart(chart, fx, 0.5);
             await wait(70);
             if (tipDay() === spikeDay) { spike = fx; break; }
         }
         await wait(1700);
-        clickChart(chart, spike, 0.82);
+        await clickChart(chart, spike, 0.82);
         await wait(3800);
         const close = $('button[aria-label="Close day breakdown"]');
-        if (close) press(close);
+        if (close) await press(close);
         offChart(chart);
         await wait(900);
         const ec2 = await find(() => [...document.querySelectorAll<HTMLButtonElement>('button[aria-pressed]')].find(b => b.textContent?.trim() === 'Amazon EC2') ?? null);
-        press(ec2);
+        await press(ec2);
         await wait(2400);
         await sweep(chart, 0.35, spike, 1500, 0.6);
         await wait(2000);
@@ -271,7 +290,7 @@ const scripts: Record<string, () => Promise<void>> = {
         await wait(600);
         for (const name of ['Production AWS', 'GPU training', 'Data platform']) {
             const section = await find(() => sectionOf(name));
-            press(await find(() => section.querySelector('button[aria-label="Collapse budget"]')));
+            await press(await find(() => section.querySelector('button[aria-label="Collapse budget"]')));
             await wait(650);
         }
         await wait(1600);
@@ -282,7 +301,7 @@ const scripts: Record<string, () => Promise<void>> = {
         await drag(handle, top - handle.getBoundingClientRect().top - 6);
         await wait(1200);
         const data = await find(() => sectionOf('Data platform'));
-        press(await find(() => data.querySelector('button[aria-label="Expand budget"]')));
+        await press(await find(() => data.querySelector('button[aria-label="Expand budget"]')));
     },
 
     // Support opens from the sidebar, in place: ask, get an answer, see the
@@ -290,17 +309,17 @@ const scripts: Record<string, () => Promise<void>> = {
     async support() {
         const button = await find(() => $('button[aria-label="Help & support"]'));
         await wait(1600);
-        press(button);
+        await press(button);
         const box = await find(() => $<HTMLTextAreaElement>('textarea[aria-label="Message support"]'));
         await wait(1300);
         await type(box, 'Our budget alert fired twice for prod-eu-west this week. Is that expected?', 34);
         await wait(450);
-        press(await find(() => $('button[aria-label="Send message"]')));
+        await press(await find(() => $('button[aria-label="Send message"]')));
         await find(() => [...document.querySelectorAll('p')].find(p => p.textContent?.startsWith('Not expected.')) ?? null, 15000);
         await wait(3000);
-        press(await find(() => $('button[aria-label="Back to conversations"]')));
+        await press(await find(() => $('button[aria-label="Back to conversations"]')));
         await wait(2400);
-        press(await find(() => $('button[aria-label="Open support in side panel"]')));
+        await press(await find(() => $('button[aria-label="Open support in side panel"]')));
     },
 
     // From the guide to a connected cluster and back, through the real flow
@@ -311,33 +330,45 @@ const scripts: Record<string, () => Promise<void>> = {
         if (hero) {
             const r = hero.getBoundingClientRect();
             const at = (fx: number, fy: number) => ({ clientX: r.left + r.width * fx, clientY: r.top + r.height * fy, bubbles: true, pointerType: 'mouse' });
+            const tap = async (fx: number, fy: number) => {
+                const e = at(fx, fy);
+                await pointer.moveTo(e.clientX, e.clientY);
+                pointer.down();
+                window.dispatchEvent(new PointerEvent('pointerdown', e));
+                await wait(110);
+                pointer.up();
+            };
             await wait(1400);
+            const start = at(0.42, 0.75);
+            await pointer.moveTo(start.clientX, start.clientY);
             for (let i = 0; i <= 40; i++) {
                 const t = i / 40;
-                window.dispatchEvent(new PointerEvent('pointermove', at(0.42 + 0.5 * t, 0.75 - 0.45 * Math.sin(t * Math.PI))));
+                const e = at(0.42 + 0.5 * t, 0.75 - 0.45 * Math.sin(t * Math.PI));
+                pointer.pointTo(e.clientX, e.clientY);
+                window.dispatchEvent(new PointerEvent('pointermove', e));
                 await wait(30);
             }
-            window.dispatchEvent(new PointerEvent('pointerdown', at(0.78, 0.45)));
-            await wait(900);
-            window.dispatchEvent(new PointerEvent('pointerdown', at(0.62, 0.62)));
-            await wait(1400);
+            await tap(0.78, 0.45);
+            await wait(800);
+            await tap(0.62, 0.62);
+            await wait(1300);
         }
         await wait(800);
-        press(task);
+        await press(task);
         const name = await find(() => $<HTMLInputElement>('input[placeholder="prod-api-1"]'));
         await wait(900);
         await type(name, 'prod-eu-west', 75);
         await wait(500);
-        press(await find(() => [...document.querySelectorAll<HTMLElement>('button, label')].find(b => /^AWS/.test(b.textContent?.trim() ?? '')) ?? null));
+        await press(await find(() => [...document.querySelectorAll<HTMLElement>('button, label')].find(b => /^AWS/.test(b.textContent?.trim() ?? '')) ?? null));
         const next = await find(() => { const b = buttonCalled('Next'); return b && !b.disabled ? b : null; });
         await wait(700);
-        press(next);
+        await press(next);
         // the command arrives holding the cluster's name and its own key
         const copy = await find(() => buttonCalled('Copy'));
         await wait(2200);
-        press(copy);
+        await press(copy);
         await wait(1300);
-        press(await find(() => { const b = buttonCalled('Next'); return b && !b.disabled ? b : null; }));
+        await press(await find(() => { const b = buttonCalled('Next'); return b && !b.disabled ? b : null; }));
         // Listening: the operator is being installed on the other side
         await find(() => [...document.querySelectorAll('h1, h2, h3')].find(h => h.textContent?.includes('Waiting for your cluster')) ?? null);
         await wait(3600);
@@ -345,11 +376,11 @@ const scripts: Record<string, () => Promise<void>> = {
         await happen(s => { s.cluster = true; });
         const done = await find(() => { const b = buttonCalled('Next'); return b && !b.disabled ? b : null; }, 15000);
         await wait(1100);
-        press(done);
+        await press(done);
         // Connected: read the card, then back to the guide, already ticked
         await find(() => [...document.querySelectorAll('h1, h2, h3')].find(h => h.textContent?.includes('Cluster connected')) ?? null, 15000);
         await wait(3000);
-        press(await find(() => linkTo('Get started', sidebar())));
+        await press(await find(() => linkTo('Get started', sidebar())));
         await wait(2400);
     },
 
@@ -366,10 +397,10 @@ const scripts: Record<string, () => Promise<void>> = {
         await happen(s => { s.chats = [{ id: 'chat_1', title: 'Why did prod-eu-west spend jump?', pinned: false, pinnedAt: null, updatedAt: new Date().toISOString() }]; });
         await wait(3000);
         // Out of the way: down to its header and the ring
-        press(await find(() => card.querySelector<HTMLButtonElement>('button[aria-label="Minimise setup guide"]')));
+        await press(await find(() => card.querySelector<HTMLButtonElement>('button[aria-label="Minimise setup guide"]')));
         await wait(2200);
         // and back open, on the stage you're on
-        press(await find(() => card.querySelector<HTMLButtonElement>('button[aria-label="Expand setup guide"]')));
+        await press(await find(() => card.querySelector<HTMLButtonElement>('button[aria-label="Expand setup guide"]')));
         await wait(2000);
     },
 
@@ -384,21 +415,26 @@ const scripts: Record<string, () => Promise<void>> = {
         await wait(350);
         await type($<HTMLInputElement>('input[placeholder="acme org"]')!, 'Analytical Engines', 60);
         await wait(600);
-        press($('[role="combobox"]')!);
+        await press($('[role="combobox"]')!);
         const role = await find(() => byText('[role="option"]', 'CTO / VP of Engineering'));
         await wait(500);
-        press(role);
+        await press(role);
         await wait(600);
         await type($<HTMLInputElement>('input[data-cg-pw]')!, 'Engine#1843x', 85);
         await wait(900);
-        press(await find(() => byText('button[type="submit"]', 'Continue')));
+        await press(await find(() => byText('button[type="submit"]', 'Continue')));
     },
 };
 
 export function start(demo: string) {
     const script = scripts[demo];
     if (!script || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    script().catch(e => {
-        if (!(e instanceof Cancelled)) console.warn(e);
-    });
+    script()
+        // done: the hand comes off, and the result is left clear
+        .then(() => wait(900))
+        .then(() => pointer.leave())
+        .catch(e => {
+            pointer.leave();
+            if (!(e instanceof Cancelled)) console.warn(e);
+        });
 }

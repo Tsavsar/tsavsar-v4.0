@@ -1,0 +1,1 @@
+var n=Object.defineProperty;var o=(e,t)=>n(e,"name",{value:t,configurable:!0});import{c}from"./index-D6U2DrAI.js";function p(e){const t=c.c(4);let s;t[0]!==e?(s=JSON.stringify(e),t[0]=e,t[1]=s):s=t[1];const i=s;let r;return t[2]!==i?(r=JSON.parse(i),t[2]=i,t[3]=r):r=t[3],r}o(p,"useStableValue");export{p as u};

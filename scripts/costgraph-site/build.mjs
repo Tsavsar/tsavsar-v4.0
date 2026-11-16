@@ -27,6 +27,8 @@ function patch(file, marker, from, to) {
 mkdirSync(join(site, 'public/__local'), { recursive: true })
 cpSync(join(here, 'local'), join(site, 'public/__local'), { recursive: true })
 cpSync(join(here, 'portfolio'), join(site, 'src/__portfolio'), { recursive: true })
+// the cursor the walkthroughs click with, shared with the other demos
+cpSync(join(here, '../shared/cursor.js'), join(site, 'src/__portfolio/cursor.js'))
 
 // absolute: the live site serves this folder without its trailing slash
 patch('index.html', '__local/guard.js', '<head>', '<head>\n    <script src="/work/cg-site/__local/guard.js"></script>')

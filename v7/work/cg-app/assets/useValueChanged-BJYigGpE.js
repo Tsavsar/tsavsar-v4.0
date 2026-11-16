@@ -1,0 +1,1 @@
+var s=Object.defineProperty;var o=(e,r)=>s(e,"name",{value:r,configurable:!0});import{r as c}from"./index-D6U2DrAI.js";import{y as n,z as u}from"./bootstrap-8rr27JqB.js";function m(e,r){const t=c.useRef(e),a=n(r);u(()=>{t.current!==e&&a(t.current),t.current=e},[e,a])}o(m,"useValueChanged");export{m as u};

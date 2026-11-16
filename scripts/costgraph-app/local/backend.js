@@ -52,12 +52,12 @@
     parent.postMessage({ type: 'cg-wheel', dx: e.deltaX, dy: e.deltaY }, location.origin);
   }, { passive: false, capture: true });
 
-  // Copy buttons: a visitor's own click copies for real; the script's press,
-  // which the browser won't let near the clipboard, succeeds quietly
-  if (navigator.clipboard) {
-    const realWrite = navigator.clipboard.writeText.bind(navigator.clipboard);
-    navigator.clipboard.writeText = (text) => realWrite(text).catch(() => undefined);
-  }
+  // Copy buttons say they copied, and nothing reaches the visitor's
+  // clipboard: not the walkthrough's presses, not their own clicks
+  const quiet = { writeText: () => Promise.resolve(), write: () => Promise.resolve(), readText: () => Promise.resolve(''), read: () => Promise.resolve([]), addEventListener() {}, removeEventListener() {} };
+  try { Object.defineProperty(Navigator.prototype, 'clipboard', { configurable: true, get: () => quiet }); } catch (e) {}
+  const exec = Document.prototype.execCommand;
+  Document.prototype.execCommand = function (cmd, ...rest) { return /^(copy|cut)$/i.test(cmd) ? true : exec.call(this, cmd, ...rest); };
 
   // A frame on the case study must never move the page around it. Focus
   // and scroll-into-view both scroll every ancestor frame, so inside a demo

@@ -1,0 +1,1 @@
+var r=Object.defineProperty;var t=(o,n)=>r(o,"name",{value:n,configurable:!0});import{r as e}from"./index-D6U2DrAI.js";const s=e.createContext(null),u=t(()=>e.useContext(s),"useSidePanelSlot");export{s as S,u};

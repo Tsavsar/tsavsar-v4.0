@@ -1,1 +1,0 @@
-var r=Object.defineProperty;var o=(e,t)=>r(e,"name",{value:t,configurable:!0});import{c as s,j as a,O as c}from"./index-Bw72oE1q.js";function i(){const e=s.c(1);let t;return e[0]===Symbol.for("react.memo_cache_sentinel")?(t=a.jsx(c,{}),e[0]=t):t=e[0],t}o(i,"NetworkLayout");export{i as default};

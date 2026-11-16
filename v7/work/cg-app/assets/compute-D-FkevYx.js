@@ -1,0 +1,1 @@
+var s=Object.defineProperty;var o=(e,t)=>s(e,"name",{value:t,configurable:!0});import{c as r,j as m,O as a}from"./index-D6U2DrAI.js";function u(){const e=r.c(1);let t;return e[0]===Symbol.for("react.memo_cache_sentinel")?(t=m.jsx(a,{}),e[0]=t):t=e[0],t}o(u,"ComputeLayout");export{u as default};

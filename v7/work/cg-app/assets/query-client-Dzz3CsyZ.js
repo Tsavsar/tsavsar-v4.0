@@ -1,0 +1,1 @@
+var i=Object.defineProperty;var t=(e,r)=>i(e,"name",{value:r,configurable:!0});import{J as s,i as o}from"./index-D6U2DrAI.js";const q=s({defaultOptions:{queries:{retry:t((e,r)=>!o(r)&&e<1,"retry")}}});export{q};
