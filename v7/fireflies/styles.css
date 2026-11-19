@@ -622,7 +622,7 @@ button:focus-visible, [tabindex]:focus-visible, textarea:focus-visible, input:fo
 }
 
 /* Desktop: the phone frame gets a note underneath, since the real thing is meant for a hand */
-.device-col { display: flex; flex-direction: column; align-items: center; gap: 16px; flex: none; }
+.device-col { display: flex; flex-direction: column; align-items: center; gap: 32px; flex: none; }
 .mobile-hint { display: flex; align-items: center; gap: 14px; height: 70px; max-width: 360px; text-align: left; }
 .mobile-hint .qr { flex: none; width: 70px; height: 70px; padding: 6px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 .5px var(--line-strong); }
 .mobile-hint .qr img { display: block; width: 58px; height: 58px; image-rendering: pixelated; }

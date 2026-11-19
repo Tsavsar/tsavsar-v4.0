@@ -951,7 +951,7 @@ sh.el.addEventListener('submit', (e) => {
 /* ---------- Page chrome ---------- */
 
 // Room under the phone frame for the "better on mobile" note.
-const HINT_H = 86;
+const HINT_H = 104;
 function fit() {
   if (innerWidth <= 520) { S = 1; $('#deviceWrap').style.setProperty('--s', 1); return; }
   S = Math.min(1, (innerHeight - 32 - HINT_H) / 876, (innerWidth - 32) / 417);
