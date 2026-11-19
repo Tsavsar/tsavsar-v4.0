@@ -471,8 +471,17 @@ const sh = {
 };
 
 function measure() {
-  const top = parseFloat(getComputedStyle(sh.el).top) || 0;
-  sh.H = screenEl.clientHeight - top;
+  // Like a Vaul drawer, a sheet is only as tall as its content, up to full height. Ask stays tall: its thread grows.
+  sh.el.style.top = '';
+  const screenH = screenEl.clientHeight;
+  let top = parseFloat(getComputedStyle(sh.el).top) || 0;
+  if (sh.view && sh.view.type !== 'ask') {
+    const footOverlap = parseFloat(getComputedStyle(sh.foot).marginTop) || 0;
+    sh.body.style.flex = 'none'; const bodyH = sh.body.scrollHeight; sh.body.style.flex = ''; // its natural height, not the stretched one
+    const natural = Math.ceil(sh.grab.offsetHeight + sh.head.offsetHeight + bodyH + sh.foot.offsetHeight + footOverlap);
+    if (natural < screenH - top) { top = screenH - natural; sh.el.style.top = top + 'px'; }
+  }
+  sh.H = screenH - top;
   const med = sh.view && sh.view.detents && sh.view.detents.length === 1 ? 1 : ((sh.view && sh.view.medium) || .7);
   sh.yMed = Math.max(0, sh.H - Math.min(sh.H, med * screenEl.clientHeight));
 }
