@@ -256,6 +256,22 @@ img { display: block; }
 .r-toast button { height: 32px; padding: 0 14px; border: 0; border-radius: 16px; background: rgba(127, 127, 127, .22); color: inherit; font: 650 14.5px/1 var(--font); cursor: pointer; }
 @keyframes r-in { from { opacity: 0; transform: translateY(10px) scale(.95); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .r-toast { animation: none; } }
+
+/* Synced with the app's tidy pass */
+.draft-card { border-radius: 18px; background: var(--surface); padding: 14px 16px 12px; }
+.draft-card .draft { min-height: 0; padding: 0; border-radius: 0; background: none; }
+.act-meta.to { display: flex; align-items: flex-start; gap: 7px; margin: 12px 0 0; padding-top: 11px; border-top: .5px solid rgba(127, 127, 127, .2); line-height: 18px; }
+.act-meta.to img { flex: none; margin-top: 2.5px; }
+.wait-card .wait-head { font-size: 15px; }
+.wait-card .wait-head .ico { background: var(--surface-3); }
+.wait-card .wl { display: grid; grid-template-columns: 30px 1fr auto; column-gap: 12px; align-items: start; margin: 0 18px; padding: 12px 0; border-top: .5px solid rgba(127, 127, 127, .2); font-size: 15px; line-height: 20px; color: var(--ink); letter-spacing: 0; }
+.wait-card .wl .mark { height: 20px; display: grid; place-items: center; }
+.wait-card .wl time { color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wait-card .wl .tag { display: table; margin: 6px 0 2px; padding: 4px 8px; border-radius: 7px; background: var(--surface-3); color: var(--ink-2); font-size: 13px; font-weight: 500; line-height: 1; }
+.wait-card .wl.more { color: var(--ink-2); }
+.wait-card .wl.more .mark { color: var(--ink-3); }
+.wait-card .wl img.tint-meeting { filter: none; }
+.wait-card .wait-rule { margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -468,8 +484,10 @@ img { display: block; }
             <button type="button" role="radio" aria-checked="false" data-i="1">Request changes</button>
             <span class="seg-thumb" aria-hidden="true"></span>
           </div>
-          <p class="draft" id="draft">Copy looks good. Go ahead and cut the Android build.</p>
-          <p class="act-meta"><span class="src slack sm"><img src="/fireflies/details-assets/slack.svg" width="11" height="11" alt=""></span>Posts as you in #onboarding-launch, in Priya’s thread.</p>
+          <div class="draft-card">
+            <p class="draft" id="draft">Copy looks good. Go ahead and cut the Android build.</p>
+            <p class="act-meta to"><img src="/fireflies/details-assets/slack.svg" width="13" height="13" alt="">Posts as you in #onboarding-launch, in Priya’s thread.</p>
+          </div>
           <span class="cta">Approve and post</span>
         </div>
       </div>
@@ -487,7 +505,12 @@ img { display: block; }
             <p class="proj-line">Review moved to Thursday 10 AM. Tomas wants the new deck first.</p>
           </div>
           <div class="wait-card">
-            <p class="wait-head"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.5 8.5 4.5-8.5 4.5L3.5 8z"/><path d="m3.5 12 8.5 4.5 8.5-4.5M3.5 16l8.5 4.5 8.5-4.5"/></svg></span><span class="grow"><b>9 updates</b> can wait</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5.5 9.5 6.5 6.5 6.5-6.5"/></svg></p>
+            <p class="wait-head"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span><span class="grow"><b>9 updates</b> that don’t need you</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5.5 14.5 6.5-6.5 6.5 6.5"/></svg></p>
+            <div class="wl"><span class="mark"><img src="/fireflies/details-assets/email.svg" width="16" height="16" alt=""></span><span>Sign the vendor contract renewal<span class="tag">Due Friday</span></span><time>11:26 AM</time></div>
+            <div class="wl"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7B61FF" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg></span><span>Launch standup notes were published</span><time>10:31 AM</time></div>
+            <div class="wl"><span class="mark"><img src="/fireflies/details-assets/slack.svg" width="16" height="16" alt=""></span><span>Weekly metrics posted in #growth</span><time>9:58 AM</time></div>
+            <div class="wl"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF5A3C" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span>Product sync agenda was updated</span><time>10:30 AM</time></div>
+            <div class="wl more"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5.5 12h.01M12 12h.01M18.5 12h.01"/></svg></span><span>5 more</span><time></time></div>
             <p class="wait-rule">Hidden because none of these ask anything of you, have a deadline today, or mention you.</p>
           </div>
         </div>

@@ -499,7 +499,8 @@ function springSheet(to, vel = 0, o = {}) {
 function openSheet(view, opener) {
   if (sh.detent !== 'closed' && !sh.closing) return;
   hideToast();
-  view.detents = view.detents || ['medium', 'large'];
+  // One resting height, like a Vaul drawer: the sheet opens as one piece and is dragged down to dismiss.
+  view.detents = view.detents || ['large'];
   sh.view = view; sh.opener = opener || document.activeElement; sh.closing = false;
   renderView(view);
   measure();
@@ -507,7 +508,7 @@ function openSheet(view, opener) {
   const start = view.start === 'large' || view.detents.length === 1 ? 'large' : 'medium';
   setDetent(start);
   if (view.type === 'prep' && opener === capEl) { if (sh.sp) sh.sp.stop(); setY(start === 'large' ? 0 : sh.yMed); morphSheet(1); }
-  else { setY(sh.H); springSheet(start === 'large' ? 0 : sh.yMed, 0, { response: .5 }); }
+  else { setY(sh.H); springSheet(start === 'large' ? 0 : sh.yMed, 0, { response: .46, damping: 1 }); }
   setTimeout(() => { try { sh.el.focus({ preventScroll: true }); } catch (_) {} }, 60);
 }
 function closeSheet(after, fromDrag) {
@@ -523,7 +524,7 @@ function closeSheet(after, fromDrag) {
   };
   // Meeting prep folds back into the Up next capsule it came from, unless it is being dragged away.
   if (sh.view && sh.view.type === 'prep' && !fromDrag && capEl.offsetParent) { morphSheet(0, done); return; }
-  springSheet(sh.H + 20, sh.sp ? sh.sp.v : 0, { response: .4, onDone: done });
+  springSheet(sh.H + 20, sh.sp ? sh.sp.v : 0, { response: .36, damping: 1, onDone: done });
 }
 
 /* ---------- Capsule to sheet: the Up next capsule grows into meeting prep ---------- */
@@ -569,14 +570,15 @@ function releaseSheet(vel) {
   const has = (d) => sh.view.detents.includes(d);
   const lowest = has('medium') ? sh.yMed : 0;
   const proj = sh.y + project(vel, .996);
-  if (proj > lowest + (sh.H - lowest) * .34) { closeSheet(undefined, true); return; }
+  // Dismiss past a quarter of the way down, or on a flick that would carry it there.
+  if (proj > lowest + (sh.H - lowest) * .25 || vel > 900) { closeSheet(undefined, true); return; }
   const cands = [];
   if (has('large')) cands.push({ d: 'large', y: 0 });
   if (has('medium')) cands.push({ d: 'medium', y: sh.yMed });
   cands.sort((a, b) => Math.abs(a.y - proj) - Math.abs(b.y - proj));
   const pick = cands[0];
   setDetent(pick.d);
-  springSheet(pick.y, vel, { response: .4, damping: Math.abs(vel) > 350 ? .84 : .95 });
+  springSheet(pick.y, vel, { response: .38, damping: Math.abs(vel) > 350 ? .86 : 1 });
 }
 
 /* Drag: touch events on phones (so we can cancel native scroll at the top), pointer events for a mouse. */
@@ -639,7 +641,7 @@ function swapView(view, o = {}) {
   const dir = o.back ? -1 : 1;
   els.forEach((e) => { e.style.transition = 'opacity .14s var(--ease-out), translate .14s var(--ease-out)'; e.style.opacity = 0; e.style.translate = `${-12 * dir}px 0`; });
   setTimeout(() => {
-    view.detents = view.detents || ['medium', 'large'];
+    view.detents = view.detents || ['large'];
     sh.view = view; renderView(view); sh.body.scrollTop = 0; measure();
     if (sh.detent === 'medium') springSheet(sh.yMed, 0, { response: .35 }); else setY(sh.y);
     els.forEach((e) => { e.style.transition = 'none'; e.style.translate = `${12 * dir}px 0`; });
@@ -895,7 +897,11 @@ sh.el.addEventListener('click', (e) => {
   if (b('[data-close]')) { closeSheet(); return; }
   if (b('[data-back]')) { swapView(sh.view.back, { back: true }); return; }
   if (b('#sheetGrab')) { if (sh.view.detents.length > 1) goDetent(sh.detent === 'medium' ? 'large' : 'medium'); return; }
-  if (b('[data-expand]')) { goDetent(sh.detent === 'large' ? 'medium' : 'large'); return; }
+  if (b('[data-expand]')) {
+    if (sh.view.detents.length > 1) goDetent(sh.detent === 'large' ? 'medium' : 'large');
+    else { const ev = $('.evid', sh.body); if (ev) sh.body.scrollTo({ top: ev.offsetTop - 64, behavior: reduce() ? 'auto' : 'smooth' }); }
+    return;
+  }
   const it = sh.view && sh.view.type === 'item' ? item(sh.view.id) : null;
   let el;
   if ((el = b('[data-choice]')) && it) {

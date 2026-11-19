@@ -578,3 +578,39 @@
 :root[data-look="night"] .draft-to.solo { margin: 12px 4px 0; padding-top: 0; border-top: 0; }
 :root[data-look="night"] .draft-to { align-items: flex-start; line-height: 18px; }
 :root[data-look="night"] .draft-to .to-mark { height: 18px; }
+
+
+/* Toggles: built from the Luotain switch style (rim, inner light, pill thumb with a dot), sized for a thumb.
+   46x28 track; the thumb stretches while pressed and springs across. */
+:root[data-look="night"] .switch { width: 46px; height: 28px; }
+:root[data-look="night"] .switch input { inset: -8px -6px; width: auto; height: auto; }
+:root[data-look="night"] .switch i {
+  pointer-events: none; border-radius: 999px; background: var(--surface-3);
+  box-shadow: inset 0 0 0 1px var(--line-strong), inset 0 2px 3px rgba(0, 0, 0, .06);
+  transition: background .3s var(--ease-out), box-shadow .3s var(--ease-out);
+}
+:root[data-look="night"] .switch i::after {
+  top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 999px; background: #fff;
+  box-shadow: 0 0 0 .5px rgba(0, 0, 0, .06), 0 2px 6px rgba(0, 0, 0, .16), 0 6px 14px -4px rgba(0, 0, 0, .12);
+  transition: transform .42s cubic-bezier(.34, 1.3, .64, 1), width .2s var(--ease-out);
+}
+:root[data-look="night"] .switch i::before {
+  content: ""; position: absolute; z-index: 1; top: 11px; left: 11px; width: 6px; height: 6px; border-radius: 999px;
+  background: var(--ink-3); opacity: .45;
+  transition: transform .42s cubic-bezier(.34, 1.3, .64, 1), background .3s, opacity .3s;
+}
+:root[data-look="night"] .switch input:checked + i {
+  background: var(--glow);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--glow) 60%, #000), inset 0 1.5px 1.5px rgba(255, 255, 255, .22);
+}
+:root[data-look="night"] .switch input:checked + i::after,
+:root[data-look="night"] .switch input:checked + i::before { transform: translateX(18px); }
+:root[data-look="night"] .switch input:checked + i::before { background: var(--glow); opacity: 1; }
+/* Press: the thumb widens toward where it is going, like iOS */
+:root[data-look="night"] .switch input:active + i::after { width: 27px; }
+:root[data-look="night"] .switch input:checked:active + i::after { transform: translateX(13px); }
+:root[data-look="night"] .switch input:active + i::before { transform: translateX(2.5px); }
+:root[data-look="night"] .switch input:checked:active + i::before { transform: translateX(15.5px); }
+:root[data-look="night"] .switch input:focus-visible + i { outline: 2px solid var(--ink); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { :root[data-look="night"] .switch i::after, :root[data-look="night"] .switch i::before { transition: none; } }
+:root[data-look="night"] .sheet-foot .foot-row { margin-top: 12px; }

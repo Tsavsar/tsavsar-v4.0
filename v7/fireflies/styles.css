@@ -425,7 +425,7 @@ button:focus-visible, [tabindex]:focus-visible, textarea:focus-visible, input:fo
 .sheet-body::-webkit-scrollbar { display: none; }
 .sheet.at-medium .sheet-body { overflow: hidden; }
 .sheet-body.scrolled { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 16px); mask-image: linear-gradient(to bottom, transparent 0, #000 16px); }
-.sheet-foot { flex: none; padding: 18px 20px calc(var(--sab) + 2px); position: relative; background: linear-gradient(to bottom, transparent, var(--sheet-bg) 26px); margin-top: -26px; padding-top: 30px; }
+.sheet-foot { flex: none; padding: 18px 20px calc(var(--sab) + 14px); position: relative; background: linear-gradient(to bottom, transparent, var(--sheet-bg) 26px); margin-top: -26px; padding-top: 30px; }
 .why { font-family: var(--q-font); font-size: var(--why-size); font-weight: 400; line-height: 1.42; color: var(--ink-2); text-wrap: pretty; margin-bottom: 20px; }
 
 .sect-head { display: flex; align-items: center; justify-content: space-between; margin: 0 2px 10px; font: 650 15px/1 var(--font); letter-spacing: -.005em; }
