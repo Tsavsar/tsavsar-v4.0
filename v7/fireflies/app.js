@@ -96,7 +96,7 @@ function srcStack(list) {
 }
 /* Mock portraits of fictional, generated people (@protoyard/avatars, MIT) with initials as the fallback. */
 const FACES = ['priya', 'tomas', 'sam', 'lena', 'noor', 'maya'];
-const face = (id, initials) => (FACES.includes(id) ? `<img src="avatars/${id}.webp" alt="" width="42" height="42" decoding="async">` : initials);
+const face = (id, initials) => (FACES.includes(id) ? `<img src="/fireflies/avatars/${id}.webp" alt="" width="42" height="42" decoding="async">` : initials);
 const KIND_ICON = { decision: 'circleCheck', commit: 'calendar', choice: 'image' };
 const STATUS_ICON = { ok: 'circleCheck', slip: 'slip', watch: 'eye' };
 
@@ -950,9 +950,11 @@ sh.el.addEventListener('submit', (e) => {
 
 /* ---------- Page chrome ---------- */
 
+// Room under the phone frame for the "better on mobile" note.
+const HINT_H = 40;
 function fit() {
   if (innerWidth <= 520) { S = 1; $('#deviceWrap').style.setProperty('--s', 1); return; }
-  S = Math.min(1, (innerHeight - 32) / 876, (innerWidth - 32) / 417);
+  S = Math.min(1, (innerHeight - 32 - HINT_H) / 876, (innerWidth - 32) / 417);
   $('#deviceWrap').style.setProperty('--s', S.toFixed(4));
 }
 addEventListener('resize', () => { fit(); if (sh.detent !== 'closed') { measure(); setY(sh.detent === 'large' ? 0 : sh.yMed); } });
@@ -1134,7 +1136,7 @@ function mount() {
   }, 1700);
 }
 
-$('#reset').addEventListener('click', () => {
+$('#reset')?.addEventListener('click', () => {
   stopPlayback(); hideToast();
   const go = () => { resetState(); mount(); };
   if (sh.detent !== 'closed') closeSheet(go); else go();

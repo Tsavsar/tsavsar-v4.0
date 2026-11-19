@@ -18,35 +18,16 @@
     d.style.setProperty('--hl', 'rgb(' + m(r) + ', ' + m(g) + ', ' + m(b) + ')'); } } catch (e) {}
 })();
 </script>
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="looks.css">
+<link rel="stylesheet" href="/fireflies/styles.css">
+<link rel="stylesheet" href="/fireflies/looks.css">
 </head>
 <body>
 <main class="stage" id="stage">
 
-  <a class="details-link" href="/details">Design notes<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+  <a class="details-link" href="/fireflies/details">Design notes<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
 
-  <aside class="notes" aria-label="About this prototype">
-    <p class="notes-kicker">iOS prototype</p>
-    <h1 class="notes-title">Catch up</h1>
-    <p class="notes-lede">What to show someone who has been away for a few hours: what happened, what needs them, and what to do next.</p>
-    <ul class="notes-list">
-      <li><b>Swipe a row left</b> to mark it done or snooze it.</li>
-      <li><b>Tap a row</b> for the suggested next step.</li>
-      <li><b>Pull the sheet up</b> to see where it came from.</li>
-      <li><b>Tap Up next</b> for meeting prep, or <b>Ask</b> a question.</li>
-    </ul>
-    <div class="notes-controls">
-      <div class="theme" role="group" aria-label="Appearance">
-        <button type="button" data-theme-set="light">Light</button>
-        <button type="button" data-theme-set="dark">Dark</button>
-        <span class="theme-thumb" aria-hidden="true"></span>
-      </div>
-      <div id="accentPicker" class="notes-swatches"></div>
-      <button type="button" class="reset" id="reset">Start over</button>
-    </div>
-  </aside>
 
+  <div class="device-col">
   <div class="device-wrap" id="deviceWrap">
     <div class="device" id="device">
       <div class="screen" id="screen">
@@ -93,8 +74,10 @@
       </div>
     </div>
   </div>
+  <p class="mobile-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18.5h2"/></svg>This experience is much better on mobile. Open shatermt.com/fireflies on your phone.</p>
+  </div>
 </main>
-<script src="data.js"></script>
-<script src="app.js"></script>
+<script src="/fireflies/data.js"></script>
+<script src="/fireflies/app.js"></script>
 </body>
 </html>
