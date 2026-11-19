@@ -1173,6 +1173,22 @@ function tiltLoop({ node, max, ease = .12, perspective = 700, extra }) {
     closeT = setTimeout(() => { box.hidden = true; big.stop(); thumb.focus({ preventScroll: true }); }, 180);  // exits faster than it enters
   }
   thumb.addEventListener('click', open);
+
+  // An occasional "Click me" bubble over the thumbnail. It stops once the code has been opened.
+  const bubble = document.createElement('span');
+  bubble.className = 'qr-bubble'; bubble.setAttribute('aria-hidden', 'true'); bubble.textContent = 'Click me';
+  thumb.appendChild(bubble);
+  let clicked = false, bubbleT = 0;
+  const showBubble = () => {
+    if (clicked) return;
+    if (box.hidden && !document.hidden && thumb.offsetParent) {
+      bubble.classList.remove('show'); void bubble.offsetWidth; bubble.classList.add('show');
+      setTimeout(() => bubble.classList.remove('show'), 2600);
+    }
+    bubbleT = setTimeout(showBubble, 11000);
+  };
+  bubbleT = setTimeout(showBubble, 3500);
+  thumb.addEventListener('click', () => { clicked = true; clearTimeout(bubbleT); bubble.classList.remove('show'); });
   box.addEventListener('mousemove', (e) => big.aim((e.clientX / innerWidth - .5) * 2, (e.clientY / innerHeight - .5) * 2));  // measured from the screen, so it keeps responding over the scrim
   box.addEventListener('mouseleave', () => big.rest());
   box.addEventListener('click', (e) => { if (!e.target.closest('.qrbox-card')) close(); });
