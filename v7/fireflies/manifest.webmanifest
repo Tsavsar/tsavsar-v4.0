@@ -1,0 +1,15 @@
+{
+  "name": "Fireflies Catch-up",
+  "short_name": "Catch up",
+  "description": "A one-handed catch-up for when you have been away for a few hours.",
+  "start_url": "/fireflies",
+  "scope": "/fireflies",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1C1C1E",
+  "theme_color": "#1C1C1E",
+  "icons": [
+    { "src": "/fireflies/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/fireflies/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

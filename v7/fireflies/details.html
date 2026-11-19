@@ -238,6 +238,24 @@ img { display: block; }
 .wait-head > svg { color: var(--ink-3); }
 .wait-head b { font-weight: 650; }
 .wait-rule { padding: 12px 18px 16px; border-top: .5px solid rgba(127, 127, 127, .2); font-size: 13px; line-height: 1.4; color: var(--ink-3); }
+
+/* Remind me */
+.remind { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; letter-spacing: 0; }
+.r-menu { min-width: 236px; padding: 6px; border-radius: 18px; background: var(--surface); box-shadow: 0 0 0 .5px rgba(127, 127, 127, .25), 0 18px 40px -14px rgba(0, 0, 0, .3); }
+.r-menu button { width: 100%; height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 0 14px; border: 0; border-radius: 12px; background: none; font: 500 16px/1 var(--font); color: var(--ink); text-align: left; cursor: pointer; transition: background .15s; }
+.r-menu button:hover, .r-menu button:focus-visible { background: var(--surface-3); outline: none; }
+.r-menu button:active { transform: scale(.98); }
+.r-menu button.picked { background: var(--surface-3); }
+.r-menu small { font-size: 14px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.r-row { display: flex; gap: 8px; }
+.r-ghost { height: 38px; padding: 0 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px; background: var(--surface-3); color: var(--ink); font-size: 15px; font-weight: 550; }
+.r-ghost.on { box-shadow: inset 0 0 0 1.5px var(--ink); }
+.r-toast { position: absolute; left: 0; right: 0; bottom: -4px; display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 8px 8px 8px 18px; border-radius: 24px; background: var(--ink); color: var(--surface); font-size: 15px; font-weight: 500; box-shadow: 0 14px 34px -14px rgba(0, 0, 0, .45); animation: r-in .3s cubic-bezier(.34, 1.36, .64, 1) both; }
+.r-toast[hidden] { display: none; }
+.r-toast span { flex: 1; }
+.r-toast button { height: 32px; padding: 0 14px; border: 0; border-radius: 16px; background: rgba(127, 127, 127, .22); color: inherit; font: 650 14.5px/1 var(--font); cursor: pointer; }
+@keyframes r-in { from { opacity: 0; transform: translateY(10px) scale(.95); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .r-toast { animation: none; } }
 </style>
 </head>
 <body>
@@ -390,6 +408,27 @@ img { display: block; }
       <figcaption>Every quick action can be undone for six seconds.</figcaption>
     </figure>
     <section class="prose part">
+      <p class="part-label">Later, on your terms</p>
+      <p>Snoozing asks when, not just whether. Remind me offers three times that fit the day, each with the actual time next to it, so there’s no maths in the hallway. Not mine sits right beside it and teaches Fireflies to weigh asks like that lower next time.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <div class="remind">
+          <div class="r-menu" role="menu" aria-label="Remind me">
+            <button type="button" role="menuitem" data-until="1:48 PM">In 1 hour<small>1:48 PM</small></button>
+            <button type="button" role="menuitem" data-until="3:30 PM">This afternoon<small>3:30 PM</small></button>
+            <button type="button" role="menuitem" data-until="9:00 AM tomorrow">Tomorrow morning<small>9:00 AM</small></button>
+          </div>
+          <div class="r-row">
+            <span class="r-ghost on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.2 2"/></svg>Remind me</span>
+            <span class="r-ghost"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M8 12h8"/></svg>Not mine</span>
+          </div>
+          <div class="r-toast" role="status" aria-live="polite" hidden></div>
+        </div>
+      </div>
+      <figcaption>Each option shows the real time the ask comes back. Try one.</figcaption>
+    </figure>
+    <section class="prose part">
       <p class="part-label">Where it came from</p>
       <p>Something small with a large impact is the logos. They reinforce trust in where things are coming from and where they are going, instead of relying on “they should know”. Tap into any ask and the evidence is right there, quoted, with who said it and when.</p>
     </section>
@@ -507,6 +546,24 @@ img { display: block; }
     seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-checked', x === b); });
     draft.classList.add('out');
     setTimeout(function () { draft.textContent = drafts[i]; cta.textContent = labels[i]; draft.classList.remove('out'); }, 150);
+  });
+})();
+</script>
+<script>
+/* Remind me: picking a time confirms it with an undo, like the app. */
+(function () {
+  var menu = document.querySelector('.r-menu'), toast = document.querySelector('.r-toast'), t;
+  if (!menu || !toast) return;
+  function mark(b) { menu.querySelectorAll('button').forEach(function (x) { x.classList.toggle('picked', x === b); }); }
+  function reset() { toast.hidden = true; mark(null); }
+  menu.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    clearTimeout(t);
+    mark(b);
+    toast.innerHTML = '<span>Snoozed until ' + b.dataset.until + '.</span><button type="button">Undo</button>';
+    toast.hidden = false;
+    toast.querySelector('button').addEventListener('click', reset);
+    t = setTimeout(reset, 4000);
   });
 })();
 </script>

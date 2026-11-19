@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fireflies Catch-up</title>
 <meta name="color-scheme" content="light dark">
+<meta name="description" content="A one-handed catch-up for when you have been away for a few hours. Fireflies.ai design task by Shater Tsavsar.">
+<link rel="manifest" href="/fireflies/manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="/fireflies/icon-192.png">
+<link rel="apple-touch-icon" href="/fireflies/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Catch up">
+<meta name="theme-color" content="#1C1C1E">
 <script>
 /* Resolve look and theme before first paint so nothing flashes. ?look=dusk&theme=dark also works for sharing a link. */
 (function () {
@@ -74,7 +83,10 @@
       </div>
     </div>
   </div>
-  <p class="mobile-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18.5h2"/></svg>This experience is much better on mobile. Open shatermt.com/fireflies on your phone.</p>
+  <div class="mobile-hint">
+    <span class="qr"><img src="/fireflies/qr.svg" width="58" height="58" alt="QR code that opens shatermt.com/fireflies"></span>
+    <p><b>This experience is much better on mobile.</b><span>Scan to open it on your phone, then Add to Home Screen to use it full screen.</span></p>
+  </div>
   </div>
 </main>
 <script src="/fireflies/data.js"></script>

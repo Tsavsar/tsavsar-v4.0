@@ -623,6 +623,9 @@ button:focus-visible, [tabindex]:focus-visible, textarea:focus-visible, input:fo
 
 /* Desktop: the phone frame gets a note underneath, since the real thing is meant for a hand */
 .device-col { display: flex; flex-direction: column; align-items: center; gap: 16px; flex: none; }
-.mobile-hint { display: flex; align-items: center; gap: 7px; height: 24px; font: 400 13.5px/1.3 var(--font); color: var(--ink-3); text-align: center; text-wrap: balance; }
-.mobile-hint svg { flex: none; }
+.mobile-hint { display: flex; align-items: center; gap: 14px; height: 70px; max-width: 360px; text-align: left; }
+.mobile-hint .qr { flex: none; width: 70px; height: 70px; padding: 6px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 .5px var(--line-strong); }
+.mobile-hint .qr img { display: block; width: 58px; height: 58px; image-rendering: pixelated; }
+.mobile-hint p { font: 400 13px/1.4 var(--font); color: var(--ink-3); text-wrap: pretty; }
+.mobile-hint b { display: block; font-weight: 600; color: var(--ink-2); }
 @media (max-width: 520px) { .device-col { display: block; height: 100%; } .mobile-hint { display: none; } }
