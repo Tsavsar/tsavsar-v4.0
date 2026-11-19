@@ -22,7 +22,8 @@ const rubber = (o, dim = 400, c = .55) => (o * dim * c) / (dim + c * Math.abs(o)
 // Where a flick would come to rest if it decelerated like a scroll view.
 const project = (v, rate = .998) => (v / 1000) * rate / (1 - rate);
 
-function spring({ from, to, velocity = 0, response = .4, damping = 1, onUpdate, onDone }) {
+// precision: how close counts as settled, in the animated value's own units (px by default; tiny for 0..1 progress).
+function spring({ from, to, velocity = 0, response = .4, damping = 1, precision = .12, onUpdate, onDone }) {
   if (reduce()) { onUpdate(to, 0); if (onDone) onDone(); return { stop() {}, get v() { return 0; } }; }
   const w = 2 * Math.PI / response, k = w * w, c = 2 * damping * w;
   let x = from, v = velocity, raf = 0, last = 0, dead = false;
@@ -32,7 +33,7 @@ function spring({ from, to, velocity = 0, response = .4, damping = 1, onUpdate, 
     const dt = Math.min((t - last) / 1000, 1 / 20); last = t;
     const n = Math.max(1, Math.ceil(dt * 240)), h = dt / n;
     for (let i = 0; i < n; i++) { const a = -k * (x - to) - c * v; v += a * h; x += v * h; }
-    if (Math.abs(x - to) < .12 && Math.abs(v) < 3) { onUpdate(to, 0); if (onDone) onDone(); return; }
+    if (Math.abs(x - to) < precision && Math.abs(v) < precision * 25) { onUpdate(to, 0); if (onDone) onDone(); return; }
     onUpdate(x, v);
     raf = requestAnimationFrame(step);
   };
@@ -491,10 +492,13 @@ function setY(y) {
   const vis = clamp((sh.H - y) / Math.max(1, sh.H - Math.max(sh.yMed, sh.H * .2)), 0, 1);
   sh.scrim.style.opacity = (.38 * vis).toFixed(3);
   const ref = sh.yMed > 0 ? sh.yMed : sh.H * .35;
-  const t = clamp((ref - y) / ref, 0, 1);
+  if (!mo) setAppBack(clamp((ref - y) / ref, 0, 1));
+  sh.foot.style.transform = `translate3d(0,${-clamp(y, 0, sh.yMed)}px,0)`;
+}
+// The app behind a sheet: pushed back and rounded, in step with the sheet (t = 0 resting, 1 fully behind).
+function setAppBack(t) {
   sh.app.style.transform = t > 0 ? `translate3d(0,${(t * 10).toFixed(2)}px,0) scale(${(1 - .065 * t).toFixed(4)})` : '';
   sh.app.style.borderRadius = (t * 34).toFixed(1) + 'px';
-  sh.foot.style.transform = `translate3d(0,${-clamp(y, 0, sh.yMed)}px,0)`;
 }
 function setDetent(d) {
   sh.detent = d;
@@ -516,7 +520,7 @@ function openSheet(view, opener) {
   sh.el.classList.add('open'); sh.scrim.classList.add('on'); sh.app.inert = true;
   const start = view.start === 'large' || view.detents.length === 1 ? 'large' : 'medium';
   setDetent(start);
-  if (view.type === 'prep' && opener === capEl) { if (sh.sp) sh.sp.stop(); setY(start === 'large' ? 0 : sh.yMed); morphSheet(1); }
+  if (view.type === 'prep' && opener === capEl) { if (sh.sp) sh.sp.stop(); mo = { m: 0 }; setY(start === 'large' ? 0 : sh.yMed); mo = null; morphSheet(1); }
   else { setY(sh.H); springSheet(start === 'large' ? 0 : sh.yMed, 0, { response: .46, damping: 1 }); }
   setTimeout(() => { try { sh.el.focus({ preventScroll: true }); } catch (_) {} }, 60);
 }
@@ -553,9 +557,10 @@ function applyMorph(m) {
   sh.el.style.clipPath = `inset(${(k.t * e).toFixed(2)}px ${(k.r * e).toFixed(2)}px ${(k.b * e).toFixed(2)}px ${(k.l * e).toFixed(2)}px round ${ra.toFixed(2)}px ${ra.toFixed(2)}px ${rb.toFixed(2)}px ${rb.toFixed(2)}px)`;
   sh.el.style.setProperty('--m-cap', (smooth(m, 0, .1) * (1 - smooth(m, .28, .62))).toFixed(3));
   sh.el.style.setProperty('--m-bg', smooth(m, .12, .5).toFixed(3));
-  sh.el.style.setProperty('--m-in', smooth(m, .42, .9).toFixed(3));
+  sh.el.style.setProperty('--m-in', smooth(m, .28, .72).toFixed(3));
   capEl.style.opacity = (1 - smooth(m, 0, .12)).toFixed(3);
-  sh.scrim.style.opacity = (.38 * smooth(m, 0, .7)).toFixed(3);
+  sh.scrim.style.opacity = (.38 * smooth(m, 0, .8)).toFixed(3);
+  setAppBack(clamp(m, 0, 1));
 }
 function morphSheet(to, onDone) {
   if (mo && mo.sp) mo.sp.stop();
@@ -563,7 +568,7 @@ function morphSheet(to, onDone) {
   mo = { m: from, k: capInset() };
   sh.el.classList.add('morphing');
   applyMorph(from);
-  mo.sp = spring({ from, to, response: to ? .58 : .46, damping: to ? .9 : 1, onUpdate: (m) => { mo.m = m; applyMorph(m); }, onDone: () => {
+  mo.sp = spring({ from, to, response: to ? .5 : .42, damping: 1, precision: .0008, onUpdate: (m) => { mo.m = m; applyMorph(m); }, onDone: () => {
     sh.el.classList.remove('morphing'); sh.el.style.clipPath = '';
     ['--m-cap', '--m-bg', '--m-in'].forEach((p) => sh.el.style.removeProperty(p));
     if (to) capEl.style.opacity = '0';
