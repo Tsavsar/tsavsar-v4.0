@@ -6,7 +6,7 @@
   "scope": "/fireflies",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#1C1C1E",
+  "background_color": "#FFFFFF",
   "theme_color": "#1C1C1E",
   "icons": [
     { "src": "/fireflies/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
