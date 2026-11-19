@@ -97,6 +97,8 @@ img { display: block; }
 .cards-block { display: flex; flex-direction: column; align-items: center; gap: 24px; }
 .cards { display: flex; gap: 24px; align-items: flex-start; }
 .cards-block > p { align-self: stretch; }
+.cards-block > .quick { align-self: stretch; }
+.list-block > p.strong { color: var(--text-strong); }
 
 .card { width: 361px; display: flex; gap: 14px; align-items: flex-start; padding: 16px 16px 16px 14px; border-radius: 18px; background: var(--surface); }
 .person { position: relative; width: 42px; height: 42px; flex: none; }
@@ -245,6 +247,10 @@ img { display: block; }
 
 
     <section class="cards-block">
+      <div class="list-block quick">
+        <p>Quick actions,</p>
+        <p class="strong">Every ask can be handled without opening it. Swipe a card left for Later or Done, the same gesture as Mail and Messages, so the thumb never leaves the bottom half of the screen. Tap the card instead and the suggested next step opens in a sheet, ready to send.</p>
+      </div>
       <div class="cards">
         <article class="card">
           <div class="person">
