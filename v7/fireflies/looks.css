@@ -510,3 +510,8 @@
 :root[data-look="night"] .row-tile[data-lvl="3"] .who-act { background: var(--glow); color: #fff; }
 :root[data-look="night"] .pr .row-tile .who-act { width: 17px; height: 17px; }
 :root[data-look="night"] .row-tile .who-act[data-act="question"] svg { width: 14px; height: 14px; }
+
+/* Pulling the list down: behind the panel is all masthead, never the light half of a split background.
+   The panel's colour runs on below it (as shadows, which add no scroll length) so a bottom bounce stays light. */
+:root[data-look="night"] .app { background: var(--top); }
+:root[data-look="night"] .panel { box-shadow: 0 50vh 0 var(--bg), 0 100vh 0 var(--bg); }
