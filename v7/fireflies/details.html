@@ -252,17 +252,17 @@ img { display: block; }
       </a>
     </div>
     <div>
-      <h1 class="title" style="font-weight:400">FireFlies.ai Design Task</h1>
+      <h1 class="title" style="font-weight:400">Fireflies.ai Design Task</h1>
       <p class="byline"><span>by Shater Tsavsar</span><span>2026</span></p>
     </div>
   </header>
 
   <div class="body">
     <section class="prose">
-      <p>I’ve been tasked with creating a mobile first catch-up app. The idea is to have a central hub for all your context that you can access immediately and at a glance know what to do next without overwhelming the user.</p>
+      <p>I was tasked with designing a mobile-first catch-up app. The idea is a central hub for all your context, one you can open and, at a glance, know what to do next, without being overwhelmed.</p>
 
       <div class="list-block">
-        <p>Key needs from our users,</p>
+        <p>Key needs from our users:</p>
         <ul>
           <li>Know fast if anything needs her, and by when.</li>
           <li>Trust what she’s told.</li>
@@ -271,21 +271,21 @@ img { display: block; }
       </div>
 
       <div class="list-block">
-        <p>Assumptions,</p>
+        <p>Assumptions:</p>
         <ul>
-          <li>Fireflies is connected to calendar, Slack and email, and can post for her after a confirmation.</li>
-          <li>User has under 90 seconds and one hand.</li>
+          <li>Fireflies is connected to calendar, Slack and email, and can post for her once she confirms.</li>
+          <li>She has under 90 seconds and one free hand.</li>
           <li>A normal return has two to five real asks.</li>
         </ul>
       </div>
 
-      <p>Deciding what should be surfaced is dependent on priority and also the user’s role on the team as this is a context solution. Of course want the user to know where all these details are coming from, but if we have 20 slack messages, we can’t throw this in the user’s face because that would defeat the “Without overwhelming the user” part we mentioned above so grouping and then generating a summary but we can’t just group slack notifications, that would be a “Slack round-up”, so how do we handle contextual grouping?</p>
+      <p>What gets surfaced depends on priority and on the user’s role on the team, since this is a context product. We want the user to know where every detail comes from, but if there are 20 Slack messages we can’t throw them all in their face; that would defeat the “without overwhelming the user” part above. So we group and summarise. But grouping Slack notifications on their own would only give us a “Slack round-up”. So how do we group by context instead?</p>
 
-      <p>Say we’re working with an engineer, we can take a conversation about a certain feature, conversations that happened over email and over slack and then the repo activity on Github, now we’ve created an overview on all that activity by cross referencing from 3 platforms.</p>
+      <p>Say we’re working with an engineer. We can take the conversations about a feature, over email and over Slack, add the repo activity on GitHub, and cross-reference all three into a single overview of that work.</p>
 
       <aside class="side-note">
         <p>Side note:</p>
-        <p>I’m building an opensource email client and this is on of our features so I had done a bunch of the research and ideating already, would love to chat more about that later.</p>
+        <p>I’m building an open-source email client and this is one of its features, so I’d already done a lot of the research and ideation. I’d love to chat more about that later.</p>
       </aside>
     </section>
 
@@ -298,12 +298,12 @@ img { display: block; }
     </header>
 
     <section class="prose">
-      <p>The goal of the design was to give the user their content and let them navigate the entire app productively with one hand, because this is a 30 to 90 second window of use.</p>
+      <p>The goal was to give the user their content and let them move through the whole app productively with one hand, because this is a 30 to 90 second window of use.</p>
     </section>
 
     <section class="prose part">
       <p class="part-label">The overview</p>
-      <p>The first thing on screen is one sentence that answers the whole question: what needs you, what moved and what can wait. Every number in it is tappable and jumps to that part of the list, and right under it are the sources it was read from, so the summary never floats on its own.</p>
+      <p>The first thing on screen is one sentence that answers the whole question: what needs you, what moved and what can wait. Each number can be tapped to jump to that part of the list, and right under it are the sources it was read from, so the summary never floats on its own.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
@@ -317,7 +317,7 @@ img { display: block; }
     </figure>
     <section class="prose part">
       <p class="part-label">Who is waiting</p>
-      <p>Each ask leads with the person waiting on it, not the app it came from. A small badge says what they are doing, waiting on you, expecting something from you, or asking you something, so the user knows the shape of the reply before reading a word.</p>
+      <p>Each ask leads with the person waiting on it, not the app it came from. A small badge says what they are doing (waiting on you, expecting something from you, or asking you something), so the user knows the shape of the reply before reading a word.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
@@ -331,7 +331,7 @@ img { display: block; }
     </figure>
     <section class="prose part">
       <p class="part-label">Quick actions</p>
-      <p>Every ask can be handled without opening it. Adding native iOS behaviour like the swipe was a quick and easy way to get there: swipe a card left for Later or Done, the same gesture as Mail and Messages, so the thumb never leaves the bottom half of the screen. Tap the card instead and the suggested next step opens in a sheet, ready to send.</p>
+      <p>Every ask can be handled without opening it. Native iOS behaviour like the swipe was a quick and easy way to get there: swipe a card left for Later or Done, the same gesture as in Mail and Messages, so the thumb never leaves the bottom half of the screen. Tap the card instead and the suggested next step opens in a sheet, ready to send.</p>
     </section>
     <figure class="fig cards-block">
       <div class="cards">
@@ -387,11 +387,11 @@ img { display: block; }
       <div class="stage-panel">
         <div class="toast-demo"><span>Marked done.</span><span class="undo">Undo</span></div>
       </div>
-      <figcaption>Every quick action can be taken back for six seconds.</figcaption>
+      <figcaption>Every quick action can be undone for six seconds.</figcaption>
     </figure>
     <section class="prose part">
       <p class="part-label">Where it came from</p>
-      <p>Something small with a large impact is using the logos to reinforce trust in where things are coming from and where they are going, instead of relying on “they should know”. Tap into any ask and the evidence is right there, quoted, with who said it and when.</p>
+      <p>Something small with a large impact is the logos. They reinforce trust in where things are coming from and where they are going, instead of relying on “they should know”. Tap into any ask and the evidence is right there, quoted, with who said it and when.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
@@ -418,7 +418,7 @@ img { display: block; }
     </figure>
     <section class="prose part">
       <p class="part-label">Where it goes</p>
-      <p>In so many places there are keys telling the user exactly what is going to happen, like letting them know that yes, this is going to this specific Slack thread. The one-handed feel holds because the AI does most of the typing, with replies drafted for the context they are in.</p>
+      <p>Throughout the app there are cues telling the user exactly what is going to happen, like confirming that yes, this reply goes to this specific Slack thread. The one-handed feel holds because the AI does most of the typing, drafting each reply for its context.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
@@ -457,7 +457,7 @@ img { display: block; }
     </figure>
     <section class="prose part">
       <p class="part-label">Ask</p>
-      <p>Ask sits where the thumb already is, with suggested questions so most of the time there is nothing to type.</p>
+      <p>Ask sits right where the thumb already is, with suggested questions, so most of the time there is nothing to type.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
@@ -474,7 +474,7 @@ img { display: block; }
     </figure>
     <section class="prose part">
       <p class="part-label">Up next</p>
-      <p>There is quick access to calls too, so the user can get a quick prep in, or even join the call on the go and switch devices once they are settled.</p>
+      <p>There is quick access to calls too, so the user can get some quick prep in, or even join the call on the go and switch devices once they’re settled.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
@@ -487,7 +487,7 @@ img { display: block; }
       <figcaption>Up next stays docked at the bottom of the screen and opens into meeting prep.</figcaption>
     </figure>
     <section class="prose">
-      <p>Again, we are imagining this person walking out of a conference room holding files or a laptop, trying to figure out “OK, what is next, or what did I miss?” while also getting to the next one. We make sure they don’t miss any unknowns.</p>
+      <p>Again, picture this person walking out of a conference room with files or a laptop in hand, trying to figure out “OK, what’s next, and what did I miss?” while already on the way to the next thing. We make sure no unknowns slip past them.</p>
       <p><a class="inline-link" href="/fireflies">Try the prototype</a></p>
     </section>
     </div>
