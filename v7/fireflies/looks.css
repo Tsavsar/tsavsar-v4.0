@@ -617,3 +617,14 @@
 
 /* More air between the name bar and the dateline */
 :root[data-look="night"] .hero { padding-top: 22px; }
+
+/* Sheet header, shared by every sheet: room under the handle, close button on the first line,
+   and one type scale (15 kicker / 24 title / 16 body / 15 labels / 13 meta). */
+:root[data-look="night"] .sheet-grab { height: 26px; padding-top: 8px; }
+:root[data-look="night"] .sheet-head { padding: 12px 20px 0; gap: 16px; align-items: flex-start; }
+:root[data-look="night"] .sheet .kicker { margin: 0 0 10px; height: 32px; font-size: 15px; line-height: 1; color: var(--ink-2); }
+:root[data-look="night"] .sheet-title { font-size: 24px; font-weight: 650; line-height: 1.2; letter-spacing: -.022em; margin-top: -2px; }
+:root[data-look="night"] .icon-btn { width: 32px; height: 32px; margin-top: 0; }
+:root[data-look="night"] .sheet-body { padding-top: 12px; }
+:root[data-look="night"] .why { font-size: 16px; line-height: 1.5; margin-bottom: 28px; }
+:root[data-look="night"] .sect-head { font-size: 15px; }
