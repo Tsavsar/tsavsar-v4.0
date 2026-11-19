@@ -515,3 +515,6 @@
    The panel's colour runs on below it (as shadows, which add no scroll length) so a bottom bounce stays light. */
 :root[data-look="night"] .app { background: var(--top); }
 :root[data-look="night"] .panel { box-shadow: 0 50vh 0 var(--bg), 0 100vh 0 var(--bg); }
+
+/* Remind me menu: Night's glass is near-black in light mode too, which hid the dark labels. Use the card surface. */
+:root[data-look="night"] .menu { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: 0 0 0 .5px var(--line-strong), 0 18px 40px -12px rgba(0, 0, 0, .3); }
