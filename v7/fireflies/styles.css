@@ -630,3 +630,14 @@ button:focus-visible, [tabindex]:focus-visible, textarea:focus-visible, input:fo
 .mobile-hint p { font: 400 13px/1.4 var(--font); color: var(--ink-3); text-wrap: pretty; }
 .mobile-hint b { display: block; font-weight: 600; color: var(--ink-2); }
 @media (max-width: 520px) { .device-col { display: block; height: 100%; } .mobile-hint { display: none; } }
+
+/* Pull to refresh: a ring under the bar that fills as you pull, then spins */
+.ptr { position: absolute; z-index: 11; left: 50%; top: calc(var(--sat) + 44px); width: 28px; height: 28px; display: grid; place-items: center; pointer-events: none; opacity: 0; color: var(--top-ink, var(--ink)); }
+.ptr svg { width: 24px; height: 24px; transform: rotate(calc(-90deg + var(--p, 0) * 160deg)); transition: scale .22s var(--ease-pop); }
+.ptr-track { fill: none; stroke: currentColor; stroke-width: 2.4; opacity: .16; }
+.ptr-arc { fill: none; stroke: var(--hl, currentColor); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: calc(100 - var(--p, 0) * 80); }
+.ptr.armed svg { scale: 1.12; }
+.ptr.spinning svg { animation: ptr-spin .75s linear infinite; }
+.ptr.spinning .ptr-arc { stroke-dashoffset: 70; }
+@keyframes ptr-spin { from { transform: rotate(-90deg); } to { transform: rotate(270deg); } }
+@media (prefers-reduced-motion: reduce) { .ptr.spinning svg { animation-duration: 1.6s; } }

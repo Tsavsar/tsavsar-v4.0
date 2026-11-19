@@ -1037,6 +1037,83 @@ function onScroll() {
 }
 scroller.addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
 
+/* ---------- Pull to refresh ----------
+   From the top of the list, pull down: the page follows with growing resistance and a ring under the bar
+   fills in. Past the line the ring bumps to say "let go"; release and it spins while the page holds open,
+   then settles back with the time it checked. A short pull just springs home. */
+const PTR_T = 64, PTR_HOLD = 52;
+const ptr = { el: null, d: 0, g: null, busy: false, sp: null, armed: false };
+function ptrEl() {
+  if (!ptr.el) {
+    ptr.el = document.createElement('div');
+    ptr.el.className = 'ptr'; ptr.el.setAttribute('aria-hidden', 'true');
+    ptr.el.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" class="ptr-track"/><circle cx="12" cy="12" r="9" class="ptr-arc" pathLength="100"/></svg>';
+    $('#app').appendChild(ptr.el);
+  }
+  return ptr.el;
+}
+function ptrSet(d) {
+  ptr.d = d;
+  content.style.transform = d > .5 ? `translate3d(0,${d.toFixed(1)}px,0)` : '';
+  const p = clamp(d / PTR_T, 0, 1), el = ptrEl();
+  el.style.opacity = clamp((d - 6) / 26, 0, 1).toFixed(3);
+  el.style.setProperty('--p', p.toFixed(3));
+  el.style.transform = `translate3d(-50%,${(d * .5 - 16).toFixed(1)}px,0)`;
+  const armed = p >= 1 && !ptr.busy;
+  if (armed !== ptr.armed) {
+    ptr.armed = armed; el.classList.toggle('armed', armed);
+    if (armed && navigator.vibrate) { try { navigator.vibrate(8); } catch (_) {} }
+  }
+}
+function ptrTo(to, vel = 0, done) {
+  if (ptr.sp) ptr.sp.stop();
+  ptr.sp = spring({ from: ptr.d, to, velocity: vel, response: .42, damping: 1, onUpdate: ptrSet, onDone: done });
+}
+function ptrBegin(y) {
+  if (ptr.busy || sh.detent !== 'closed' || scroller.scrollTop > 0) return false;
+  if (ptr.sp) ptr.sp.stop();
+  ptr.g = { y0: y, active: false };
+  return true;
+}
+function ptrMove(y, ev) {
+  const g = ptr.g; if (!g) return;
+  const dy = (y - g.y0) / S;
+  if (!g.active) {
+    if (dy < -4 || scroller.scrollTop > 0) { ptr.g = null; return; }
+    if (dy < 8) return;
+    g.active = true; g.y0 = y;
+  }
+  if (ev.cancelable) ev.preventDefault();
+  ptrSet(rubber(Math.max(0, (y - g.y0) / S), 420, .62));
+}
+function ptrEnd() {
+  const g = ptr.g; ptr.g = null;
+  if (!g || !g.active) return;
+  if (ptr.armed) runRefresh(); else ptrTo(0);
+}
+function runRefresh() {
+  ptr.busy = true; ptr.armed = false;
+  const el = ptrEl(); el.classList.remove('armed'); el.classList.add('spinning');
+  ptrTo(PTR_HOLD);
+  setTimeout(() => {
+    const dl = $('.dateline span', content); if (dl) dl.textContent = `Away ${D.away}, updated just now`;
+    el.classList.remove('spinning');
+    ptrTo(0, 0, () => { ptr.busy = false; });
+    toast(`You’re up to date. Nothing new since ${D.now}.`, null, 2600);
+  }, reduce() ? 500 : 1100);
+}
+scroller.addEventListener('touchstart', (e) => { if (e.touches.length === 1 && !e.target.closest('.panel-grab')) ptrBegin(e.touches[0].clientY); }, { passive: true });
+scroller.addEventListener('touchmove', (e) => { if (e.touches.length === 1) ptrMove(e.touches[0].clientY, e); }, { passive: false });
+scroller.addEventListener('touchend', ptrEnd);
+scroller.addEventListener('touchcancel', ptrEnd);
+// A mouse can pull too (the desktop phone frame), from anywhere that isn't a control or a swipeable row.
+scroller.addEventListener('pointerdown', (e) => {
+  if (e.pointerType !== 'mouse' || e.button || e.target.closest('.panel-grab, .row-wrap, button, a, input, label')) return;
+  ptrBegin(e.clientY);
+});
+addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && ptr.g) ptrMove(e.clientY, e); });
+addEventListener('pointerup', (e) => { if (e.pointerType === 'mouse' && ptr.g) ptrEnd(); });
+
 /* ---------- Look and appearance ---------- */
 
 const LOOKS = {
