@@ -13,8 +13,7 @@
   look = 'night';
   if (th !== 'light' && th !== 'dark') th = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   d.setAttribute('data-look', look); d.setAttribute('data-theme', th);
-  try { if (localStorage.getItem('fcu-brand') === 'fireflies') d.setAttribute('data-brand', 'fireflies'); } catch (e) {}
-  try { var ac = localStorage.getItem('fcu-accent'); if (!(ac && /^#[0-9a-f]{6}$/i.test(ac))) ac = d.getAttribute('data-brand') === 'fireflies' ? '#7A3FF2' : '#0E8C99'; { var n = parseInt(ac.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255, m = function (c) { return Math.round(c + (255 - c) * .3); };
+  try { var ac = localStorage.getItem('fcu-accent'); if (!(ac && /^#[0-9a-f]{6}$/i.test(ac))) ac = '#0E8C99'; { var n = parseInt(ac.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255, m = function (c) { return Math.round(c + (255 - c) * .3); };
     d.style.setProperty('--accent-pick', ac); d.style.setProperty('--glow', ac); d.style.setProperty('--glow-rgb', r + ', ' + g + ', ' + b);
     d.style.setProperty('--hl', 'rgb(' + m(r) + ', ' + m(g) + ', ' + m(b) + ')'); } } catch (e) {}
 })();
@@ -41,11 +40,6 @@
       <div class="theme" role="group" aria-label="Appearance">
         <button type="button" data-theme-set="light">Light</button>
         <button type="button" data-theme-set="dark">Dark</button>
-        <span class="theme-thumb" aria-hidden="true"></span>
-      </div>
-      <div class="theme brand-seg" role="group" aria-label="Theme">
-        <button type="button" data-brand-set="night">Night</button>
-        <button type="button" data-brand-set="fireflies">Fireflies</button>
         <span class="theme-thumb" aria-hidden="true"></span>
       </div>
       <div id="accentPicker" class="notes-swatches"></div>

@@ -1031,15 +1031,6 @@ const LIGHT_ONLY = [];
 let prefTheme = currentTheme();
 const themeFor = (look) => (LIGHT_ONLY.includes(look) ? 'light' : prefTheme);
 
-/* Theme: Night (default) or Fireflies, a violet brand theme. Picking one also sets its accent. */
-const BRANDS = { night: '#0E8C99', fireflies: '#7A3FF2' };
-const currentBrand = () => (root.getAttribute('data-brand') === 'fireflies' ? 'fireflies' : 'night');
-function setBrand(b) {
-  if (!BRANDS[b] || b === currentBrand()) return;
-  restyle(() => { if (b === 'night') root.removeAttribute('data-brand'); else root.setAttribute('data-brand', b); store.set('fcu-brand', b); });
-  applyAccent(BRANDS[b]);
-}
-document.addEventListener('click', (e) => { const b = e.target.closest('[data-brand-set]'); if (b) setBrand(b.dataset.brandSet); });
 function syncPickers() {
   const l = currentLook(), t = currentTheme();
   $$('[data-set-look]').forEach((b) => b.setAttribute('aria-checked', b.dataset.setLook === l));
@@ -1052,8 +1043,6 @@ function syncPickers() {
   $$('[data-theme-set="dark"],[data-appearance="dark"]').forEach((b) => { b.disabled = locked; b.title = locked ? `${LOOKS[l].name} is light only` : ''; });
   const note = $('#appearanceNote'); if (note) note.hidden = !locked;
   const ab = $('[data-appearance]'); if (ab) ab.parentElement.dataset.i = t === 'dark' ? 1 : 0;
-  const br = currentBrand(); $$('[data-brand-set]').forEach((x) => { x.setAttribute('aria-checked', x.dataset.brandSet === br); x.setAttribute('aria-pressed', x.dataset.brandSet === br); });
-  const bs = $('.brand-seg'); if (bs) bs.dataset.i = br === 'fireflies' ? 1 : 0;
 }
 // A look change crossfades through the View Transitions API where it exists, and swaps instantly elsewhere.
 function restyle(fn) {
@@ -1108,11 +1097,7 @@ function renderLooks(v) {
   const art = (m) => `<span class="mode-art ${m}" aria-hidden="true"><i class="m-top"><b></b><b></b></i><i class="m-panel"><i class="m-card"><s></s><u></u></i><i class="m-card"><s></s><u></u></i></i></span>`;
   const mode = (m, label) => `<button type="button" class="mode" role="radio" aria-checked="${t === m}" data-appearance="${m}">${art(m)}<span class="mode-foot"><span class="radio"></span>${label}</span></button>`;
   sh.head.innerHTML = headHTML(`${ic('sparkle', 14)}<span>Settings</span>`, 'Appearance', v);
-  const b = currentBrand();
-  const brand = (id, label, desc) => `<button type="button" class="brand" role="radio" aria-checked="${b === id}" data-brand-set="${id}"><span class="brand-art ${id}" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-text"><b>${label}</b><small>${desc}</small></span><span class="radio"></span></button>`;
-  sh.body.innerHTML = `<p class="set-label">Theme</p>
-    <div class="brands" role="radiogroup" aria-label="Theme">${brand('night', 'Night', 'Ink masthead, paper list')}${brand('fireflies', 'Fireflies', 'Violet dusk with firefly glints')}</div>
-    <p class="set-label set-gap">Mode</p>
+  sh.body.innerHTML = `<p class="set-label">Mode</p>
     <div class="modes" role="radiogroup" aria-label="Mode">${mode('light', 'Light')}${mode('dark', 'Dark')}</div>
     <div class="set-row"><p class="set-label">Accent</p><span class="accent-name" id="accentName">${accentName()}</span></div>
     ${accentHTML()}`;
