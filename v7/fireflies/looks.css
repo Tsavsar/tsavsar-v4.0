@@ -614,3 +614,6 @@
 :root[data-look="night"] .switch input:focus-visible + i { outline: 2px solid var(--ink); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { :root[data-look="night"] .switch i::after, :root[data-look="night"] .switch i::before { transition: none; } }
 :root[data-look="night"] .sheet-foot .foot-row { margin-top: 12px; }
+
+/* More air between the name bar and the dateline */
+:root[data-look="night"] .hero { padding-top: 22px; }
