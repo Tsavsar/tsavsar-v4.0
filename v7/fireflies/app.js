@@ -54,6 +54,7 @@ const PATH = {
   chevD: '<path d="m5.5 9.5 6.5 6.5 6.5-6.5"/>',
   chevU: '<path d="m5.5 14.5 6.5-6.5 6.5 6.5"/>',
   x: '<path d="M6.5 6.5 17.5 17.5M17.5 6.5 6.5 17.5"/>',
+  dots: '<path d="M5.5 12h.01M12 12h.01M18.5 12h.01"/>',
   arrowUp: '<path d="M12 19V5.5M6 11l6-6 6 6"/>',
   arrowUR: '<path d="M7.5 16.5 16.5 7.5M9 7.5h7.5V15"/>',
   video: '<rect x="3" y="6.5" width="12.5" height="11" rx="3"/><path d="m15.5 11 5-3v8l-5-3"/>',
@@ -203,7 +204,7 @@ function homeHTML() {
       <div class="wait-body" id="waitBody"><div class="wait-clip">
         <div class="wait-list">
           ${w.rows.map((r) => `<div class="wl"><span class="src" data-s="${r.src}">${srcIc(r.src, 13)}</span><span>${r.text}${r.tag ? `<span class="tag">${r.tag}</span>` : ''}</span><time>${r.t}</time></div>`).join('')}
-          <div class="wl"><span class="src" data-s="${'list'}">${srcIc('list', 13)}</span><span>${w.more} more</span><time></time></div>
+          <div class="wl wl-more"><span class="src" data-s="more">${ic('dots', 18, 3)}</span><span>${w.more} more</span><time></time></div>
         </div>
         <p class="wait-rule">${w.rule}</p>
       </div></div>
@@ -686,8 +687,8 @@ function actionHTML(it) {
         <button type="button" role="radio" aria-checked="${ch === 'changes'}" data-choice="changes">Request changes</button>
         <span class="seg-thumb"></span>
       </div>
-      <div class="draft"><textarea id="draft" rows="3" aria-label="Reply to Priya">${esc(state.drafts[ch])}</textarea></div>
-      <p class="act-meta">Posts as you in ${it.channel}, in Priya’s thread.</p>
+      <div class="draft"><textarea id="draft" rows="2" aria-label="Reply to Priya">${esc(state.drafts[ch])}</textarea>
+        <p class="act-meta draft-to"><span class="to-mark">${srcIc('slack', 13)}</span>Posts as you in ${it.channel}, in Priya’s thread.</p></div>
     </section>`;
   }
   if (it.kind === 'commit') {
@@ -701,8 +702,8 @@ function actionHTML(it) {
         <label class="tg"><span class="ico">${ic('mail', 18)}</span>
           <span><b>Tell Tomas it lands by 5 PM</b><small>“Deck lands by 5. I’ll ping you here once it’s sent.”</small></span>
           <span class="switch"><input type="checkbox" role="switch" data-tg="note" ${t.note ? 'checked' : ''}><i></i></span></label>
+        <p class="act-meta draft-to"><span class="to-mark">${srcIc('mail', 13)}</span>Sends as you, by email, in Tomas’s thread.</p>
       </div>
-      <p class="act-meta">Sends as you, by email, in Tomas’s thread.</p>
     </section>`;
   }
   const c = state.choice.state;
@@ -718,7 +719,7 @@ function actionHTML(it) {
         <div class="lab"><em>B</em>Text only</div><div class="vote">2 votes</div><span class="tick">${ic('check', 13, 3)}</span>
       </button>
     </div>
-    <p class="act-meta">Replies to Sam in #design-crit with your pick.</p>
+    <p class="act-meta draft-to solo"><span class="to-mark">${srcIc('slack', 13)}</span>Replies to Sam in #design-crit with your pick.</p>
   </section>`;
 }
 
@@ -737,6 +738,10 @@ function evHTML(e, i) {
   </article>`;
 }
 
+// The draft box grows with its text instead of scrolling or sitting half empty.
+function fitDraft() { const ta = $('#draft'); if (!ta) return; ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
+document.addEventListener('input', (e) => { if (e.target.id === 'draft') fitDraft(); });
+
 function renderItem(v) {
   const it = item(v.id);
   sh.head.innerHTML = headHTML(`<span class="glow" data-lvl="${it.level}"></span><span>${it.dueLong}</span>`, it.title, v);
@@ -754,9 +759,9 @@ function renderItem(v) {
         <button type="button" role="menuitem" data-snooze="tomorrow">Tomorrow morning<small>9:00 AM</small></button>
       </div>
       <button type="button" class="ghost" data-remind aria-haspopup="menu">${ic('clock', 17, 2)}Remind me</button>
-      <span class="sep"></span>
       <button type="button" class="ghost" data-notmine>${ic('minus', 17, 2)}Not mine</button>
     </div>`;
+  requestAnimationFrame(fitDraft);
 }
 
 function setCta(text) {
@@ -899,7 +904,7 @@ sh.el.addEventListener('click', (e) => {
     state.choice.android = v; seg.dataset.i = v === 'approve' ? 0 : 1;
     $$('[data-choice]', seg).forEach((x) => x.setAttribute('aria-checked', x.dataset.choice === v));
     const ta = $('#draft'); ta.classList.add('swap-out');
-    setTimeout(() => { ta.value = state.drafts[v]; ta.classList.remove('swap-out'); }, reduce() ? 0 : 150);
+    setTimeout(() => { ta.value = state.drafts[v]; fitDraft(); ta.classList.remove('swap-out'); }, reduce() ? 0 : 150);
     setCta(ctaLabel(it)); return;
   }
   if ((el = b('[data-pick]')) && it) {

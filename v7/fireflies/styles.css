@@ -616,7 +616,7 @@ button:focus-visible, [tabindex]:focus-visible, textarea:focus-visible, input:fo
 @media (min-width: 1041px) { .details-link { left: 24px; transform: none; } .details-link:active { transform: scale(.97); } }
 /* Real phone: the app is full screen, so the link sits in the empty middle of the navbar, and steps aside when the panel docks its title there */
 @media (max-width: 520px) {
-  .details-link { top: calc(var(--sat) + 8px); height: 28px; padding: 0 10px 0 12px; font-size: 12.5px; background: var(--top-2, var(--surface)); color: var(--top-ink, var(--ink)); box-shadow: none; transition: opacity .2s; }
+  .details-link { top: calc(var(--sat) + 4px); height: 36px; padding: 0 12px 0 15px; font: 600 15px/1 var(--font); letter-spacing: -.01em; background: var(--top-2, var(--surface)); color: var(--top-ink, var(--ink)); box-shadow: none; transition: opacity .2s; }
   .details-link svg { color: var(--top-ink-3, var(--ink-3)); }
   .stage:has(.screen.docked, .sheet.open) .details-link { opacity: 0; pointer-events: none; }
 }
