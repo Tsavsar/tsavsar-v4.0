@@ -625,7 +625,7 @@ button:focus-visible, [tabindex]:focus-visible, textarea:focus-visible, input:fo
 .device-col { display: flex; flex-direction: column; align-items: center; gap: 82px; flex: none; }
 .mobile-hint { display: flex; align-items: center; gap: 14px; height: 58px; max-width: 360px; text-align: left; }
 .mobile-hint .qr { flex: none; width: 58px; height: 58px; }
-:root[data-theme="dark"] .mobile-hint .qr img { filter: invert(1); }
+
 .mobile-hint .qr img { display: block; width: 58px; height: 58px; image-rendering: pixelated; }
 .mobile-hint p { font: 400 13px/1.4 var(--font); color: var(--ink-3); text-wrap: pretty; }
 .mobile-hint b { display: block; font-weight: 600; color: var(--ink-2); }
@@ -641,3 +641,33 @@ button:focus-visible, [tabindex]:focus-visible, textarea:focus-visible, input:fo
 .ptr.spinning .ptr-arc { stroke-dashoffset: 70; }
 @keyframes ptr-spin { from { transform: rotate(-90deg); } to { transform: rotate(270deg); } }
 @media (prefers-reduced-motion: reduce) { .ptr.spinning svg { animation-duration: 1.6s; } }
+
+/* QR: data modules in ink, corner squares in the accent */
+.qr-data { fill: #171717; }
+.qr-finder { fill: var(--glow); }
+:root[data-theme="dark"] .mobile-hint .qr-data { fill: #F2F2F2; }
+.mobile-hint .qr { padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 6px; }
+.mobile-hint .qr-tilt { display: block; width: 58px; height: 58px; transform-style: preserve-3d; will-change: transform; }
+.mobile-hint .qr svg { display: block; width: 58px; height: 58px; }
+.mobile-hint .qr:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+
+/* Lightbox (Luotain's): frosted scrim, a card that tilts, the code and a light streak on their own planes */
+.qrbox { position: fixed; inset: 0; z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding: 24px; }
+.qrbox[hidden] { display: none; }
+.qrbox-scrim { position: fixed; inset: 0; background: rgba(255, 255, 255, .72); -webkit-backdrop-filter: blur(14px) saturate(120%); backdrop-filter: blur(14px) saturate(120%); opacity: 0; transition: opacity 180ms var(--ease-out); cursor: zoom-out; }
+:root[data-theme="dark"] .qrbox-scrim { background: rgba(10, 10, 10, .72); }
+.qrbox-stage { position: relative; display: grid; place-items: center; }
+.qrbox-shadow { position: absolute; inset: 6%; border-radius: 24px; background: rgba(0, 0, 0, .16); filter: blur(38px); will-change: transform; opacity: 0; transition: opacity 180ms var(--ease-out); }
+.qrbox-card { position: relative; transform-style: preserve-3d; will-change: transform; border-radius: 22px; background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .08); opacity: 0; scale: .94; transition: opacity 180ms var(--ease-out), scale 180ms var(--ease-out); }
+:root[data-theme="dark"] .qrbox-card { background: #1C1C1E; box-shadow: 0 0 0 1px rgba(255, 255, 255, .1); }
+:root[data-theme="dark"] .qrbox-card .qr-data { fill: #F2F2F2; }
+.qrbox-code { padding: 22px; transform: translateZ(26px); border-radius: 22px; }
+.qrbox-code svg { display: block; width: 260px; height: 260px; }
+.qrbox-gloss { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; pointer-events: none; transform: translateZ(60px); }
+.qrbox-gloss i { position: absolute; inset: -60%; background: linear-gradient(115deg, rgba(255, 255, 255, 0) 44%, rgba(255, 255, 255, .28) 50%, rgba(255, 255, 255, 0) 56%); will-change: transform; }
+.qrbox-cap { position: relative; display: grid; gap: 4px; text-align: center; font: 400 14px/1.4 var(--font); color: var(--ink-3); opacity: 0; translate: 0 6px; transition: opacity 180ms var(--ease-out), translate 180ms var(--ease-out); }
+.qrbox-cap b { font-weight: 600; font-size: 15px; color: var(--ink); }
+.qrbox.on .qrbox-scrim, .qrbox.on .qrbox-shadow { opacity: 1; transition-duration: 250ms; }
+.qrbox.on .qrbox-card { opacity: 1; scale: 1; transition: opacity 250ms var(--ease-out), scale 420ms cubic-bezier(.34, 1.2, .64, 1); }
+.qrbox.on .qrbox-cap { opacity: 1; translate: 0 0; transition: opacity 300ms ease .1s, translate 300ms ease .1s; }
+@media (prefers-reduced-motion: reduce) { .qrbox-card { scale: 1; } }
