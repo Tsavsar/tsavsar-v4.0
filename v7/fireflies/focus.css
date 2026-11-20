@@ -163,3 +163,9 @@
 :root[data-look="night"] .panel { background: var(--bg); }
 /* One surface: the bar stays at full strength while the list scrolls under it */
 :root[data-look="night"] .screen:not(.docked) .navbar > * { opacity: 1; }
+/* Focus card: even 20px padding on every side, title and subtitle as one block */
+:root[data-look="night"] .is-focus .row { grid-template-columns: 76px 1fr; }
+:root[data-look="night"] .is-focus .row-glow { margin: 20px 0 0 20px; }
+:root[data-look="night"] .is-focus .row-title { margin: 20px 20px 0 0; line-height: 1.22; }
+:root[data-look="night"] .is-focus .row-sub { margin: 4px 20px 20px 0; }
+:root[data-look="night"] .is-focus .row-glow { justify-items: start; }
