@@ -21,7 +21,7 @@
   var d = document.documentElement, q = new URLSearchParams(location.search), look, th;
   try { look = q.get('look') || localStorage.getItem('fcu-look'); th = q.get('theme') || localStorage.getItem('fcu-theme'); } catch (e) { look = q.get('look'); th = q.get('theme'); }
   look = 'night';
-  if (th !== 'light' && th !== 'dark') th = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  if (th !== 'light' && th !== 'dark') th = 'dark';  // dark by default; the Appearance menu can still switch it
   d.setAttribute('data-look', look); d.setAttribute('data-theme', th);
   try { var ac = localStorage.getItem('fcu-accent'); if (!(ac && /^#[0-9a-f]{6}$/i.test(ac))) ac = '#0E8C99'; { var n = parseInt(ac.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255, m = function (c) { return Math.round(c + (255 - c) * .3); };
     d.style.setProperty('--accent-pick', ac); d.style.setProperty('--glow', ac); d.style.setProperty('--glow-rgb', r + ', ' + g + ', ' + b);
@@ -30,6 +30,7 @@
 </script>
 <link rel="stylesheet" href="/fireflies/styles.css">
 <link rel="stylesheet" href="/fireflies/looks.css">
+<link rel="stylesheet" href="/fireflies/focus.css">
 <script>
   // Vercel Web Analytics (same as the rest of the site); skipped locally.
   if (!/^(localhost|127\.|0\.0\.0\.0)/.test(location.hostname)) {

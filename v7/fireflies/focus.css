@@ -1,0 +1,165 @@
+/* ==========================================================================
+   v2: one focus.
+   The home answers one question (what needs me now?), puts the most urgent
+   item in focus with one action, and lets everything else sit quietly, one
+   tap away. The accent marks only that one action.
+   ========================================================================== */
+
+/* Hero: a time and a headline, nothing else */
+:root[data-look="night"] .hero { padding: 20px 24px 6px; }
+:root[data-look="night"] .dateline { margin-bottom: 10px; font: 500 15px/1 var(--font); color: var(--ink-3); }
+:root[data-look="night"] .verdict { display: block; font: 650 34px/1.12 var(--font); letter-spacing: -.03em; color: var(--ink); }
+:root[data-look="night"] .verdict .b { display: none; }
+:root[data-look="night"] .overview, :root[data-look="night"] .provenance { display: none; }
+:root[data-look="night"] .panel { margin-top: 26px; }
+:root[data-look="night"] .panel .block:first-of-type { margin-top: 14px; }
+
+/* Sources, badges and urgency dots live inside the item, not on the list */
+:root[data-look="night"] .row .src, :root[data-look="night"] .row-meta .srcs,
+:root[data-look="night"] .row-tile .who-act, :root[data-look="night"] .row-tile[data-lvl="3"]::after { display: none; }
+:root[data-look="night"] .row-meta > :not(.due) { display: none; }
+
+/* Quiet rows: face, title, time */
+:root[data-look="night"] .row { grid-template-columns: 32px 1fr auto; column-gap: 12px; align-items: center; padding: 14px 18px 14px 16px; }
+:root[data-look="night"] .row-glow { padding-top: 0; }
+:root[data-look="night"] .row-tile { width: 32px; height: 32px; }
+:root[data-look="night"] .row-title { font: 550 16px/1.3 var(--font); letter-spacing: -.012em; text-wrap: pretty; }
+:root[data-look="night"] .row-sub, :root[data-look="night"] .row-meta, :root[data-look="night"] .row-go { display: none; }
+:root[data-look="night"] .row-due { font: 400 14px/1.3 var(--font); color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+:root[data-look="night"] .row-wrap + .row-wrap .row-clip { margin-top: 6px; }
+
+/* Focus: the first open item, larger, with the one action on the screen */
+:root[data-look="night"] .is-focus .row { grid-template-columns: 40px 1fr; column-gap: 14px; align-items: start; padding: 20px 20px 20px; }
+:root[data-look="night"] .is-focus .row > div { display: contents; }
+:root[data-look="night"] .is-focus .row-glow { grid-column: 1; grid-row: 1 / span 2; }
+:root[data-look="night"] .is-focus .row-tile { width: 40px; height: 40px; }
+:root[data-look="night"] .is-focus .row-title { grid-column: 2; grid-row: 1; font: 650 20px/1.25 var(--font); letter-spacing: -.022em; text-wrap: balance; }
+:root[data-look="night"] .is-focus .row-sub { display: block; grid-column: 2; grid-row: 2; margin-top: 6px; font: 400 15px/1.4 var(--font); color: var(--ink-2); }
+:root[data-look="night"] .is-focus .row-meta { display: none; }
+:root[data-look="night"] .is-focus .row-due { display: none; }
+:root[data-look="night"] .is-focus .row-go {
+  grid-column: 1 / -1; grid-row: 3; margin-top: 18px;
+  display: flex; align-items: center; justify-content: space-between; height: 48px; padding: 0 16px 0 18px; border-radius: 14px;
+  background: var(--glow); color: var(--glow-ink); font: 600 16px/1 var(--font); letter-spacing: -.01em;
+  transition: transform .15s var(--ease-out);
+}
+:root[data-look="night"] .is-focus .row:active .row-go { transform: scale(.98); }
+
+/* Handled tally only; no instructions */
+:root[data-look="night"] .caption { padding: 12px 8px 0; min-height: 0; }
+:root[data-look="night"] .caption:empty { display: none; }
+
+/* Can wait: two quiet lines in one group, each opens in place */
+:root[data-look="night"] .can-wait { margin-top: 30px; }
+:root[data-look="night"] .later-h { padding: 0 6px 10px; font: 600 15px/1 var(--font); letter-spacing: -.01em; color: var(--ink-3); }
+:root[data-look="night"] .later-group { border-radius: var(--r-group); background: var(--surface); overflow: hidden; }
+:root[data-look="night"] #wait { border-top: .5px solid var(--line); }
+:root[data-look="night"] .can-wait .wait-head { padding: 16px 18px; font: 500 16px/1.25 var(--font); }
+:root[data-look="night"] .can-wait .wait-head .n { font-weight: 500; }
+:root[data-look="night"] .can-wait .wait-head .chev { color: var(--ink-3); }
+#moved[data-open="true"] .wait-body { grid-template-rows: 1fr; }
+#moved[data-open="true"] .wait-head .chev { transform: rotate(180deg); }
+:root[data-look="night"] #moved .group { display: block; gap: 0; }
+:root[data-look="night"] #moved .proj { background: none; border-radius: 0; border-top: .5px solid var(--line); }
+:root[data-look="night"] #moved .proj .status { color: var(--ink-3); }
+:root[data-look="night"] #moved .proj .status svg { display: none; }
+:root[data-look="night"] .can-wait .wait-list .src { background: none; color: var(--ink-3); }
+
+/* The way out to the notes sits at the end of the list */
+:root[data-look="night"] .foot { padding: 30px 24px 0; }
+.foot-notes { display: block; width: max-content; margin: 10px auto 0; color: var(--ink-2); font-weight: 500; text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+@media (max-width: 520px) { .details-link { display: none; } }
+
+/* Up next: a small pill with the meeting and how soon, not a bar */
+:root[data-look="night"] .capsule {
+  left: 50%; right: auto; translate: -50% 0; width: max-content; height: 48px; border-radius: 999px;
+  grid-template-columns: auto auto; gap: 10px; padding: 0 8px 0 18px;
+  box-shadow: 0 10px 28px -12px rgba(0, 0, 0, .45);
+}
+:root[data-look="night"] .cap-main { display: flex; align-items: baseline; gap: 6px; white-space: nowrap; }
+:root[data-look="night"] .cap-main b { font: 600 15px/1 var(--font); }
+:root[data-look="night"] .cap-main span { margin: 0; font: 400 15px/1 var(--font); color: var(--cap-ink-2); }
+:root[data-look="night"] .cap-go { width: 32px; height: 32px; }
+:root[data-look="night"] .is-focus .row-go .go-due { font-weight: 500; opacity: .8; font-variant-numeric: tabular-nums; }
+
+/* ---------- Sheets: one main action, the rest folded ---------- */
+:root[data-look="night"] .sheet .act-head svg { display: none; }
+:root[data-look="night"] .sheet .act-head { color: var(--ink-2); font-weight: 600; }
+:root[data-look="night"] .why { margin-bottom: 24px; }
+
+/* Where this came from: one line until you ask for it */
+.ev-toggle { width: 100%; display: flex; align-items: center; gap: 10px; margin-top: 20px; padding: 14px 16px; border-radius: var(--r-group); background: var(--surface); text-align: left; font: 500 15px/1.2 var(--font); color: var(--ink); transition: transform .15s var(--ease-out); }
+.ev-toggle:active { transform: scale(.985); }
+.ev-toggle .srcs { display: flex; }
+.ev-toggle .src { width: 22px; height: 22px; box-shadow: 0 0 0 2px var(--surface); }
+.ev-toggle .src svg { width: 12px; height: 12px; }
+.ev-toggle .grow { flex: 1; }
+.ev-toggle .sub { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.ev-toggle > svg { color: var(--ink-3); transition: transform .3s var(--ease-out); }
+.ev-open .ev-toggle > svg { transform: rotate(180deg); }
+.sheet-body:not(.ev-open) .evid { display: none; }
+.sheet-body.ev-open .evid { margin-top: 10px; animation: ev-in .32s var(--ease-out) both; }
+@keyframes ev-in { from { opacity: 0; transform: translateY(-6px); } }
+@media (prefers-reduced-motion: reduce) { .sheet-body.ev-open .evid { animation: none; } }
+
+/* Foot: the main button, then one quiet text button */
+:root[data-look="night"] .sheet-foot .ghost.quiet { background: none; color: var(--ink-2); font-weight: 500; }
+:root[data-look="night"] .sheet-foot .ghost.quiet:active { background: var(--surface-2); }
+.menu .menu-sep { border-top: .5px solid var(--line); color: var(--ink-2); }
+
+/* Prep: plain rows */
+:root[data-look="night"] .pr .go { color: var(--ink-3); background: none; padding: 0; }
+.ev-toggle .src { background: none !important; box-shadow: none; margin-left: 0 !important; }
+.ev-toggle .src[data-s="meeting"] { color: #7B61FF; }
+.ev-toggle .srcs { gap: 6px; }
+
+/* ---------- One surface ----------
+   The dark masthead was the loudest thing on the screen while saying the least.
+   Now the whole app is one calm surface in each theme; the cards carry the content. */
+:root[data-look="night"], :root[data-theme="dark"][data-look="night"] {
+  --top: var(--bg); --top-2: var(--surface); --top-ink: var(--ink); --top-ink-2: var(--ink-2); --top-ink-3: var(--ink-3);
+}
+:root[data-look="night"] .app { background: var(--bg); }
+:root[data-look="night"] .panel { margin-top: 18px; padding-top: 0; border-radius: 0; background: none; }
+:root[data-look="night"] .panel-grab { display: none; }
+:root[data-look="night"] .ask-btn { background: var(--surface); color: var(--ink); }
+:root[data-look="night"] .ask-btn svg { color: var(--glow); }
+:root[data-look="night"] .hero { padding-top: 26px; }
+
+/* The quiet items are one grouped list under the focus card */
+:root[data-look="night"] .row { position: relative; }
+:root[data-look="night"] .row-wrap:not(.is-focus) .row { border-radius: 0; }
+:root[data-look="night"] .row-wrap.q-first .row { border-top-left-radius: var(--r-group); border-top-right-radius: var(--r-group); }
+:root[data-look="night"] .row-wrap.q-last .row { border-bottom-left-radius: var(--r-group); border-bottom-right-radius: var(--r-group); }
+:root[data-look="night"] .row-wrap + .row-wrap .row-clip { margin-top: 0; }
+:root[data-look="night"] .row-wrap.q-first .row-clip { margin-top: 12px; }
+:root[data-look="night"] .row-wrap:not(.is-focus):not(.q-first) .row::after { content: ""; position: absolute; top: 0; left: 60px; right: 0; height: .5px; background: var(--line); }
+:root[data-look="night"] .row-wrap:not(.is-focus) .row-actions { gap: 0; }
+:root[data-look="night"] .row-wrap:not(.is-focus) .row-actions button { border-radius: 0; margin-left: 0; }
+
+/* Room under the last line for the Up next pill */
+:root[data-look="night"] .foot { padding-bottom: 92px; }
+
+/* The focus card and its action float as two pieces: the card says what, the button below it does it */
+:root[data-look="night"] .is-focus .row {
+  background: none; padding: 0; isolation: isolate;
+  grid-template-columns: 74px 1fr; column-gap: 0;
+}
+:root[data-look="night"] .is-focus .row::before {
+  content: ""; display: block; grid-column: 1 / -1; grid-row: 1 / 3; z-index: -1;
+  border-radius: var(--r-group); background: var(--surface);
+}
+:root[data-look="night"] .is-focus .row-glow { margin: 20px 0 0 20px; }
+:root[data-look="night"] .is-focus .row-title { margin: 20px 20px 0 0; }
+:root[data-look="night"] .is-focus .row-sub { margin: 6px 20px 20px 0; }
+:root[data-look="night"] .is-focus .row-go { margin-top: 10px; height: 52px; border-radius: 16px; }
+:root[data-look="night"] .is-focus .row::before { align-self: stretch; position: static; height: auto; left: auto; right: auto; top: auto; }
+:root[data-look="night"] .is-focus .row { grid-template-columns: 70px 1fr; }
+:root[data-look="night"] .is-focus .row-glow { margin-left: 16px; }
+/* The button belongs to the card above it: a 6px seam to the card, a wide gap to the list */
+:root[data-look="night"] .is-focus .row-go { margin-top: 6px; }
+:root[data-look="night"] .row-wrap.q-first .row-clip { margin-top: 22px; }
+/* The list covers the sticky headline as it scrolls up, so nothing shows through the gaps between cards */
+:root[data-look="night"] .panel { background: var(--bg); }
+/* One surface: the bar stays at full strength while the list scrolls under it */
+:root[data-look="night"] .screen:not(.docked) .navbar > * { opacity: 1; }

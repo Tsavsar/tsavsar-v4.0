@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fireflies Catch-up</title>
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="A one-handed catch-up for when you have been away for a few hours, built for iOS. Fireflies.ai design task by Shater Tsavsar.">
+<link rel="manifest" href="/fireflies/manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="/fireflies/icon.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="/fireflies/favicon-64.png">
+<link rel="apple-touch-icon" href="/fireflies/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Catch up">
+<meta name="theme-color" content="#1C1C1E">
+<script>
+/* Resolve look and theme before first paint so nothing flashes. ?look=dusk&theme=dark also works for sharing a link. */
+(function () {
+  var d = document.documentElement, q = new URLSearchParams(location.search), look, th;
+  try { look = q.get('look') || localStorage.getItem('fcu-look'); th = q.get('theme') || localStorage.getItem('fcu-theme'); } catch (e) { look = q.get('look'); th = q.get('theme'); }
+  look = 'night';
+  if (th !== 'light' && th !== 'dark') th = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  d.setAttribute('data-look', look); d.setAttribute('data-theme', th);
+  try { var ac = localStorage.getItem('fcu-accent'); if (!(ac && /^#[0-9a-f]{6}$/i.test(ac))) ac = '#0E8C99'; { var n = parseInt(ac.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255, m = function (c) { return Math.round(c + (255 - c) * .3); };
+    d.style.setProperty('--accent-pick', ac); d.style.setProperty('--glow', ac); d.style.setProperty('--glow-rgb', r + ', ' + g + ', ' + b);
+    d.style.setProperty('--hl', 'rgb(' + m(r) + ', ' + m(g) + ', ' + m(b) + ')'); } } catch (e) {}
+})();
+</script>
+<link rel="stylesheet" href="/fireflies/v1/styles.css">
+<link rel="stylesheet" href="/fireflies/v1/looks.css">
+<script>
+  // Vercel Web Analytics (same as the rest of the site); skipped locally.
+  if (!/^(localhost|127\.|0\.0\.0\.0)/.test(location.hostname)) {
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    var va = document.createElement('script'); va.defer = true; va.src = '/_vercel/insights/script.js'; document.head.appendChild(va);
+
+    // Ping Shater's phone once per visit (not for his own devices: open with ?me once to mark one).
+    try {
+      if (/[?&]me\b/.test(location.search)) localStorage.setItem('ff-me', '1');
+      var key = 'ff-ping:' + location.pathname;
+      if (!localStorage.getItem('ff-me') && !sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, '1');
+        navigator.sendBeacon('/api/ping', JSON.stringify({ path: location.pathname, ref: document.referrer }));
+      }
+    } catch (_) {}
+  }
+</script>
+</head>
+<body>
+<main class="stage" id="stage">
+
+  <a class="details-link" href="/fireflies/v1/details">Design notes<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+
+
+  <div class="device-col">
+  <div class="device-wrap" id="deviceWrap">
+    <div class="device" id="device">
+      <div class="screen" id="screen">
+
+        <div class="island" aria-hidden="true"></div>
+        <div class="statusbar" aria-hidden="true">
+          <span class="sb-time">12:48</span>
+          <span class="sb-icons">
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+            <svg width="17" height="12" viewBox="0 0 17 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M1.2 4.3a10.5 10.5 0 0 1 14.6 0"/><path d="M3.9 7.1a6.6 6.6 0 0 1 9.2 0"/><circle cx="8.5" cy="10" r="1.1" fill="currentColor" stroke="none"/></svg>
+            <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x="0.5" y="0.5" width="22" height="12" rx="3.8" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="16" height="9" rx="2.6" fill="currentColor"/><path d="M24.4 4.5v4c.9-.3 1.6-1.1 1.6-2s-.7-1.7-1.6-2Z" fill="currentColor" opacity=".45"/></svg>
+          </span>
+        </div>
+
+        <div class="app" id="app">
+          <header class="navbar" id="navbar">
+            <button type="button" class="avatar" id="avatarBtn" aria-label="Maya. Appearance" aria-haspopup="dialog"><span class="av-i">M</span><span class="av-name">Maya</span><svg class="av-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+            <p class="nav-title" id="navTitle" aria-hidden="true"></p>
+            <button type="button" class="ask-btn" id="askBtn" aria-label="Ask Fireflies">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10.5 3.2c.3-.9 1.7-.9 2 0l1.5 4.4a4 4 0 0 0 2.5 2.5l4.4 1.5c.9.3.9 1.7 0 2l-4.4 1.5a4 4 0 0 0-2.5 2.5l-1.5 4.4c-.3.9-1.7.9-2 0L9 17.6a4 4 0 0 0-2.5-2.5l-4.4-1.5c-.9-.3-.9-1.7 0-2L6.5 10a4 4 0 0 0 2.5-2.5z"/></svg>
+              <span>Ask</span>
+            </button>
+          </header>
+
+          <div class="scroll" id="scroll">
+            <div class="content" id="content"></div>
+          </div>
+
+          <button type="button" class="capsule" id="capsule" aria-label="Product sync starts in 27 minutes. Open prep.">
+          </button>
+        </div>
+
+        <div class="scrim" id="scrim"></div>
+
+        <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" tabindex="-1">
+          <div class="sheet-grab" id="sheetGrab"><i></i></div>
+          <header class="sheet-head" id="sheetHead"></header>
+          <div class="sheet-body" id="sheetBody"></div>
+          <footer class="sheet-foot" id="sheetFoot"></footer>
+        </section>
+
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        <div class="homebar" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-hint">
+    <button type="button" class="qr" id="qrThumb" aria-label="Enlarge the QR code"><span class="qr-tilt" id="qrThumbTilt"></span></button>
+    <p><b>This experience is much better on mobile.</b><span>Built for iOS. Scan to open it on your iPhone, then Add to Home Screen for full screen.</span></p>
+  </div>
+  </div>
+</main>
+<script src="/fireflies/v1/data.js"></script>
+<script src="/fireflies/v1/app.js"></script>
+</body>
+</html>

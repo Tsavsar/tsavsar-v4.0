@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fireflies.ai Design Task</title>
+<link rel="icon" type="image/svg+xml" href="/fireflies/icon.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="/fireflies/favicon-64.png">
+<link rel="apple-touch-icon" href="/fireflies/apple-touch-icon.png">
+<meta name="description" content="Fireflies.ai design task by Shater Tsavsar: a catch-up app built for iOS.">
+<meta name="color-scheme" content="light dark">
+<link rel="preload" href="/fireflies/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Inter Variable"; src: url("/fireflies/fonts/inter.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+
+:root {
+  color-scheme: light;
+  --font: "Inter Variable", -apple-system, system-ui, sans-serif;
+  --page: #FFFFFF;
+  --text-strong: #171717;
+  --text-sub: #5C5C5C;
+  --text-soft: #A3A3A3;
+  --bg-layer: #F5F5F5;
+  --bg-surface: #F7F7F7;
+  --link: #171717;
+
+  /* Card tokens: the Night look from the prototype */
+  --surface: #FFFFFF;
+  --ink: #171717;
+  --ink-2: #5C5C5C;
+  --accent: #0E8C99;
+  --accent-tint: rgba(14, 140, 153, .14);
+  --later: #2B2B2B;
+  --done: #2F8A57;
+  --meeting: #7B61FF;
+  --hl: #56AFB8;
+  --paper: #EFEFEF;
+  --surface-3: #E5E5E5;
+  --ink-3: #808080;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page: #0B0B0C;
+    --text-strong: #EDEDED;
+    --text-sub: #A3A3A3;
+    --text-soft: #6B6B6B;
+    --bg-layer: #171717;
+    --bg-surface: #1F1F1F;
+    --link: #EDEDED;
+    --surface: #252525;
+    --ink: #EFEFEF;
+    --ink-2: #ADADAD;
+    --later: #474747;
+    --done: #3BA56C;
+    --accent-tint: rgba(14, 140, 153, .24);
+    --paper: #191919;
+    --surface-3: #393939;
+    --ink-3: #7F7F7F;
+  }
+  .deadline { color: #5CC3CE; }
+}
+
+* { box-sizing: border-box; margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--page); color: var(--text-strong);
+  font: 400 14px/20px var(--font); letter-spacing: .28px;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+img { display: block; }
+
+.page { width: 620px; max-width: 100%; margin: 0 auto; padding: 93px 0 120px; display: flex; flex-direction: column; gap: 42px; }
+@media (max-width: 660px) { .page { padding: 48px 20px 96px; } }
+
+/* Head */
+.head { display: flex; flex-direction: column; gap: 12px; }
+.head-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.logo { width: 91px; height: 22px; }
+@media (prefers-color-scheme: dark) { .logo { opacity: .22; } }
+.back { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px 0 10px; border-radius: 999px; background: var(--bg-layer); color: var(--text-sub); font-size: 13px; line-height: 1; letter-spacing: .26px; text-decoration: none; transition: color .15s, background .15s; }
+.back:hover { color: var(--text-strong); }
+.back:focus-visible { outline: 2px solid var(--text-strong); outline-offset: 2px; }
+.title { font-size: 18px; line-height: 26px; letter-spacing: .36px; }
+.byline { display: flex; gap: 10px; margin-top: 2px; color: var(--text-soft); }
+
+/* Body */
+.body { display: flex; flex-direction: column; gap: 64px; }
+.prose { display: flex; flex-direction: column; gap: 24px; }
+.list-block { display: flex; flex-direction: column; gap: 12px; }
+.list-block > p { color: var(--text-sub); }
+.list-block ul { margin: 0; padding: 0 0 0 21px; display: flex; flex-direction: column; gap: 8px; }
+.side-note { display: flex; flex-direction: column; gap: 6px; padding: 10px 14px; border-radius: 12px; background: var(--bg-layer); color: var(--text-sub); font-size: 12px; letter-spacing: .24px; }
+.side-note p:first-child { line-height: 16px; }
+.side-note p:last-child { line-height: 18px; }
+
+.anatomy { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.anatomy-frame { width: 280px; height: 331px; flex: none; border: 1px solid var(--bg-surface); border-radius: 20px; }
+
+/* Cards: wider than the text column, centred on it */
+.cards-block { --surface: #F5F5F5; }
+@media (prefers-color-scheme: dark) { .cards-block { --surface: #252525; } }
+.cards-block { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.cards { display: flex; gap: 24px; align-items: flex-start; }
+.cards-block > p { align-self: stretch; }
+.cards-block > .quick { align-self: stretch; }
+.list-block > p.strong { color: var(--text-strong); }
+
+.card { width: 361px; display: flex; gap: 14px; align-items: flex-start; padding: 16px 16px 16px 14px; border-radius: 18px; background: var(--surface); }
+.person { position: relative; width: 42px; height: 42px; flex: none; }
+.person .avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.badge { position: absolute; left: 26px; top: 26px; width: 19px; height: 19px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); border: 2.5px solid var(--surface); }
+.text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; overflow: hidden; letter-spacing: 0; }
+.card-title { font-size: 17px; font-weight: 600; line-height: 1.28; letter-spacing: -.204px; color: var(--ink); }
+.card-sub { font-size: 15px; line-height: 1.35; color: var(--ink-2); }
+.meta { display: flex; align-items: center; justify-content: space-between; padding-top: 9px; }
+.sources { display: flex; isolation: isolate; }
+.src { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: #fff; border: 2px solid var(--surface); position: relative; }
+.src + .src { margin-left: -5px; }
+.src.meeting { background: var(--meeting); z-index: 4; }
+.src.slack { z-index: 3; }
+.src.email { z-index: 2; }
+.deadline { padding: 5px 10px; border-radius: 999px; background: var(--accent-tint); color: var(--accent); font-size: 13.5px; font-weight: 600; line-height: normal; white-space: nowrap; }
+
+.swiped { position: relative; width: 361px; height: 135px; flex: none; border-radius: 18px; overflow: hidden; }
+.swiped .card { position: absolute; left: -168px; top: 50%; transform: translateY(-50%); }
+.action { position: absolute; top: 0; width: 76px; height: 135px; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: #fff; font-size: 13px; font-weight: 600; line-height: normal; letter-spacing: 0; }
+.action.later { left: 201px; background: var(--later); }
+.action.done { left: 285px; background: var(--done); }
+
+@media (max-width: 780px) {
+  .cards { flex-direction: column; }
+}
+@media (max-width: 420px) {
+  .card, .swiped { width: calc(100vw - 40px); }
+  .swiped .card { width: 361px; }
+  .action.later { left: auto; right: 84px; }
+  .action.done { left: auto; right: 0; }
+  .anatomy { flex-direction: column; }
+  .anatomy-frame { width: 100%; }
+}
+
+/* ---------- Approach and key decisions: prose with pieces of the real UI ---------- */
+.notes-head { display: flex; flex-direction: column; gap: 4px; }
+.notes-head h2 { font-size: 18px; font-weight: 400; line-height: 26px; letter-spacing: .36px; }
+.notes-head p { color: var(--text-soft); }
+.notes-flow { display: flex; flex-direction: column; gap: 32px; }
+
+.fig { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.stage-panel { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 28px 20px; border-radius: 20px; background: var(--paper); }
+.stage-panel > * { width: 100%; max-width: 361px; }
+.fig figcaption { color: var(--text-soft); font-size: 12px; line-height: 18px; letter-spacing: .24px; }
+
+/* Evidence */
+.ev { padding: 14px 16px 15px; border-radius: 18px; background: var(--surface); letter-spacing: 0; }
+.ev-top { display: flex; align-items: center; gap: 10px; }
+.ev .src { border-color: transparent; background: #fff; box-shadow: 0 0 0 .5px rgba(0, 0, 0, .08); }
+.ev .src.meeting { background: var(--meeting); box-shadow: none; }
+.ev-where { flex: 1; min-width: 0; font-size: 14.5px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.ev-when { font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.ev-who { margin-top: 12px; font-size: 13px; font-weight: 500; line-height: 1; color: var(--ink-3); }
+.ev-quote { margin-top: 6px; font-size: 15.5px; line-height: 1.42; color: var(--ink); text-wrap: pretty; }
+
+/* Suggested reply */
+.act { letter-spacing: 0; }
+.act-head { display: flex; align-items: center; gap: 7px; margin: 0 2px 10px; font-size: 15px; font-weight: 650; line-height: 1; color: var(--ink); }
+.seg { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 2px; margin-bottom: 10px; border-radius: 12px; background: var(--surface-3); }
+.seg button { position: relative; z-index: 1; height: 34px; border: 0; background: none; font: 500 14.5px/1 var(--font); color: var(--ink-2); cursor: pointer; transition: color .2s; }
+.seg button[aria-checked="true"] { color: var(--ink); font-weight: 600; }
+.seg button:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; border-radius: 10px; }
+.seg-thumb { position: absolute; top: 2px; bottom: 2px; left: 2px; width: calc(50% - 2px); border-radius: 10px; background: var(--surface); box-shadow: 0 1px 3px rgba(0, 0, 0, .14); transition: transform .34s cubic-bezier(.32, .72, 0, 1); }
+.seg[data-i="1"] .seg-thumb { transform: translateX(100%); }
+.draft { min-height: 72px; padding: 14px 16px; border-radius: 18px; background: var(--surface); font-size: 16px; line-height: 1.42; color: var(--ink); transition: opacity .16s, filter .16s; }
+.draft.out { opacity: 0; filter: blur(3px); }
+.act-meta { display: flex; align-items: center; gap: 7px; margin: 10px 4px 0; font-size: 13px; line-height: 1.4; color: var(--ink-3); }
+.src.sm { width: 20px; height: 20px; border-width: 0; box-shadow: 0 0 0 .5px rgba(0, 0, 0, .08); flex: none; }
+.cta { display: flex; align-items: center; justify-content: center; height: 54px; margin-top: 18px; border-radius: 16px; background: var(--accent); color: #fff; font-size: 17px; font-weight: 600; letter-spacing: -.012em; }
+
+/* Ask */
+.ask { display: flex; flex-direction: column; gap: 14px; letter-spacing: 0; }
+.sugg { display: grid; gap: 8px; }
+.sg { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 18px; background: var(--surface); font-size: 16px; font-weight: 500; line-height: 1.3; letter-spacing: -.01em; color: var(--ink); }
+.sg svg { flex: none; color: var(--ink-3); }
+.askbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 52px; padding: 0 6px 0 18px; border-radius: 16px; background: var(--surface); font-size: 16px; color: var(--ink-3); }
+.send { width: 40px; height: 40px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--surface-3); color: var(--ink-3); }
+
+/* Up next capsule */
+.capsule { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; height: 68px; padding: 0 14px 0 10px; border-radius: 22px; background: #1C1C1E; color: #F5F5F5; letter-spacing: 0; }
+.cap-time { position: relative; width: 48px; height: 48px; border-radius: 50%; display: grid; place-content: center; text-align: center; background: #2E2E31; }
+.cap-time b { display: block; font-size: 19px; font-weight: 700; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.cap-time span { display: block; margin-top: 2px; font-size: 10px; font-weight: 600; line-height: 1; color: rgba(245, 245, 245, .62); }
+.cap-dot { position: absolute; top: -1px; right: -1px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2px #1C1C1E; }
+.cap-main b { display: block; font-size: 16px; font-weight: 600; line-height: 1.2; letter-spacing: -.012em; }
+.cap-main span { display: block; margin-top: 3px; font-size: 13.5px; line-height: 1.2; color: rgba(245, 245, 245, .62); }
+.cap-go { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: #2E2E31; }
+
+.inline-link { color: var(--text-strong); text-decoration: underline; text-decoration-color: var(--text-soft); text-underline-offset: 3px; }
+.inline-link:hover { text-decoration-color: currentColor; }
+
+@media (prefers-color-scheme: dark) { .capsule { background: #0E0E0F; } .cap-dot { box-shadow: 0 0 0 2px #0E0E0F; } .cap-time, .cap-go { background: #262628; } }
+@media (max-width: 420px) { .stage-panel { padding: 20px 12px; } }
+@media (prefers-reduced-motion: reduce) { .seg-thumb, .draft { transition: none; } }
+
+/* Approach parts */
+.notes-flow { gap: 28px; }
+.part { gap: 6px; }
+.part-label { color: var(--text-sub); }
+.cards-block > figcaption { align-self: stretch; }
+.fig.cards-block { gap: 10px; }
+
+.masthead { padding: 18px 18px 16px; border-radius: 18px; background: #171717; color: #F5F5F5; letter-spacing: 0; }
+.mh-date { display: flex; align-items: center; gap: 7px; font-size: 13px; line-height: 1; color: rgba(245, 245, 245, .62); }
+.mh-overview { margin-top: 14px; font-size: 21px; font-weight: 500; line-height: 1.34; letter-spacing: -.02em; text-wrap: pretty; }
+.mh-overview .hl { color: var(--hl); font-weight: 600; text-decoration: underline dotted; text-decoration-thickness: 2px; text-underline-offset: 5px; text-decoration-color: rgba(14, 140, 153, .7); }
+.mh-prov { display: flex; align-items: center; gap: 10px; margin-top: 16px; font-size: 12.5px; line-height: 1.35; color: rgba(245, 245, 245, .62); }
+.mh-prov .sources { flex: none; }
+.masthead .src { border-color: #171717; }
+@media (prefers-color-scheme: dark) { .masthead { background: #0E0E0F; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); } .masthead .src { border-color: #0E0E0F; } }
+
+.who-list { display: grid; gap: 8px; }
+.who { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 18px; background: var(--surface); letter-spacing: 0; }
+.badge { color: #fff; }
+.badge.ink { background: var(--ink); color: var(--surface); }
+.who-text b { display: block; font-size: 16px; font-weight: 600; line-height: 1.25; color: var(--ink); }
+.who-text small { display: block; margin-top: 2px; font-size: 13.5px; line-height: 1.3; color: var(--ink-2); }
+
+.toast-demo { display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 8px 8px 8px 18px; border-radius: 24px; background: var(--ink); color: var(--surface); font-size: 15px; font-weight: 500; letter-spacing: -.005em; box-shadow: 0 14px 34px -14px rgba(0, 0, 0, .45); }
+.toast-demo span:first-child { flex: 1; }
+.toast-demo .undo { height: 32px; padding: 0 14px; border-radius: 16px; display: grid; place-items: center; background: rgba(127, 127, 127, .22); font-size: 14.5px; font-weight: 650; }
+
+.moved { display: grid; gap: 8px; letter-spacing: 0; }
+.proj, .wait-card { border-radius: 18px; background: var(--surface); }
+.proj { padding: 15px 18px 14px; }
+.proj-top { display: flex; align-items: center; flex-wrap: wrap; gap: 3px 10px; }
+.proj-top b { font-size: 16px; font-weight: 600; line-height: 1.25; color: var(--ink); }
+.status { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 500; line-height: 1; color: var(--ink-2); }
+.proj-line { margin-top: 3px; font-size: 15px; line-height: 1.35; color: var(--ink-2); }
+.wait-head { display: flex; align-items: center; gap: 12px; padding: 15px 18px; font-size: 16px; font-weight: 500; line-height: 1.25; color: var(--ink); }
+.wait-head .ico { width: 30px; height: 30px; flex: none; border-radius: 10px; display: grid; place-items: center; background: var(--surface-3); color: var(--ink-2); }
+.wait-head .grow { flex: 1; }
+.wait-head > svg { color: var(--ink-3); }
+.wait-head b { font-weight: 650; }
+.wait-rule { padding: 12px 18px 16px; border-top: .5px solid rgba(127, 127, 127, .2); font-size: 13px; line-height: 1.4; color: var(--ink-3); }
+
+/* Remind me */
+.remind { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; letter-spacing: 0; }
+.r-menu { min-width: 236px; padding: 6px; border-radius: 18px; background: var(--surface); box-shadow: 0 0 0 .5px rgba(127, 127, 127, .25), 0 18px 40px -14px rgba(0, 0, 0, .3); }
+.r-menu button { width: 100%; height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 0 14px; border: 0; border-radius: 12px; background: none; font: 500 16px/1 var(--font); color: var(--ink); text-align: left; cursor: pointer; transition: background .15s; }
+.r-menu button:hover, .r-menu button:focus-visible { background: var(--surface-3); outline: none; }
+.r-menu button:active { transform: scale(.98); }
+.r-menu button.picked { background: var(--surface-3); }
+.r-menu small { font-size: 14px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.r-row { display: flex; gap: 8px; }
+.r-ghost { height: 38px; padding: 0 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px; background: var(--surface-3); color: var(--ink); font-size: 15px; font-weight: 550; }
+.r-ghost.on { box-shadow: inset 0 0 0 1.5px var(--ink); }
+.r-toast { position: absolute; left: 0; right: 0; bottom: -4px; display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 8px 8px 8px 18px; border-radius: 24px; background: var(--ink); color: var(--surface); font-size: 15px; font-weight: 500; box-shadow: 0 14px 34px -14px rgba(0, 0, 0, .45); animation: r-in .3s cubic-bezier(.34, 1.36, .64, 1) both; }
+.r-toast[hidden] { display: none; }
+.r-toast span { flex: 1; }
+.r-toast button { height: 32px; padding: 0 14px; border: 0; border-radius: 16px; background: rgba(127, 127, 127, .22); color: inherit; font: 650 14.5px/1 var(--font); cursor: pointer; }
+@keyframes r-in { from { opacity: 0; transform: translateY(10px) scale(.95); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .r-toast { animation: none; } }
+
+/* Synced with the app's tidy pass */
+.draft-card { border-radius: 18px; background: var(--surface); padding: 14px 16px 12px; }
+.draft-card .draft { min-height: 0; padding: 0; border-radius: 0; background: none; }
+.act-meta.to { display: flex; align-items: flex-start; gap: 7px; margin: 12px 0 0; padding-top: 11px; border-top: .5px solid rgba(127, 127, 127, .2); line-height: 18px; }
+.act-meta.to img { flex: none; margin-top: 2.5px; }
+.wait-card .wait-head { font-size: 15px; }
+.wait-card .wait-head .ico { background: var(--surface-3); }
+.wait-card .wl { display: grid; grid-template-columns: 30px 1fr auto; column-gap: 12px; align-items: start; margin: 0 18px; padding: 12px 0; border-top: .5px solid rgba(127, 127, 127, .2); font-size: 15px; line-height: 20px; color: var(--ink); letter-spacing: 0; }
+.wait-card .wl .mark { height: 20px; display: grid; place-items: center; }
+.wait-card .wl time { color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wait-card .wl .tag { display: table; margin: 6px 0 2px; padding: 4px 8px; border-radius: 7px; background: var(--surface-3); color: var(--ink-2); font-size: 13px; font-weight: 500; line-height: 1; }
+.wait-card .wl.more { color: var(--ink-2); }
+.wait-card .wl.more .mark { color: var(--ink-3); }
+.wait-card .wl img.tint-meeting { filter: none; }
+.wait-card .wait-rule { margin-top: 4px; }
+</style>
+<script>
+  // Vercel Web Analytics (same as the rest of the site); skipped locally.
+  if (!/^(localhost|127\.|0\.0\.0\.0)/.test(location.hostname)) {
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    var va = document.createElement('script'); va.defer = true; va.src = '/_vercel/insights/script.js'; document.head.appendChild(va);
+
+    // Ping Shater's phone once per visit (not for his own devices: open with ?me once to mark one).
+    try {
+      if (/[?&]me\b/.test(location.search)) localStorage.setItem('ff-me', '1');
+      var key = 'ff-ping:' + location.pathname;
+      if (!localStorage.getItem('ff-me') && !sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, '1');
+        navigator.sendBeacon('/api/ping', JSON.stringify({ path: location.pathname, ref: document.referrer }));
+      }
+    } catch (_) {}
+  }
+</script>
+</head>
+<body>
+<main class="page">
+
+  <header class="head">
+    <div class="head-top">
+      <img class="logo" src="/fireflies/details-assets/fireflies-logo.svg" width="91" height="22" alt="Fireflies.ai">
+      <a class="back" href="/fireflies/v1">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        Open the prototype
+      </a>
+    </div>
+    <div>
+      <h1 class="title" style="font-weight:400">Fireflies.ai Design Task</h1>
+      <p class="byline"><span>by Shater Tsavsar</span><span>2026</span></p>
+    </div>
+  </header>
+
+  <div class="body">
+    <section class="prose">
+      <p>I was tasked with designing a mobile-first catch-up app. The idea is a central hub for all your context, one you can open and, at a glance, know what to do next, without being overwhelmed.</p>
+
+      <div class="list-block">
+        <p>Key needs from our users:</p>
+        <ul>
+          <li>Know fast if anything needs her, and by when.</li>
+          <li>Trust what she’s told.</li>
+          <li>Act in one tap.</li>
+        </ul>
+      </div>
+
+      <div class="list-block">
+        <p>Assumptions:</p>
+        <ul>
+          <li>Fireflies is connected to calendar, Slack and email, and can post for her once she confirms.</li>
+          <li>She has under 90 seconds and one free hand.</li>
+          <li>A normal return has two to five real asks.</li>
+        </ul>
+      </div>
+
+      <p>What gets surfaced depends on priority and on the user’s role on the team, since this is a context product. We want the user to know where every detail comes from, but if there are 20 Slack messages we can’t throw them all in their face; that would defeat the “without overwhelming the user” part above. So we group and summarise. But grouping Slack notifications on their own would only give us a “Slack round-up”. So how do we group by context instead?</p>
+
+      <p>Say we’re working with an engineer. We can take the conversations about a feature, over email and over Slack, add the repo activity on GitHub, and cross-reference all three into a single overview of that work.</p>
+
+      <aside class="side-note">
+        <p>Side note:</p>
+        <p>I’m building an open-source email client and this is one of its features, so I’d already done a lot of the research and ideation. I’d love to chat more about that later.</p>
+      </aside>
+    </section>
+
+
+
+    <div class="notes-flow">
+    <header class="notes-head">
+      <h2>Approach and key decisions</h2>
+      <p>One hand, 30 to 90 seconds.</p>
+    </header>
+
+    <section class="prose">
+      <p>The goal was to give the user their content and let them move through the whole app productively with one hand, because this is a 30 to 90 second window of use.</p>
+    </section>
+
+    <section class="prose part">
+      <p class="part-label">The overview</p>
+      <p>The first thing on screen is one sentence that answers the whole question: what needs you, what moved and what can wait. Each number can be tapped to jump to that part of the list, and right under it are the sources it was read from, so the summary never floats on its own. Pull the list down from the top to refresh, and the dateline says when it last checked.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <div class="masthead">
+          <p class="mh-date"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.2 2"/></svg>Away 3h 18m, since 9:30 AM</p>
+          <p class="mh-overview"><span class="hl">Three things need you</span>. The Android release is on the clock. <span class="hl">3 projects</span> moved and <span class="hl">9 updates</span> can wait.</p>
+          <div class="mh-prov"><span class="sources"><span class="src meeting"><img src="/fireflies/details-assets/meeting.svg" width="14" height="14" alt=""></span><span class="src slack"><img src="/fireflies/details-assets/slack.svg" width="14" height="14" alt=""></span><span class="src email"><img src="/fireflies/details-assets/email.svg" width="14" height="14" alt=""></span></span><span>Read 2 meetings, 41 Slack messages, 18 emails and 6 GitHub updates.</span></div>
+        </div>
+      </div>
+      <figcaption>Tap a number to jump to it. The sources and the tally show what was read.</figcaption>
+    </figure>
+    <section class="prose part">
+      <p class="part-label">Who is waiting</p>
+      <p>Each ask leads with the person waiting on it, not the app it came from. A small badge says what they are doing (waiting on you, expecting something from you, or asking you something), so the user knows the shape of the reply before reading a word.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <div class="who-list">
+          <div class="who"><span class="person"><img class="avatar" src="/fireflies/avatars/priya.webp" width="42" height="42" alt=""><span class="badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5h10M7 20.5h10M8 3.5v3.2c0 1.6 1 2.8 4 5.3 3-2.5 4-3.7 4-5.3V3.5M8 20.5v-3.2c0-1.6 1-2.8 4-5.3 3 2.5 4 3.7 4 5.3v3.2"/></svg></span></span><span class="who-text"><b>Priya Raman</b><small>Waiting on you</small></span></div>
+          <div class="who"><span class="person"><img class="avatar" src="/fireflies/avatars/tomas.webp" width="42" height="42" alt=""><span class="badge ink"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 3.5 10.6 13.4M20.5 3.5l-6.2 17-3.7-7.1-7.1-3.7 17-6.2Z"/></svg></span></span><span class="who-text"><b>Tomas Weber</b><small>Expecting your deck</small></span></div>
+          <div class="who"><span class="person"><img class="avatar" src="/fireflies/avatars/sam.webp" width="42" height="42" alt=""><span class="badge ink"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.2 9.2a2.9 2.9 0 1 1 4.2 2.6c-.9.5-1.4 1.1-1.4 2.1v.6M12 18.2v.1"/></svg></span></span><span class="who-text"><b>Sam Alvarez</b><small>Asked you to choose</small></span></div>
+        </div>
+      </div>
+      <figcaption>The most urgent ask gets the accent. Everything else stays quiet.</figcaption>
+    </figure>
+    <section class="prose part">
+      <p class="part-label">Quick actions</p>
+      <p>Every ask can be handled without opening it. Native iOS behaviour like the swipe was a quick and easy way to get there: swipe a card left for Later or Done, the same gesture as in Mail and Messages, so the thumb never leaves the bottom half of the screen. Tap the card instead and the suggested next step opens in a sheet, ready to send.</p>
+    </section>
+    <figure class="fig cards-block">
+      <div class="cards">
+        <article class="card">
+          <div class="person">
+            <img class="avatar" src="/fireflies/details-assets/priya.jpg" width="42" height="42" alt="">
+            <span class="badge" title="Waiting on you"><img src="/fireflies/details-assets/hourglass.svg" width="11" height="11" alt=""></span>
+          </div>
+          <div class="text">
+            <p class="card-title">Approve the Android release</p>
+            <p class="card-sub">Priya is holding the build until you confirm the permissions copy.</p>
+            <div class="meta">
+              <div class="sources">
+                <span class="src meeting"><img src="/fireflies/details-assets/meeting.svg" width="14" height="14" alt="Meeting"></span>
+                <span class="src slack"><img src="/fireflies/details-assets/slack.svg" width="14" height="14" alt="Slack"></span>
+                <span class="src email"><img src="/fireflies/details-assets/email.svg" width="14" height="14" alt="Email"></span>
+              </div>
+              <span class="deadline">1h 12m left</span>
+            </div>
+          </div>
+        </article>
+
+        <div class="swiped" aria-label="The same card swiped left, showing Later and Done">
+          <article class="card" aria-hidden="true">
+            <div class="person">
+              <img class="avatar" src="/fireflies/details-assets/priya.jpg" width="42" height="42" alt="">
+              <span class="badge"><img src="/fireflies/details-assets/hourglass.svg" width="11" height="11" alt=""></span>
+            </div>
+            <div class="text">
+              <p class="card-title">Approve the Android release</p>
+              <p class="card-sub">Priya is holding the build until you confirm the permissions copy.</p>
+              <div class="meta">
+                <div class="sources">
+                  <span class="src meeting"><img src="/fireflies/details-assets/meeting.svg" width="14" height="14" alt=""></span>
+                  <span class="src slack"><img src="/fireflies/details-assets/slack.svg" width="14" height="14" alt=""></span>
+                  <span class="src email"><img src="/fireflies/details-assets/email.svg" width="14" height="14" alt=""></span>
+                </div>
+                <span class="deadline">1h 12m left</span>
+              </div>
+            </div>
+          </article>
+          <div class="action later"><img src="/fireflies/details-assets/clock.svg" width="22" height="22" alt="">Later</div>
+          <div class="action done"><img src="/fireflies/details-assets/check.svg" width="22" height="22" alt="">Done</div>
+        </div>
+      </div>
+      <figcaption>Swiped left, a card offers Later and Done.</figcaption>
+    </figure>
+    <section class="prose part">
+      <p class="part-label">Undo, always</p>
+      <p>Nothing done with one hand should be permanent. Every swipe, send and snooze comes back with an undo, so moving fast never costs anything.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <div class="toast-demo"><span>Marked done.</span><span class="undo">Undo</span></div>
+      </div>
+      <figcaption>Every quick action can be undone for six seconds.</figcaption>
+    </figure>
+    <section class="prose part">
+      <p class="part-label">Later, on your terms</p>
+      <p>Snoozing asks when, not just whether. Remind me offers three times that fit the day, each with the actual time next to it, so there’s no maths in the hallway. Not mine sits right beside it and teaches Fireflies to weigh asks like that lower next time.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <div class="remind">
+          <div class="r-menu" role="menu" aria-label="Remind me">
+            <button type="button" role="menuitem" data-until="1:48 PM">In 1 hour<small>1:48 PM</small></button>
+            <button type="button" role="menuitem" data-until="3:30 PM">This afternoon<small>3:30 PM</small></button>
+            <button type="button" role="menuitem" data-until="9:00 AM tomorrow">Tomorrow morning<small>9:00 AM</small></button>
+          </div>
+          <div class="r-row">
+            <span class="r-ghost on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.2 2"/></svg>Remind me</span>
+            <span class="r-ghost"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M8 12h8"/></svg>Not mine</span>
+          </div>
+          <div class="r-toast" role="status" aria-live="polite" hidden></div>
+        </div>
+      </div>
+      <figcaption>Each option shows the real time the ask comes back. Try one.</figcaption>
+    </figure>
+    <section class="prose part">
+      <p class="part-label">Where it came from</p>
+      <p>Something small with a large impact is the logos. They reinforce trust in where things are coming from and where they are going, instead of relying on “they should know”. Tap into any ask and the evidence is right there, quoted, with who said it and when.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <article class="ev">
+          <div class="ev-top">
+            <span class="src meeting"><img src="/fireflies/details-assets/meeting.svg" width="14" height="14" alt=""></span>
+            <span class="ev-where">Launch standup</span>
+            <span class="ev-when">10:14 AM</span>
+          </div>
+          <p class="ev-who">Priya Raman</p>
+          <p class="ev-quote">“I can cut the Android build as soon as the permissions copy is approved.”</p>
+        </article>
+        <article class="ev">
+          <div class="ev-top">
+            <span class="src slack"><img src="/fireflies/details-assets/slack.svg" width="14" height="14" alt=""></span>
+            <span class="ev-where">#onboarding-launch</span>
+            <span class="ev-when">11:14 AM</span>
+          </div>
+          <p class="ev-who">Priya Raman</p>
+          <p class="ev-quote">“Still holding the build for the copy sign-off. Want it out before 2.”</p>
+        </article>
+      </div>
+      <figcaption>Every ask shows where it was said, with the integration’s own mark.</figcaption>
+    </figure>
+    <section class="prose part">
+      <p class="part-label">Where it goes</p>
+      <p>Throughout the app there are cues telling the user exactly what is going to happen, like confirming that yes, this reply goes to this specific Slack thread. The one-handed feel holds because the AI does most of the typing, drafting each reply for its context.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <div class="act">
+          <p class="act-head"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10.5 3.2c.3-.9 1.7-.9 2 0l1.5 4.4a4 4 0 0 0 2.5 2.5l4.4 1.5c.9.3.9 1.7 0 2l-4.4 1.5a4 4 0 0 0-2.5 2.5l-1.5 4.4c-.3.9-1.7.9-2 0L9 17.6a4 4 0 0 0-2.5-2.5l-4.4-1.5c-.9-.3-.9-1.7 0-2L6.5 10a4 4 0 0 0 2.5-2.5z"/></svg>Suggested reply</p>
+          <div class="seg" role="radiogroup" aria-label="Your decision" data-i="0">
+            <button type="button" role="radio" aria-checked="true" data-i="0">Approve</button>
+            <button type="button" role="radio" aria-checked="false" data-i="1">Request changes</button>
+            <span class="seg-thumb" aria-hidden="true"></span>
+          </div>
+          <div class="draft-card">
+            <p class="draft" id="draft">Copy looks good. Go ahead and cut the Android build.</p>
+            <p class="act-meta to"><img src="/fireflies/details-assets/slack.svg" width="13" height="13" alt="">Posts as you in #onboarding-launch, in Priya’s thread.</p>
+          </div>
+          <span class="cta">Approve and post</span>
+        </div>
+      </div>
+      <figcaption>The destination is written out under the draft, so sending never needs a second look.</figcaption>
+    </figure>
+    <section class="prose part">
+      <p class="part-label">What can wait</p>
+      <p>What doesn’t need the user isn’t silently dropped. Projects that moved get one line each with their status, and everything else folds into a single row that says exactly why it was left out.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <div class="moved">
+          <div class="proj">
+            <p class="proj-top"><b>Pricing page refresh</b><span class="status"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.2 2"/></svg>Slipped a day</span></p>
+            <p class="proj-line">Review moved to Thursday 10 AM. Tomas wants the new deck first.</p>
+          </div>
+          <div class="wait-card">
+            <p class="wait-head"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span><span class="grow"><b>9 updates</b> that don’t need you</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5.5 14.5 6.5-6.5 6.5 6.5"/></svg></p>
+            <div class="wl"><span class="mark"><img src="/fireflies/details-assets/email.svg" width="16" height="16" alt=""></span><span>Sign the vendor contract renewal<span class="tag">Due Friday</span></span><time>11:26 AM</time></div>
+            <div class="wl"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7B61FF" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg></span><span>Launch standup notes were published</span><time>10:31 AM</time></div>
+            <div class="wl"><span class="mark"><img src="/fireflies/details-assets/slack.svg" width="16" height="16" alt=""></span><span>Weekly metrics posted in #growth</span><time>9:58 AM</time></div>
+            <div class="wl"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF5A3C" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span>Product sync agenda was updated</span><time>10:30 AM</time></div>
+            <div class="wl more"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5.5 12h.01M12 12h.01M18.5 12h.01"/></svg></span><span>5 more</span><time></time></div>
+            <p class="wait-rule">Hidden because none of these ask anything of you, have a deadline today, or mention you.</p>
+          </div>
+        </div>
+      </div>
+      <figcaption>The rule for hiding things is written out, never implied.</figcaption>
+    </figure>
+    <section class="prose part">
+      <p class="part-label">Ask</p>
+      <p>Ask sits right where the thumb already is, with suggested questions, so most of the time there is nothing to type.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <div class="ask">
+          <div class="sugg">
+            <span class="sg">What did Priya say about the Android build?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5.5M6 11l6-6 6 6"/></svg></span>
+            <span class="sg">Did I promise anyone anything today?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5.5M6 11l6-6 6 6"/></svg></span>
+            <span class="sg">Prep me for Product sync<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5.5M6 11l6-6 6 6"/></svg></span>
+          </div>
+          <div class="askbar"><span>Ask about anything you missed</span><span class="send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5.5M6 11l6-6 6 6"/></svg></span></div>
+        </div>
+      </div>
+      <figcaption>Suggested questions come from what actually happened while the user was away.</figcaption>
+    </figure>
+    <section class="prose part">
+      <p class="part-label">Up next</p>
+      <p>There is quick access to calls too, so the user can get some quick prep in, or even join the call on the go and switch devices once they’re settled.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <div class="capsule">
+          <span class="cap-time"><b>27</b><span>min</span><i class="cap-dot" aria-hidden="true"></i></span>
+          <span class="cap-main"><b>Product sync</b><span>1:15 PM, 4 people</span></span>
+          <span class="cap-go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5.5 14.5 6.5-6.5 6.5 6.5"/></svg></span>
+        </div>
+      </div>
+      <figcaption>Up next stays docked at the bottom of the screen and opens into meeting prep.</figcaption>
+    </figure>
+    <section class="prose">
+      <p>Again, picture this person walking out of a conference room with files or a laptop in hand, trying to figure out “OK, what’s next, and what did I miss?” while already on the way to the next thing. We make sure no unknowns slip past them.</p>
+      <p><a class="inline-link" href="/fireflies">Try the prototype</a></p>
+    </section>
+    </div>
+  </div>
+</main>
+<script>
+/* The reply toggle swaps the drafted message, like it does in the app. */
+(function () {
+  var seg = document.querySelector('.seg'), draft = document.getElementById('draft');
+  if (!seg || !draft) return;
+  var drafts = ['Copy looks good. Go ahead and cut the Android build.', 'Close. The camera prompt needs to say why we ask, something like \u201cto scan documents\u201d. Can you add that before you cut the build?'];
+  var cta = document.querySelector('.act .cta'), labels = ['Approve and post', 'Request changes'];
+  seg.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    var i = +b.dataset.i; if (seg.dataset.i == i) return;
+    seg.dataset.i = i;
+    seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-checked', x === b); });
+    draft.classList.add('out');
+    setTimeout(function () { draft.textContent = drafts[i]; cta.textContent = labels[i]; draft.classList.remove('out'); }, 150);
+  });
+})();
+</script>
+<script>
+/* Remind me: picking a time confirms it with an undo, like the app. */
+(function () {
+  var menu = document.querySelector('.r-menu'), toast = document.querySelector('.r-toast'), t;
+  if (!menu || !toast) return;
+  function mark(b) { menu.querySelectorAll('button').forEach(function (x) { x.classList.toggle('picked', x === b); }); }
+  function reset() { toast.hidden = true; mark(null); }
+  menu.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    clearTimeout(t);
+    mark(b);
+    toast.innerHTML = '<span>Snoozed until ' + b.dataset.until + '.</span><button type="button">Undo</button>';
+    toast.hidden = false;
+    toast.querySelector('button').addEventListener('click', reset);
+    t = setTimeout(reset, 4000);
+  });
+})();
+</script>
+</body>
+</html>

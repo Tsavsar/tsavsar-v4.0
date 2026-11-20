@@ -275,6 +275,47 @@ img { display: block; }
 .wait-card .wl.more .mark { color: var(--ink-3); }
 .wait-card .wl img.tint-meeting { filter: none; }
 .wait-card .wait-rule { margin-top: 4px; }
+
+/* ---- v2 figures: one focus ---- */
+.v2-head { padding: 6px 4px; }
+.v2-date { font-size: 13px; color: var(--ink-3); font-weight: 500; }
+.v2-title { margin-top: 8px; font-size: 30px; font-weight: 650; line-height: 1.12; letter-spacing: -.03em; color: var(--ink); }
+.focus-demo { display: flex; flex-direction: column; letter-spacing: 0; }
+.focus-demo .avatar { border-radius: 50%; flex: none; object-fit: cover; }
+.f-card { display: flex; gap: 14px; align-items: flex-start; padding: 18px 18px 18px 16px; border-radius: 18px; background: var(--surface); }
+.f-title { font-size: 18px; font-weight: 650; line-height: 1.25; letter-spacing: -.02em; color: var(--ink); }
+.f-sub { margin-top: 5px; font-size: 14.5px; line-height: 1.4; color: var(--ink-2); }
+.f-go { margin-top: 6px; display: flex; align-items: center; justify-content: space-between; height: 50px; padding: 0 16px 0 18px; border-radius: 16px; background: var(--accent); color: #fff; font-size: 15.5px; font-weight: 600; }
+.f-due { font-weight: 500; opacity: .8; font-variant-numeric: tabular-nums; }
+.q-list { margin-top: 20px; border-radius: 18px; background: var(--surface); overflow: hidden; }
+.q { display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; align-items: center; padding: 13px 16px; font-size: 15px; font-weight: 550; line-height: 1.3; color: var(--ink); }
+.q + .q { box-shadow: inset 60px 0 0 var(--surface), inset 0 .5px 0 rgba(127, 127, 127, .22); }
+.q time { font-size: 13.5px; font-weight: 400; color: var(--ink-3); }
+.cuts { border-radius: 18px; background: var(--surface); overflow: hidden; letter-spacing: 0; }
+.cut { display: grid; gap: 3px; padding: 13px 16px; }
+.cut + .cut { border-top: .5px solid rgba(127, 127, 127, .22); }
+.cut b { font-size: 14.5px; font-weight: 500; color: var(--ink-3); text-decoration: line-through; text-decoration-color: rgba(127, 127, 127, .5); }
+.cut span { font-size: 14.5px; color: var(--ink); }
+.cut span::before { content: "→ "; color: var(--ink-3); }
+.ev-line { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 18px; background: var(--surface); color: var(--ink); font-size: 15px; font-weight: 500; letter-spacing: 0; }
+.ev-line .ev-marks { display: flex; align-items: center; gap: 6px; }
+.ev-line .grow { flex: 1; }
+.ev-line .n { color: var(--ink-3); }
+.ev-line > svg { color: var(--ink-3); transform: rotate(180deg); }
+.r-text { height: 38px; padding: 0 14px; display: inline-flex; align-items: center; font-size: 15px; font-weight: 500; color: var(--ink-2); }
+.later-demo { letter-spacing: 0; }
+.l-h { padding: 0 4px 9px; font-size: 14px; font-weight: 600; color: var(--ink-3); }
+.l-group { border-radius: 18px; background: var(--surface); overflow: hidden; }
+.l-row { display: flex; align-items: center; justify-content: space-between; padding: 15px 16px; font-size: 15px; font-weight: 500; color: var(--ink); }
+.l-row + .l-row { border-top: .5px solid rgba(127, 127, 127, .22); }
+.l-row svg { color: var(--ink-3); }
+.pill-demo { display: flex; justify-content: center; }
+.pill-demo .pill { display: inline-flex; align-items: center; gap: 6px; height: 46px; padding: 0 7px 0 18px; border-radius: 999px; background: #1C1C1E; color: #F5F5F5; font-size: 15px; letter-spacing: 0; white-space: nowrap; }
+.pill-demo .pill b { font-weight: 600; }
+.pill-demo .pill > span { color: rgba(245, 245, 245, .62); }
+.pill-demo .pill i { margin-left: 6px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: #2C2C2F; }
+.v1-note { color: var(--text-soft); }
+html { scrollbar-width: none; } html::-webkit-scrollbar { display: none; }
 </style>
 <script>
   // Vercel Web Analytics (same as the rest of the site); skipped locally.
@@ -313,10 +354,10 @@ img { display: block; }
 
   <div class="body">
     <section class="prose">
-      <p>I was tasked with designing a mobile-first catch-up app. The idea is a central hub for all your context, one you can open and, at a glance, know what to do next, without being overwhelmed.</p>
+      <p>The task was a mobile-first catch-up: open it after a few hours away and know, at a glance, what to do next, without being overwhelmed.</p>
 
       <div class="list-block">
-        <p>Key needs from our users:</p>
+        <p>What the user needs:</p>
         <ul>
           <li>Know fast if anything needs her, and by when.</li>
           <li>Trust what she’s told.</li>
@@ -332,144 +373,83 @@ img { display: block; }
           <li>A normal return has two to five real asks.</li>
         </ul>
       </div>
-
-      <p>What gets surfaced depends on priority and on the user’s role on the team, since this is a context product. We want the user to know where every detail comes from, but if there are 20 Slack messages we can’t throw them all in their face; that would defeat the “without overwhelming the user” part above. So we group and summarise. But grouping Slack notifications on their own would only give us a “Slack round-up”. So how do we group by context instead?</p>
-
-      <p>Say we’re working with an engineer. We can take the conversations about a feature, over email and over Slack, add the repo activity on GitHub, and cross-reference all three into a single overview of that work.</p>
-
-      <aside class="side-note">
-        <p>Side note:</p>
-        <p>I’m building an open-source email client and this is one of its features, so I’d already done a lot of the research and ideation. I’d love to chat more about that later.</p>
-      </aside>
     </section>
-
-
 
     <div class="notes-flow">
     <header class="notes-head">
       <h2>Approach and key decisions</h2>
-      <p>One hand, 30 to 90 seconds.</p>
+      <p>One question, one focus, everything else quiet.</p>
     </header>
 
     <section class="prose">
-      <p>The goal was to give the user their content and let them move through the whole app productively with one hand, because this is a 30 to 90 second window of use.</p>
+      <p>My first version answered every question at once: what needs you, what moved, what can wait, where each thing came from, and who was waiting. All of it was useful, and all of it competed for attention. This version is built on one rule: the screen answers one question, puts one thing in focus, and keeps the rest one tap away.</p>
     </section>
 
     <section class="prose part">
-      <p class="part-label">The overview</p>
-      <p>The first thing on screen is one sentence that answers the whole question: what needs you, what moved and what can wait. Each number can be tapped to jump to that part of the list, and right under it are the sources it was read from, so the summary never floats on its own. Pull the list down from the top to refresh, and the dateline says when it last checked.</p>
+      <p class="part-label">Answer one question</p>
+      <p>The first thing on screen is a greeting, how long you’ve been away, and how many things need you, with how many of them are urgent. Nothing else. It’s the question you have walking out of a meeting, and the answer fits in a glance.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
-        <div class="masthead">
-          <p class="mh-date"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.2 2"/></svg>Away 3h 18m, since 9:30 AM</p>
-          <p class="mh-overview"><span class="hl">Three things need you</span>. The Android release is on the clock. <span class="hl">3 projects</span> moved and <span class="hl">9 updates</span> can wait.</p>
-          <div class="mh-prov"><span class="sources"><span class="src meeting"><img src="/fireflies/details-assets/meeting.svg" width="14" height="14" alt=""></span><span class="src slack"><img src="/fireflies/details-assets/slack.svg" width="14" height="14" alt=""></span><span class="src email"><img src="/fireflies/details-assets/email.svg" width="14" height="14" alt=""></span></span><span>Read 2 meetings, 41 Slack messages, 18 emails and 6 GitHub updates.</span></div>
+        <div class="v2-head">
+          <p class="v2-date">Hey Maya, you were away 3h 18m.</p>
+          <p class="v2-title">Three things, one urgent.</p>
         </div>
       </div>
-      <figcaption>Tap a number to jump to it. The sources and the tally show what was read.</figcaption>
+      <figcaption>No links, no summary sentence, no tally of what was read.</figcaption>
     </figure>
-    <section class="prose part">
-      <p class="part-label">Who is waiting</p>
-      <p>Each ask leads with the person waiting on it, not the app it came from. A small badge says what they are doing (waiting on you, expecting something from you, or asking you something), so the user knows the shape of the reply before reading a word.</p>
-    </section>
-    <figure class="fig">
-      <div class="stage-panel">
-        <div class="who-list">
-          <div class="who"><span class="person"><img class="avatar" src="/fireflies/avatars/priya.webp" width="42" height="42" alt=""><span class="badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5h10M7 20.5h10M8 3.5v3.2c0 1.6 1 2.8 4 5.3 3-2.5 4-3.7 4-5.3V3.5M8 20.5v-3.2c0-1.6 1-2.8 4-5.3 3 2.5 4 3.7 4 5.3v3.2"/></svg></span></span><span class="who-text"><b>Priya Raman</b><small>Waiting on you</small></span></div>
-          <div class="who"><span class="person"><img class="avatar" src="/fireflies/avatars/tomas.webp" width="42" height="42" alt=""><span class="badge ink"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 3.5 10.6 13.4M20.5 3.5l-6.2 17-3.7-7.1-7.1-3.7 17-6.2Z"/></svg></span></span><span class="who-text"><b>Tomas Weber</b><small>Expecting your deck</small></span></div>
-          <div class="who"><span class="person"><img class="avatar" src="/fireflies/avatars/sam.webp" width="42" height="42" alt=""><span class="badge ink"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.2 9.2a2.9 2.9 0 1 1 4.2 2.6c-.9.5-1.4 1.1-1.4 2.1v.6M12 18.2v.1"/></svg></span></span><span class="who-text"><b>Sam Alvarez</b><small>Asked you to choose</small></span></div>
-        </div>
-      </div>
-      <figcaption>The most urgent ask gets the accent. Everything else stays quiet.</figcaption>
-    </figure>
-    <section class="prose part">
-      <p class="part-label">Quick actions</p>
-      <p>Every ask can be handled without opening it. Native iOS behaviour like the swipe was a quick and easy way to get there: swipe a card left for Later or Done, the same gesture as in Mail and Messages, so the thumb never leaves the bottom half of the screen. Tap the card instead and the suggested next step opens in a sheet, ready to send.</p>
-    </section>
-    <figure class="fig cards-block">
-      <div class="cards">
-        <article class="card">
-          <div class="person">
-            <img class="avatar" src="/fireflies/details-assets/priya.jpg" width="42" height="42" alt="">
-            <span class="badge" title="Waiting on you"><img src="/fireflies/details-assets/hourglass.svg" width="11" height="11" alt=""></span>
-          </div>
-          <div class="text">
-            <p class="card-title">Approve the Android release</p>
-            <p class="card-sub">Priya is holding the build until you confirm the permissions copy.</p>
-            <div class="meta">
-              <div class="sources">
-                <span class="src meeting"><img src="/fireflies/details-assets/meeting.svg" width="14" height="14" alt="Meeting"></span>
-                <span class="src slack"><img src="/fireflies/details-assets/slack.svg" width="14" height="14" alt="Slack"></span>
-                <span class="src email"><img src="/fireflies/details-assets/email.svg" width="14" height="14" alt="Email"></span>
-              </div>
-              <span class="deadline">1h 12m left</span>
-            </div>
-          </div>
-        </article>
 
-        <div class="swiped" aria-label="The same card swiped left, showing Later and Done">
-          <article class="card" aria-hidden="true">
-            <div class="person">
-              <img class="avatar" src="/fireflies/details-assets/priya.jpg" width="42" height="42" alt="">
-              <span class="badge"><img src="/fireflies/details-assets/hourglass.svg" width="11" height="11" alt=""></span>
-            </div>
-            <div class="text">
-              <p class="card-title">Approve the Android release</p>
-              <p class="card-sub">Priya is holding the build until you confirm the permissions copy.</p>
-              <div class="meta">
-                <div class="sources">
-                  <span class="src meeting"><img src="/fireflies/details-assets/meeting.svg" width="14" height="14" alt=""></span>
-                  <span class="src slack"><img src="/fireflies/details-assets/slack.svg" width="14" height="14" alt=""></span>
-                  <span class="src email"><img src="/fireflies/details-assets/email.svg" width="14" height="14" alt=""></span>
-                </div>
-                <span class="deadline">1h 12m left</span>
-              </div>
-            </div>
-          </article>
-          <div class="action later"><img src="/fireflies/details-assets/clock.svg" width="22" height="22" alt="">Later</div>
-          <div class="action done"><img src="/fireflies/details-assets/check.svg" width="22" height="22" alt="">Done</div>
+    <section class="prose part">
+      <p class="part-label">One thing in focus</p>
+      <p>The most urgent ask is the only large thing on the screen, with the one action that resolves it and the time left right on the button. The other asks drop to a quiet list: a face, a title and a time. When you finish the focused ask, the next one takes its place, and the headline counts down with you.</p>
+    </section>
+    <figure class="fig">
+      <div class="stage-panel">
+        <div class="focus-demo">
+          <div class="f-card">
+            <img class="avatar" src="/fireflies/avatars/priya.webp" width="40" height="40" alt="">
+            <div><p class="f-title">Approve the Android release</p><p class="f-sub">Priya is holding the build until you confirm the permissions copy.</p></div>
+          </div>
+          <div class="f-go"><span>Review and approve</span><span class="f-due">1h 12m left</span></div>
+          <div class="q-list">
+            <div class="q"><img class="avatar" src="/fireflies/avatars/tomas.webp" width="32" height="32" alt=""><span>Send Tomas the revised pricing deck</span><time>5:00 PM</time></div>
+            <div class="q"><img class="avatar" src="/fireflies/avatars/sam.webp" width="32" height="32" alt=""><span>Pick the empty state for Saved docs</span><time></time></div>
+          </div>
         </div>
       </div>
-      <figcaption>Swiped left, a card offers Later and Done.</figcaption>
+      <figcaption>The accent appears once on the screen: on the action that matters most.</figcaption>
     </figure>
+
     <section class="prose part">
-      <p class="part-label">Undo, always</p>
-      <p>Nothing done with one hand should be permanent. Every swipe, send and snooze comes back with an undo, so moving fast never costs anything.</p>
+      <p class="part-label">What I took off the list</p>
+      <p>Most of what made the first version feel busy was true and useful, just in the wrong place. Nothing was thrown away; each piece moved to where it’s needed.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
-        <div class="toast-demo"><span>Marked done.</span><span class="undo">Undo</span></div>
-      </div>
-      <figcaption>Every quick action can be undone for six seconds.</figcaption>
-    </figure>
-    <section class="prose part">
-      <p class="part-label">Later, on your terms</p>
-      <p>Snoozing asks when, not just whether. Remind me offers three times that fit the day, each with the actual time next to it, so there’s no maths in the hallway. Not mine sits right beside it and teaches Fireflies to weigh asks like that lower next time.</p>
-    </section>
-    <figure class="fig">
-      <div class="stage-panel">
-        <div class="remind">
-          <div class="r-menu" role="menu" aria-label="Remind me">
-            <button type="button" role="menuitem" data-until="1:48 PM">In 1 hour<small>1:48 PM</small></button>
-            <button type="button" role="menuitem" data-until="3:30 PM">This afternoon<small>3:30 PM</small></button>
-            <button type="button" role="menuitem" data-until="9:00 AM tomorrow">Tomorrow morning<small>9:00 AM</small></button>
-          </div>
-          <div class="r-row">
-            <span class="r-ghost on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.2 2"/></svg>Remind me</span>
-            <span class="r-ghost"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M8 12h8"/></svg>Not mine</span>
-          </div>
-          <div class="r-toast" role="status" aria-live="polite" hidden></div>
+        <div class="cuts">
+          <div class="cut"><b>Source logos on every card</b><span>Inside the ask, as one line you can open</span></div>
+          <div class="cut"><b>“Waiting on you” badges</b><span>Said by the ask itself, in plain words</span></div>
+          <div class="cut"><b>A summary sentence with three links</b><span>One headline and a count</span></div>
+          <div class="cut"><b>Coloured status chips</b><span>Plain text, inside the folded projects</span></div>
+          <div class="cut"><b>“Swipe left to…” instructions</b><span>A short hint animation on the first card</span></div>
+          <div class="cut"><b>A countdown bar for the next meeting</b><span>A small pill: Product sync in 27 min</span></div>
+          <div class="cut"><b>A dark masthead</b><span>One calm surface; the cards carry the content</span></div>
         </div>
       </div>
-      <figcaption>Each option shows the real time the ask comes back. Try one.</figcaption>
+      <figcaption>What I removed from the home screen, and where each piece went.</figcaption>
     </figure>
+
     <section class="prose part">
-      <p class="part-label">Where it came from</p>
-      <p>Something small with a large impact is the logos. They reinforce trust in where things are coming from and where they are going, instead of relying on “they should know”. Tap into any ask and the evidence is right there, quoted, with who said it and when.</p>
+      <p class="part-label">Proof, one tap deep</p>
+      <p>Trust still matters, so every ask can show where it came from: the meeting, the Slack thread or the email, quoted, with who said it and when. It sits behind one line instead of on the list, so it’s there when you want to check and invisible when you don’t.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
+        <div class="ev-line">
+          <span class="ev-marks"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7B61FF" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg><img src="/fireflies/details-assets/slack.svg" width="14" height="14" alt=""><img src="/fireflies/details-assets/email.svg" width="14" height="14" alt=""></span>
+          <span class="grow">Where this came from</span><span class="n">3</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
         <article class="ev">
           <div class="ev-top">
             <span class="src meeting"><img src="/fireflies/details-assets/meeting.svg" width="14" height="14" alt=""></span>
@@ -477,28 +457,19 @@ img { display: block; }
             <span class="ev-when">10:14 AM</span>
           </div>
           <p class="ev-who">Priya Raman</p>
-          <p class="ev-quote">“I can cut the Android build as soon as the permissions copy is approved.”</p>
-        </article>
-        <article class="ev">
-          <div class="ev-top">
-            <span class="src slack"><img src="/fireflies/details-assets/slack.svg" width="14" height="14" alt=""></span>
-            <span class="ev-where">#onboarding-launch</span>
-            <span class="ev-when">11:14 AM</span>
-          </div>
-          <p class="ev-who">Priya Raman</p>
-          <p class="ev-quote">“Still holding the build for the copy sign-off. Want it out before 2.”</p>
+          <p class="ev-quote">“We can cut the Android build as soon as Maya signs off on the permissions copy.”</p>
         </article>
       </div>
-      <figcaption>Every ask shows where it was said, with the integration’s own mark.</figcaption>
+      <figcaption>Tap the line and the sheet grows to show each source, quoted.</figcaption>
     </figure>
+
     <section class="prose part">
       <p class="part-label">Where it goes</p>
-      <p>Throughout the app there are cues telling the user exactly what is going to happen, like confirming that yes, this reply goes to this specific Slack thread. The one-handed feel holds because the AI does most of the typing, drafting each reply for its context.</p>
+      <p>Before anything is sent, the sheet says exactly where it’s going: this reply, as you, in Priya’s thread. The AI drafts it for the context, so one hand and one tap is enough.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
         <div class="act">
-          <p class="act-head"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10.5 3.2c.3-.9 1.7-.9 2 0l1.5 4.4a4 4 0 0 0 2.5 2.5l4.4 1.5c.9.3.9 1.7 0 2l-4.4 1.5a4 4 0 0 0-2.5 2.5l-1.5 4.4c-.3.9-1.7.9-2 0L9 17.6a4 4 0 0 0-2.5-2.5l-4.4-1.5c-.9-.3-.9-1.7 0-2L6.5 10a4 4 0 0 0 2.5-2.5z"/></svg>Suggested reply</p>
           <div class="seg" role="radiogroup" aria-label="Your decision" data-i="0">
             <button type="button" role="radio" aria-checked="true" data-i="0">Approve</button>
             <button type="button" role="radio" aria-checked="false" data-i="1">Request changes</button>
@@ -511,66 +482,59 @@ img { display: block; }
           <span class="cta">Approve and post</span>
         </div>
       </div>
-      <figcaption>The destination is written out under the draft, so sending never needs a second look.</figcaption>
+      <figcaption>Switch the decision and the draft and the button follow.</figcaption>
     </figure>
+
     <section class="prose part">
-      <p class="part-label">What can wait</p>
-      <p>What doesn’t need the user isn’t silently dropped. Projects that moved get one line each with their status, and everything else folds into a single row that says exactly why it was left out.</p>
+      <p class="part-label">Fast, and always undoable</p>
+      <p>Every ask can be handled from the list: swipe left for Later or Done, the same gesture as Mail. Inside an ask, there’s one main button and one quiet “Not now”, which offers real times instead of vague ones. Every action comes back with an undo, so moving fast never costs anything.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
-        <div class="moved">
-          <div class="proj">
-            <p class="proj-top"><b>Pricing page refresh</b><span class="status"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.2 2"/></svg>Slipped a day</span></p>
-            <p class="proj-line">Review moved to Thursday 10 AM. Tomas wants the new deck first.</p>
+        <div class="remind">
+          <div class="r-menu" role="menu" aria-label="Not now">
+            <button type="button" role="menuitem" data-until="1:48 PM">In 1 hour<small>1:48 PM</small></button>
+            <button type="button" role="menuitem" data-until="3:30 PM">This afternoon<small>3:30 PM</small></button>
+            <button type="button" role="menuitem" data-until="9:00 AM tomorrow">Tomorrow morning<small>9:00 AM</small></button>
           </div>
-          <div class="wait-card">
-            <p class="wait-head"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span><span class="grow"><b>9 updates</b> that don’t need you</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5.5 14.5 6.5-6.5 6.5 6.5"/></svg></p>
-            <div class="wl"><span class="mark"><img src="/fireflies/details-assets/email.svg" width="16" height="16" alt=""></span><span>Sign the vendor contract renewal<span class="tag">Due Friday</span></span><time>11:26 AM</time></div>
-            <div class="wl"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7B61FF" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg></span><span>Launch standup notes were published</span><time>10:31 AM</time></div>
-            <div class="wl"><span class="mark"><img src="/fireflies/details-assets/slack.svg" width="16" height="16" alt=""></span><span>Weekly metrics posted in #growth</span><time>9:58 AM</time></div>
-            <div class="wl"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF5A3C" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span>Product sync agenda was updated</span><time>10:30 AM</time></div>
-            <div class="wl more"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5.5 12h.01M12 12h.01M18.5 12h.01"/></svg></span><span>5 more</span><time></time></div>
-            <p class="wait-rule">Hidden because none of these ask anything of you, have a deadline today, or mention you.</p>
-          </div>
+          <div class="r-row"><span class="r-text">Not now</span></div>
+          <div class="r-toast" role="status" aria-live="polite" hidden></div>
         </div>
       </div>
-      <figcaption>The rule for hiding things is written out, never implied.</figcaption>
+      <figcaption>Each option shows the real time the ask comes back. Try one.</figcaption>
     </figure>
+
     <section class="prose part">
-      <p class="part-label">Ask</p>
-      <p>Ask sits right where the thumb already is, with suggested questions, so most of the time there is nothing to type.</p>
+      <p class="part-label">What can wait, waits</p>
+      <p>Projects that moved and updates that don’t need you aren’t hidden, they’re folded: two quiet lines under the asks, each opening in place. The rule for what’s left out is written inside, never implied.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
-        <div class="ask">
-          <div class="sugg">
-            <span class="sg">What did Priya say about the Android build?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5.5M6 11l6-6 6 6"/></svg></span>
-            <span class="sg">Did I promise anyone anything today?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5.5M6 11l6-6 6 6"/></svg></span>
-            <span class="sg">Prep me for Product sync<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5.5M6 11l6-6 6 6"/></svg></span>
+        <div class="later-demo">
+          <p class="l-h">Can wait</p>
+          <div class="l-group">
+            <div class="l-row"><span>3 projects moved</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div>
+            <div class="l-row"><span>9 updates that don’t need you</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div>
           </div>
-          <div class="askbar"><span>Ask about anything you missed</span><span class="send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5.5M6 11l6-6 6 6"/></svg></span></div>
         </div>
       </div>
-      <figcaption>Suggested questions come from what actually happened while the user was away.</figcaption>
+      <figcaption>Hidden updates are the ones that don’t ask anything of you, have no deadline today, and don’t mention you.</figcaption>
     </figure>
+
     <section class="prose part">
-      <p class="part-label">Up next</p>
-      <p>There is quick access to calls too, so the user can get some quick prep in, or even join the call on the go and switch devices once they’re settled.</p>
+      <p class="part-label">The next meeting, quietly</p>
+      <p>The next call is a small pill at the bottom: its name and how soon. Tap it for a short prep (the asks to clear before you join and three things worth knowing) and join from there.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
-        <div class="capsule">
-          <span class="cap-time"><b>27</b><span>min</span><i class="cap-dot" aria-hidden="true"></i></span>
-          <span class="cap-main"><b>Product sync</b><span>1:15 PM, 4 people</span></span>
-          <span class="cap-go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5.5 14.5 6.5-6.5 6.5 6.5"/></svg></span>
-        </div>
+        <div class="pill-demo"><span class="pill"><b>Product sync</b><span>in 27 min</span><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg></i></span></div>
       </div>
-      <figcaption>Up next stays docked at the bottom of the screen and opens into meeting prep.</figcaption>
+      <figcaption>Up next stays out of the way until you want it.</figcaption>
     </figure>
+
     <section class="prose">
-      <p>Again, picture this person walking out of a conference room with files or a laptop in hand, trying to figure out “OK, what’s next, and what did I miss?” while already on the way to the next thing. We make sure no unknowns slip past them.</p>
-      <p><a class="inline-link" href="/fireflies">Try the prototype</a></p>
+      <p>Picture someone walking out of a conference room, laptop in hand, already heading to the next thing and asking, “OK, what did I miss?” The answer should take one glance, and acting on it one tap.</p>
+      <p><a class="inline-link" href="/fireflies">Try the prototype</a><span class="v1-note"> · The first version is at <a class="inline-link" href="/fireflies/v1">/fireflies/v1</a>, for comparison.</span></p>
     </section>
     </div>
   </div>

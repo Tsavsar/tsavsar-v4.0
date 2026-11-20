@@ -128,13 +128,19 @@ function verdictFor() {
     return { a: 'You’re caught up.', b: 'Nothing else needs you before Product sync.' };
   }
   const n = open.length, top = open[0];
-  return { a: `${NUM[n]} ${n === 1 ? 'thing needs' : 'things need'} you.`, b: n === 1 ? top.leadSingle : top.lead };
+  // The headline mirrors the layout: how many, and how many of them are urgent (the one in focus).
+  const urgent = open.filter((i) => i.level === 3).length;
+  const a = n === 1 ? 'One thing left.'
+    : urgent ? `${NUM[n]} things, ${urgent === 1 ? 'one' : NUM[urgent].toLowerCase()} urgent.`
+    : `${NUM[n]} things left, nothing urgent.`;
+  return { a, b: n === 1 ? top.leadSingle : top.lead };
 }
 
 /* ---------- Home ---------- */
 
 const content = $('#content'), scroller = $('#scroll');
 
+const FOCUS_CTA = { decision: 'Review and approve', commit: 'Send the deck', choice: 'Pick one' };
 function rowHTML(it) {
   return `<div class="row-wrap" data-id="${it.id}"><div class="row-clip">
     <div class="row-actions">
@@ -147,7 +153,9 @@ function rowHTML(it) {
         <h3 class="row-title">${it.title}</h3>
         <p class="row-sub">${it.sub}</p>
         <div class="row-meta">${srcStack(it.sources)}<span class="due" data-lvl="${it.level}">${it.due}</span></div>
+        <span class="row-go" aria-hidden="true"><span>${FOCUS_CTA[it.kind]}</span><span class="go-due">${it.level > 1 ? it.due : ''}</span></span>
       </div>
+      <span class="row-due">${it.dueShort || it.due}</span>
     </div>
   </div></div>`;
 }
@@ -170,19 +178,17 @@ function projHTML(p) {
 
 function homeHTML() {
   const w = D.wait;
+  // One question answered at the top, one thing in focus, everything else quiet and one tap away.
   return `
   <div class="ambient" id="ambient"></div>
   <section class="hero">
-    <p class="dateline rise" style="--i:0">${ic('clock', 15, 2)}<span>Away ${D.away}, since ${D.since}</span></p>
+    <p class="dateline rise" style="--i:0"><span>Hey Maya, you were away ${D.away}.</span></p>
     <h1 class="verdict rise" style="--i:1" id="verdict"></h1>
-    <p class="overview rise" style="--i:1" id="overview"></p>
-    <p class="provenance rise" style="--i:2">${srcStack(['meeting', 'slack', 'mail', 'github'])}<span>Read ${D.tally} for you.</span></p>
   </section>
 
   <div class="panel">
   <button type="button" class="panel-grab" aria-label="Expand the list"><i></i></button>
-  <section class="block rise" style="--i:3" id="needs">
-    <header class="block-head"><h2>Needs you</h2><span class="count" id="count"></span></header>
+  <section class="block rise" style="--i:2" id="needs">
     <div class="group" id="needsGroup">
       ${D.items.map(rowHTML).join('')}
       <div class="clear-wrap" id="clearWrap"><div class="clear-clip"><div class="clear" id="clear"></div></div></div>
@@ -190,37 +196,39 @@ function homeHTML() {
     <p class="caption" id="caption"></p>
   </section>
 
-  <section class="block rise" style="--i:4" id="moved">
-    <header class="block-head"><h2>Moved while you were out</h2></header>
-    <div class="group">${D.projects.map(projHTML).join('')}</div>
-  </section>
-
-  <section class="block rise" style="--i:5" id="wait" data-open="false">
-    <div class="group">
-      <button type="button" class="wait-head" id="waitHead" aria-expanded="false" aria-controls="waitBody">
-        <span class="ico">${ic('list', 16, 2)}</span>
-        <span class="grow"><span class="n">${w.count}</span> updates that don’t need you</span>
-        <span class="chev">${ic('chevD', 16, 2.2)}</span>
-      </button>
-      <div class="wait-body" id="waitBody"><div class="wait-clip">
-        <div class="wait-list">
-          ${w.rows.map((r) => `<div class="wl"><span class="src" data-s="${r.src}">${srcIc(r.src, 13)}</span><span>${r.text}${r.tag ? `<span class="tag">${r.tag}</span>` : ''}</span><time>${r.t}</time></div>`).join('')}
-          <div class="wl wl-more"><span class="src" data-s="more">${ic('dots', 18, 3)}</span><span>${w.more} more</span><time></time></div>
-        </div>
-        <p class="wait-rule">${w.rule}</p>
-      </div></div>
+  <section class="block can-wait rise" style="--i:3">
+    <h2 class="later-h">Can wait</h2>
+    <div class="later-group">
+      <div id="moved" data-open="false">
+        <button type="button" class="wait-head" id="movedHead" aria-expanded="false" aria-controls="movedBody">
+          <span class="grow"><span class="n">${D.projects.length}</span> projects moved</span>
+          <span class="chev">${ic('chevD', 16, 2.2)}</span>
+        </button>
+        <div class="wait-body" id="movedBody"><div class="wait-clip"><div class="group">${D.projects.map(projHTML).join('')}</div></div></div>
+      </div>
+      <div id="wait" data-open="false">
+        <button type="button" class="wait-head" id="waitHead" aria-expanded="false" aria-controls="waitBody">
+          <span class="grow"><span class="n">${w.count}</span> updates that don’t need you</span>
+          <span class="chev">${ic('chevD', 16, 2.2)}</span>
+        </button>
+        <div class="wait-body" id="waitBody"><div class="wait-clip">
+          <div class="wait-list">
+            ${w.rows.map((r) => `<div class="wl"><span class="src" data-s="${r.src}">${srcIc(r.src, 13)}</span><span>${r.text}${r.tag ? `<span class="tag">${r.tag}</span>` : ''}</span><time>${r.t}</time></div>`).join('')}
+            <div class="wl wl-more"><span class="src" data-s="more">${ic('dots', 18, 3)}</span><span>${w.more} more</span><time></time></div>
+          </div>
+          <p class="wait-rule">${w.rule}</p>
+        </div></div>
+      </div>
     </div>
   </section>
 
-  <p class="foot rise" style="--i:6">That’s everything since ${D.since}.</p>
+  <p class="foot rise" style="--i:4">That’s everything since ${D.since}.<a class="foot-notes" href="/fireflies/details">Design notes</a></p>
   </div>`;
 }
 
 function capsuleHTML() {
   const m = D.meeting;
-  return `<span class="cap-time"><b>${m.inMin}</b><span>min</span><span class="cap-badge" id="capBadge"></span></span>
-    <span class="cap-main"><b>${m.title}</b><span>${m.time}, ${m.people.length} people</span></span>
-    <span class="cap-go">${ic('chevU', 18, 2.2)}</span>`;
+  return `<span class="cap-main"><b>${m.title}</b><span>in ${m.inMin} min</span></span><span class="cap-go">${ic('chevU', 16, 2.4)}</span><span class="cap-badge" id="capBadge" hidden></span>`;
 }
 
 const WORD = ['No', 'One', 'Two', 'Three', 'Four', 'Five'];
@@ -275,7 +283,6 @@ function captionText() {
   const done = D.items.filter((i) => state.status[i.id] === 'done').length;
   const dis = D.items.filter((i) => state.status[i.id] === 'dismissed').length;
   const snz = snoozedItems();
-  if (!state.hinted && open.length === D.items.length) return 'Swipe a row left to mark it done or snooze it. Tap it for the full picture.';
   const parts = [];
   if (done + dis) parts.push(`${done + dis} handled`);
   if (snz.length) parts.push(`${snz.length} snoozed until ${state.snoozeLabel}`);
@@ -315,13 +322,18 @@ function update(first) {
   const amb = $('#ambient');
   if (amb) amb.style.setProperty('--amb', open.length ? ({ 1: .45, 2: .72, 3: 1 })[Math.max(...open.map((i) => i.level))] : 0);
   const cap = $('#caption'); if (cap) cap.textContent = captionText();
+  const lead = open[0];
+  $$('.row-wrap').forEach((w) => w.classList.toggle('is-focus', !!lead && w.dataset.id === lead.id));
+  // The rest read as one grouped list: round only its ends.
+  const quiet = open.slice(1).map((i) => i.id);
+  $$('.row-wrap').forEach((w) => { const k = quiet.indexOf(w.dataset.id); w.classList.toggle('q-first', k === 0); w.classList.toggle('q-last', k > -1 && k === quiet.length - 1); });
   const cw = $('#clearWrap');
   if (cw) {
     cw.classList.toggle('on', open.length === 0);
     if (open.length === 0) $('#clear').innerHTML = clearHTML();
   }
   const badge = $('#capBadge');
-  if (badge) {
+  if (badge && !badge.hidden) {
     const need = D.items.some((i) => i.meeting === 'sync' && state.status[i.id] === 'open');
     badge.innerHTML = need ? `<span class="glow" data-lvl="3"></span>` : '';
   }
@@ -520,8 +532,7 @@ function openSheet(view, opener) {
   sh.el.classList.add('open'); sh.scrim.classList.add('on'); sh.app.inert = true;
   const start = view.start === 'large' || view.detents.length === 1 ? 'large' : 'medium';
   setDetent(start);
-  if (view.type === 'prep' && opener === capEl) { if (sh.sp) sh.sp.stop(); mo = { m: 0 }; setY(start === 'large' ? 0 : sh.yMed); mo = null; morphSheet(1); }
-  else { setY(sh.H); springSheet(start === 'large' ? 0 : sh.yMed, 0, { response: .46, damping: 1 }); }
+  { setY(sh.H); springSheet(start === 'large' ? 0 : sh.yMed, 0, { response: .46, damping: 1 }); }
   setTimeout(() => { try { sh.el.focus({ preventScroll: true }); } catch (_) {} }, 60);
 }
 function closeSheet(after, fromDrag) {
@@ -535,8 +546,6 @@ function closeSheet(after, fromDrag) {
     if (sh.opener && sh.opener.isConnected) { try { sh.opener.focus({ preventScroll: true }); } catch (_) {} }
     if (after) after();
   };
-  // Meeting prep folds back into the Up next capsule it came from, unless it is being dragged away.
-  if (sh.view && sh.view.type === 'prep' && !fromDrag && capEl.offsetParent) { morphSheet(0, done); return; }
   springSheet(sh.H + 20, sh.sp ? sh.sp.v : 0, { response: .36, damping: 1, onDone: done });
 }
 
@@ -549,16 +558,16 @@ function capInset() {
   const k = sr.width / screenEl.clientWidth || 1;
   const boxTop = (parseFloat(getComputedStyle(sh.el).top) || 0) + sh.y;
   const t = (cr.top - sr.top) / k - boxTop, l = (cr.left - sr.left) / k, w = cr.width / k, h = cr.height / k;
-  return { t, l, r: screenEl.clientWidth - l - w, b: sh.H - t - h, rad: parseFloat(getComputedStyle(capEl).borderTopLeftRadius) || 22 };
+  return { t, l, r: screenEl.clientWidth - l - w, b: sh.H - t - h, rad: Math.min(parseFloat(getComputedStyle(capEl).borderTopLeftRadius) || 22, h / 2) };  // a pill's 999px radius would hold the clip round until the last frame
 }
 function applyMorph(m) {
   const k = mo.k, e = 1 - m, R = parseFloat(getComputedStyle(sh.el).borderTopLeftRadius) || 30;
   const ra = k.rad + (R - k.rad) * m, rb = k.rad * e;
   sh.el.style.clipPath = `inset(${(k.t * e).toFixed(2)}px ${(k.r * e).toFixed(2)}px ${(k.b * e).toFixed(2)}px ${(k.l * e).toFixed(2)}px round ${ra.toFixed(2)}px ${ra.toFixed(2)}px ${rb.toFixed(2)}px ${rb.toFixed(2)}px)`;
-  sh.el.style.setProperty('--m-cap', (smooth(m, 0, .1) * (1 - smooth(m, .28, .62))).toFixed(3));
-  sh.el.style.setProperty('--m-bg', smooth(m, .12, .5).toFixed(3));
-  sh.el.style.setProperty('--m-in', smooth(m, .28, .72).toFixed(3));
-  capEl.style.opacity = (1 - smooth(m, 0, .12)).toFixed(3);
+  sh.el.style.setProperty('--m-cap', (1 - smooth(m, .04, .26)).toFixed(3));
+  sh.el.style.setProperty('--m-bg', smooth(m, .04, .26).toFixed(3));
+  sh.el.style.setProperty('--m-in', smooth(m, .18, .58).toFixed(3));
+  capEl.style.opacity = (1 - smooth(m, 0, .06)).toFixed(3);
   sh.scrim.style.opacity = (.38 * smooth(m, 0, .8)).toFixed(3);
   setAppBack(clamp(m, 0, 1));
 }
@@ -760,11 +769,11 @@ document.addEventListener('input', (e) => { if (e.target.id === 'draft') fitDraf
 
 function renderItem(v) {
   const it = item(v.id);
-  sh.head.innerHTML = headHTML(`<span class="glow" data-lvl="${it.level}"></span><span>${it.dueLong}</span>`, it.title, v);
+  sh.head.innerHTML = headHTML(`<span>${it.dueLong}</span>`, it.title, v);
   sh.body.innerHTML = `<p class="why">${it.why}</p>
     ${actionHTML(it)}
-    <button type="button" class="sect-head" data-expand style="width:100%;text-align:left" aria-label="Where this came from, ${it.evidence.length} moments. Expand.">
-      <span>Where this came from</span><span class="sub">${it.evidence.length} moments ${ic('chevU', 14, 2.2)}</span>
+    <button type="button" class="ev-toggle" data-expand aria-expanded="false">
+      ${srcStack([...new Set(it.evidence.map((e) => e.src))])}<span class="grow">Where this came from</span><span class="sub">${it.evidence.length}</span>${ic('chevD', 16, 2.2)}
     </button>
     <div class="evid">${it.evidence.map(evHTML).join('')}</div>`;
   sh.foot.innerHTML = `<button type="button" class="cta" data-cta><span class="swap" id="ctaLabel">${ctaLabel(it)}</span></button>
@@ -773,9 +782,9 @@ function renderItem(v) {
         <button type="button" role="menuitem" data-snooze="hour">In 1 hour<small>1:48 PM</small></button>
         <button type="button" role="menuitem" data-snooze="afternoon">This afternoon<small>3:30 PM</small></button>
         <button type="button" role="menuitem" data-snooze="tomorrow">Tomorrow morning<small>9:00 AM</small></button>
+        <button type="button" role="menuitem" class="menu-sep" data-notmine>This isn’t mine</button>
       </div>
-      <button type="button" class="ghost" data-remind aria-haspopup="menu">${ic('clock', 17, 2)}Remind me</button>
-      <button type="button" class="ghost" data-notmine>${ic('minus', 17, 2)}Not mine</button>
+      <button type="button" class="ghost quiet" data-remind aria-haspopup="menu">Not now</button>
     </div>`;
   requestAnimationFrame(fitDraft);
 }
@@ -841,7 +850,7 @@ function togglePlay(btn) {
 function prepRows() {
   return ['android', 'state'].map((id) => {
     const it = item(id), st = state.status[id];
-    if (st === 'open') return `<button type="button" class="pr" data-resolve="${id}"><span class="glow" data-lvl="${it.level}"></span><span class="row-tile" data-lvl="${it.level}" data-hue="${it.hue}" aria-hidden="true">${face(it.av, it.initials)}<i class="who-act" data-act="${it.act}">${ic(it.act, 10, 2.4)}</i></span><span><b>${it.title}</b><small>${it.dueLong}</small></span><span class="go">Resolve</span></button>`;
+    if (st === 'open') return `<button type="button" class="pr" data-resolve="${id}"><span class="glow" data-lvl="${it.level}"></span><span class="row-tile" data-lvl="${it.level}" data-hue="${it.hue}" aria-hidden="true">${face(it.av, it.initials)}</span><span><b>${it.title}</b><small>${it.dueLong}</small></span><span class="go">${ic('chevR', 16, 2.4)}</span></button>`;
     if (st === 'done') return `<div class="pr is-done"><span class="ok">${ic('check', 18, 2.4)}</span><span><b>${it.title}</b><small>${state.info[id].how}</small></span><span></span></div>`;
     if (st === 'snoozed') return `<div class="pr is-done"><span>${ic('clock', 18, 2)}</span><span><b>${it.title}</b><small>Snoozed until ${state.snoozeLabel}</small></span><span></span></div>`;
     return `<div class="pr is-done"><span>${ic('minus', 18, 2)}</span><span><b>${it.title}</b><small>Marked not yours</small></span><span></span></div>`;
@@ -859,8 +868,7 @@ function renderPrep(v) {
     <div class="plist" id="prepList">${prepRows()}</div>
     <div class="sect-head"><span>Going in, you should know</span></div>
     <ul class="going">${m.going.map((g2) => `<li><i></i><span>${g2}</span></li>`).join('')}</ul>`;
-  sh.foot.innerHTML = `<button type="button" class="cta" data-join>${ic('video', 20, 2)}<span>Join with Zoom</span></button>
-    <div class="foot-row"><button type="button" class="ghost" data-close>Skip prep</button></div>`;
+  sh.foot.innerHTML = `<button type="button" class="cta" data-join>${ic('video', 20, 2)}<span>Join with Zoom</span></button>`;
 }
 
 /* ---------- Ask sheet ---------- */
@@ -908,12 +916,19 @@ function scrollThread() { requestAnimationFrame(() => sh.body.scrollTo({ top: sh
 sh.el.addEventListener('click', (e) => {
   const t = e.target;
   const b = (sel) => t.closest(sel);
+  let el0;
   if (b('[data-close]')) { closeSheet(); return; }
   if (b('[data-back]')) { swapView(sh.view.back, { back: true }); return; }
   if (b('#sheetGrab')) { if (sh.view.detents.length > 1) goDetent(sh.detent === 'medium' ? 'large' : 'medium'); return; }
-  if (b('[data-expand]')) {
-    if (sh.view.detents.length > 1) goDetent(sh.detent === 'large' ? 'medium' : 'large');
-    else { const ev = $('.evid', sh.body); if (ev) sh.body.scrollTo({ top: ev.offsetTop - 64, behavior: reduce() ? 'auto' : 'smooth' }); }
+  if ((el0 = b('[data-expand]'))) {
+    const on = !sh.body.classList.contains('ev-open');
+    const before = sh.el.getBoundingClientRect().top;
+    sh.body.classList.toggle('ev-open', on); el0.setAttribute('aria-expanded', on);
+    measure();
+    const after = sh.el.getBoundingClientRect().top - sh.y * S;
+    setY((before - after) / S);
+    springSheet(0, 0, { response: .42, damping: 1 });
+    if (on) setTimeout(() => { const ev = $('.ev-toggle', sh.body); if (ev && sh.body.scrollHeight > sh.body.clientHeight) sh.body.scrollTo({ top: ev.offsetTop - 12, behavior: reduce() ? 'auto' : 'smooth' }); }, 120);
     return;
   }
   const it = sh.view && sh.view.type === 'item' ? item(sh.view.id) : null;
@@ -1096,7 +1111,7 @@ function runRefresh() {
   const el = ptrEl(); el.classList.remove('armed'); el.classList.add('spinning');
   ptrTo(PTR_HOLD);
   setTimeout(() => {
-    const dl = $('.dateline span', content); if (dl) dl.textContent = `Away ${D.away}, updated just now`;
+    const dl = $('.dateline span', content); if (dl) dl.textContent = 'Hey Maya, you’re up to date.';
     el.classList.remove('spinning');
     ptrTo(0, 0, () => { ptr.busy = false; });
     toast(`You’re up to date. Nothing new since ${D.now}.`, null, 2600);
@@ -1301,6 +1316,8 @@ content.addEventListener('click', (e) => {
     p.dataset.open = on; ph.setAttribute('aria-expanded', on);
     return;
   }
+  const mh = e.target.closest('#movedHead');
+  if (mh) { const w = $('#moved'), on = w.dataset.open !== 'true'; w.dataset.open = on; mh.setAttribute('aria-expanded', on); return; }
   const wh = e.target.closest('#waitHead');
   if (wh) { const w = $('#wait'), on = w.dataset.open !== 'true'; w.dataset.open = on; wh.setAttribute('aria-expanded', on); return; }
   const oi = e.target.closest('[data-open-item]');
