@@ -228,3 +228,8 @@
 :root[data-look="night"] .is-focus .row .src[data-s="meeting"] { background: #7B61FF !important; color: #fff; }
 :root[data-look="night"] .is-focus .row .src:is([data-s="slack"], [data-s="mail"], [data-s="github"]) { background: #FFFFFF !important; }
 :root[data-look="night"] .is-focus .row .src svg { width: 14px; height: 14px; }
+
+/* Swipe actions: white on solid colour in both themes */
+:root[data-look="night"] .row-actions button,
+:root[data-theme="dark"][data-look="night"] .row-actions button { color: #FFFFFF; }
+:root[data-theme="dark"][data-look="night"] { --later: #48484A; --done: #2F8A57; }
