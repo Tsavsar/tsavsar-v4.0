@@ -259,3 +259,13 @@
 .u-tag[data-lvl="3"], :root[data-theme="dark"] .u-tag[data-lvl="3"] { background: var(--u3-bg); color: var(--u3-ink); }
 .u-tag[data-lvl="2"], :root[data-theme="dark"] .u-tag[data-lvl="2"] { background: var(--u2-bg); color: var(--u2-ink); }
 .u-tag[data-lvl="1"], :root[data-theme="dark"] .u-tag[data-lvl="1"] { background: var(--u1-bg); color: var(--u1-ink); }
+
+/* Sizes on one rhythm: in the focus card's top row the photo is 32, the tag and the source marks both 24 */
+:root[data-look="night"] .is-focus .row-tile { width: 32px; height: 32px; }
+:root[data-look="night"] .is-focus .u-tag { height: 24px; padding: 0 9px; border-radius: 8px; margin-left: 10px; }
+:root[data-look="night"] .is-focus .row .src { width: 24px; height: 24px; box-shadow: 0 0 0 2px var(--surface); }
+:root[data-look="night"] .is-focus .row .src + .src { margin-left: -6px; }
+:root[data-look="night"] .is-focus .row .src svg { width: 13px; height: 13px; }
+:root[data-look="night"] .is-focus .row-title { margin-top: 16px; }
+/* List rows: a slightly smaller tag, same proportions */
+:root[data-look="night"] .row-wrap:not(.is-focus) .u-tag { height: 22px; padding: 0 8px; border-radius: 7px; margin-top: 8px; }
