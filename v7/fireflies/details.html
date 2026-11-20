@@ -320,6 +320,10 @@ html { scrollbar-width: none; } html::-webkit-scrollbar { display: none; }
 .f-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .f-srcs { display: flex; align-items: center; gap: 10px; }
 .f-title { font-size: 20px; }
+.f-srcs { gap: 0; }
+.f-srcs > * { box-sizing: border-box; width: 26px; height: 26px; padding: 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2.5px var(--surface); }
+.f-srcs > * + * { margin-left: -7px; }
+.f-srcs > svg { background: #7B61FF; stroke: #fff; }
 </style>
 <script>
   // Vercel Web Analytics (same as the rest of the site); skipped locally.

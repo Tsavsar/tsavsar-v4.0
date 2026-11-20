@@ -217,3 +217,14 @@
 :root[data-look="night"] .is-focus .row-title { grid-column: 1 / -1; grid-row: 2; margin: 14px 20px 0; font: 650 var(--fs-title)/1.22 var(--font); letter-spacing: -.022em; }
 :root[data-look="night"] .is-focus .row-sub { grid-column: 1 / -1; grid-row: 3; margin: 6px 20px 20px; font: 400 var(--fs-body)/1.4 var(--font); }
 :root[data-look="night"] .is-focus .row-go { grid-row: 4; font-size: var(--fs-body); }
+
+/* Focus card sources as an overlapping stack: round marks, each ringed in the card colour */
+:root[data-look="night"] .is-focus .row-meta > .srcs { gap: 0; }
+:root[data-look="night"] .is-focus .row .src {
+  width: 26px; height: 26px; border-radius: 50%;
+  box-shadow: 0 0 0 2.5px var(--surface);
+}
+:root[data-look="night"] .is-focus .row .src + .src { margin-left: -7px; }
+:root[data-look="night"] .is-focus .row .src[data-s="meeting"] { background: #7B61FF !important; color: #fff; }
+:root[data-look="night"] .is-focus .row .src:is([data-s="slack"], [data-s="mail"], [data-s="github"]) { background: #FFFFFF !important; }
+:root[data-look="night"] .is-focus .row .src svg { width: 14px; height: 14px; }
