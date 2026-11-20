@@ -169,3 +169,51 @@
 :root[data-look="night"] .is-focus .row-title { margin: 20px 20px 0 0; line-height: 1.22; }
 :root[data-look="night"] .is-focus .row-sub { margin: 4px 20px 20px 0; }
 :root[data-look="night"] .is-focus .row-glow { justify-items: start; }
+
+/* ==========================================================================
+   Type scale: four sizes, each with one job.
+   32  Display   the headline
+   22  Title     the focus card and sheet titles
+   16  Body      everything you read: rows, subtitles, greeting, times, buttons
+   13  Caption   labels and footnotes
+   Weight does the rest: 650 for display and titles, 600 for actions, 500 for
+   row titles, 400 for reading text.
+   ========================================================================== */
+:root { --fs-display: 32px; --fs-title: 22px; --fs-body: 16px; --fs-caption: 13px; }
+
+:root[data-look="night"] .dateline { font: 400 var(--fs-body)/1.3 var(--font); color: var(--ink-2); margin-bottom: 8px; }
+:root[data-look="night"] .verdict { font: 650 var(--fs-display)/1.1 var(--font); letter-spacing: -.03em; }
+
+:root[data-look="night"] .row-title { font: 500 var(--fs-body)/1.3 var(--font); letter-spacing: -.01em; }
+:root[data-look="night"] .row-due { font: 400 var(--fs-body)/1.3 var(--font); }
+:root[data-look="night"] .can-wait .wait-head { font: 500 var(--fs-body)/1.3 var(--font); }
+:root[data-look="night"] .later-h { font: 600 var(--fs-caption)/1 var(--font); letter-spacing: 0; }
+:root[data-look="night"] .foot { font: 400 var(--fs-caption)/1.4 var(--font); }
+:root[data-look="night"] .caption { font: 400 var(--fs-caption)/1.4 var(--font); }
+:root[data-look="night"] .cap-main b, :root[data-look="night"] .cap-main span { font-size: var(--fs-body); }
+:root[data-look="night"] .ask-btn span { font-size: var(--fs-body); }
+
+/* Sheets on the same scale */
+:root[data-look="night"] .sheet-title { font: 650 var(--fs-title)/1.2 var(--font); letter-spacing: -.022em; }
+:root[data-look="night"] .sheet .kicker { font: 500 var(--fs-caption)/1 var(--font); color: var(--ink-3); height: auto; margin: 4px 0 10px; }
+:root[data-look="night"] .why { font: 400 var(--fs-body)/1.5 var(--font); }
+:root[data-look="night"] .sheet .act-head, :root[data-look="night"] .sheet .sect-head { font: 600 var(--fs-caption)/1 var(--font); color: var(--ink-3); letter-spacing: 0; }
+.ev-toggle { font-size: var(--fs-body); }
+:root[data-look="night"] .cta { font-size: var(--fs-body); }
+
+/* ---------- Focus card: who on the left, where it came from on the right, then the title and subtitle ---------- */
+:root[data-look="night"] .is-focus .row { grid-template-columns: auto 1fr; }
+:root[data-look="night"] .is-focus .row::before { grid-row: 1 / 4; }
+:root[data-look="night"] .is-focus .row-glow { grid-column: 1; grid-row: 1; margin: 20px 0 0 20px; }
+:root[data-look="night"] .is-focus .row-tile { width: 36px; height: 36px; }
+:root[data-look="night"] .is-focus .row-meta {
+  display: flex; grid-column: 2; grid-row: 1; justify-self: end; align-self: center; margin: 20px 20px 0 0;
+}
+:root[data-look="night"] .is-focus .row-meta > * { display: none; }
+:root[data-look="night"] .is-focus .row-meta > .srcs { display: flex; align-items: center; gap: 10px; }
+:root[data-look="night"] .is-focus .row .src { display: grid; place-items: center; width: 18px; height: 18px; margin: 0; border-radius: 0; background: none !important; box-shadow: none; }
+:root[data-look="night"] .is-focus .row .src svg { width: 16px; height: 16px; }
+:root[data-look="night"] .is-focus .row .src[data-s="meeting"] { color: #8B74FF; }
+:root[data-look="night"] .is-focus .row-title { grid-column: 1 / -1; grid-row: 2; margin: 14px 20px 0; font: 650 var(--fs-title)/1.22 var(--font); letter-spacing: -.022em; }
+:root[data-look="night"] .is-focus .row-sub { grid-column: 1 / -1; grid-row: 3; margin: 6px 20px 20px; font: 400 var(--fs-body)/1.4 var(--font); }
+:root[data-look="night"] .is-focus .row-go { grid-row: 4; font-size: var(--fs-body); }

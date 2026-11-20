@@ -316,6 +316,10 @@ img { display: block; }
 .pill-demo .pill i { margin-left: 6px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: #2C2C2F; }
 .v1-note { color: var(--text-soft); }
 html { scrollbar-width: none; } html::-webkit-scrollbar { display: none; }
+.f-card { display: block; padding: 18px; }
+.f-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.f-srcs { display: flex; align-items: center; gap: 10px; }
+.f-title { font-size: 20px; }
 </style>
 <script>
   // Vercel Web Analytics (same as the rest of the site); skipped locally.
@@ -401,14 +405,17 @@ html { scrollbar-width: none; } html::-webkit-scrollbar { display: none; }
 
     <section class="prose part">
       <p class="part-label">One thing in focus</p>
-      <p>The most urgent ask is the only large thing on the screen, with the one action that resolves it and the time left right on the button. The other asks drop to a quiet list: a face, a title and a time. When you finish the focused ask, the next one takes its place, and the headline counts down with you.</p>
+      <p>The most urgent ask is the only large thing on the screen: who’s asking on the left, where it came from on the right, then what they need. The one action that resolves it sits just under the card, with the time left on the button. The other asks drop to a quiet list: a face, a title and a time. When you finish the focused ask, the next one takes its place, and the headline counts down with you.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
         <div class="focus-demo">
           <div class="f-card">
-            <img class="avatar" src="/fireflies/avatars/priya.webp" width="40" height="40" alt="">
-            <div><p class="f-title">Approve the Android release</p><p class="f-sub">Priya is holding the build until you confirm the permissions copy.</p></div>
+            <div class="f-top">
+              <img class="avatar" src="/fireflies/avatars/priya.webp" width="36" height="36" alt="">
+              <span class="f-srcs"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8B74FF" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg><img src="/fireflies/details-assets/slack.svg" width="15" height="15" alt=""><img src="/fireflies/details-assets/email.svg" width="15" height="15" alt=""></span>
+            </div>
+            <p class="f-title">Approve the Android release</p><p class="f-sub">Priya is holding the build until you confirm the permissions copy.</p>
           </div>
           <div class="f-go"><span>Review and approve</span><span class="f-due">1h 12m left</span></div>
           <div class="q-list">
