@@ -269,3 +269,15 @@
 :root[data-look="night"] .is-focus .row-title { margin-top: 16px; }
 /* List rows: a slightly smaller tag, same proportions */
 :root[data-look="night"] .row-wrap:not(.is-focus) .u-tag { height: 22px; padding: 0 8px; border-radius: 7px; margin-top: 8px; }
+
+/* List rows: Later and Done are rounded cards too, inset a little so neighbouring rows' actions never touch */
+:root[data-look="night"] .row-wrap:not(.is-focus) .row-actions { gap: 6px; padding: 4px 0; box-sizing: border-box; }
+:root[data-look="night"] .row-wrap:not(.is-focus) .row-actions button { border-radius: 14px; }
+:root[data-look="night"] .row-wrap:not(.is-focus) .row-actions button:first-child { margin-left: 8px; }
+
+/* List items as their own cards, so a swipe slides one whole card and reveals full-height action cards beside it */
+:root[data-look="night"] .row-wrap:not(.is-focus) .row { border-radius: var(--r-group); }
+:root[data-look="night"] .row-wrap:not(.is-focus):not(.q-first) .row::after { display: none; }
+:root[data-look="night"] .row-wrap:not(.is-focus):not(.q-first) .row-clip { margin-top: 8px; }
+:root[data-look="night"] .row-wrap:not(.is-focus) .row-actions { gap: 8px; padding: 0; }
+:root[data-look="night"] .row-wrap:not(.is-focus) .row-actions button { border-radius: var(--r-group); }

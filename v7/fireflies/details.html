@@ -327,6 +327,9 @@ html { scrollbar-width: none; } html::-webkit-scrollbar { display: none; }
 .f-who { display: flex; align-items: center; gap: 10px; }
 .f-tag { height: 22px; padding: 0 8px; border-radius: 7px; display: inline-flex; align-items: center; background: rgba(229, 72, 77, .12); color: #CE2C31; font-size: 13px; font-weight: 600; letter-spacing: 0; }
 @media (prefers-color-scheme: dark) { .f-tag { background: rgba(229, 72, 77, .2); color: #FF8589; } }
+.q-list { background: none; border-radius: 0; overflow: visible; }
+.q { background: var(--surface); border-radius: 18px; }
+.q + .q { margin-top: 8px; box-shadow: none; }
 </style>
 <script>
   // Vercel Web Analytics (same as the rest of the site); skipped locally.
