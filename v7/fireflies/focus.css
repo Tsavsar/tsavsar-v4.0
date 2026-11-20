@@ -252,3 +252,10 @@
 :root[data-look="night"] .is-focus .row { grid-template-columns: auto auto 1fr; }
 :root[data-look="night"] .is-focus .u-tag { grid-column: 2; grid-row: 1; align-self: center; margin: 20px 0 0 10px; }
 :root[data-look="night"] .is-focus .row-meta { grid-column: 3; }
+
+/* Urgency in its own colours, independent of the accent: red, amber, green */
+:root { --u3-bg: rgba(229, 72, 77, .12); --u3-ink: #CE2C31; --u2-bg: rgba(245, 158, 11, .16); --u2-ink: #A35200; --u1-bg: rgba(48, 164, 108, .14); --u1-ink: #18794E; }
+:root[data-theme="dark"] { --u3-bg: rgba(229, 72, 77, .2); --u3-ink: #FF8589; --u2-bg: rgba(245, 158, 11, .18); --u2-ink: #FFB547; --u1-bg: rgba(48, 164, 108, .2); --u1-ink: #4CC38A; }
+.u-tag[data-lvl="3"], :root[data-theme="dark"] .u-tag[data-lvl="3"] { background: var(--u3-bg); color: var(--u3-ink); }
+.u-tag[data-lvl="2"], :root[data-theme="dark"] .u-tag[data-lvl="2"] { background: var(--u2-bg); color: var(--u2-ink); }
+.u-tag[data-lvl="1"], :root[data-theme="dark"] .u-tag[data-lvl="1"] { background: var(--u1-bg); color: var(--u1-ink); }
