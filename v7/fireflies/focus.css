@@ -233,3 +233,22 @@
 :root[data-look="night"] .row-actions button,
 :root[data-theme="dark"][data-look="night"] .row-actions button { color: #FFFFFF; }
 :root[data-theme="dark"][data-look="night"] { --later: #48484A; --done: #2F8A57; }
+
+/* ---------- Urgency tags ----------
+   Urgent takes the accent (it is the same thing the headline counts); Today and No rush stay neutral. */
+.u-tag { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 7px; font: 600 var(--fs-caption)/1 var(--font); letter-spacing: 0; white-space: nowrap; }
+.u-tag[data-lvl="3"] { background: rgba(var(--glow-rgb), .16); color: var(--glow); }
+:root[data-theme="dark"] .u-tag[data-lvl="3"] { background: rgba(var(--glow-rgb), .22); color: var(--hl, var(--glow)); }
+.u-tag[data-lvl="2"] { background: var(--surface-3); color: var(--ink); }
+.u-tag[data-lvl="1"] { background: var(--surface-2); color: var(--ink-3); }
+:root[data-theme="dark"] .u-tag[data-lvl="1"] { background: var(--surface-3); }
+
+/* Quiet rows: the tag sits on its own line under the title */
+:root[data-look="night"] .row-wrap:not(.is-focus) .u-tag { margin-top: 6px; }
+:root[data-look="night"] .row-wrap:not(.is-focus) .row { align-items: start; }
+:root[data-look="night"] .row-wrap:not(.is-focus) .row-glow, :root[data-look="night"] .row-wrap:not(.is-focus) .row-due { padding-top: 0; margin-top: 0; }
+
+/* Focus card: photo, then the tag beside it, sources on the far right */
+:root[data-look="night"] .is-focus .row { grid-template-columns: auto auto 1fr; }
+:root[data-look="night"] .is-focus .u-tag { grid-column: 2; grid-row: 1; align-self: center; margin: 20px 0 0 10px; }
+:root[data-look="night"] .is-focus .row-meta { grid-column: 3; }

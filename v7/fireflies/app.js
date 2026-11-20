@@ -140,6 +140,8 @@ function verdictFor() {
 
 const content = $('#content'), scroller = $('#scroll');
 
+// Urgency as a word, not just a colour: due within hours, due today, or no deadline.
+const URGENCY = { 3: 'Urgent', 2: 'Today', 1: 'No rush' };
 const FOCUS_CTA = { decision: 'Review and approve', commit: 'Send the deck', choice: 'Pick one' };
 function rowHTML(it) {
   return `<div class="row-wrap" data-id="${it.id}"><div class="row-clip">
@@ -151,6 +153,7 @@ function rowHTML(it) {
       <span class="row-glow"><span class="glow" data-lvl="${it.level}"></span><span class="row-tile" data-lvl="${it.level}" data-hue="${it.hue}" title="${it.who}: ${it.actLabel}" aria-hidden="true">${face(it.av, it.initials)}<i class="who-act" data-act="${it.act}">${ic(it.act, 11, 2.4)}</i></span></span>
       <div>
         <h3 class="row-title">${it.title}</h3>
+        <span class="u-tag" data-lvl="${it.level}">${URGENCY[it.level]}</span>
         <p class="row-sub">${it.sub}</p>
         <div class="row-meta">${srcStack(it.sources)}<span class="due" data-lvl="${it.level}">${it.due}</span></div>
         <span class="row-go" aria-hidden="true"><span>${FOCUS_CTA[it.kind]}</span><span class="go-due">${it.level > 1 ? it.due : ''}</span></span>

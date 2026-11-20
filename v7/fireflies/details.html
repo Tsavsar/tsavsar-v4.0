@@ -324,6 +324,8 @@ html { scrollbar-width: none; } html::-webkit-scrollbar { display: none; }
 .f-srcs > * { box-sizing: border-box; width: 26px; height: 26px; padding: 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2.5px var(--surface); }
 .f-srcs > * + * { margin-left: -7px; }
 .f-srcs > svg { background: #7B61FF; stroke: #fff; }
+.f-who { display: flex; align-items: center; gap: 10px; }
+.f-tag { height: 22px; padding: 0 8px; border-radius: 7px; display: inline-flex; align-items: center; background: var(--accent-tint); color: var(--accent); font-size: 13px; font-weight: 600; letter-spacing: 0; }
 </style>
 <script>
   // Vercel Web Analytics (same as the rest of the site); skipped locally.
@@ -409,14 +411,14 @@ html { scrollbar-width: none; } html::-webkit-scrollbar { display: none; }
 
     <section class="prose part">
       <p class="part-label">One thing in focus</p>
-      <p>The most urgent ask is the only large thing on the screen: who’s asking on the left, where it came from on the right, then what they need. The one action that resolves it sits just under the card, with the time left on the button. The other asks drop to a quiet list: a face, a title and a time. When you finish the focused ask, the next one takes its place, and the headline counts down with you.</p>
+      <p>The most urgent ask is the only large thing on the screen: who’s asking on the left, where it came from on the right, then what they need. The one action that resolves it sits just under the card, with the time left on the button. The other asks drop to a quiet list: a face, a title and a time. A one-word tag on each (Urgent, Today or No rush) says how soon, in words rather than colour alone. When you finish the focused ask, the next one takes its place, and the headline counts down with you.</p>
     </section>
     <figure class="fig">
       <div class="stage-panel">
         <div class="focus-demo">
           <div class="f-card">
             <div class="f-top">
-              <img class="avatar" src="/fireflies/avatars/priya.webp" width="36" height="36" alt="">
+              <span class="f-who"><img class="avatar" src="/fireflies/avatars/priya.webp" width="36" height="36" alt=""><span class="f-tag">Urgent</span></span>
               <span class="f-srcs"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8B74FF" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg><img src="/fireflies/details-assets/slack.svg" width="15" height="15" alt=""><img src="/fireflies/details-assets/email.svg" width="15" height="15" alt=""></span>
             </div>
             <p class="f-title">Approve the Android release</p><p class="f-sub">Priya is holding the build until you confirm the permissions copy.</p>
